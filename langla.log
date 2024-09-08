@@ -8354,3 +8354,30 @@ java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatem
 [2024-09-09 00:41:15 DEBUG (reader: /127.0.0.1:55115)] - Đây là MSG -87
 [2024-09-09 00:46:16 DEBUG (reader: /127.0.0.1:55115)] - Đây là MSG -87
 [2024-09-09 00:47:31 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-09-09 00:51:17 DEBUG (reader: /127.0.0.1:55115)] - Đây là MSG -87
+[2024-09-09 00:56:18 DEBUG (reader: /127.0.0.1:55115)] - Đây là MSG -87
+[2024-09-09 01:00:58 INFO  (main)] - Config - db.password: 
+[2024-09-09 01:00:58 INFO  (main)] - Config - mongodb.password: 
+[2024-09-09 01:00:58 INFO  (main)] - Config - mongodb.user: root
+[2024-09-09 01:00:58 INFO  (main)] - Config - mongodb.host: localhost
+[2024-09-09 01:00:58 INFO  (main)] - Config - db.dbData: langla_data
+[2024-09-09 01:00:58 INFO  (main)] - Config - mongodb.port: 27017
+[2024-09-09 01:00:58 INFO  (main)] - Config - db.user: root
+[2024-09-09 01:00:58 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-09-09 01:00:58 INFO  (main)] - Config - db.port: 3306
+[2024-09-09 01:00:58 INFO  (main)] - Config - db.host: localhost
+[2024-09-09 01:00:58 INFO  (main)] - Config - server.debug: true
+[2024-09-09 01:00:58 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-09-09 01:00:58 DEBUG (main)] - size data 93173
+[2024-09-09 01:00:59 DEBUG (main)] - size data 93173
+[2024-09-09 01:00:59 INFO  (main)] - Load itemtempalte: 938
+[2024-09-09 01:00:59 INFO  (main)] - Load danh hieu new: 4
+[2024-09-09 01:00:59 DEBUG (main)] - ItemShop: 1230
+[2024-09-09 01:00:59 DEBUG (main)] - ITEM PHUC LOI: 114
+[2024-09-09 01:00:59 DEBUG (main)] - code load size 3486
+[2024-09-09 01:00:59 INFO  (main)] - Load rewardtop done : 0
+[2024-09-09 01:00:59 INFO  (main)] - Market size: 0
+[2024-09-09 01:00:59 INFO  (main)] - Loading clan data
+[2024-09-09 01:00:59 INFO  (main)] - Load clan data successfully
+[2024-09-09 01:00:59 INFO  (main)] - Thread Server: 232
+[2024-09-09 01:00:59 INFO  (main)] - Start server Success!
