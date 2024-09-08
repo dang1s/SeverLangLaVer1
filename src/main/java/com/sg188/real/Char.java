@@ -4234,7 +4234,7 @@ public class Char extends Body {
                     m.writeShort(5);
                     m.writeShort(6);
                     m.writeShort(7);
-                    m.writeUTF("mot cai gi do");
+                    m.writeUTF("mot cai gi do22232222");
                     user.session.sendMessage(m);
                 } catch (Exception e) {
 
