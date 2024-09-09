@@ -15572,3 +15572,6 @@ java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatem
 [2024-09-10 03:42:27 DEBUG (reader: /127.0.0.1:61795)] - Đây là MSG -87
 [2024-09-10 03:47:28 DEBUG (reader: /127.0.0.1:61795)] - Đây là MSG -87
 [2024-09-10 03:52:09 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-09-10 03:52:29 DEBUG (reader: /127.0.0.1:61795)] - Đây là MSG -87
+[2024-09-10 03:57:30 DEBUG (reader: /127.0.0.1:61795)] - Đây là MSG -87
+[2024-09-10 04:02:31 DEBUG (reader: /127.0.0.1:61795)] - Đây là MSG -87

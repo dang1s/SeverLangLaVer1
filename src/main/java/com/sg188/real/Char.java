@@ -9079,7 +9079,7 @@ public class Char extends Body {
         switch (idBenefit) {
             case 13:
                 if (Bag.vang < 100) {
-                    getService().warningMessage("Bạn không đủ 100 vàng");
+                    getService().warningMessage("Bạn không đủ 100 vàng 2323232");
                     return;
                 }
                 addVang(-100);
