@@ -38,6 +38,7 @@ public class InfoPhucLoi {
         obj.put("thethang", this.theThang);
         obj.put("thevinhvien", this.theVinhVien);
         obj.put("napdon", this.napDon);
+        obj.put("nap3moc", this.nap3moc);
         JSONArray jsonArray = new JSONArray();
         jsonArray.addAll(listnap);
         obj.put("listnap",jsonArray);

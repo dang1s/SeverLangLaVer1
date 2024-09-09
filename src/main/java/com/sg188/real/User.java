@@ -363,6 +363,11 @@ public class User {
                                 } else {
                                     _char.phucLoi.napDon = 0;
                                 }
+                                if (obj.containsKey("nap3moc")) {
+                                    _char.phucLoi.nap3moc = Integer.parseInt(obj.get("nap3moc").toString());
+                                } else {
+                                    _char.phucLoi.nap3moc = 0;
+                                }
                                 if(obj.containsKey("listnap")){
                                     JSONArray jsonArrayRead = (JSONArray) obj.get("listnap");
                                     for (Object o : jsonArrayRead) {

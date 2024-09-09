@@ -858,17 +858,18 @@ public class HanderNpc {
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                 int minute = calendar.get(Calendar.MINUTE);
                 // Calendar.SUNDAY is 1, Calendar.MONDAY is 2, ..., Calendar.SATURDAY is 7
-                if (dayOfWeek == Calendar.MONDAY || dayOfWeek == Calendar.WEDNESDAY || dayOfWeek == Calendar.FRIDAY) {
-                    if ((hour >= 21 && minute >= 30) && (hour <= 22 && minute <= 40)) {
-                    } else {
-                        myChar.service.alertMessage("Chưa đến thời gian");
-                        return;
-                    }
-                }
+//                if (dayOfWeek == Calendar.MONDAY || dayOfWeek == Calendar.WEDNESDAY || dayOfWeek == Calendar.FRIDAY) { tạm thời tắt đang test
+//                    if ((hour >= 21 && minute >= 30) && (hour <= 22 && minute <= 40)) {
+//                    } else {
+//                        myChar.service.alertMessage("Chưa đến thời gian");
+//                        return;
+//                    }
+//                }
                 SonCapMyo sonCap = SonCapMyo.findSonCapByCharId(myChar.id);
                 if(sonCap!=null){
                     if(sonCap.isClosed()){
-                        myChar.service.serverMessage("Phó bản sơn cáp đã kết thúc");
+                        myChar.service.serverMessage("Phó bản sơn cáp đã kết thúc" +
+                                "");
                         return;
                     }
                     myChar.addWorld(sonCap);

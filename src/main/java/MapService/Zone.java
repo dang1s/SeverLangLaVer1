@@ -1484,7 +1484,7 @@ public class Zone {
 
     public void mobAttackChar(Mob mob, Char player) {
         try {
-            if (mob.id == 213 || mob.getMobTemplate().type == 10) {
+            if (mob.getMobTemplate().type == 8 || mob.getMobTemplate().type == 10) {
                 return;
             }
 

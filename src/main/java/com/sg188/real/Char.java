@@ -3617,14 +3617,11 @@ public class Char extends Body {
                     return false;
                 }
                 break;
-            case 8: //nap 3 moc
-                for (int i = 0; i < phucLoi.listnap.size(); i++) {
-                    int num = phucLoi.listnap.get(i);
-                    if (num == item.yeucau) {
-                        return true;
-                    }
+            case 8://nap 3 mốc
+                if (item.yeucau > phucLoi.nap3moc) {
+                    return false;
                 }
-                return false;
+                break;
             case 9://nap don
                 if (item.yeucau > phucLoi.napDon) {
                     return false;
@@ -9079,7 +9076,7 @@ public class Char extends Body {
         switch (idBenefit) {
             case 13:
                 if (Bag.vang < 100) {
-                    getService().warningMessage("Bạn không đủ 100 vàng 2323232 huy loz hehehe");
+                    getService().warningMessage("Bạn không đủ 100 vàng");
                     return;
                 }
                 addVang(-100);
@@ -9777,6 +9774,11 @@ public class Char extends Body {
             phucLoi.napTuan += vang;
             if (phucLoi.napDon < vang)
                 phucLoi.napDon = vang;
+
+            if (phucLoi.nap3moc < vang)
+                phucLoi.nap3moc = vang;
+
+
             if (newDay) {
                 newDay = false;
                 phucLoi.napLienTuc++;
