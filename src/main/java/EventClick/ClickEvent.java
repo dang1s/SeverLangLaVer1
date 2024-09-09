@@ -413,7 +413,7 @@ public class ClickEvent {
 
     public static void WritePhucLoi(Char _myChar, Message m) throws IOException {
         m.writeByte(PhucLoi.getInstance().welfareMap.size());
-        String[] allTypes = {"Phúc lợi", "Quà nạp", "Quà Rank", "Thẻ Tháng"};
+        String[] allTypes = {"Phúc lợi", "Quà nạp", "Quà Rank","Thẻ tháng"};
         for (String type : allTypes) {
             m.writeUTF(type);
             List<Welfare> welfares = PhucLoi.getInstance().getWelfaresByType(type);

@@ -177,6 +177,12 @@ public class User {
                         } else {
                             _char.idCamThuat = -1;
                         }
+
+                        if (obj.containsKey("countUseBinhHoatLuc")) {
+                            _char.Info.countUseBinhHoatLuc = Byte.parseByte((obj.get("countUseBinhHoatLuc").toString()));
+                        } else
+                            _char.Info.countUseBinhHoatLuc = 0;
+
                         if (obj.containsKey("idKlT")) {
                             _char.idKhuLuyenTap = Integer.parseInt(obj.get("idKlT").toString());
                         } else

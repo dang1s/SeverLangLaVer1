@@ -246,6 +246,7 @@ public class Zone {
                     if (mob2.getMobTemplate().speedMove != 0)
                         TaskFactory.getInstance().addMobInfoTaskDay(mobInfo);
                 }
+
 //                if (i == size - 1 && (map.mapID == 57 || map.mapID == 65 || map.mapID == 87 || map.mapID == 79 || map.mapID == 73) && Event.getEvent() != null && zoneID >= 5 && zoneID <= 10) {
 //                    Mob mob = new Mob();
 //                    int id = map.mapID == 57 ? 285 : map.mapID == 65 ? 286 : map.mapID == 87 ? 287 : map.mapID == 79 ? 288 : 289;

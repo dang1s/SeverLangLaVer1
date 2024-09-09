@@ -189,6 +189,8 @@ public class ZoneCamThuat extends ZWorld{
             mob.status = 2;
             mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * HP_FULL;
             mob.expGoc = mob.hpGoc / 8;
+
+            mob.levelBoss = 0;
             mob.paintMiniMap = false;
             mob.idEntity = i;
             monsters.add(mob);
@@ -205,6 +207,8 @@ public class ZoneCamThuat extends ZWorld{
         mob.status = 2;
         mob.hpGoc = mob.hp = mob.hpFull = HP_BISSBOSS+(LEVEL_PHUBAN-1)*19300;
         mob.expGoc = mob.hpGoc / 8;
+
+        mob.levelBoss = 0;
         mob.paintMiniMap = false;
         mob.idEntity = monsters.size();
         mob.reSpawn(this);

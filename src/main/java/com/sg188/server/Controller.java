@@ -1196,13 +1196,13 @@ public class Controller implements IMessageHandler {
                 case -82:
                     _char.MoRongBox();
                     break;
+                case -65:
                 case -66:
                     int idBenefit = msg.readInt();
                     _char.subscribeBenefitPackage(idBenefit);
 //                    ClickEvent.PhucLoi(_char);
                     break;
-                case -65:
-                    break;
+
                 case -74:
                     byte index = msg.readByte();
                     _char.Info.selectDanhHieu = index;

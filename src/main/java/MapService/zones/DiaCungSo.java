@@ -105,6 +105,9 @@ public class DiaCungSo extends ZWorld{
             mob.status = 2;
             mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 3000;
             mob.expGoc = mob.hpGoc / 8;
+
+            mob.levelBoss = 0;
+
             mob.paintMiniMap = true;
             mob.idEntity = i;
             monsters.add(mob);
@@ -130,6 +133,8 @@ public class DiaCungSo extends ZWorld{
             mob.level = LEVEL_PHUBAN;
             mob.cx = entityList.get(i).cx;
             mob.cy = entityList.get(i).cy;
+            mob.levelBoss = 0;
+
             mob.status = 2;
             mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 3000;
             mob.expGoc = mob.hpGoc / 8;

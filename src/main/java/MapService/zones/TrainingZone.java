@@ -55,7 +55,7 @@ public class TrainingZone extends ZWorld {
 
     @Override
     protected boolean canRespawn(Mob mob) {
-        if(world.isClosed())
+        if (world.isClosed())
             return false;
         return true; // Mặc định cho phép hồi sinh
     }
@@ -65,10 +65,10 @@ public class TrainingZone extends ZWorld {
         boolean isNhanExp = Math.abs(player.level() - mob.level) <= 5;
         if (isNhanExp) {
             if (mob.level >= 44) {
-                if (mob.levelBoss == 1&& Utlis.nextInt(100)<25) {
+                if (mob.levelBoss == 1 && Utlis.nextInt(100) < 25) {
                     Item skn = new Item(434);
                     player.addItem(skn);
-                } else if (mob.levelBoss == 2&&Utlis.nextInt(100)<25) {
+                } else if (mob.levelBoss == 2 && Utlis.nextInt(100) < 25) {
                     Item skn = new Item(434);
                     player.addItem(skn);
                 }
@@ -76,7 +76,7 @@ public class TrainingZone extends ZWorld {
             if (player.Bag.itemSach != null && player.Info.sachChienDau == 18) {
                 if (player.cloneLive) {
                     player.Point.expsach += 32;
-                    if(player.tuLuyenChau){
+                    if (player.tuLuyenChau) {
                         player.Point.expsach += 32;
                     }
                     if (player.Point.expsach >= ((player.Point.diempt + 1) * 5000000)) {
@@ -119,7 +119,7 @@ public class TrainingZone extends ZWorld {
                 if (player.buffRuou > 0) {
                     num += num * player.buffRuou / 100;
                 }
-                if(player.tuLuyenChau){
+                if (player.tuLuyenChau) {
                     num += num;
                 }
                 player.Bag.arrItemBody[10].updateViThu(num);
@@ -141,21 +141,21 @@ public class TrainingZone extends ZWorld {
             if (player.getEffect(85) != null) {
                 exp += exp;
             }
-            exp+=exp*buff/100;
+            exp += exp * buff / 100;
             player.addExp(exp);
-            try{
+            try {
                 player.findHuPhach();
-                if(player.huphach!=null&& !player.huphach.isEmpty()){
+                if (player.huphach != null && !player.huphach.isEmpty()) {
                     for (int i = 0; i < player.huphach.size(); i++) {
                         Item hu = player.huphach.get(i);
-                        if(hu!=null){
-                            if (hu.addExp((int) exp)){
+                        if (hu != null) {
+                            if (hu.addExp((int) exp)) {
                                 break;
                             }
                         }
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
             if (player.getGroup() != null) {

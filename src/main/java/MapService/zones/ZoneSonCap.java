@@ -249,6 +249,8 @@ public class ZoneSonCap extends ZWorld {
             mob.status = 4;
             mob.hpGoc = mob.hp = mob.hpFull = level * mobid*1000;
             mob.expGoc = mob.hpGoc / 8;
+
+            mob.levelBoss = 0;
             mob.paintMiniMap = false;
             mob.idEntity = i;
             monsters.add(mob);
@@ -385,7 +387,7 @@ public class ZoneSonCap extends ZWorld {
             boss.level = level;
             boss.levelBoss = 3;
             boss.status = 2;
-            boss.hpGoc = boss.hp = boss.hpFull = 1999999999;
+            boss.hpGoc = boss.hp = boss.hpFull = 1000000000;
             boss.exp = 200000000;
             boss.expGoc = boss.hpGoc / 8;
             boss.paintMiniMap = false;

@@ -243,6 +243,40 @@ public class HanderMessage {
         return m;
     }
 
+//    public static  Message closeTab() {
+//        Message m = new Message((byte) 123);
+//        try {
+//            m.writeByte(-43);
+//        } catch (IOException e) {
+//            Logger.getLogger(HanderMessage.class.getName()).log(Level.SEVERE, null, e);
+//        }
+//        return m;
+//    }
+    public static  Message xoaTab(Char _myChar) {
+        Message m = new Message((byte) 7);
+        try {
+            m.writeInt(_myChar.Info.idEntity);
+        } catch (IOException e) {
+            Logger.getLogger(HanderMessage.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return m;
+    }
+
+    public static Message MsgLoadPhanTram(Char _myChar, int time, String text) {
+        Message m = new Message((byte) 4);
+        try {
+            m.writeInt(time);
+            m.writeUTF(text);
+            m.writeByte(4);
+            m.writeInt(_myChar.Info.idEntity);
+            m.writeShort(-1);
+        } catch (IOException ex) {
+            Logger.getLogger(HanderMessage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return m;
+
+    }
+
     public static Message RemoveMob(int id) {
         Message m = new Message((byte) 0);
         try {

@@ -306,7 +306,7 @@ public class Char extends Body {
                         Bag.arrItemBody[item.index] = null;
                     }
                 }
-                if(item.getItemTemplate().type == 14&&item.level > 18){
+                if (item.getItemTemplate().type == 14 && item.level > 18) {
                     Bag.arrItemBody[item.index] = null;
                 }
             }
@@ -318,7 +318,7 @@ public class Char extends Body {
                         Bag.arrItemBody2[item.index] = null;
                     }
                 }
-                if(item.getItemTemplate().type == 14&&item.level > 18){
+                if (item.getItemTemplate().type == 14 && item.level > 18) {
                     Bag.arrItemBody2[item.index] = null;
                 }
             }
@@ -330,7 +330,7 @@ public class Char extends Body {
                         Bag.arrItemBox[item.index] = null;
                     }
                 }
-                if(item.getItemTemplate().type == 14&&item.level > 18){
+                if (item.getItemTemplate().type == 14 && item.level > 18) {
                     Bag.arrItemBox[item.index] = null;
                 }
             }
@@ -342,7 +342,7 @@ public class Char extends Body {
                         removeItem(item, true);
                     }
                 }
-                if(item.getItemTemplate().type == 14&&item.level > 18){
+                if (item.getItemTemplate().type == 14 && item.level > 18) {
                     Bag.arrItemBag[item.index] = null;
                 }
             }
@@ -613,6 +613,7 @@ public class Char extends Body {
         idDungeonEvent = -1;
         idDiaCung = -1;
         Info.countHu = 0;
+        Info.countUseBinhHoatLuc = 0;
         newDay = true;
     }
 
@@ -1142,6 +1143,9 @@ public class Char extends Body {
         return true;
     }
 
+
+
+
 //    public Item FindItemBagLock(int Id) {
 //        for (Item item : this.Bag.arrItemBag) {
 //            if (item != null && item.id == Id&&item.isLock) {
@@ -1352,6 +1356,7 @@ public class Char extends Body {
         }
         return null;
     }
+
     public void writeDanhHieu(Writer writer) throws IOException {
         if (Info.danhHieus.size() > 127) {
             Info.danhHieus.subList(127, Info.danhHieus.size()).clear();
@@ -1364,9 +1369,9 @@ public class Char extends Body {
                     writer.writeUTF(danhHieu.TextDanhHieu);
                     writer.writeInt(getTime(danhHieu));// time
                     writer.writeBoolean(danhHieu.isNew);
-                    if(danhHieu.isNew){
+                    if (danhHieu.isNew) {
                         DanhHieuNew danhHieuNew = getDanhHieuNewById(danhHieu.idItem);
-                        if(danhHieuNew!=null) {
+                        if (danhHieuNew != null) {
                             writer.writeInt(danhHieuNew.x);
                             writer.writeInt(danhHieuNew.y);
                             writer.writeInt(danhHieuNew.timeMs);
@@ -1375,7 +1380,7 @@ public class Char extends Body {
                             for (int j = 0; j < danhHieuNew.data.length; j++) {
                                 writer.writeShort(danhHieuNew.data[j]);
                             }
-                        }else {
+                        } else {
                             writer.writeInt(-1);
                             writer.writeInt(-1);
                             writer.writeInt(-1);
@@ -1939,12 +1944,12 @@ public class Char extends Body {
             danhHieu.GetDanhHieu();
             danhHieu.timeStart = System.currentTimeMillis();
             danhHieu.timeEnd = danhHieu.timeStart + item.expiry;
-            if(item.getItemTemplate().detail.contains("isnew")){
+            if (item.getItemTemplate().detail.contains("isnew")) {
                 danhHieu.isNew = true;
                 DanhHieuNew dhNew = getDanhHieuNewById(item.id);
-                if(dhNew==null){
+                if (dhNew == null) {
                     danhHieu.isNew = false;
-                }else {
+                } else {
                     danhHieu.idItem = item.id;
                 }
             }
@@ -2512,7 +2517,7 @@ public class Char extends Body {
                 addEffect(new Effect((short) 81, 1, System.currentTimeMillis(), 60 * 1000 * 5));
                 break;
             case 763:
-                if(Bag.arrItemBody[10]==null){
+                if (Bag.arrItemBody[10] == null) {
                     return;
                 }
                 if (Bag.arrItemBody[10].level == 18) {
@@ -2801,9 +2806,15 @@ public class Char extends Body {
             return;
         }
         if (item.id == 182) {
+
+            if (Info.countUseBinhHoatLuc >= 20) {
+                service.serverMessage("Mỗi ngày chỉ sử dụng tối đa 20 bình hoạt lực");
+                return;
+            }
             removeItem(item);
             msgUseItemBag(item);
             Point.hoatLuc += 50;
+            Info.countUseBinhHoatLuc += 1;
             user.session.sendMessage(HanderMessage.UpdateHoatLuc(Point.hoatLuc));
         }
         if (item.id == 231) {
@@ -2895,6 +2906,8 @@ public class Char extends Body {
                 Bag.itemSach.strOptions = "207,0,-1;208,0,-1";
                 Bag.itemSach.a(Info.sachChienDau);
                 msgUpdateSachChienDau();
+            }else {
+                service.alertMessage("Vui lòng sử dụng sách kỹ năng chiến đấu cao hơn");
             }
             return;
         }
@@ -3156,7 +3169,7 @@ public class Char extends Body {
 
     public void CheTao(int type) {
         if (getCountNullItemBag() < 1) {
-            service.alertMessage("Full rương ồi bạn ơi");
+            service.alertMessage("Hành trang không đủ chỗ trống");
             return;
         }
 
@@ -3164,30 +3177,56 @@ public class Char extends Body {
         Item tinhThach = FindItemBagUnlock(160);
         int requiredHoatLuc = 0;
         int requiredTinhThachAmount = 0;
-
+        int requiredExpCheTao = 0;
         switch (type) {
             case 0:
                 requiredHoatLuc = 5;
                 requiredTinhThachAmount = 1;
+                requiredExpCheTao = 0;
                 break;
             case 1:
                 requiredHoatLuc = 50;
                 requiredTinhThachAmount = 10;
+                requiredExpCheTao = 100;
                 break;
             case 2:
                 requiredHoatLuc = 500;
                 requiredTinhThachAmount = 100;
+                requiredExpCheTao = 200;
+                break;
+            case 3:
+                requiredHoatLuc = 30;
+                requiredTinhThachAmount = 5;
+                requiredExpCheTao = 400;
+                break;
+            case 4:
+                requiredHoatLuc = 70;
+                requiredTinhThachAmount = 10;
+                requiredExpCheTao = 500;
                 break;
             case 5:
+                requiredHoatLuc = 35;
+                requiredExpCheTao = 600;
+                break;
             case 6:
+                requiredHoatLuc = 35;
+                requiredExpCheTao = 700;
+                break;
             case 7:
                 requiredHoatLuc = 35;
+                requiredExpCheTao = 800;
                 break;
             case 8:
                 requiredHoatLuc = 50;
+                requiredExpCheTao = 900;
                 break;
         }
 
+
+        if (Info.expCheTao < requiredExpCheTao) {
+            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ cấp độ yêu cầu", HanderMessage.RED_MID));
+            return;
+        }
         if (requiredHoatLuc > 0 && requiredTinhThachAmount > 0) {
             if (Point.hoatLuc < requiredHoatLuc || tinhThach == null || tinhThach.amount < requiredTinhThachAmount) {
                 user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vật phẩm yêu cầu", HanderMessage.RED_MID));
@@ -3212,7 +3251,6 @@ public class Char extends Body {
                 user.session.sendMessage(HanderMessage.SendThongBao("Không đủ hoạt lực yêu cầu", HanderMessage.RED_MID));
                 return;
             }
-
             int idItem = type == 5 ? 562 : type == 6 ? 564 : 566;
             int idCraft = type == 5 ? 563 : type == 6 ? 565 : 567;
             Item craftingItem = null;
@@ -3220,11 +3258,12 @@ public class Char extends Body {
             if (type == 8) {
                 idItem = 354;
                 idCraft = 353;
-                craftingItem = FindItemBag(idItem);
                 requiredTinhThachAmount = 3;
-            } else {
                 craftingItem = FindItemBag(idItem);
+            } else {
                 requiredTinhThachAmount = 5;
+                craftingItem = FindItemBag(idItem);
+
             }
 
             if (craftingItem == null || craftingItem.getAmount() < requiredTinhThachAmount) {
@@ -3240,6 +3279,7 @@ public class Char extends Body {
                 msgRemoveItemBag(craftingItem);
             }
 
+
             Point.hoatLuc -= requiredHoatLuc;
             item = new Item(idCraft);
             item.amount = 1;
@@ -3247,9 +3287,23 @@ public class Char extends Body {
         }
 
         if (item != null) {
+            user.session.sendMessage(HanderMessage.MsgLoadPhanTram(this, 500, "Đang chế tạo"));
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             addItem(item);
             msgAddItemBag(item);
-            user.session.sendMessage(HanderMessage.MsgCheTao(Info.levelCheTao, Point.hoatLuc, (short) item.amount, item));
+            if(type == 0 ){
+                Info.expCheTao += 1;
+            }else {
+                Info.expCheTao += requiredExpCheTao / 100;
+            }
+            user.session.sendMessage(HanderMessage.xoaTab(this));
+            user.session.sendMessage(HanderMessage.MsgCheTao(Info.expCheTao, Point.hoatLuc, (short) item.amount, item));
+
+
         }
     }
 
@@ -3444,7 +3498,7 @@ public class Char extends Body {
                             addItem(ct);
                             msgAddItemBag(ct);
                             Item chakra = new Item(763);
-                            chakra.isLock=true;
+                            chakra.isLock = true;
                             chakra.amount = 500;
                             addItem(chakra);
                             msgAddItemBag(chakra);
@@ -3503,10 +3557,10 @@ public class Char extends Body {
     }
 
     public boolean checkItemPl(TemplatePL templatePL) {
-        if (templatePL.IDPhucLoi == 15 && !phucLoi.goiHaoHoa) {
+        if (templatePL.IDPhucLoi == 13 && !phucLoi.goiHaoHoa) {
             return false;
         }
-        if (templatePL.IDPhucLoi == 16 && !phucLoi.goiChiTon) {
+        if (templatePL.IDPhucLoi == 14 && !phucLoi.goiChiTon) {
             return false;
         }
         for (TemplatePL temp : phucLoi.listPl) {
@@ -3537,8 +3591,14 @@ public class Char extends Body {
                     return false;
                 }
                 break;
-            case 3: // Nap rank
-                if (item.yeucau > Bag.pointNAP) {
+
+            case 3://tieu ngay
+                if (item.yeucau > phucLoi.tieuNgay) {
+                    return false;
+                }
+                break;
+            case 4: // Tieu Tuan
+                if (item.yeucau > phucLoi.tieuTuan) {
                     return false;
                 }
                 break;
@@ -3552,22 +3612,12 @@ public class Char extends Body {
                     return false;
                 }
                 break;
-//            case 4://tieu ngay
-//                if (item.yeucau > phucLoi.tieuNgay) {
-//                    return false;
-//                }
-//                break;
-//            case 5:
-//                if (item.yeucau > phucLoi.tieuTuan) {
-//                    return false;
-//                }
-//                break;
-//            case 15:// goi hao hoa
-//                if (item.yeucau > level()) {
-//                    return false;
-//                }
-//                break;
-            case 21: //nap 3 moc
+            case 7://nap lien tuc
+                if (item.yeucau > phucLoi.napLienTuc) {
+                    return false;
+                }
+                break;
+            case 8: //nap 3 moc
                 for (int i = 0; i < phucLoi.listnap.size(); i++) {
                     int num = phucLoi.listnap.get(i);
                     if (num == item.yeucau) {
@@ -3575,11 +3625,28 @@ public class Char extends Body {
                     }
                 }
                 return false;
-            case 22:// nap don
+            case 9://nap don
                 if (item.yeucau > phucLoi.napDon) {
                     return false;
                 }
                 break;
+
+            case 10: // Nap rank
+                if (item.yeucau > Bag.pointNAP) {
+                    return false;
+                }
+                break;
+            case 11: // rank chung
+                if (item.yeucau > Manager.gI().rankCaoNhat) {
+                    return false;
+                }
+                break;
+            case 12: // rank tất cả
+                if (item.yeucau > Manager.gI().countRank) {
+                    return false;
+                }
+                break;
+
         }
         return true;
     }
@@ -3910,15 +3977,15 @@ public class Char extends Body {
     public void SellItem(short index, boolean check) {
         Item itemBag = this.Bag.arrItemBag[index];
         if (itemBag != null) {
-          //  History history = new History(this.id, History.BAN_VAT_PHAM);
-          //  history.setPrice(0, 1000, 0);
-           // history.setBefore(this.Bag.bac, this.Bag.bacKhoa, this.Bag.vang, this.Bag.vangKhoa);
-           // history.themItem(this.Bag.arrItemBag[index]);
-           // history.setTime(System.currentTimeMillis());
+            //  History history = new History(this.id, History.BAN_VAT_PHAM);
+            //  history.setPrice(0, 1000, 0);
+            // history.setBefore(this.Bag.bac, this.Bag.bacKhoa, this.Bag.vang, this.Bag.vangKhoa);
+            // history.themItem(this.Bag.arrItemBag[index]);
+            // history.setTime(System.currentTimeMillis());
             addBacKhoa(1000);
             removeItem(itemBag, true);
-          //  history.setAfter(this.Bag.bac, this.Bag.bacKhoa, this.Bag.vang, this.Bag.vangKhoa);
-          //  History.insert(history);
+            //  history.setAfter(this.Bag.bac, this.Bag.bacKhoa, this.Bag.vang, this.Bag.vangKhoa);
+            //  History.insert(history);
             try {
                 MsgSellItem(index);
             } catch (IOException e) {
@@ -4009,9 +4076,9 @@ public class Char extends Body {
 //            lucky.show(this);
 //        }
         Message m;
-        if(str.equals("xoabua")){
+        if (str.equals("xoabua")) {
             Effect effect = getEffect(66);
-            if(effect != null){
+            if (effect != null) {
                 removeEffect(effect);
                 HanderEff.RemovePointEff(this, effect);
                 msgRemoveEffect(effect);
@@ -4072,6 +4139,10 @@ public class Char extends Body {
                 stropt += "122," + Utlis.nextInt(10, 20);
                 buanew.strOptions = stropt;
                 addItem(buanew);
+            } else if (str.contains("xoado")) {
+                for (int i = 0; i < Bag.arrItemBag.length; i++) {
+                    Bag.arrItemBag[i] = null;
+                }
             } else if (str.startsWith(
                     "dead")) {
                 DeadForest deadForest = new DeadForest(6, level());
@@ -5626,9 +5697,12 @@ public class Char extends Body {
                         }
                         addVang(-1500);
                         Item sachcc = new Item(719);
+                        Item  sach435 = FindItemBag(435);
                         sachcc.isLock = true;
                         addItem(sachcc);
                         msgAddItemBag(sachcc);
+                        msgUseItemBag(sach435);
+
                         break;
                     case 1:
                         if (Bag.vang < 3000) {
@@ -5641,9 +5715,11 @@ public class Char extends Body {
                         }
                         addVang(-3000);
                         Item sachsc = new Item(778);
+                        Item  sach435z = FindItemBag(435);
                         sachsc.isLock = true;
                         addItem(sachsc);
                         msgAddItemBag(sachsc);
+                        msgUseItemBag(sach435z);
                         break;
                 }
                 break;
@@ -8987,8 +9063,12 @@ public class Char extends Body {
 
     public boolean checkBuyWekfare(int id) {
         switch (id) {
-            case 11:
+            case 13:
                 if (phucLoi.theThang > System.currentTimeMillis())
+                    return true;
+                break;
+            case 14:
+                if (phucLoi.theVinhVien > System.currentTimeMillis())
                     return true;
                 break;
         }
@@ -8997,15 +9077,26 @@ public class Char extends Body {
 
     public void subscribeBenefitPackage(int idBenefit) {
         switch (idBenefit) {
-            case 11:
-                if (Bag.vang < 10000) {
-                    getService().warningMessage("Bạn không đủ 10000 vàng");
+            case 13:
+                if (Bag.vang < 100) {
+                    getService().warningMessage("Bạn không đủ 100 vàng");
                     return;
                 }
-                addVang(-10000);
-                addVang(5000);
+                addVang(-100);
+                addVangKhoa(100);
                 phucLoi.theThang = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(30);
                 getService().serverMessage("Mua thành công thẻ tháng");
+                ClickEvent.PhucLoi(this);
+                break;
+            case 14:
+                if (Bag.vang < 300) {
+                    getService().warningMessage("Bạn không đủ 300 vàng");
+                    return;
+                }
+                addVang(-300);
+                addVangKhoa(300);
+                phucLoi.theVinhVien = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(365);
+                getService().serverMessage("Mua thành công thẻ vĩnh viễn");
                 ClickEvent.PhucLoi(this);
                 break;
         }
@@ -9013,22 +9104,33 @@ public class Char extends Body {
 
     public String getTextWelfare(int id, String description) {
         switch (id) {
-            case 1:
+            case 0:
                 return description = String.format(description, phucLoi.timeOnline / 60000);
-            case 2:
+            case 1:
                 return description = String.format(description, phucLoi.soNgayOnline);
-            case 3:
+            case 2:
                 return description = String.format(description, level());
-            case 4:
+            case 3:
                 return description = String.format(description, phucLoi.tieuNgay);
-            case 5:
+            case 4:
                 return description = String.format(description, phucLoi.tieuTuan);
-            case 6:
+            case 5:
                 return description = String.format(description, phucLoi.napNgay);
-            case 7:
+            case 6:
                 return description = String.format(description, phucLoi.napTuan);
+            case 7:
+                return description = String.format(description, phucLoi.napLienTuc);
+            case 8:
+                return description = String.format(description, phucLoi.nap3moc);
+            case 9:
+                return description = String.format(description, phucLoi.napDon);
             case 10:
                 return description = String.format(description, Bag.pointNAP);
+            case 11:
+                return description = String.format(description, Manager.gI().rankCaoNhat);
+            case 12:
+                return description = String.format(description, Manager.gI().countRank);
+
         }
         return description;
     }
@@ -9717,14 +9819,15 @@ public class Char extends Body {
                     msgUpdateMp();
                 }
                 try {
-                    if(Info.idClass == 3&&level()>= 50&&(Point.hp < maxHP / 5)){
-                        if(getEffect(34)== null&&getEffect(61)== null){
+                    if (Info.idClass == 3 && level() >= 50 && (Point.hp < maxHP / 5)) {
+                        if (getEffect(34) == null && getEffect(61) == null) {
                             com.sg188.data.Skill skill = findSkillWithId(17);
-                            if(skill == null||skill.level < 1){
-                                return;}
+                            if (skill == null || skill.level < 1) {
+                                return;
+                            }
                             ItemOption[] options = skill.getItemOption();
-                            addEffect(new Effect((short) 34,options[0].getvalue(),System.currentTimeMillis(),3000));
-                            addEffect(new Effect((short) 61,options[1].getvalue(),System.currentTimeMillis(),3000));
+                            addEffect(new Effect((short) 34, options[0].getvalue(), System.currentTimeMillis(), 3000));
+                            addEffect(new Effect((short) 61, options[1].getvalue(), System.currentTimeMillis(), 3000));
                         }
                     }
                 } catch (Exception e) {
@@ -9735,7 +9838,8 @@ public class Char extends Body {
             Log.error("Loi update hoi hp mp item body " + e.getMessage());
         }
     }
-    public Skill findSkillWithId(int id){
+
+    public Skill findSkillWithId(int id) {
         for (Skill skill : this.Skill.arraySkill) {
             if (skill.idTemplate == id) {
                 return skill;
@@ -10805,17 +10909,17 @@ public class Char extends Body {
                     damage -= damage * percentDameReduction / 100;
                     damage = Math.max(damage - pl.damageReduction, 0);
                     int miss = pl.miss;
-                    int exactlyAttack = exactly-miss;
-                    boolean isMiss = exactlyAttack < 0?Utlis.randomBoolean(100,90):Utlis.randomBoolean(100,1);
+                    int exactlyAttack = exactly - miss;
+                    boolean isMiss = exactlyAttack < 0 ? Utlis.randomBoolean(100, 90) : Utlis.randomBoolean(100, 1);
                     if (isMiss) {
                         damage = 0;
                     }
-                    try{
+                    try {
                         Effect effect = pl.getEffect(34);
-                        if(effect!=null){
+                        if (effect != null) {
                             pl.addHp(effect.value);
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
 
                     }
                     pl.addHp(-damage);

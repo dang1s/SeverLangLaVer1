@@ -52,6 +52,10 @@ public class HanderClickEvent {
                 case 1:
                     ClickEvent.ShopDuocPham(_myChar, idEvent);
                     break;
+                case 2:
+                case 3:
+                    ClickEvent.Shop(_myChar, idEvent);
+                    break;
                 case 4:
                 case 5:
                     ClickEvent.ShopQuanAn(_myChar, idEvent);

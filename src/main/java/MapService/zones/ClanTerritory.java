@@ -65,6 +65,8 @@ public class ClanTerritory extends ZWorld {
                 mob.hpGoc = mob.hp = mob.hpFull = level * 174800;
                 mob.expGoc = 100000;
                 mob.paintMiniMap = false;
+
+                mob.levelBoss = 0;
                 mob.idEntity = i;
                 monsters.add(mob);
                 mob.reSpawn(this);
@@ -105,6 +107,8 @@ public class ClanTerritory extends ZWorld {
                 mob.status = 4;
                 mob.hpGoc = mob.hp = mob.hpFull = level * 184000;
                 mob.expGoc = 100000;
+
+                mob.levelBoss = 0;
                 mob.paintMiniMap = false;
                 mob.idEntity = i;
                 monsters.add(mob);
