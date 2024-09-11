@@ -142,7 +142,7 @@ public class User {
                         _char.Info.loiDai = Integer.parseInt(obj.get("loidai").toString());
                         _char.Info.luyenTap = Integer.parseInt(obj.get("luyentap").toString());
                         _char.Info.countRuong = Byte.parseByte(obj.get("countruong").toString());
-                        _char.Info.expCheTao = Byte.parseByte(obj.get("expchetao").toString());
+                        _char.Info.expCheTao = Integer.parseInt(obj.get("expchetao").toString());
                         _char.Info.levelCheTao = Byte.parseByte(obj.get("levelchetao").toString());
                         _char.Info.banCTG = Boolean.parseBoolean(obj.get("banctg").toString());
                         _char.Info.typeVQMM = Byte.parseByte(obj.get("typevqmm").toString());

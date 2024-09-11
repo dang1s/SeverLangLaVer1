@@ -1214,6 +1214,8 @@ public class Controller implements IMessageHandler {
                         Message m2 = Message.c((byte) -58);
                         m2.writeByte(select);
                         client.sendMessage(m2);
+
+
                     }
                     break;
                 case -48:
@@ -1332,8 +1334,27 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case -20:
-                    if (!_char.cloneLive)
+                    Item BuaPhanThan = _char.FindItemBag(782);
+                    if (BuaPhanThan == null) {
+                        _char.service.alertMessage("Không tìm thấy bùa phân thân trong hành trang");
+                        return;
+                    }
+                    if (BuaPhanThan.amount < 1) {
+                        _char.service.alertMessage("Không đủ bùa phân thân");
+                        return;
+                    }
+
+                  //  if (!_char.cloneLive){
                         _char.addEffect(new Effect((short) 99,  _char.Point.diempt==0?2:2 * _char.Point.diempt, System.currentTimeMillis(), 60 * 1000 * 60));
+                  //  }
+                   // if (_char.cloneLive){
+                     //   _char.addEffect(new Effect((short) 99,  _char.Point.diempt==0?2:2 * _char.Point.diempt, System.currentTimeMillis(), 60 * 1000 * 60));
+                  //  }
+                    _char.removeItemByAmount(BuaPhanThan, 1);
+                    _char.msgRemoveItemBag(BuaPhanThan);
+                    client.sendMessage(Message.c((byte) -43));
+
+
                     break;
                 case -21:
                     if (_char.Point.maxpt >= 30) {

@@ -402,6 +402,7 @@ public class Char extends Body {
                 if (index < 0 || index > 39) {
                     return;
                 }
+
                 selectCard.select(this, index);
             }
         } catch (Exception ex) {
@@ -2248,6 +2249,9 @@ public class Char extends Body {
                     service.alertMessage("Mỗi nhân vật chỉ có thể sử dụng một lần");
                 }
                 break;
+            case 782: // bùa phân thân
+                service.alertMessage("Sử dụng bùa phân thân bằng cách mở giao diện nhân vật - Sách kĩ năng chiến đấu (Yêu cầu SKNCĐ Level 18)");
+                break;
             case 790:
                 if (Info.numct == 17) {
                     service.alertMessage("Vui lòng sử dụng nhẫn thuật sơ cấp trước");
@@ -3245,6 +3249,14 @@ public class Char extends Body {
                     item = new Item(231);
                     item.amount = 1;
                     break;
+                case 3:
+                    item = new Item(361);
+                    item.amount = 1;
+                    break;
+                case 4:
+                    item = new Item(362);
+                    item.amount = 1;
+                    break;
             }
         } else if (type >= 5 && type <= 8) {
             if (Point.hoatLuc < requiredHoatLuc) {
@@ -3298,7 +3310,7 @@ public class Char extends Body {
             if(type == 0 ){
                 Info.expCheTao += 1;
             }else {
-                Info.expCheTao += requiredExpCheTao / 100;
+                Info.expCheTao += 10;
             }
             user.session.sendMessage(HanderMessage.xoaTab(this));
             user.session.sendMessage(HanderMessage.MsgCheTao(Info.expCheTao, Point.hoatLuc, (short) item.amount, item));
@@ -3333,7 +3345,7 @@ public class Char extends Body {
                     break;
                 case 2:
                     break;
-                case 3:
+                case 10:
                     switch (temp.IdItem) {
                         case 417:
                             if (Info.rank < 1)
@@ -3670,6 +3682,8 @@ public class Char extends Body {
         }
     }
 
+
+
     public void msgAddItemBag(Item item) {
         Log.debug("msgAddItemBag");
         try {
@@ -3828,6 +3842,9 @@ public class Char extends Body {
             return;
         }
         int level = this.level();
+
+
+
         Point.exp += exp;
         int levelNew = this.level();
         if (level != levelNew) {
@@ -7654,10 +7671,11 @@ public class Char extends Body {
                     this.Info.chuyenCan += 5;
                     this.Info.chuyenCanTuan += 5;
                     addBacKhoa(500000);
-                    addVangKhoa(50);
                     if (this.clan != null) {
-                        this.addClanPoint(2);
+                        this.addClanPoint(10);
                     }
+                    addExp(5000000);
+                    this.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 5.000.000 Exp, 5 điểm chuyên cần, 5 điểm cống hiến tuần, 10 exp gia tộc", HanderMessage.YELLOW_MID));
                     getService().resetTaskOrder(0);
                     taskOrders.remove(task);
                     msgUpdateDataChar();

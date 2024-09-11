@@ -109,7 +109,7 @@ public class ZDeadForest extends ZWorld {
                 }
             }
         }
-        if (!isCreateBoss && (timestart + 1000 * 15*60) <= System.currentTimeMillis() & isCreateMob) {
+        if (!isCreateBoss && (timestart + 1000 * 10*60) <= System.currentTimeMillis() & isCreateMob) {
             isCreateBoss = true;
             Mob mob = new Mob();
             mob.id = 82;
@@ -133,7 +133,7 @@ public class ZDeadForest extends ZWorld {
                 pl.getService().sendMessage(HanderMessage.AddMob(mob));
             }
         }
-        if ((timestart + 1000 * 60*20) <= System.currentTimeMillis() && isNextMap) {
+        if ((timestart + 1000 * 60*15) <= System.currentTimeMillis() && isNextMap) {
             List<Char> member = getChars();
             for (Char pl : member) {
                 world.zones.get(1).addChar(pl);

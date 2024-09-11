@@ -243,15 +243,20 @@ public class HanderMessage {
         return m;
     }
 
-//    public static  Message closeTab() {
-//        Message m = new Message((byte) 123);
-//        try {
-//            m.writeByte(-43);
-//        } catch (IOException e) {
-//            Logger.getLogger(HanderMessage.class.getName()).log(Level.SEVERE, null, e);
-//        }
-//        return m;
-//    }
+
+
+    public static Message ClearSceen()
+    {
+        Message m = new Message((byte) 123);
+        try {
+            m.writeByte(-43);
+        } catch (IOException e) {
+            Logger.getLogger(HanderMessage.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return m;
+    }
+
+
     public static  Message xoaTab(Char _myChar) {
         Message m = new Message((byte) 7);
         try {

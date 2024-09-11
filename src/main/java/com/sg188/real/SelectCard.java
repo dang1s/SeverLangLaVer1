@@ -21,8 +21,8 @@ public class SelectCard extends AbsSelectCard {
 
     @Override
     protected void init() {
-//        add(Card.builder().id(6).rate(15).build());
-//        add(Card.builder().id(7).rate(12).build());
+        add(Card.builder().id(6).rate(15).build());
+        add(Card.builder().id(7).rate(12).build());
         add(Card.builder().id(8).rate(10).build());
         add(Card.builder().id(9).rate(2).build());
         add(Card.builder().id(10).rate(0.5).build());
@@ -78,22 +78,22 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(856).rate(0.5).build());
 
         add(Card.builder().id(812).rate(0.5).expire(EXPIRE_7_DAY).build());// thoi trang
-//        add(Card.builder().id(814).rate(0.3).expire(EXPIRE_7_DAY).build());
-//        add(Card.builder().id(820).rate(0.3).expire(EXPIRE_7_DAY).build());
-//        add(Card.builder().id(724).rate(0.3).expire(EXPIRE_7_DAY).build());
+        add(Card.builder().id(814).rate(0.3).expire(EXPIRE_7_DAY).build());
+        add(Card.builder().id(820).rate(0.3).expire(EXPIRE_7_DAY).build());
+        add(Card.builder().id(724).rate(0.3).expire(EXPIRE_7_DAY).build());
         add(Card.builder().id(812).rate(1.5).expire(EXPIRE_3_DAY).build());
-//        add(Card.builder().id(814).rate(1).expire(EXPIRE_3_DAY).build());
-//        add(Card.builder().id(820).rate(1).expire(EXPIRE_3_DAY).build());
-//        add(Card.builder().id(724).rate(1).expire(EXPIRE_3_DAY).build());
+        add(Card.builder().id(814).rate(1).expire(EXPIRE_3_DAY).build());
+        add(Card.builder().id(820).rate(1).expire(EXPIRE_3_DAY).build());
+        add(Card.builder().id(724).rate(1).expire(EXPIRE_3_DAY).build());
 
-//        add(Card.builder().id(871).rate(0.1).expire(EXPIRE_7_DAY).build());// tanto
+       add(Card.builder().id(871).rate(0.1).expire(EXPIRE_7_DAY).build());// tanto
         add(Card.builder().id(881).rate(0.5).expire(EXPIRE_7_DAY).build());
-//        add(Card.builder().id(882).rate(0.3).expire(EXPIRE_7_DAY).build());
-//        add(Card.builder().id(284).rate(0.3).expire(EXPIRE_7_DAY).build());
-//        add(Card.builder().id(871).rate(0.6).expire(EXPIRE_3_DAY).build());
+        add(Card.builder().id(882).rate(0.3).expire(EXPIRE_7_DAY).build());
+        add(Card.builder().id(284).rate(0.3).expire(EXPIRE_7_DAY).build());
+        add(Card.builder().id(871).rate(0.6).expire(EXPIRE_3_DAY).build());
         add(Card.builder().id(881).rate(1.5).expire(EXPIRE_3_DAY).build());
-//        add(Card.builder().id(882).rate(1).expire(EXPIRE_3_DAY).build());
-//        add(Card.builder().id(284).rate(1).expire(EXPIRE_3_DAY).build());
+        add(Card.builder().id(882).rate(1).expire(EXPIRE_3_DAY).build());
+        add(Card.builder().id(284).rate(1).expire(EXPIRE_3_DAY).build());
 
         add(Card.builder().id(150).rate(0.1).build());//sach tiem nang , ky nang
         add(Card.builder().id(151).rate(0.1).build());

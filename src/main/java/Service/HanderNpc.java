@@ -55,7 +55,15 @@ public class HanderNpc {
                 textNpc = "Đặt cược;Rời khỏi nơi này";
             }
             if(idNpcReal == 73){
-                textNpc=Event.getEvent().menuKhaTienNu;
+
+                if(Event.getEvent() !=null){
+                    textNpc=Event.getEvent().menuKhaTienNu;
+
+                }
+                else {
+                    textNpc = DataMenuNpc.textNpc(idNpcReal);
+                }
+
             }
             if(idNpcReal == 31&&_myChar.zone.map.mapID==67){
                 _myChar.service.sendTextNPC("Ta đã một mình tới đây để triệt phá ổ nhóm của Pain. Không ngờ chúng nó lại đông đến vậy. Các con hãy giúp ta xử lý chúng! ","");
@@ -203,8 +211,12 @@ public class HanderNpc {
                 _SelectRaiKaGe(_myChar, index1, index2);
                 break;
             case 73:
-                if(Event.getEvent()!=null)
+                if(Event.getEvent()!=null){
                     Event.getEvent().menu(_myChar, index1, index2);
+                }else {
+                    _selectTsunade(_myChar, index1, index2);
+                }
+
                 break;
             case 105:
                 _SelectFukasaku(_myChar, index1, index2);
@@ -517,17 +529,23 @@ public class HanderNpc {
     }
     private static void _selectTsunade(Char myChar, byte index1, byte index2) {
         switch (index1) {
+//            case 0:
+//                LuckyDraw lucky = LuckyDrawManager.getInstance().find(0);
+//                lucky.show(myChar);
+//                break;
             case 0:
-                LuckyDraw lucky = LuckyDrawManager.getInstance().find(0);
-                lucky.show(myChar);
-                break;
-            case 1:
                 SelectCard.getInstance().open(myChar);
                 break;
-            case 2:
+            case 1:
                 myChar.Info.khoaExp = !myChar.Info.khoaExp;
-                String str = myChar.Info.khoaExp ? "Khoá cấp độ thành công" : "Đã mở khoá cấp độ";
-                myChar.service.alertMessage(str);
+                String str = myChar.Info.khoaExp ? "Khoá cấp thành công" : "Đã mở khoá cấp";
+                String str2;
+                if (str == "Khoá cấp thành công"){
+                    str2 = " (Lúc này bạn không thể nhận Exp)";
+                }else {
+                    str2= " (Lúc này bạn có thể nhận Exp)";
+                }
+                myChar.service.alertMessage(str + str2);
                 break;
 
         }
