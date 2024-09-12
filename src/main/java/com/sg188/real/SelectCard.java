@@ -107,8 +107,8 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(555).rate(0.5).build()); //phù thủy
         add(Card.builder().id(556).rate(0.5).build()); //bí ngô
 
-        add(Card.builder().id(592).rate(0.5).build()); //rương ct giáo viên
-        add(Card.builder().id(329).rate(0.5).build()); //rương ct
+//        add(Card.builder().id(592).rate(0.5).build()); //rương ct giáo viên
+//        add(Card.builder().id(329).rate(0.5).build()); //rương ct
 
         add(Card.builder().id(611).rate(0.5).build()); //văn lang
         add(Card.builder().id(618).rate(0.5).build()); //seimei
