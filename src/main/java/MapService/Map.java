@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Map {
     public static Map[] maps;
-    public static final int NUM_ZONE = 30;
+    public static final int NUM_ZONE = 15;
     @Getter
     private List<Zone> zones = new ArrayList<>();
     public List<WayPoint> listWayPoint = new ArrayList<WayPoint>();

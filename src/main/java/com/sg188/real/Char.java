@@ -101,6 +101,8 @@ public class Char extends Body {
     public short buffRuou;
     public boolean isCuuSat;
     public long delaySkill;
+
+    public long delayChetao;
     public long timemsg;
     public short taskId = 1;
     public Task taskMain;
@@ -408,6 +410,12 @@ public class Char extends Body {
         } catch (Exception ex) {
             Log.error("err: " + ex.getMessage(), ex);
         }
+    }
+
+    public int GetChuyenCan() {
+        return this.Info.chuyenCan;
+
+
     }
 
     public int GetTaiPhu() {
@@ -975,7 +983,7 @@ public class Char extends Body {
 //                    e.printStackTrace();
 //                }
                 try (Connection conn = Connect.getConnection();) {
-                    try (PreparedStatement ps = conn.prepareStatement("UPDATE player set info = ? ,inventory = ?,bag = ?,body = ?,body2 = ?,box = ?,bagext = ?,skillvithu = ?, skill = ? , point = ? ,thu = ?,code = ?,effect =?,phucLoi =?,hokage =?,danhhieu = ?,listskill = ?,level =?,topnap =?,toptaiphu =?,friends=?,enemies=?,task=?,taskMain=?,bac=?,vang=? where Name = ?");) {
+                    try (PreparedStatement ps = conn.prepareStatement("UPDATE player set info = ? ,inventory = ?,bag = ?,body = ?,body2 = ?,box = ?,bagext = ?,skillvithu = ?, skill = ? , point = ? ,thu = ?,code = ?,effect =?,phucLoi =?,hokage =?,danhhieu = ?,listskill = ?,level =?,topnap =?,toptaiphu =?,friends=?,enemies=?,task=?,taskMain=?,bac=?,vang=?,topchuyencan=? where Name = ?");) {
                         ps.setString(1, jinfo);
                         ps.setString(2, jiventory);
                         ps.setString(3, jbag);
@@ -1002,7 +1010,9 @@ public class Char extends Body {
                         ps.setString(24, task);
                         ps.setInt(25, Bag.bac);
                         ps.setInt(26, Bag.vang);
-                        ps.setString(27, this.Info.name);
+                        ps.setInt(27, Info.chuyenCan);
+                        ps.setString(28, this.Info.name);
+
                         ps.executeUpdate();
                     } catch (Exception e) {
                         Log.error("Loi update data cua player: " + this.Info.name, e);
@@ -1270,8 +1280,6 @@ public class Char extends Body {
         writerSkillViThu(writer);
 
     }
-
-
 
 
     private void writerSkillViThu(Writer writer) {
@@ -2628,7 +2636,7 @@ public class Char extends Body {
                     }
                     Point.hoatLuc += 5000000;
                     user.session.sendMessage(HanderMessage.UpdateHoatLuc(Point.hoatLuc));
-                }else {
+                } else {
                     service.serverMessage("Hành trang không đủ 13 ô trống");
                 }
                 break;
@@ -3279,6 +3287,7 @@ public class Char extends Body {
     }
 
     public void CheTao(int type) {
+
         if (getCountNullItemBag() < 1) {
             service.alertMessage("Hành trang không đủ chỗ trống");
             return;
@@ -3308,28 +3317,28 @@ public class Char extends Body {
             case 3:
                 requiredHoatLuc = 30;
                 requiredTinhThachAmount = 5;
-                requiredExpCheTao = 400;
+                requiredExpCheTao = 300;
                 break;
             case 4:
                 requiredHoatLuc = 70;
                 requiredTinhThachAmount = 10;
-                requiredExpCheTao = 500;
+                requiredExpCheTao = 400;
                 break;
             case 5:
                 requiredHoatLuc = 35;
-                requiredExpCheTao = 600;
+                requiredExpCheTao = 500;
                 break;
             case 6:
                 requiredHoatLuc = 35;
-                requiredExpCheTao = 700;
+                requiredExpCheTao = 600;
                 break;
             case 7:
                 requiredHoatLuc = 35;
-                requiredExpCheTao = 800;
+                requiredExpCheTao = 700;
                 break;
             case 8:
                 requiredHoatLuc = 50;
-                requiredExpCheTao = 900;
+                requiredExpCheTao = 800;
                 break;
         }
 
@@ -3338,6 +3347,14 @@ public class Char extends Body {
             user.session.sendMessage(HanderMessage.SendThongBao("Không đủ cấp độ yêu cầu", HanderMessage.RED_MID));
             return;
         }
+
+        if (System.currentTimeMillis() < delayChetao + 500L)
+        {
+            return;
+
+        }
+
+
         if (requiredHoatLuc > 0 && requiredTinhThachAmount > 0) {
             if (Point.hoatLuc < requiredHoatLuc || tinhThach == null || tinhThach.amount < requiredTinhThachAmount) {
                 user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vật phẩm yêu cầu", HanderMessage.RED_MID));
@@ -3422,8 +3439,10 @@ public class Char extends Body {
             user.session.sendMessage(HanderMessage.xoaTab(this));
             user.session.sendMessage(HanderMessage.MsgCheTao(Info.expCheTao, Point.hoatLuc, (short) item.amount, item));
 
-
+            delayChetao = System.currentTimeMillis();
         }
+
+
     }
 
 
@@ -9999,9 +10018,6 @@ public class Char extends Body {
             }
             phucLoi.listnap.add(vang);
             service.sendChar();
-
-
-
 
 
             user.session.sendMessage(HanderMessage.SendThongBao("Đổi thành công " + coin, HanderMessage.WHITE));

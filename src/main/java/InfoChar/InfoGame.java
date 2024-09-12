@@ -21,6 +21,9 @@ public class InfoGame {
     public byte statusGD = 0;
     public boolean isDie = false;
     public byte TypePk;
+
+
+
     /* ODER MENU
      
      */

@@ -6,6 +6,8 @@ public class InfoTop {
     public String name;
     public long exp;
     public long taiPhu;
+
+    public int chuyencan;
     public byte idHe;
     public short level;
     public int pointNap;
@@ -17,6 +19,10 @@ public class InfoTop {
 
     public long getTaiPhu() {
         return taiPhu;
+    }
+
+    public long getChuyenCan() {
+        return chuyencan;
     }
     public long getPointNap() {
         return pointNap;

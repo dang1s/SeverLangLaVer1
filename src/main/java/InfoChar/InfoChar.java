@@ -1,5 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license heade
+ * r, choose License Heade
+ * rs in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -36,7 +38,7 @@ public class InfoChar extends Entity{
     public int IdGiaToc =-1;
     public byte RoleGiaToc;
     public short BuffEXP = 0;
-    public short chuyenCan;
+    public int chuyenCan;
     public short chuyenCanTuan;
     public long cuaCai;
     public int cuaCaiTuan;

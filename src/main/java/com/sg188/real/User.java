@@ -133,7 +133,7 @@ public class User {
                         _char.Info.IdGiaToc = Short.parseShort(obj.get("idclan").toString());
                         _char.Info.RoleGiaToc = Byte.parseByte(obj.get("roleclan").toString());
                         _char.Info.BuffEXP = Byte.parseByte(obj.get("buffexp").toString());
-                        _char.Info.chuyenCan = Short.parseShort(obj.get("chuyencan").toString());
+                        _char.Info.chuyenCan = Integer.parseInt(obj.get("chuyencan").toString());
                         _char.Info.chuyenCanTuan = Short.parseShort(obj.get("chuyencantuan").toString());
                         _char.Info.cuaCai = Integer.parseInt(obj.get("cuacai").toString());
                         _char.Info.cuaCaiTuan = Integer.parseInt(obj.get("cuacaituan").toString());
@@ -156,6 +156,12 @@ public class User {
                             _char.Info.cx = Short.parseShort(obj.get("cx").toString());
                             _char.Info.cy = Short.parseShort(obj.get("cy").toString());
                         }
+
+                        if (obj.containsKey("pointnapnew")) {
+                            _char.Bag.pointNapNew = Integer.parseInt(obj.get("pointnapnew").toString());
+                        }
+
+
                         if (obj.containsKey("khoaexp")) {
                             _char.Info.khoaExp = Boolean.parseBoolean(obj.get("khoaexp").toString());
                         }

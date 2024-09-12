@@ -119,8 +119,10 @@ public class HanderNpc {
                     }
                     break;
                 case 2:
+
                     break;
             }
+
         } else {
             switch (select) {
                 case 0:

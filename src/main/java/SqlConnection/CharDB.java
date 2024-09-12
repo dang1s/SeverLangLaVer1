@@ -472,6 +472,47 @@ public class CharDB {
         return list;
     }
 
+    private static final String CHUYENCAN = "SELECT `Name`,`topchuyencan`,`Info`,`clan`" +
+            "FROM player " +
+            "ORDER BY `topchuyencan` DESC " +
+            "LIMIT 100;";
+
+
+
+    public static List<InfoTop> getTopChuyenCan() {
+        List<InfoTop> list = new ArrayList<>();
+        try (Connection conn = Connect.getConnection();) {
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            try (ResultSet rs = stmt.executeQuery(CHUYENCAN)) {
+                rs.last();
+                int i = rs.getRow();
+                rs.beforeFirst();
+                int j = 0;
+                while (rs.next()) {
+                    InfoTop top = new InfoTop();
+                    top.name = rs.getString("Name");
+                    top.chuyencan = rs.getInt("topchuyencan");
+                    JSONArray jArr = (JSONArray) JSONValue.parse(rs.getString("Info"));
+                    int len = jArr.size();
+                    for (int k = 0; k < len; k++) {
+                        JSONObject obj = (JSONObject) jArr.get(k);
+                        top.idHe = Byte.parseByte(obj.get("idhe").toString());
+                    }
+                    int clanId = rs.getInt("clan");
+                    Optional<Clan> g = Clan.getClanDAO().get(clanId);
+                    if (g != null && g.isPresent()) {
+                        Clan clan = g.get();
+                        top.clanName = clan.name;
+                    }
+                    list.add(top);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     private static final String cuacai = "SELECT `Name`,`topnap`,`Info`,`clan`" +
             "FROM player " +
             "ORDER BY `topnap` DESC " +
