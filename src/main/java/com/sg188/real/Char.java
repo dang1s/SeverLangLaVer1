@@ -2607,6 +2607,32 @@ public class Char extends Body {
                 msgUseItemBag(item);
                 this.addEffect(new Effect((short) 85, 100, System.currentTimeMillis(), 60 * 1000 * 60));
                 break;
+
+
+            case 559: // vật phẩm phiên bản test
+                if (getCountNullItemBag() >= 13) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+                    int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
+
+                    for (int i = 0; i < listItem.length; i++) {
+                        Item it = new Item(listItem[i], true);
+                        it.amount = 9999;
+                        addItem(it);
+                        msgAddItemBag(it);
+                    }
+                    for (int i = 934; i <= 938; i++) {
+                        Item itemthuoc1z = new Item(i, true);
+                        addItem(itemthuoc1z);
+                        msgAddItemBag(itemthuoc1z);
+                    }
+                    Point.hoatLuc += 5000000;
+                    user.session.sendMessage(HanderMessage.UpdateHoatLuc(Point.hoatLuc));
+                }else {
+                    service.serverMessage("Hành trang không đủ 13 ô trống");
+                }
+                break;
+
             case 361:
                 if (getCountNullItemBag() >= 3) {
                     removeItem(item);

@@ -21,6 +21,24 @@ public class SelectCard extends AbsSelectCard {
 
     @Override
     protected void init() {
+//test cho thêm đá
+        add(Card.builder().id(354).rate(10).quantity(50).build()); // đá myo
+        add(Card.builder().id(354).rate(10).quantity(50).build()); // đá myo
+        add(Card.builder().id(354).rate(10).quantity(50).build()); // đá myo
+
+        add(Card.builder().id(562).rate(10).quantity(50).build()); // đá baku
+        add(Card.builder().id(562).rate(10).quantity(50).build()); // đá baku
+        add(Card.builder().id(562).rate(10).quantity(50).build()); // đá baku
+
+        add(Card.builder().id(564).rate(10).quantity(50).build()); // đá sharin
+        add(Card.builder().id(564).rate(10).quantity(50).build()); // đá sharin
+        add(Card.builder().id(564).rate(10).quantity(50).build()); // đá sharin
+
+        add(Card.builder().id(566).rate(10).quantity(50).build()); // đá rine
+        add(Card.builder().id(566).rate(10).quantity(50).build()); // đá rine
+        add(Card.builder().id(566).rate(10).quantity(50).build()); // đá rine
+
+
         add(Card.builder().id(6).rate(15).build()); // đá 7
         add(Card.builder().id(6).rate(15).build()); // đá 7
         add(Card.builder().id(7).rate(10).build()); // đá 9

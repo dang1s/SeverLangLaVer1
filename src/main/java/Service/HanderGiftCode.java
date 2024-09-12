@@ -41,19 +41,19 @@ public class HanderGiftCode {
 
                     return;
                 }
-                if(code.equals("rank10")){
-                    if(_myChar.Info.rank != 10){
-                        _myChar.service.alertMessage("Mã quà tặng này cần rank10 để sử dụng");
-                        return;
-                    }
-                }
-
-                if(code.equals("kichhoat")){
-                    if(!_myChar.user.actived){
-                        _myChar.service.alertMessage("Sau khi kích hoạt bạn sẽ sử dụng được Giftcode này!");
-                        return;
-                    }
-                }
+//                if(code.equals("rank10")){
+//                    if(_myChar.Info.rank != 10){
+//                        _myChar.service.alertMessage("Mã quà tặng này cần rank10 để sử dụng");
+//                        return;
+//                    }
+//                }
+//
+//                if(code.equals("kichhoat")){
+//                    if(!_myChar.user.actived){
+//                        _myChar.service.alertMessage("Sau khi kích hoạt bạn sẽ sử dụng được Giftcode này!");
+//                        return;
+//                    }
+//                }
                 
                 index = IntStream.range(0, DataCode.Codes.size())
                         .filter(userInd -> DataCode.Codes.get(userInd).Code.equals(code))
@@ -86,6 +86,7 @@ public class HanderGiftCode {
                         thu.Item = code2.infoItem.cloneItem();
                         if(code2.infoItem.expiry != -1){
                             thu.Item.expiry = System.currentTimeMillis()+code2.infoItem.expiry;
+
                         }
 
                     }
