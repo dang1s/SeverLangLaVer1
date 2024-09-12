@@ -8,6 +8,7 @@ import com.sg188.real.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ZDeadForest extends ZWorld {
@@ -18,7 +19,8 @@ public class ZDeadForest extends ZWorld {
     public List<Mob> mobList = new ArrayList<>();
     public long timestart;
     public boolean isNextMap;
-    private int[] listitem = {7, 7, 7, 8, 8, 8, 8, 174, 175, 179, 216, 217, 218, 248, 278, 310, 312, 434, 754, 434, 434, 434, 174, 175, 179, 216, 217, 218, 248, 278, 310, 312, 434, 754, 434, 434, 434};
+    private int[] listitem = { 566, // đá Rinnegan
+            174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
 
     public ZDeadForest(Map map, int id, int level, World world) {
         super(map, id);
@@ -151,15 +153,33 @@ public class ZDeadForest extends ZWorld {
     public void setMobDie(Char player, Mob mob) {
         super.setMobDie(player, mob);
         if (mob.id == 82) {
-            for (int i = 0; i < 15; i++) {
-                Item it = new Item(listitem[Utlis.nextInt(0, listitem.length - 1)]);
+            for (int i = 0; i < listitem.length; i++) {
+                Item it = new Item(listitem[i], false);
+                it.amount = 2;
                 player.addItem(it);
                 player.msgAddItemBag(it);
             }
             List<Char> members = getChars();
-            for (Char _char : members) {
-                if(_char!=null&&_char.user!=null){
-                    _char.addClanPoint(5);
+            for (Char pl : members) {
+                if (pl != null && pl.user != null) {
+                    pl.pointDungeon += 5;
+                    pl.service.updatepointDungeon();
+                    Calendar calendar = Calendar.getInstance();
+                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                    if (dayOfWeek == Calendar.SUNDAY) {
+                        if (pl.clan != null) {
+                            pl.addClanPoint(100);
+                        }
+                        pl.Info.chuyenCan += 100;
+                        pl.Info.chuyenCanTuan += 100;
+                    } else {
+                        if (pl.clan != null) {
+                            pl.addClanPoint(50);
+                        }
+                        pl.Info.chuyenCan += 50;
+                        pl.Info.chuyenCanTuan += 50;
+                    }
+                    pl.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 50 điểm chuyên cần, 50 điểm cống hiến gia tộc", HanderMessage.YELLOW_MID));
                 }
             }
             isNextMap = true;

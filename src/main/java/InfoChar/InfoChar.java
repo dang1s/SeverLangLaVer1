@@ -67,6 +67,8 @@ public class InfoChar extends Entity{
     public byte levelMaxViThu=4;
     public byte countCamThuat = 1;
     public byte countUseBinhHoatLuc = 0;
+    public byte countDauCoc = 0;
+    public byte KinhNghiemVoHan = 0;
     public byte countTBGT;
     public byte countHu;
 
@@ -113,6 +115,8 @@ public class InfoChar extends Entity{
         obj.put("counttbgt", this.countTBGT);
         obj.put("countHu", this.countHu);
         obj.put("countUseBinhHoatLuc", this.countUseBinhHoatLuc);
+        obj.put("countDauCoc", this.countDauCoc);
+        obj.put("KinhNghiemVoHan", this.KinhNghiemVoHan);
         return obj;
     }
 

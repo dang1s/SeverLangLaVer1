@@ -12,6 +12,8 @@ public class Letter {
     public static Letter gI() {
         return instance;
     }
+
+
     public void reciveAll(Char p){
         List<TemplateThu> recives = new ArrayList<>();
         synchronized (p.letters){
@@ -23,6 +25,9 @@ public class Letter {
             recive(p,thu.id);
         }
     }
+
+
+
     public void recive(Char p,int id){
         TemplateThu letter = p.findLetter(id);
         if(letter==null){
@@ -44,6 +49,9 @@ public class Letter {
         p.NhanQuaThu(letter);
         p.getService().reloadLetter();
     }
+
+
+
 
 
 }

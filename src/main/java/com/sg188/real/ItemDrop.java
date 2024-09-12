@@ -7,8 +7,11 @@ public class ItemDrop {
     public static final RandomCollection<Integer> ITEM_TUI_MAY_MAN = new RandomCollection<>();
     public static final RandomCollection<Integer> ITEM_LANG_CO = new RandomCollection<>();
     public static void Init(){
-        ITEM_MAP.add(5,164);
+        ITEM_MAP.add(1,164);
         ITEM_MAP.add(70,-1);
+        ITEM_MAP.add(3, 12);
+        ITEM_MAP.add(3, 17);
+        ITEM_MAP.add(2, 0);
 
         ITEM_TUI_MAY_MAN.add(10,2);
         ITEM_TUI_MAY_MAN.add(8,3);

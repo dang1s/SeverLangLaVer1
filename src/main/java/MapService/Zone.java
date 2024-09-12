@@ -1213,6 +1213,14 @@ public class Zone {
                         }
                         player.addItem(it);
                     }
+
+                    player.Info.chuyenCan += 50;
+                    player.Info.chuyenCanTuan += 50;
+                    if (player.clan != null) {
+                        player.addClanPoint(50);
+                    }
+                    player.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 50 điểm chuyên cần, 50 cống hiến gia tộc", HanderMessage.YELLOW_MID));
+
                 }
                 monsters.remove(mob);
                 MAX_CHAR_INZONE = 24;
@@ -1371,7 +1379,10 @@ public class Zone {
                         } catch (IOException e) {
                         }
                     }
-                    int itemDrop = ItemDrop.ITEM_MAP.next();
+                 //   int itemDrop = ItemDrop.ITEM_MAP.next();
+
+                    int itemDrop = this.randomItemID(player, mob);
+
                     if (itemDrop == -1) {
                         return;
                     }
@@ -1390,6 +1401,39 @@ public class Zone {
         } catch (Exception e) {
             Log.error("Loi reward mob " + e);
         }
+    }
+
+    public int randomItemID(Char player, Mob mob) {
+        int itemID = ItemDrop.ITEM_MAP.next();
+        if (itemID == 0) {
+            itemID = mob.level / 10;
+            itemID = itemID > 3 ? 3 : itemID;
+        } else if (itemID == 12) {
+            if (mob.level < 10) {
+                itemID = 12;
+            } else if (mob.level < 30) {
+                itemID = 13;
+            } else if (mob.level < 40) {
+                itemID = 14;
+            } else if (mob.level < 50) {
+                itemID = 15;
+            } else {
+                itemID = 16;
+            }
+        } else if (itemID == 17) {
+            if (mob.level < 10) {
+                itemID = 17;
+            } else if (mob.level < 30) {
+                itemID = 18;
+            } else if (mob.level < 40) {
+                itemID = 19;
+            } else if (mob.level < 50) {
+                itemID = 20;
+            } else {
+                itemID = 21;
+            }
+        }
+        return itemID;
     }
 
     public void pickUpItem(Char player, short idEntity) {

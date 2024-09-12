@@ -12,6 +12,7 @@ import com.sg188.PhucLoi.PhucLoi;
 import com.sg188.Shop.Store;
 import com.sg188.data.DataCenter;
 import com.sg188.lib.Log;
+import com.sg188.lib.Utlis;
 import com.sg188.real.Char;
 import com.sg188.real.ItemDrop;
 import com.sg188.real.SelectCard;
@@ -26,9 +27,11 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import MapService.*;
 import Service.*;
 import com.sg188.clan.*;
+import jdk.jshell.execution.Util;
 import market.MarketManager;
 
 public class Main {
@@ -80,7 +83,7 @@ public class Main {
                 List<Char> chars = ServerManager.getChars();
                 for (Char _char : chars) {
                     try {
-                        if(_char != null) {
+                        if (_char != null) {
                             _char.flush();
                             _char.user.session.clean();
                         }
@@ -143,24 +146,24 @@ public class Main {
         threadLuckyDraw.setName("Vòng xoay");
         threadLuckyDraw.start();
         BossManager.gI().initBoss();
-        BossManager.gI().updateBoss(9,0,0);
-        BossManager.gI().updateBoss(14,0,0);
-        BossManager.gI().updateBoss(19,0,0);
+        BossManager.gI().updateBoss(9, 0, 0);
+        BossManager.gI().updateBoss(14, 0, 0);
+        BossManager.gI().updateBoss(19, 0, 0);
 //        BossManager.gI().updateBossSK(6,0,0);
 //        BossManager.gI().updateBossSK(9,0,0);
 //        BossManager.gI().updateBossSK(12,0,0);
 //        BossManager.gI().updateBossSK(18,0,0);
 //        BossManager.gI().updateBossSK(20,0,0);
 //        BossManager.gI().updateBossSK(22,0,0);
-        Manager.gI().updateDeadForest(6,50,0);
-        Manager.gI().updateDeadForest(9,50,0);
-        Manager.gI().updateDeadForest(12,50,0);
-        Manager.gI().updateDeadForest(15,50,0);
-        Manager.gI().updateDeadForest(18,50,0);
-        Manager.gI().updateDaiHoi(20,20,0);
-        Manager.gI().updatePhucLoi(0,0,0);
+        Manager.gI().updateDeadForest(6, 50, 0);
+        Manager.gI().updateDeadForest(9, 50, 0);
+        Manager.gI().updateDeadForest(12, 50, 0);
+        Manager.gI().updateDeadForest(15, 50, 0);
+        Manager.gI().updateDeadForest(18, 50, 0);
+        Manager.gI().updateDaiHoi(20, 20, 0);
+        Manager.gI().updatePhucLoi(0, 0, 0);
         WorldManager.getInstance().start();
-       // MongoDbConnection.connect();
+        // MongoDbConnection.connect();
         Clan.getClanDAO().load();
 //        AutoMaintenance.maintenance(23, 59, 30);
         openServerSocket();
@@ -239,14 +242,26 @@ public class Main {
             ex.printStackTrace();
         }
     }
+
     public static void HeThongCTG(String str, int type) {
-        List<Char>list = ServerManager.getChars();
+        List<Char> list = ServerManager.getChars();
         for (Char pl : list) {
-            if (pl != null&&pl.user !=null&&!pl.isClean) {
+            if (pl != null && pl.user != null && !pl.isClean) {
                 pl.user.session.sendMessage(HanderMessage.SendCTG_HeThong(str, type));
             }
         }
     }
+
+    public static void sendRandomMessage() {
+        String[] messages = {
+                "Làng Lá - Đại Chiến Konoha chính thức khai mở Alpha Test miễn phí! ",
+                "Muốn đổi vàng, đổi bạc hãy tới NPC Ginkaku nhé! ",
+                "Tham gia Box Zalo, tương tác với Fanpage Làng Lá - Đại Chiến Konoha để nhận thêm quà! ",
+                "Làng Lá - Đại Chiến Konoha chúc các bạn chơi game vui vẻ! "
+        };
+        Main.HeThongCTG(messages[new java.util.Random().nextInt(messages.length)], 2);
+    }
+
 
     public static void maintance() {
         Main.BaoTri = true;
@@ -254,15 +269,15 @@ public class Main {
         MarketManager.gI().stop();
         try {
             LuckyDrawManager.getInstance().stop();
-            HeThongCTG("Hệ thống chuẩn bị bảo trì sau 30s nữa, Các nhẫn giả hay lưu ý out để tránh mất dữ liệu",2);
+            HeThongCTG("Hệ thống chuẩn bị bảo trì sau 30s nữa, Các nhẫn giả hay lưu ý out để tránh mất dữ liệu", 2);
             Thread.sleep(30000);
             List<Char> chars = ServerManager.getChars();
             for (Char _char : chars) {
                 try {
                     if (_char != null && _char.user != null) {
-                        _char.idDiaCung=-1;
-                        _char.idCamThuat=-1;
-                        _char.idKhuLuyenTap=-1;
+                        _char.idDiaCung = -1;
+                        _char.idCamThuat = -1;
+                        _char.idKhuLuyenTap = -1;
                         _char.flush();
                         _char.user.session.clean();
                     }
@@ -278,13 +293,13 @@ public class Main {
                 }
             }
             Log.debug("Hoan tat luu data clan");
-            for (CreateGiftCode.Code code: DataCode.Codes){
+            for (CreateGiftCode.Code code : DataCode.Codes) {
                 DbMore.saveGiftcode(code);
             }
             Manager.gI().saveFilePurchases();
             Manager.gI().saveToFile();
-        }catch (Exception e){
-            Log.error("Loi bao tri",e);
+        } catch (Exception e) {
+            Log.error("Loi bao tri", e);
         }
     }
 }

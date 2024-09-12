@@ -11,23 +11,27 @@ import com.sg188.server.lib.Writer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ZoneSonCap extends ZWorld {
     public int level;
-    private int[] listitem = {353,428,428,428,428,428,428,354,354,354,354,353,354,354,354,354,353,354,354,354,354,354,354,353,354,354,354,354,354,354,353,354,354,354,354,354,354,353,354,354,354,354,354,354,353,354,354,354,354,354,354,353,354,354,354,354,354,354,353,354,354,354,354,354,354,353,354,354,354,354,354,354,353,354,354,354,354,354,354,353,354,354,354,354,354,354,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754,754};
+    private int[] listitem = {354, // đá myo, ngọc myo
+            174, 175, 179, 216, 217, 218, 248, 278, 302, 315, //lệnh bài Hokage
+            310, 312, 313, 599};  //mảnh bk, mảnh huyết kế, mảnh tns, mảnh kns};
     private boolean createBoss;
     private int mobid;
 
     public ZoneSonCap(Map map, int id) {
         super(map, id);
     }
+
     @Override
-    public void createMob(){
+    public void createMob() {
         monsters.clear();
         List<XYEntity> entityList = new ArrayList<>();
         int x = 60;
-        if(map.mapID == 94) {
+        if (map.mapID == 94) {
             mobid = 263;
             for (int i = 0; i < 8; i++) {
                 entityList.add(new XYEntity((short) (140 + x), (short) 518));
@@ -89,7 +93,7 @@ public class ZoneSonCap extends ZWorld {
                 entityList.add(new XYEntity((short) (1000 + x), (short) 312));
                 x += 60;
             }
-        } else if (map.mapID==97) {
+        } else if (map.mapID == 97) {
             mobid = 266;
             for (int i = 0; i < 7; i++) {
                 entityList.add(new XYEntity((short) (120 + x), (short) 220));
@@ -140,7 +144,7 @@ public class ZoneSonCap extends ZWorld {
                 entityList.add(new XYEntity((short) (2600 + x), (short) 465));
                 x += 60;
             }
-        } else if (map.mapID==93) {
+        } else if (map.mapID == 93) {
             mobid = 265;
             for (int i = 0; i < 6; i++) {
                 entityList.add(new XYEntity((short) (100 + x), (short) 779));
@@ -192,13 +196,12 @@ public class ZoneSonCap extends ZWorld {
                 x += 60;
             }
             x = 60;
-            for (int i = 0; i <8; i++) {
+            for (int i = 0; i < 8; i++) {
                 entityList.add(new XYEntity((short) (500 + x), (short) 982));
                 x += 60;
             }
-        } else
-        {
-            mobid=264;
+        } else {
+            mobid = 264;
             for (int i = 0; i < 7; i++) {
                 entityList.add(new XYEntity((short) (0 + x), (short) 447));
                 x += 60;
@@ -242,12 +245,12 @@ public class ZoneSonCap extends ZWorld {
         for (int i = 0; i < entityList.size(); i++) {
             Mob mob = new Mob();
             mob.id = mobid;
-            mob.exp = level * mobid*10;
+            mob.exp = level * mobid * 10;
             mob.level = level;
             mob.cx = entityList.get(i).cx;
             mob.cy = entityList.get(i).cy;
             mob.status = 4;
-            mob.hpGoc = mob.hp = mob.hpFull = level * mobid*1000;
+            mob.hpGoc = mob.hp = mob.hpFull = level * mobid * 1000;
             mob.expGoc = mob.hpGoc / 8;
 
             mob.levelBoss = 0;
@@ -269,7 +272,7 @@ public class ZoneSonCap extends ZWorld {
             if (z != null) {
                 if (z.isOpened) {
                     SonCapMyo sonCapMyo = (SonCapMyo) world;
-                    sonCapMyo.joinZone(player,nextID);
+                    sonCapMyo.joinZone(player, nextID);
                     return;
                 }
             }
@@ -281,43 +284,67 @@ public class ZoneSonCap extends ZWorld {
             return;
         }
     }
+
     @Override
     protected boolean canRespawn(Mob mob) {
         // Điều kiện mới cho việc hồi sinh, ví dụ:
         return false; // Luôn chặn việc hồi sinh
     }
+
     @Override
     public void setMobDie(Char player, Mob mob) {
         super.setMobDie(player, mob);
-        if(getLivingMonstersClan().size() == 0){
-            if(!createBoss)
+        if (getLivingMonstersClan().size() == 0) {
+            if (!createBoss)
                 createBoss();
         }
-        if(mob.levelBoss < 3)
-            player.pointDungeon+=5;
+        if (mob.levelBoss < 3)
+            player.pointDungeon += 5;
         else {
-            player.pointDungeon+=10;
+            player.pointDungeon += 10;
         }
         player.service.updatepointDungeon();
         List<Char> member = getChars();
         for (Char pl : member) {
-            pl.pointDungeon+=5;
-            pl.service.updatepointDungeon();
+            if (pl != null && pl.user != null) {
+                pl.pointDungeon += 5;
+                pl.service.updatepointDungeon();
+                Calendar calendar = Calendar.getInstance();
+                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                if (dayOfWeek == Calendar.SUNDAY) {
+                    if (pl.clan != null) {
+                        pl.addClanPoint(100);
+                    }
+                    pl.Info.chuyenCan += 100;
+                    pl.Info.chuyenCanTuan += 100;
+                } else {
+                    if (pl.clan != null) {
+                        pl.addClanPoint(50);
+                    }
+                    pl.Info.chuyenCan += 50;
+                    pl.Info.chuyenCanTuan += 50;
+                }
+                pl.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 50 điểm chuyên cần, 50 điểm cống hiến gia tộc", HanderMessage.YELLOW_MID));
+            }
         }
         SonCapMyo sonCapMyo = (SonCapMyo) world;
-        switch (mob.id){
+        switch (mob.id) {
             case 267:
-                for (int i = 0; i < 20; i++) {
-                    Item it = new Item(listitem[Utlis.nextInt(0, listitem.length - 1)]);
+
+                for (int i = 0; i < listitem.length; i++) {
+                    Item it = new Item(listitem[i], false);
+                    it.amount = 1;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
+
                 sonCapMyo.zones.get(1).isOpened = true;
                 sonCapMyo.getService().serverMessage("Cửa tiếp theo đã mở");
                 break;
             case 268:
-                for (int i = 0; i < 20; i++) {
-                    Item it = new Item(listitem[Utlis.nextInt(0, listitem.length - 1)]);
+                for (int i = 0; i < listitem.length; i++) {
+                    Item it = new Item(listitem[i], false);
+                    it.amount = 1;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -325,8 +352,9 @@ public class ZoneSonCap extends ZWorld {
                 sonCapMyo.getService().serverMessage("Cửa tiếp theo đã mở");
                 break;
             case 269:
-                for (int i = 0; i < 25; i++) {
-                    Item it = new Item(listitem[Utlis.nextInt(0, listitem.length - 1)]);
+                for (int i = 0; i < listitem.length; i++) {
+                    Item it = new Item(listitem[i], false);
+                    it.amount = 1;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -334,8 +362,9 @@ public class ZoneSonCap extends ZWorld {
                 sonCapMyo.getService().serverMessage("Cửa tiếp theo đã mở");
                 break;
             case 270:
-                for (int i = 0; i < 30; i++) {
-                    Item it = new Item(listitem[Utlis.nextInt(0, listitem.length - 1)]);
+                for (int i = 0; i < listitem.length; i++) {
+                    Item it = new Item(listitem[i], false);
+                    it.amount = 1;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -343,8 +372,9 @@ public class ZoneSonCap extends ZWorld {
                 sonCapMyo.getService().serverMessage("Cửa tiếp theo đã mở");
                 break;
             case 271:
-                for (int i = 0; i < 30; i++) {
-                    Item it = new Item(listitem[Utlis.nextInt(0, listitem.length - 1)]);
+                for (int i = 0; i < listitem.length; i++) {
+                    Item it = new Item(listitem[i], false);
+                    it.amount = 1;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -355,9 +385,9 @@ public class ZoneSonCap extends ZWorld {
 
     private void createBoss() {
         if (!createBoss) {
-            createBoss=true;
+            createBoss = true;
             Mob boss = new Mob();
-            switch (map.mapID){
+            switch (map.mapID) {
                 case 94:
                     boss.id = 267;
                     boss.cx = 2012;

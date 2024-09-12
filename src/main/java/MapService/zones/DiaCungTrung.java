@@ -16,21 +16,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class DiaCungTrung extends ZWorld{
+public class DiaCungTrung extends ZWorld {
     private int LEVEL_PHUBAN;
     private int level;
     private Mob BigBoss;
     private boolean isInit;
-    private int[] listItem = {7,7,7,7,7,8,8,8,932,932,428,428};
-    private int[] itemdrop = {7,7,7,7,7,8,8,8,932,932,428,428};
+    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // ks giết
+    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // cho nhặt tự do
     private boolean isClose;
     private boolean iscreateBoss;
     private World world;
 
-    public DiaCungTrung(Map map, int id, int LEVEL_PHUBAN,World world) {
+    public DiaCungTrung(Map map, int id, int LEVEL_PHUBAN, World world) {
         super(map, id);
         this.LEVEL_PHUBAN = LEVEL_PHUBAN;
-        if(this.LEVEL_PHUBAN < 1){
+        if (this.LEVEL_PHUBAN < 1) {
             this.LEVEL_PHUBAN = 1;
         }
         createMonster();
@@ -42,20 +42,21 @@ public class DiaCungTrung extends ZWorld{
     @Override
     public boolean addChar(@NotNull Char p) {
         super.addChar(p);
-        if(!isInit)
+        if (!isInit)
             super.sendModToNewChar(p);
         return true;
     }
+
     public void refresh() {
-        if(isInit){
+        if (isInit) {
             isInit = false;
-            for (Mob mob: monsters){
+            for (Mob mob : monsters) {
                 reSpawnMobToAllChar(mob);
             }
         }
-        if(this.getLivingMonsters().size()< 1&&!iscreateBoss){
-            try{
-                iscreateBoss=true;
+        if (this.getLivingMonsters().size() < 1 && !iscreateBoss) {
+            try {
+                iscreateBoss = true;
                 monsters.add(BigBoss);
                 Message m = new Message((byte) 1);
                 BigBoss.write(m.writer);
@@ -72,37 +73,40 @@ public class DiaCungTrung extends ZWorld{
                     }
                 }
                 reSpawnMobToAllChar(BigBoss);
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         }
     }
+
     @Override
     public void update() {
         super.update();
         refresh();
     }
+
     @Override
     protected boolean canRespawn(Mob mob) {
         // Điều kiện mới cho việc hồi sinh, ví dụ:
         return false; // Luôn chặn việc hồi sinh
     }
+
     public void createMonster() {
         monsters.clear();
         int l = 60;
         for (int i = 0; i < 70; i++) {
             Mob mob = new Mob();
             mob.id = 120;
-            mob.exp = LEVEL_PHUBAN*570;
+            mob.exp = LEVEL_PHUBAN * 570;
             mob.level = LEVEL_PHUBAN;
-            if(i > 10&&i<= 22){
+            if (i > 10 && i <= 22) {
                 mob.cx = (short) (669 + l);
-            } else if (i > 22&&i<= 38) {
+            } else if (i > 22 && i <= 38) {
                 mob.cx = (short) (429 + l);
             } else
                 mob.cx = (short) (174 + l);
-            mob.cy = (short) ((i <= 10) ? 175 : (i <= 22&&i> 10) ? 233: (i <= 38&&i> 22) ? 340: (i <= 43&&i> 38) ? 531: 666);
-            if(mob.cy == 542 && mob.cx == 594){
+            mob.cy = (short) ((i <= 10) ? 175 : (i <= 22 && i > 10) ? 233 : (i <= 38 && i > 22) ? 340 : (i <= 43 && i > 38) ? 531 : 666);
+            if (mob.cy == 542 && mob.cx == 594) {
                 Log.debug(i);
             }
             mob.status = 2;
@@ -114,7 +118,7 @@ public class DiaCungTrung extends ZWorld{
             mob.idEntity = i;
             monsters.add(mob);
             mob.reSpawn(this);
-            if (i == 10 || i == 22|| i == 38|| i == 43) l = 60;
+            if (i == 10 || i == 22 || i == 38 || i == 43) l = 60;
             else l += 60;
         }
         List<XYEntity> entityList = new ArrayList<>();
@@ -151,7 +155,7 @@ public class DiaCungTrung extends ZWorld{
         for (int i = 0; i < entityList.size(); i++) {
             Mob mob = new Mob();
             mob.id = 120;
-            mob.exp = LEVEL_PHUBAN*370;
+            mob.exp = LEVEL_PHUBAN * 370;
             mob.level = LEVEL_PHUBAN;
             mob.cx = entityList.get(i).cx;
             mob.cy = entityList.get(i).cy;
@@ -161,7 +165,7 @@ public class DiaCungTrung extends ZWorld{
 
             mob.levelBoss = 0;
             mob.paintMiniMap = true;
-            mob.idEntity = 70+i;
+            mob.idEntity = 70 + i;
             monsters.add(mob);
             mob.reSpawn(this);
         }
@@ -179,17 +183,20 @@ public class DiaCungTrung extends ZWorld{
         mob.reSpawn(this);
         BigBoss = mob;
     }
+
     @Override
     public void setMobDie(Char player, Mob mob) {
-        super.setMobDie(player,mob);
-        if(mob.id == 76){
-            for (int i = 0; i < Utlis.nextInt(4, 10); i++) {
-                Item it = new Item(listItem[Utlis.nextInt(0, listItem.length - 1)]);
+        super.setMobDie(player, mob);
+        if (mob.id == 76) {
+            for (int i = 0; i < listItem.length; i++) {
+                Item it = new Item(listItem[i], false);
+                it.amount = 4;
                 player.addItem(it);
+                player.msgAddItemBag(it);
             }
 
             world.setCountdown(15);
-            SendMessageInZone(HanderMessage.SendThongBao("Địa cung sẽ đóng sau 15s nữa",HanderMessage.WHITE));
+            SendMessageInZone(HanderMessage.SendThongBao("Địa cung sẽ đóng sau 15s nữa", HanderMessage.WHITE));
             sendTimeMap(150);
             List<Char> charList = getChars();
             for (int i = 0; i < itemdrop.length; i++) {
@@ -201,26 +208,36 @@ public class DiaCungTrung extends ZWorld{
                 Writer writer = new Writer();
                 try {
                     writer.writeShort(mob.idEntity);
-                    itemMap.write(writer, mob.cx+Utlis.nextInt(0,200), mob.cy, this);
+                    itemMap.write(writer, mob.cx + Utlis.nextInt(0, 200), mob.cy, this);
                     for (Char pl : charList) {
-                        if(pl!=null&&pl.user!=null&&!pl.isClean)
+                        if (pl != null && pl.user != null && !pl.isClean)
                             pl.service.sendItemDropFormMob(writer);
                     }
                 } catch (IOException e) {
                 }
             }
-            for (Char pl: charList){
-                if(pl!=null && pl.user!=null &&pl.clan!=null){
+            for (Char pl : charList) {
+                if (pl != null && pl.user != null) {
                     Calendar calendar = Calendar.getInstance();
                     int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
                     if (dayOfWeek == Calendar.SUNDAY) {
-                        pl.clan.addExp(4);
-                    }else
-                        pl.clan.addExp(2);
+                        if (pl.clan != null) {
+                            pl.addClanPoint(14);
+                        }
+                        pl.Info.chuyenCan += 14;
+                        pl.Info.chuyenCanTuan += 14;
+                    } else {
+                        if (pl.clan != null) {
+                            pl.addClanPoint(7);
+                        }
+                        pl.Info.chuyenCan += 7;
+                        pl.Info.chuyenCanTuan += 7;
+                    }
+                    pl.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 7 điểm chuyên cần, 7 điểm cống hiến gia tộc", HanderMessage.YELLOW_MID));
 
                 }
-                if(pl != null && pl.user != null &&pl.taskId== TaskName.NV_BAT_DAU_THU_THACH){
-                    if(pl.taskMain!=null&&pl.taskMain.index==0){
+                if (pl != null && pl.user != null && pl.taskId == TaskName.NV_BAT_DAU_THU_THACH) {
+                    if (pl.taskMain != null && pl.taskMain.index == 0) {
                         pl.taskNext();
                     }
                 }

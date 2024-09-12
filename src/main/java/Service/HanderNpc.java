@@ -547,6 +547,13 @@ public class HanderNpc {
                 }
                 myChar.service.alertMessage(str + str2);
                 break;
+            case 2:
+                for (int i = 0; i < myChar.Bag.arrItemBag.length; i++) {
+                    myChar.Bag.arrItemBag[i] = null;
+                }
+                myChar.service.alertMessage("Xóa hành trang thành công!");
+
+                break;
 
         }
     }
@@ -723,10 +730,10 @@ public class HanderNpc {
                                 myChar.addWorld(ter);
                                 ter.joinZone(myChar, 46);
                             } else {
-                                myChar.service.alertMessage("Gia tộc đã mở cửa ải .");
+                                myChar.service.alertMessage("Gia tộc đã mở cửa ải");
                             }
                         } else {
-                            myChar.service.serverMessage("Ngươi đã có gia tộc đéo đâu.");
+                            myChar.service.serverMessage("Bạn chưa có gia tộc");
                         }
                         break;
                     case 3:

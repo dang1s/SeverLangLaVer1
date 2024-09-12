@@ -20,8 +20,8 @@ public class DiaCungCao extends ZWorld {
     private int level;
     private Mob BigBoss;
     private boolean isInit;
-    private int[] listItem = {7,7,7,7,7,8,8,8,932,932,932,932,428,428};
-    private int[] itemdrop = {7,7,7,7,7,8,8,8,932,932,932,932,428,428};
+    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // ks giết
+    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // cho nhặt tự do
     private boolean isClose;
     private boolean iscreateBoss;
     private World world;
@@ -169,9 +169,11 @@ public class DiaCungCao extends ZWorld {
     public void setMobDie(Char player, Mob mob) {
         super.setMobDie(player, mob);
         if (mob.id == 77) {
-            for (int i = 0; i < Utlis.nextInt(4, 10); i++) {
-                Item it = new Item(listItem[Utlis.nextInt(0, listItem.length - 1)]);
+            for (int i = 0; i < listItem.length; i++) {
+                Item it = new Item(listItem[i], false);
+                it.amount = 5;
                 player.addItem(it);
+                player.msgAddItemBag(it);
             }
             List<Char> charList = getChars();
             for (int i = 0; i < itemdrop.length; i++) {
@@ -195,22 +197,34 @@ public class DiaCungCao extends ZWorld {
             SendMessageInZone(HanderMessage.SendThongBao("Địa cung sẽ đóng sau 15s nữa", HanderMessage.WHITE));
             sendTimeMap(150);
             for (Char pl : charList) {
-                if (pl != null && pl.user != null && pl.clan != null) {
+                if (pl != null && pl.user != null) {
                     Calendar calendar = Calendar.getInstance();
                     int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
                     if (dayOfWeek == Calendar.SUNDAY) {
-                        pl.clan.addExp(4);
-                    } else
-                        pl.clan.addExp(2);
+                        if (pl.clan != null) {
+                            pl.addClanPoint(20);
+                        }
+                        pl.Info.chuyenCan += 20;
+                        pl.Info.chuyenCanTuan += 20;
+                    } else {
+                        if (pl.clan != null) {
+                            pl.addClanPoint(10);
+                        }
+                        pl.Info.chuyenCan += 10;
+                        pl.Info.chuyenCanTuan += 10;
+                    }
+                    pl.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 10 điểm chuyên cần, 10 điểm cống hiến gia tộc", HanderMessage.YELLOW_MID));
                 }
-                if(pl != null && pl.user != null &&pl.taskId== TaskName.NV_BAT_DAU_THU_THACH){
-                    if(pl.taskMain!=null&&pl.taskMain.index==0){
+
+
+                if (pl != null && pl.user != null && pl.taskId == TaskName.NV_BAT_DAU_THU_THACH) {
+                    if (pl.taskMain != null && pl.taskMain.index == 0) {
                         pl.taskNext();
                     }
                 }
             }
-            if(player.taskId== TaskName.NV_DOI_DAU_VOI_AKATSUKI){
-                if(player.taskMain!=null&&player.taskMain.index==0){
+            if (player.taskId == TaskName.NV_DOI_DAU_VOI_AKATSUKI) {
+                if (player.taskMain != null && player.taskMain.index == 0) {
                     player.updateTaskCount(1);
                 }
             }

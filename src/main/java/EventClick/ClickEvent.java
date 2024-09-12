@@ -11,7 +11,9 @@ import com.sg188.PhucLoi.TemplatePL;
 import com.sg188.PhucLoi.Welfare;
 import com.sg188.Shop.ItemShop;
 import com.sg188.Shop.Store;
+import com.sg188.data.ItemOption;
 import com.sg188.lib.Log;
+import com.sg188.lib.Utlis;
 import com.sg188.real.Char;
 import com.sg188.real.Item;
 import com.sg188.server.lib.Message;
@@ -87,10 +89,23 @@ public class ClickEvent {
         try {
             Message m = new Message((byte) 122);
             m.writeByte(89);
-            Item it = new Item(20);
-            for (int i = 0; i < 4; i++) {
-                it.write(m.writer);
-            }
+
+            Item item = new Item(558, true, 999);
+            item.write(m.writer);
+
+            item = new Item(529, true);
+            item.addItemOption(new ItemOption(0, 150));
+            item.addItemOption(new ItemOption(1, 150));
+            item.addItemOption(new ItemOption(3, 150));
+            item.addItemOption(new ItemOption(209, 60));
+            item.write(m.writer);
+
+            item = new Item(705, true);
+            item.amount = 2;
+            item.write(m.writer);
+
+            item = new Item(938, true);
+            item.write(m.writer);
             _myChar.user.session.sendMessage(m);
         } catch (Exception e) {
             e.printStackTrace();

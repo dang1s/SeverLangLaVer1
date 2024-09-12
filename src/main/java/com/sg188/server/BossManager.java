@@ -9,7 +9,9 @@ import com.sg188.real.Char;
 import com.sg188.real.Item;
 import com.sg188.real.ItemMap;
 import com.sg188.real.Mob;
+import okhttp3.internal.Util;
 
+import javax.swing.text.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +22,11 @@ public class BossManager {
         return instance;
     }
 
-    private int[] itemBoss1x = {7, 7, 7, 7,8,8,932,428};
-    private int[] itemBoss2x = {7, 8, 7,7,7,8,932,932,428,428};
-    private int[] itemBoss3x = {7, 8, 7,7,7,8,932,932,428,428};
-    private int[] itemBoss4x = {7, 8, 7,7,7,8,932,932,932,428,428};
-    private int[] itemBoss5x = {7, 8, 7,7,7,8,932,932,932,932,428,428};
+    private int[] itemBoss1x = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
+    private int[] itemBoss2x = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
+    private int[] itemBoss3x = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
+    private int[] itemBoss4x = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
+    private int[] itemBoss5x = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
     private int[] itemBossSK={918,918,918,9,9,9,9,8,8,8,10,10,295,296,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,174,175,179,216,217,218,248,278,302,315,174,175,179,216,217,218,248,278,302,315,174,175,179,216,217,218,248,278,302,315,174,175,179,216,217,218,248,278,302,315,174,175,179,216,217,218,248,278,302,315};
     private byte[] idMap = {57, 65, 87, 79, 73};
     private List<Mob> listBoss = new ArrayList<>();
@@ -40,12 +42,13 @@ public class BossManager {
         Mob boss3x = createBoss(201, 400000000, 22500000, 35, (short) 969, (short) 155);
         addItemMap(itemBoss3x, boss3x);
         listBoss.add(boss3x);
-        Mob boss4x = createBoss(202, 1500000000, 30000000, 45, (short) 1036, (short) 186);
+        Mob boss4x = createBoss(202, 1000000000, 30000000, 45, (short) 1036, (short) 186);
         addItemMap(itemBoss4x, boss4x);
         listBoss.add(boss4x);
-        Mob boss5x = createBoss(203, 2000000000, 37500000, 55, (short) 751, (short) 190);
+        Mob boss5x = createBoss(203, 1500000000, 37500000, 55, (short) 751, (short) 190);
         addItemMap(itemBoss5x, boss5x);
         listBoss.add(boss5x);
+
         Mob bossST = createBoss(293, 2000000000, 37500000, 55, (short) 799, (short) 284);
         addItemMap(itemBossSK, bossST);
         bossSK.add(bossST);
@@ -79,6 +82,45 @@ public class BossManager {
         try {
             for (int i = 0; i < idItem.length; i++) {
                 Item item = new Item(idItem[i]);
+
+                // Kiểm tra nếu là itemBoss1x, thì set quantity = 2-4
+                for (int idBossItem : itemBoss1x) {
+                    if (idItem[i] == idBossItem) {
+                        item.amount = 1;
+                        break;
+                    }
+                }
+
+
+                // Kiểm tra nếu là itemBoss2x, thì set quantity = 2-4
+                for (int idBossItem : itemBoss2x) {
+                    if (idItem[i] == idBossItem) {
+                        item.amount = 2;
+                        break;
+                    }
+                }
+                // Kiểm tra nếu là itemBoss3x, thì set quantity = 2-4
+                for (int idBossItem : itemBoss3x) {
+                    if (idItem[i] == idBossItem) {
+                        item.amount = 3;
+                        break;
+                    }
+                }
+                // Kiểm tra nếu là itemBoss4x, thì set quantity = 2-4
+                for (int idBossItem : itemBoss4x) {
+                    if (idItem[i] == idBossItem) {
+                        item.amount = 4;
+                        break;
+                    }
+                }
+                // Kiểm tra nếu là itemBoss5x, thì set quantity = 2-4
+                for (int idBossItem : itemBoss5x) {
+                    if (idItem[i] == idBossItem) {
+                        item.amount = 6;
+                        break;
+                    }
+                }
+
                 if (item.isItemTrangBi()) {
                     if (item.isVuKhi()) {
                         Item.setOptionsVuKhi(item, item.getItemTemplate().levelNeed);

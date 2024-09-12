@@ -182,6 +182,14 @@ public class User {
                             _char.Info.countUseBinhHoatLuc = Byte.parseByte((obj.get("countUseBinhHoatLuc").toString()));
                         } else
                             _char.Info.countUseBinhHoatLuc = 0;
+                        if (obj.containsKey("countDauCoc")) {
+                            _char.Info.countDauCoc = Byte.parseByte((obj.get("countDauCoc").toString()));
+                        } else
+                            _char.Info.countDauCoc = 0;
+                        if (obj.containsKey("KinhNghiemVoHan")) {
+                            _char.Info.KinhNghiemVoHan = Byte.parseByte((obj.get("KinhNghiemVoHan").toString()));
+                        } else
+                            _char.Info.KinhNghiemVoHan = 0;
 
                         if (obj.containsKey("idKlT")) {
                             _char.idKhuLuyenTap = Integer.parseInt(obj.get("idKlT").toString());

@@ -97,7 +97,7 @@ public class HanderShop {
             }
 
             if (!hasSufficientTaiPhu(_myChar, it)) {
-                _myChar.getService().sendMessage(HanderMessage.SendThongBao("Không đủ điểm Hỏa Chí", HanderMessage.RED_MID));
+                _myChar.getService().sendMessage(HanderMessage.SendThongBao("Không đủ điểm Tài phú", HanderMessage.RED_MID));
                 return;
             }
 
