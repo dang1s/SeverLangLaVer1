@@ -51,6 +51,10 @@ public class HanderNpc {
             if (textNpc == null) {
                 textNpc = "";
             }
+
+
+
+
             if(idNpcReal==98&&idNpc==0){
                 textNpc = "Đặt cược;Rời khỏi nơi này";
             }

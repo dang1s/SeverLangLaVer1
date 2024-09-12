@@ -309,22 +309,22 @@ public class ZoneSonCap extends ZWorld {
             if (pl != null && pl.user != null) {
                 pl.pointDungeon += 5;
                 pl.service.updatepointDungeon();
-                Calendar calendar = Calendar.getInstance();
-                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                if (dayOfWeek == Calendar.SUNDAY) {
-                    if (pl.clan != null) {
-                        pl.addClanPoint(100);
-                    }
-                    pl.Info.chuyenCan += 100;
-                    pl.Info.chuyenCanTuan += 100;
-                } else {
-                    if (pl.clan != null) {
-                        pl.addClanPoint(50);
-                    }
-                    pl.Info.chuyenCan += 50;
-                    pl.Info.chuyenCanTuan += 50;
-                }
-                pl.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 50 điểm chuyên cần, 50 điểm cống hiến gia tộc", HanderMessage.YELLOW_MID));
+//                Calendar calendar = Calendar.getInstance();
+//                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+//                if (dayOfWeek == Calendar.SUNDAY) {
+//                    if (pl.clan != null) {
+//                        pl.addClanPoint(100);
+//                    }
+//                    pl.Info.chuyenCan += 100;
+//                    pl.Info.chuyenCanTuan += 100;
+//                } else {
+//                    if (pl.clan != null) {
+//                        pl.addClanPoint(50);
+//                    }
+//                    pl.Info.chuyenCan += 50;
+//                    pl.Info.chuyenCanTuan += 50;
+//                }
+//                pl.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 50 điểm chuyên cần, 50 điểm cống hiến gia tộc", HanderMessage.YELLOW_MID));
             }
         }
         SonCapMyo sonCapMyo = (SonCapMyo) world;

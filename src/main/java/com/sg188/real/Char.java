@@ -8253,97 +8253,103 @@ public class Char extends Body {
                     if (taskMain.index == 0 || taskMain.index == 2) {
                         updateTakingStep(taskMain.index);
                     } else if (taskMain.index == 1) {
-                        if (createMob) {
-                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
-                            return;
-                        }
-                        createMob = true;
-                        getService().sendMessage(new Message((byte) 5));
-                        getService().sendTaskStep(1);
-                        Mob mob = Mob.mobTask((short) 222, "", Info.cy, Info.cx);
-                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20000;
-                        zone.monsters.add(mob);
-                        service.sendMessage(HanderMessage.AddMob(mob));
+                        updateTaskCount(1);
+//                        if (createMob) {
+//                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
+//                            return;
+//                        }
+//                        createMob = true;
+//                        getService().sendMessage(new Message((byte) 5));
+//                        getService().sendTaskStep(1);
+//                        Mob mob = Mob.mobTask((short) 222, "", Info.cy, Info.cx);
+//                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20;
+//                        zone.monsters.add(mob);
+//                        service.sendMessage(HanderMessage.AddMob(mob));
                     }
                 }
                 if (taskId == TaskName.NV_TRAN_CHIEN_SONG_CON) {
                     if (taskMain.index == 0 || taskMain.index == 2) {
                         updateTakingStep(taskMain.index);
                     } else if (taskMain.index == 1) {
-                        if (createMob) {
-                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
-                            return;
-                        }
-                        createMob = true;
-                        getService().sendMessage(new Message((byte) 5));
-                        getService().sendTaskStep(1);
-                        Mob mob = Mob.mobTask((short) 224, "", Info.cy, Info.cx);
-                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20000;
-                        zone.monsters.add(mob);
-                        service.sendMessage(HanderMessage.AddMob(mob));
+                        updateTaskCount(1);
+//                        if (createMob) {
+//                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
+//                            return;
+//                        }
+//                        createMob = true;
+//                        getService().sendMessage(new Message((byte) 5));
+//                        getService().sendTaskStep(1);
+//                        Mob mob = Mob.mobTask((short) 224, "", Info.cy, Info.cx);
+//                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20;
+//                        zone.monsters.add(mob);
+//                        service.sendMessage(HanderMessage.AddMob(mob));
                     }
                 }
                 if (taskId == TaskName.NV_NOI_BUON_CUA_IDATE) {
                     if (taskMain.index == 0 || taskMain.index == 2) {
                         updateTakingStep(taskMain.index);
                     } else if (taskMain.index == 1) {
-                        if (createMob) {
-                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
-                            return;
-                        }
-                        createMob = true;
-                        getService().sendMessage(new Message((byte) 5));
-                        getService().sendTaskStep(1);
-                        Mob mob = Mob.mobTask((short) 226, "", Info.cy, Info.cx);
-                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20000;
-                        zone.monsters.add(mob);
-                        service.sendMessage(HanderMessage.AddMob(mob));
+                        updateTaskCount(1);
+//                        if (createMob) {
+//                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
+//                            return;
+//                        }
+//                        createMob = true;
+//                        getService().sendMessage(new Message((byte) 5));
+//                        getService().sendTaskStep(1);
+//                        Mob mob = Mob.mobTask((short) 226, "", Info.cy, Info.cx);
+//                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20;
+//                        zone.monsters.add(mob);
+//                        service.sendMessage(HanderMessage.AddMob(mob));
                     }
                 }
                 if (taskId == TaskName.NV_KE_THU_LANG_CAT) {
                     if (taskMain.index == 0 || taskMain.index == 2) {
                         updateTakingStep(taskMain.index);
                     } else if (taskMain.index == 1) {
-                        if (createMob) {
-                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
-                            return;
-                        }
-                        createMob = true;
-                        getService().sendMessage(new Message((byte) 5));
-                        getService().sendTaskStep(1);
-                        Mob mob = Mob.mobTask((short) 234, "", Info.cy, Info.cx);
-                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20000;
-                        zone.monsters.add(mob);
-                        service.sendMessage(HanderMessage.AddMob(mob));
+                        updateTaskCount(1);
+//                        if (createMob) {
+//                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
+//                            return;
+//                        }
+//                        createMob = true;
+//                        getService().sendMessage(new Message((byte) 5));
+//                        getService().sendTaskStep(1);
+//                        Mob mob = Mob.mobTask((short) 234, "", Info.cy, Info.cx);
+//                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20;
+//                        zone.monsters.add(mob);
+//                        service.sendMessage(HanderMessage.AddMob(mob));
                     }
                 }
                 if (taskId == TaskName.NV_GIAO_LUU_VO_CONG_VOI_GAARA) {
                     if (taskMain.index == 1) {
                         updateTakingStep(taskMain.index);
                     } else if (taskMain.index == 0) {
-                        if (createMob) {
-                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
-                            return;
-                        }
-                        createMob = true;
-                        getService().sendMessage(new Message((byte) 5));
-                        getService().sendTaskStep(1);
-                        Mob mob = Mob.mobTask((short) 227, "", Info.cy, Info.cx);
-                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20000;
-                        zone.monsters.add(mob);
-                        service.sendMessage(HanderMessage.AddMob(mob));
+                        updateTaskCount(1);
+//                        if (createMob) {
+//                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
+//                            return;
+//                        }
+//                        createMob = true;
+//                        getService().sendMessage(new Message((byte) 5));
+//                        getService().sendTaskStep(1);
+//                        Mob mob = Mob.mobTask((short) 227, "", Info.cy, Info.cx);
+//                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20;
+//                        zone.monsters.add(mob);
+//                        service.sendMessage(HanderMessage.AddMob(mob));
                     } else if (taskMain.index == 2) {
-                        if (createMob) {
-                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
-                            return;
-                        }
-                        createMob = true;
-                        getService().sendMessage(new Message((byte) 5));
-                        getService().sendTaskStep(1);
-                        Mob mob = Mob.mobTask((short) 236, "", Info.cy, Info.cx);
-                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20000;
-                        zone.monsters.add(mob);
-                        service.sendMessage(HanderMessage.AddMob(mob));
+                        updateTaskCount(1);
+//                        if (createMob) {
+//                            service.serverMessage("Bạn đã triệu hội quái vật rồi không thể gọi tiếp , nếu sảy ra lỗi có thể out game vào lại");
+//                            return;
+//                        }
+//                        createMob = true;
+//                        getService().sendMessage(new Message((byte) 5));
+//                        getService().sendTaskStep(1);
+//                        Mob mob = Mob.mobTask((short) 236, "", Info.cy, Info.cx);
+//                        mob.hp = mob.hpGoc = mob.hpFull = level() * 20;
+//                        zone.monsters.add(mob);
+//                        service.sendMessage(HanderMessage.AddMob(mob));
                     }
                 }
                 if (taskId == TaskName.NV_HOAN_TRA_BAO_VAT) {
@@ -8419,40 +8425,41 @@ public class Char extends Body {
                     } else if (taskMain.index == 1) {
                         getService().sendMessage(new Message((byte) 5));
                         getService().sendTaskStep(1);
-                        String[] segments = taskMain.vStep.get(taskMain.index).STR_ITEM.split("\\{");
-                        if (isDatTre) {
-                            getService().serverMessage("Bạn đang dắt trẻ rồi , không thẻ dắt thêm nếu lỗi hãy thoát game vào lại");
-                            return;
-                        }
-                        isDatTre = true;
-                        Mob mob = Mob.mobTask((short) 221, Info.name, Info.cy, Info.cx);
-                        zone.monsters.add(mob);
-                        getService().sendMessage(HanderMessage.AddMob(mob));
-                        int i = 0;
-                        long timestart = System.currentTimeMillis();
-                        while (!Main.BaoTri) {
-                            if (timestart + 3000 * i < System.currentTimeMillis()) {
-                                String segment = segments[i].trim().replace("}", "");
-                                if (!segment.isEmpty()) {
-                                    String[] xy = segment.split(",");
-                                    short x = Short.parseShort(xy[0]);
-                                    short y = Short.parseShort(xy[1]);
-                                    getService().sendMessage(HanderMessage.MoveMob(mob.idEntity, x, y));
-                                    getService().mobChat(mob.idEntity, "Về nhà thôi!!!!");
-                                }
-                                i += 1;
-                                if (i == segments.length) {
-                                    updateTaskCount(1);
-                                    getService().sendMessage(HanderMessage.RemoveMob(mob.idEntity));
-                                    isDatTre = false;
-                                    if (zone != null)
-                                        zone.removeMob(mob.idEntity);
-                                    return;
-                                }
-
-                            }
-
-                        }
+                        updateTaskCount(1);
+//                        String[] segments = taskMain.vStep.get(taskMain.index).STR_ITEM.split("\\{");
+//                        if (isDatTre) {
+//                            getService().serverMessage("Bạn đang dắt trẻ rồi , không thẻ dắt thêm nếu lỗi hãy thoát game vào lại");
+//                            return;
+//                        }
+//                        isDatTre = true;
+//                        Mob mob = Mob.mobTask((short) 221, Info.name, Info.cy, Info.cx);
+//                        zone.monsters.add(mob);
+//                        getService().sendMessage(HanderMessage.AddMob(mob));
+//                        int i = 0;
+//                        long timestart = System.currentTimeMillis();
+//                        while (!Main.BaoTri) {
+//                            if (timestart + 3000 * i < System.currentTimeMillis()) {
+//                                String segment = segments[i].trim().replace("}", "");
+//                                if (!segment.isEmpty()) {
+//                                    String[] xy = segment.split(",");
+//                                    short x = Short.parseShort(xy[0]);
+//                                    short y = Short.parseShort(xy[1]);
+//                                    getService().sendMessage(HanderMessage.MoveMob(mob.idEntity, x, y));
+//                                    getService().mobChat(mob.idEntity, "Về nhà thôi!!!!");
+//                                }
+//                                i += 1;
+//                                if (i == segments.length) {
+//                                    updateTaskCount(1);
+//                                    getService().sendMessage(HanderMessage.RemoveMob(mob.idEntity));
+//                                    isDatTre = false;
+//                                    if (zone != null)
+//                                        zone.removeMob(mob.idEntity);
+//                                    return;
+//                                }
+//
+//                            }
+//
+//                        }
 
                     }
                 }
@@ -8462,40 +8469,41 @@ public class Char extends Body {
                     } else if (taskMain.index == 2) {
                         getService().sendMessage(new Message((byte) 5));
                         getService().sendTaskStep(1);
-                        String[] segments = taskMain.vStep.get(taskMain.index).STR_ITEM.split("\\{");
-                        if (isDatTre) {
-                            getService().serverMessage("Bạn đang dắt trẻ rồi , không thẻ dắt thêm nếu lỗi hãy thoát game vào lại");
-                            return;
-                        }
-                        isDatTre = true;
-                        Mob mob = Mob.mobTask((short) 223, Info.name, Info.cy, Info.cx);
-                        zone.monsters.add(mob);
-                        getService().sendMessage(HanderMessage.AddMob(mob));
-                        int i = 0;
-                        long timestart = System.currentTimeMillis();
-                        while (!Main.BaoTri) {
-                            if (timestart + 3000 * i < System.currentTimeMillis()) {
-                                String segment = segments[i].trim().replace("}", "");
-                                if (!segment.isEmpty()) {
-                                    String[] xy = segment.split(",");
-                                    short x = Short.parseShort(xy[0]);
-                                    short y = Short.parseShort(xy[1]);
-                                    getService().sendMessage(HanderMessage.MoveMob(mob.idEntity, x, y));
-                                    getService().mobChat(mob.idEntity, "Về nhà thôi!!!!");
-                                }
-                                i += 1;
-                                if (i == segments.length) {
-                                    updateTaskCount(1);
-                                    getService().sendMessage(HanderMessage.RemoveMob(mob.idEntity));
-                                    isDatTre = false;
-                                    if (zone != null)
-                                        zone.removeMob(mob.idEntity);
-                                    return;
-                                }
-
-                            }
-
-                        }
+                        updateTaskCount(1);
+//                        String[] segments = taskMain.vStep.get(taskMain.index).STR_ITEM.split("\\{");
+//                        if (isDatTre) {
+//                            getService().serverMessage("Bạn đang dắt trẻ rồi , không thẻ dắt thêm nếu lỗi hãy thoát game vào lại");
+//                            return;
+//                        }
+//                        isDatTre = true;
+//                        Mob mob = Mob.mobTask((short) 223, Info.name, Info.cy, Info.cx);
+//                        zone.monsters.add(mob);
+//                        getService().sendMessage(HanderMessage.AddMob(mob));
+//                        int i = 0;
+//                        long timestart = System.currentTimeMillis();
+//                        while (!Main.BaoTri) {
+//                            if (timestart + 3000 * i < System.currentTimeMillis()) {
+//                                String segment = segments[i].trim().replace("}", "");
+//                                if (!segment.isEmpty()) {
+//                                    String[] xy = segment.split(",");
+//                                    short x = Short.parseShort(xy[0]);
+//                                    short y = Short.parseShort(xy[1]);
+//                                    getService().sendMessage(HanderMessage.MoveMob(mob.idEntity, x, y));
+//                                    getService().mobChat(mob.idEntity, "Về nhà thôi!!!!");
+//                                }
+//                                i += 1;
+//                                if (i == segments.length) {
+//                                    updateTaskCount(1);
+//                                    getService().sendMessage(HanderMessage.RemoveMob(mob.idEntity));
+//                                    isDatTre = false;
+//                                    if (zone != null)
+//                                        zone.removeMob(mob.idEntity);
+//                                    return;
+//                                }
+//
+//                            }
+//
+//                        }
 
                     }
                 }
@@ -8505,43 +8513,44 @@ public class Char extends Body {
                     } else if (taskMain.index == 1) {
                         getService().sendMessage(new Message((byte) 5));
                         getService().sendTaskStep(1);
-                        String[] segments = taskMain.vStep.get(taskMain.index).STR_ITEM.split("\\{");
-                        if (isDatTre) {
-                            getService().serverMessage("Bạn đang dắt trẻ rồi , không thẻ dắt thêm nếu lỗi hãy thoát game vào lại");
-                            return;
-                        }
-                        isDatTre = true;
-                        Mob mob = Mob.mobTask((short) 225, Info.name, Info.cy, Info.cx);
-                        zone.monsters.add(mob);
-                        getService().sendMessage(HanderMessage.AddMob(mob));
-                        int i = 0;
-                        long timestart = System.currentTimeMillis();
-                        while (!Main.BaoTri) {
-                            if (timestart + 3000 * i < System.currentTimeMillis()) {
-                                String segment = segments[i].trim().replace("}", "");
-                                if (!segment.isEmpty()) {
-                                    String[] xy = segment.split(",");
-                                    short x = Short.parseShort(xy[0]);
-                                    short y = Short.parseShort(xy[1]);
-                                    getService().sendMessage(HanderMessage.MoveMob(mob.idEntity, x, y));
-                                    getService().mobChat(mob.idEntity, "Về nhà thôi!!!!");
-                                    setXY(x, y);
-                                    getService().setXYChar();
-                                }
-
-                                i += 1;
-                                if (i == segments.length) {
-                                    updateTaskCount(1);
-                                    getService().sendMessage(HanderMessage.RemoveMob(mob.idEntity));
-                                    if (zone != null)
-                                        zone.removeMob(mob.idEntity);
-                                    isDatTre = false;
-                                    return;
-                                }
-
-                            }
-
-                        }
+                        updateTaskCount(1);
+//                        String[] segments = taskMain.vStep.get(taskMain.index).STR_ITEM.split("\\{");
+//                        if (isDatTre) {
+//                            getService().serverMessage("Bạn đang dắt trẻ rồi , không thẻ dắt thêm nếu lỗi hãy thoát game vào lại");
+//                            return;
+//                        }
+//                        isDatTre = true;
+//                        Mob mob = Mob.mobTask((short) 225, Info.name, Info.cy, Info.cx);
+//                        zone.monsters.add(mob);
+//                        getService().sendMessage(HanderMessage.AddMob(mob));
+//                        int i = 0;
+//                        long timestart = System.currentTimeMillis();
+//                        while (!Main.BaoTri) {
+//                            if (timestart + 3000 * i < System.currentTimeMillis()) {
+//                                String segment = segments[i].trim().replace("}", "");
+//                                if (!segment.isEmpty()) {
+//                                    String[] xy = segment.split(",");
+//                                    short x = Short.parseShort(xy[0]);
+//                                    short y = Short.parseShort(xy[1]);
+//                                    getService().sendMessage(HanderMessage.MoveMob(mob.idEntity, x, y));
+//                                    getService().mobChat(mob.idEntity, "Về nhà thôi!!!!");
+//                                    setXY(x, y);
+//                                    getService().setXYChar();
+//                                }
+//
+//                                i += 1;
+//                                if (i == segments.length) {
+//                                    updateTaskCount(1);
+//                                    getService().sendMessage(HanderMessage.RemoveMob(mob.idEntity));
+//                                    if (zone != null)
+//                                        zone.removeMob(mob.idEntity);
+//                                    isDatTre = false;
+//                                    return;
+//                                }
+//
+//                            }
+//
+//                        }
 
                     }
                 }
@@ -8551,43 +8560,44 @@ public class Char extends Body {
                     } else if (taskMain.index == 1) {
                         getService().sendMessage(new Message((byte) 5));
                         getService().sendTaskStep(1);
-                        String[] segments = taskMain.vStep.get(taskMain.index).STR_ITEM.split("\\{");
-                        if (isDatTre) {
-                            getService().serverMessage("Bạn đang dắt trẻ rồi , không thẻ dắt thêm nếu lỗi hãy thoát game vào lại");
-                            return;
-                        }
-                        isDatTre = true;
-                        Mob mob = Mob.mobTask((short) 228, Info.name, Info.cy, Info.cx);
-                        zone.monsters.add(mob);
-                        getService().sendMessage(HanderMessage.AddMob(mob));
-                        int i = 0;
-                        long timestart = System.currentTimeMillis();
-                        while (!Main.BaoTri) {
-                            if (timestart + 3000 * i < System.currentTimeMillis()) {
-                                String segment = segments[i].trim().replace("}", "");
-                                if (!segment.isEmpty()) {
-                                    String[] xy = segment.split(",");
-                                    short x = Short.parseShort(xy[0]);
-                                    short y = Short.parseShort(xy[1]);
-                                    getService().sendMessage(HanderMessage.MoveMob(mob.idEntity, x, y));
-                                    getService().mobChat(mob.idEntity, "Về nhà thôi!!!!");
-                                    setXY(x, y);
-                                    getService().setXYChar();
-                                }
-
-                                i += 1;
-                                if (i == segments.length) {
-                                    updateTaskCount(1);
-                                    getService().sendMessage(HanderMessage.RemoveMob(mob.idEntity));
-                                    if (zone != null)
-                                        zone.removeMob(mob.idEntity);
-                                    isDatTre = false;
-                                    return;
-                                }
-
-                            }
-
-                        }
+                        updateTaskCount(1);
+//                        String[] segments = taskMain.vStep.get(taskMain.index).STR_ITEM.split("\\{");
+//                        if (isDatTre) {
+//                            getService().serverMessage("Bạn đang dắt trẻ rồi , không thẻ dắt thêm nếu lỗi hãy thoát game vào lại");
+//                            return;
+//                        }
+//                        isDatTre = true;
+//                        Mob mob = Mob.mobTask((short) 228, Info.name, Info.cy, Info.cx);
+//                        zone.monsters.add(mob);
+//                        getService().sendMessage(HanderMessage.AddMob(mob));
+//                        int i = 0;
+//                        long timestart = System.currentTimeMillis();
+//                        while (!Main.BaoTri) {
+//                            if (timestart + 3000 * i < System.currentTimeMillis()) {
+//                                String segment = segments[i].trim().replace("}", "");
+//                                if (!segment.isEmpty()) {
+//                                    String[] xy = segment.split(",");
+//                                    short x = Short.parseShort(xy[0]);
+//                                    short y = Short.parseShort(xy[1]);
+//                                    getService().sendMessage(HanderMessage.MoveMob(mob.idEntity, x, y));
+//                                    getService().mobChat(mob.idEntity, "Về nhà thôi!!!!");
+//                                    setXY(x, y);
+//                                    getService().setXYChar();
+//                                }
+//
+//                                i += 1;
+//                                if (i == segments.length) {
+//                                    updateTaskCount(1);
+//                                    getService().sendMessage(HanderMessage.RemoveMob(mob.idEntity));
+//                                    if (zone != null)
+//                                        zone.removeMob(mob.idEntity);
+//                                    isDatTre = false;
+//                                    return;
+//                                }
+//
+//                            }
+//
+//                        }
 
                     }
                 }
