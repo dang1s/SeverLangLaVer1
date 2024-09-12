@@ -206,6 +206,12 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(790).rate(0.2).build());
 
         add(Card.builder().id(434).rate(1).quantity(100).build());
+        add(Card.builder().id(434).rate(1).quantity(100).build());
+        add(Card.builder().id(434).rate(1).quantity(100).build());
+        add(Card.builder().id(763).rate(1).quantity(100).build());
+        add(Card.builder().id(763).rate(1).quantity(100).build());
+        add(Card.builder().id(763).rate(1).quantity(100).build());
+
         add(Card.builder().id(687).rate(1).quantity(50).build());
         add(Card.builder().id(687).rate(2).quantity(20).build());
         add(Card.builder().id(688).rate(1.5).build());

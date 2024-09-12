@@ -54415,3 +54415,479 @@ com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Truncated inc
 [2024-09-12 23:31:43 INFO  (Thread SaveData)] - Lưu data tự động
 [2024-09-12 23:32:43 INFO  (Thread SaveData)] - Lưu data tự động
 [2024-09-12 23:33:02 DEBUG (reader: /127.0.0.1:62701)] - clean user 1
+[2024-09-13 04:55:15 INFO  (main)] - Config - db.password: 
+[2024-09-13 04:55:15 INFO  (main)] - Config - mongodb.password: 
+[2024-09-13 04:55:15 INFO  (main)] - Config - mongodb.user: root
+[2024-09-13 04:55:15 INFO  (main)] - Config - mongodb.host: localhost
+[2024-09-13 04:55:15 INFO  (main)] - Config - db.dbData: langla_data
+[2024-09-13 04:55:15 INFO  (main)] - Config - mongodb.port: 27017
+[2024-09-13 04:55:15 INFO  (main)] - Config - db.user: root
+[2024-09-13 04:55:15 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-09-13 04:55:15 INFO  (main)] - Config - db.port: 3306
+[2024-09-13 04:55:15 INFO  (main)] - Config - db.host: localhost
+[2024-09-13 04:55:15 INFO  (main)] - Config - server.debug: true
+[2024-09-13 04:55:15 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-09-13 04:55:15 DEBUG (main)] - size data 93173
+[2024-09-13 04:55:15 DEBUG (main)] - size data 93173
+[2024-09-13 04:55:15 INFO  (main)] - Load itemtempalte: 939
+[2024-09-13 04:55:15 INFO  (main)] - Load danh hieu new: 5
+[2024-09-13 04:55:15 DEBUG (main)] - ItemShop: 1230
+[2024-09-13 04:55:15 DEBUG (main)] - ITEM PHUC LOI: 89
+[2024-09-13 04:55:15 DEBUG (main)] - code load size 5
+[2024-09-13 04:55:15 INFO  (main)] - Load rewardtop done : 0
+[2024-09-13 04:55:15 INFO  (main)] - Market size: 0
+[2024-09-13 04:55:15 INFO  (main)] - Loading clan data
+[2024-09-13 04:55:15 INFO  (main)] - Load clan data successfully
+[2024-09-13 04:55:15 INFO  (main)] - Thread Server: 231
+[2024-09-13 04:55:15 INFO  (main)] - Start server Success!
+[2024-09-13 05:05:15 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-09-13 05:07:45 DEBUG (reader: /127.0.0.1:55902)] - Đây là MSG -127
+[2024-09-13 05:07:45 DEBUG (reader: /127.0.0.1:55902)] - Đây là MSG -113
+[2024-09-13 05:07:46 DEBUG (reader: /127.0.0.1:55902)] - Đây là MSG -123
+[2024-09-13 05:07:46 DEBUG (reader: /127.0.0.1:55902)] - Msg 123 -127
+[2024-09-13 05:08:00 DEBUG (reader: /127.0.0.1:55902)] - Đây là MSG -122
+[2024-09-13 05:08:00 DEBUG (reader: /127.0.0.1:55902)] - MSG 122 -127
+[2024-09-13 05:08:00 DEBUG (reader: /127.0.0.1:55902)] - Đây là MSG -87
+[2024-09-13 05:08:04 DEBUG (reader: /127.0.0.1:55902)] - Đây là MSG -123
+[2024-09-13 05:08:04 DEBUG (reader: /127.0.0.1:55902)] - Msg 123 -126
+[2024-09-13 05:08:04 DEBUG (reader: /127.0.0.1:55902)] - clean user 1
+[2024-09-13 05:08:12 DEBUG (reader: /127.0.0.1:55952)] - Đây là MSG -127
+[2024-09-13 05:08:12 DEBUG (reader: /127.0.0.1:55952)] - Đây là MSG -113
+[2024-09-13 05:08:12 DEBUG (reader: /127.0.0.1:55952)] - Đây là MSG -123
+[2024-09-13 05:08:12 DEBUG (reader: /127.0.0.1:55952)] - Msg 123 -127
+[2024-09-13 05:08:13 DEBUG (reader: /127.0.0.1:55952)] - Đây là MSG -122
+[2024-09-13 05:08:13 DEBUG (reader: /127.0.0.1:55952)] - MSG 122 -127
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - Đây là MSG 122
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - id event 88
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - Đây là MSG -123
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - Msg 123 -70
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - msgAddItemBag
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - Đây là MSG -123
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - Msg 123 -70
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - Đây là MSG -123
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - Msg 123 -70
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - Đây là MSG -123
+[2024-09-13 05:08:25 DEBUG (reader: /127.0.0.1:55952)] - Msg 123 -70
+[2024-09-13 05:08:32 DEBUG (reader: /127.0.0.1:55952)] - clean user 1
+[2024-09-13 05:08:47 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -127
+[2024-09-13 05:08:47 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -113
+[2024-09-13 05:08:47 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:08:47 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -127
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -122
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - MSG 122 -127
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -87
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG 122
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - id event 88
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:08:49 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:08:57 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -95
+[2024-09-13 05:08:57 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -56
+[2024-09-13 05:08:58 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG 63
+[2024-09-13 05:08:59 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG 122
+[2024-09-13 05:08:59 DEBUG (reader: /127.0.0.1:55980)] - id event 88
+[2024-09-13 05:09:01 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:09:01 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:09:01 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:09:01 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:09:01 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:09:01 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:09:09 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG 122
+[2024-09-13 05:09:09 DEBUG (reader: /127.0.0.1:55980)] - id event 88
+[2024-09-13 05:09:13 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:09:13 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:09:13 DEBUG (reader: /127.0.0.1:55980)] - msgAddItemBag
+[2024-09-13 05:09:13 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:09:13 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:09:13 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:09:13 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -70
+[2024-09-13 05:09:19 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG 122
+[2024-09-13 05:09:19 DEBUG (reader: /127.0.0.1:55980)] - id event 88
+[2024-09-13 05:09:22 DEBUG (reader: /127.0.0.1:55980)] - Đây là MSG -123
+[2024-09-13 05:09:22 DEBUG (reader: /127.0.0.1:55980)] - Msg 123 -126
+[2024-09-13 05:09:22 DEBUG (reader: /127.0.0.1:55980)] - clean user 1
+[2024-09-13 05:09:24 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -127
+[2024-09-13 05:09:24 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -113
+[2024-09-13 05:09:24 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -123
+[2024-09-13 05:09:24 DEBUG (reader: /127.0.0.1:55999)] - Msg 123 -127
+[2024-09-13 05:09:26 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -122
+[2024-09-13 05:09:26 DEBUG (reader: /127.0.0.1:55999)] - MSG 122 -127
+[2024-09-13 05:09:26 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -123
+[2024-09-13 05:09:26 DEBUG (reader: /127.0.0.1:55999)] - Msg 123 -70
+[2024-09-13 05:09:26 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -123
+[2024-09-13 05:09:26 DEBUG (reader: /127.0.0.1:55999)] - Msg 123 -70
+[2024-09-13 05:09:29 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -56
+[2024-09-13 05:09:29 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG 122
+[2024-09-13 05:09:29 DEBUG (reader: /127.0.0.1:55999)] - id event 88
+[2024-09-13 05:09:31 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -95
+[2024-09-13 05:09:31 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -56
+[2024-09-13 05:09:32 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG 63
+[2024-09-13 05:09:35 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG 122
+[2024-09-13 05:09:35 DEBUG (reader: /127.0.0.1:55999)] - id event 50
+[2024-09-13 05:09:35 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -56
+[2024-09-13 05:09:38 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -123
+[2024-09-13 05:09:38 DEBUG (reader: /127.0.0.1:55999)] - Msg 123 -70
+[2024-09-13 05:09:38 DEBUG (reader: /127.0.0.1:55999)] - msgAddItemBag
+[2024-09-13 05:09:38 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -123
+[2024-09-13 05:09:38 DEBUG (reader: /127.0.0.1:55999)] - Msg 123 -70
+[2024-09-13 05:09:39 DEBUG (reader: /127.0.0.1:55999)] - Đây là MSG -123
+[2024-09-13 05:09:39 DEBUG (reader: /127.0.0.1:55999)] - Msg 123 -126
+[2024-09-13 05:09:39 DEBUG (reader: /127.0.0.1:55999)] - clean user 1
+[2024-09-13 05:11:29 DEBUG (reader: /127.0.0.1:56398)] - Đây là MSG -123
+[2024-09-13 05:11:29 DEBUG (reader: /127.0.0.1:56398)] - Msg 123 -127
+[2024-09-13 05:11:29 DEBUG (reader: /127.0.0.1:56401)] - Đây là MSG -123
+[2024-09-13 05:11:29 DEBUG (reader: /127.0.0.1:56401)] - Msg 123 -127
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -127
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -113
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -123
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Msg 123 -127
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -122
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - MSG 122 -127
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG 122
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - id event 88
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -123
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Msg 123 -70
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - msgAddItemBag
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -123
+[2024-09-13 05:11:30 DEBUG (reader: /127.0.0.1:56403)] - Msg 123 -70
+[2024-09-13 05:11:33 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -95
+[2024-09-13 05:11:33 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -56
+[2024-09-13 05:11:37 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -95
+[2024-09-13 05:11:37 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -56
+[2024-09-13 05:11:38 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG 63
+[2024-09-13 05:11:43 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG 113
+[2024-09-13 05:11:47 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -95
+[2024-09-13 05:11:47 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG -56
+[2024-09-13 05:11:48 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG 63
+[2024-09-13 05:11:56 DEBUG (reader: /127.0.0.1:56403)] - Đây là MSG 116
+[2024-09-13 05:11:56 DEBUG (reader: /127.0.0.1:56403)] - 53
+[2024-09-13 05:12:45 INFO  (main)] - Config - db.password: 
+[2024-09-13 05:12:45 INFO  (main)] - Config - mongodb.password: 
+[2024-09-13 05:12:45 INFO  (main)] - Config - mongodb.user: root
+[2024-09-13 05:12:45 INFO  (main)] - Config - mongodb.host: localhost
+[2024-09-13 05:12:45 INFO  (main)] - Config - db.dbData: langla_data
+[2024-09-13 05:12:45 INFO  (main)] - Config - mongodb.port: 27017
+[2024-09-13 05:12:45 INFO  (main)] - Config - db.user: root
+[2024-09-13 05:12:45 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-09-13 05:12:45 INFO  (main)] - Config - db.port: 3306
+[2024-09-13 05:12:45 INFO  (main)] - Config - db.host: localhost
+[2024-09-13 05:12:45 INFO  (main)] - Config - server.debug: true
+[2024-09-13 05:12:45 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-09-13 05:12:46 DEBUG (main)] - size data 93173
+[2024-09-13 05:12:46 DEBUG (main)] - size data 93173
+[2024-09-13 05:12:46 INFO  (main)] - Load itemtempalte: 939
+[2024-09-13 05:12:46 INFO  (main)] - Load danh hieu new: 5
+[2024-09-13 05:12:46 DEBUG (main)] - ItemShop: 1230
+[2024-09-13 05:12:46 DEBUG (main)] - ITEM PHUC LOI: 89
+[2024-09-13 05:12:46 DEBUG (main)] - code load size 5
+[2024-09-13 05:12:46 INFO  (main)] - Load rewardtop done : 0
+[2024-09-13 05:12:46 INFO  (main)] - Market size: 0
+[2024-09-13 05:12:46 INFO  (main)] - Loading clan data
+[2024-09-13 05:12:46 INFO  (main)] - Load clan data successfully
+[2024-09-13 05:12:46 INFO  (main)] - Thread Server: 231
+[2024-09-13 05:12:46 INFO  (main)] - Start server Success!
+[2024-09-13 05:12:49 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -127
+[2024-09-13 05:12:49 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -113
+[2024-09-13 05:12:49 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -123
+[2024-09-13 05:12:49 DEBUG (reader: /127.0.0.1:56457)] - Msg 123 -127
+[2024-09-13 05:12:49 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -123
+[2024-09-13 05:12:49 DEBUG (reader: /127.0.0.1:56457)] - Msg 123 -127
+[2024-09-13 05:12:51 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -122
+[2024-09-13 05:12:51 DEBUG (reader: /127.0.0.1:56457)] - MSG 122 -127
+[2024-09-13 05:12:59 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -95
+[2024-09-13 05:12:59 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -56
+[2024-09-13 05:13:09 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG 63
+[2024-09-13 05:13:29 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -95
+[2024-09-13 05:13:29 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -56
+[2024-09-13 05:13:33 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG 63
+[2024-09-13 05:13:50 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -87
+[2024-09-13 05:14:27 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -95
+[2024-09-13 05:14:42 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG -56
+[2024-09-13 05:15:49 DEBUG (reader: /127.0.0.1:56457)] - Đây là MSG 63
+[2024-09-13 05:18:53 INFO  (main)] - Config - db.password: 
+[2024-09-13 05:18:53 INFO  (main)] - Config - mongodb.password: 
+[2024-09-13 05:18:53 INFO  (main)] - Config - mongodb.user: root
+[2024-09-13 05:18:53 INFO  (main)] - Config - mongodb.host: localhost
+[2024-09-13 05:18:53 INFO  (main)] - Config - db.dbData: langla_data
+[2024-09-13 05:18:53 INFO  (main)] - Config - mongodb.port: 27017
+[2024-09-13 05:18:53 INFO  (main)] - Config - db.user: root
+[2024-09-13 05:18:53 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-09-13 05:18:53 INFO  (main)] - Config - db.port: 3306
+[2024-09-13 05:18:53 INFO  (main)] - Config - db.host: localhost
+[2024-09-13 05:18:53 INFO  (main)] - Config - server.debug: true
+[2024-09-13 05:18:53 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-09-13 05:18:54 DEBUG (main)] - size data 93173
+[2024-09-13 05:18:54 DEBUG (main)] - size data 93173
+[2024-09-13 05:18:54 INFO  (main)] - Load itemtempalte: 939
+[2024-09-13 05:18:54 INFO  (main)] - Load danh hieu new: 5
+[2024-09-13 05:18:54 DEBUG (main)] - ItemShop: 1230
+[2024-09-13 05:18:54 DEBUG (main)] - ITEM PHUC LOI: 89
+[2024-09-13 05:18:54 DEBUG (main)] - code load size 5
+[2024-09-13 05:18:54 INFO  (main)] - Load rewardtop done : 0
+[2024-09-13 05:18:54 INFO  (main)] - Market size: 0
+[2024-09-13 05:18:54 INFO  (main)] - Loading clan data
+[2024-09-13 05:18:54 INFO  (main)] - Load clan data successfully
+[2024-09-13 05:18:54 INFO  (main)] - Thread Server: 231
+[2024-09-13 05:18:54 INFO  (main)] - Start server Success!
+[2024-09-13 05:19:00 DEBUG (reader: /127.0.0.1:56615)] - Đây là MSG -123
+[2024-09-13 05:19:00 DEBUG (reader: /127.0.0.1:56615)] - Msg 123 -127
+[2024-09-13 05:19:00 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG -127
+[2024-09-13 05:19:00 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG -113
+[2024-09-13 05:19:00 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG -123
+[2024-09-13 05:19:00 DEBUG (reader: /127.0.0.1:56618)] - Msg 123 -127
+[2024-09-13 05:19:00 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG -122
+[2024-09-13 05:19:00 DEBUG (reader: /127.0.0.1:56618)] - MSG 122 -127
+[2024-09-13 05:19:02 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG -87
+[2024-09-13 05:19:04 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG -95
+[2024-09-13 05:19:04 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG -56
+[2024-09-13 05:19:05 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG 63
+[2024-09-13 05:20:20 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG 21
+[2024-09-13 05:20:20 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:20 DEBUG (reader: /127.0.0.1:56618)] - addITEM sucsees
+[2024-09-13 05:20:21 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG -56
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - Đây là MSG 116
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - 551
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 0,30,0,1
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 1,0
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 1,30,0,1
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 2,2
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 2,30,0,1
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 1,0
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 4,30,0,1
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 1,0
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 6,30,0,1
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 1,0
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 8,30,0,1
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - null: 1,0
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgAddItemBag
+[2024-09-13 05:20:23 DEBUG (reader: /127.0.0.1:56618)] - msgUseItemBag
+[2024-09-13 05:21:26 INFO  (main)] - Config - db.password: 
+[2024-09-13 05:21:26 INFO  (main)] - Config - mongodb.password: 
+[2024-09-13 05:21:26 INFO  (main)] - Config - mongodb.user: root
+[2024-09-13 05:21:26 INFO  (main)] - Config - mongodb.host: localhost
+[2024-09-13 05:21:26 INFO  (main)] - Config - db.dbData: langla_data
+[2024-09-13 05:21:26 INFO  (main)] - Config - mongodb.port: 27017
+[2024-09-13 05:21:26 INFO  (main)] - Config - db.user: root
+[2024-09-13 05:21:26 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-09-13 05:21:26 INFO  (main)] - Config - db.port: 3306
+[2024-09-13 05:21:26 INFO  (main)] - Config - db.host: localhost
+[2024-09-13 05:21:26 INFO  (main)] - Config - server.debug: true
+[2024-09-13 05:21:26 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-09-13 05:21:26 DEBUG (main)] - size data 93173
+[2024-09-13 05:21:27 DEBUG (main)] - size data 93173
+[2024-09-13 05:21:27 INFO  (main)] - Load itemtempalte: 939
+[2024-09-13 05:21:27 INFO  (main)] - Load danh hieu new: 5
+[2024-09-13 05:21:27 DEBUG (main)] - ItemShop: 1230
+[2024-09-13 05:21:27 DEBUG (main)] - ITEM PHUC LOI: 89
+[2024-09-13 05:21:27 DEBUG (main)] - code load size 5
+[2024-09-13 05:21:27 INFO  (main)] - Load rewardtop done : 0
+[2024-09-13 05:21:27 INFO  (main)] - Market size: 0
+[2024-09-13 05:21:27 INFO  (main)] - Loading clan data
+[2024-09-13 05:21:27 INFO  (main)] - Load clan data successfully
+[2024-09-13 05:21:27 INFO  (main)] - Thread Server: 231
+[2024-09-13 05:21:27 INFO  (main)] - Start server Success!
+[2024-09-13 05:21:29 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG -127
+[2024-09-13 05:21:29 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG -113
+[2024-09-13 05:21:29 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG -123
+[2024-09-13 05:21:29 DEBUG (reader: /127.0.0.1:56692)] - Msg 123 -127
+[2024-09-13 05:21:29 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG -123
+[2024-09-13 05:21:29 DEBUG (reader: /127.0.0.1:56692)] - Msg 123 -127
+[2024-09-13 05:21:30 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG -122
+[2024-09-13 05:21:30 DEBUG (reader: /127.0.0.1:56692)] - MSG 122 -127
+[2024-09-13 05:21:34 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG 21
+[2024-09-13 05:21:37 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG 21
+[2024-09-13 05:21:37 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:37 DEBUG (reader: /127.0.0.1:56692)] - addITEM sucsees
+[2024-09-13 05:21:37 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG -56
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG 116
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - 551
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 0,30,0,1
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 1,0
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 1,30,0,1
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 2,2
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 2,30,0,1
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 1,0
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 4,30,0,1
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 1,0
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 6,30,0,1
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 1,0
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 8,30,0,1
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - null: 1,0
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgAddItemBag
+[2024-09-13 05:21:39 DEBUG (reader: /127.0.0.1:56692)] - msgUseItemBag
+[2024-09-13 05:22:29 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG -56
+[2024-09-13 05:22:31 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG 122
+[2024-09-13 05:22:31 DEBUG (reader: /127.0.0.1:56692)] - id event 6
+[2024-09-13 05:22:33 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG 121
+[2024-09-13 05:22:34 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG 116
+[2024-09-13 05:22:34 DEBUG (reader: /127.0.0.1:56692)] - 168
+[2024-09-13 05:22:34 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG 53
+[2024-09-13 05:22:39 DEBUG (reader: /127.0.0.1:56692)] - Đây là MSG -123
+[2024-09-13 05:22:39 DEBUG (reader: /127.0.0.1:56692)] - Msg 123 -126
+[2024-09-13 05:22:39 DEBUG (reader: /127.0.0.1:56692)] - clean user 1
+[2024-09-13 05:22:40 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -127
+[2024-09-13 05:22:40 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -113
+[2024-09-13 05:22:40 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -123
+[2024-09-13 05:22:40 DEBUG (reader: /127.0.0.1:56723)] - Msg 123 -127
+[2024-09-13 05:22:41 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -122
+[2024-09-13 05:22:41 DEBUG (reader: /127.0.0.1:56723)] - MSG 122 -127
+[2024-09-13 05:22:42 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 54
+[2024-09-13 05:22:43 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 53
+[2024-09-13 05:22:46 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -56
+[2024-09-13 05:23:03 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 54
+[2024-09-13 05:23:04 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 53
+[2024-09-13 05:23:04 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -56
+[2024-09-13 05:23:34 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 122
+[2024-09-13 05:23:34 DEBUG (reader: /127.0.0.1:56723)] - id event 9
+[2024-09-13 05:23:39 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 122
+[2024-09-13 05:23:39 DEBUG (reader: /127.0.0.1:56723)] - id event 9
+[2024-09-13 05:23:43 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 122
+[2024-09-13 05:23:43 DEBUG (reader: /127.0.0.1:56723)] - id event 9
+[2024-09-13 05:24:03 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -87
+[2024-09-13 05:25:10 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -95
+[2024-09-13 05:25:10 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -56
+[2024-09-13 05:25:12 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 63
+[2024-09-13 05:29:04 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -87
+[2024-09-13 05:31:27 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-09-13 05:32:25 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 54
+[2024-09-13 05:32:26 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 53
+[2024-09-13 05:32:26 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -56
+[2024-09-13 05:34:05 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -87
+[2024-09-13 05:35:38 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 54
+[2024-09-13 05:35:39 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG 53
+[2024-09-13 05:35:39 DEBUG (reader: /127.0.0.1:56723)] - Đây là MSG -56
+[2024-09-13 05:35:44 INFO  (main)] - Config - db.password: 
+[2024-09-13 05:35:44 INFO  (main)] - Config - mongodb.password: 
+[2024-09-13 05:35:44 INFO  (main)] - Config - mongodb.user: root
+[2024-09-13 05:35:44 INFO  (main)] - Config - mongodb.host: localhost
+[2024-09-13 05:35:44 INFO  (main)] - Config - db.dbData: langla_data
+[2024-09-13 05:35:44 INFO  (main)] - Config - mongodb.port: 27017
+[2024-09-13 05:35:44 INFO  (main)] - Config - db.user: root
+[2024-09-13 05:35:44 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-09-13 05:35:44 INFO  (main)] - Config - db.port: 3306
+[2024-09-13 05:35:44 INFO  (main)] - Config - db.host: localhost
+[2024-09-13 05:35:44 INFO  (main)] - Config - server.debug: true
+[2024-09-13 05:35:44 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-09-13 05:35:44 DEBUG (main)] - size data 93173
+[2024-09-13 05:35:45 DEBUG (main)] - size data 93173
+[2024-09-13 05:35:45 INFO  (main)] - Load itemtempalte: 939
+[2024-09-13 05:35:45 INFO  (main)] - Load danh hieu new: 5
+[2024-09-13 05:35:45 DEBUG (main)] - ItemShop: 1230
+[2024-09-13 05:35:45 DEBUG (main)] - ITEM PHUC LOI: 89
+[2024-09-13 05:35:45 DEBUG (main)] - code load size 5
+[2024-09-13 05:35:45 INFO  (main)] - Load rewardtop done : 0
+[2024-09-13 05:35:45 INFO  (main)] - Market size: 0
+[2024-09-13 05:35:45 INFO  (main)] - Loading clan data
+[2024-09-13 05:35:45 INFO  (main)] - Load clan data successfully
+[2024-09-13 05:35:45 INFO  (main)] - Thread Server: 231
+[2024-09-13 05:35:45 INFO  (main)] - Start server Success!
+[2024-09-13 05:35:56 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -127
+[2024-09-13 05:35:56 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -113
+[2024-09-13 05:35:56 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -123
+[2024-09-13 05:35:56 DEBUG (reader: /127.0.0.1:57170)] - Msg 123 -127
+[2024-09-13 05:35:56 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -122
+[2024-09-13 05:35:56 DEBUG (reader: /127.0.0.1:57170)] - MSG 122 -127
+[2024-09-13 05:36:56 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:36:57 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:36:57 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:39:06 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -87
+[2024-09-13 05:39:16 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:39:16 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 101
+[2024-09-13 05:39:16 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 100
+[2024-09-13 05:39:18 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:39:18 DEBUG (reader: /127.0.0.1:57170)] - id event 6
+[2024-09-13 05:39:19 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:39:19 DEBUG (reader: /127.0.0.1:57170)] - id event 39
+[2024-09-13 05:39:46 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:39:47 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:39:47 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:41:12 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -95
+[2024-09-13 05:41:12 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:41:52 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:41:53 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:41:53 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:42:04 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:42:04 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:42:16 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:42:16 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:43:57 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:43:57 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:44:01 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:44:01 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:44:07 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -87
+[2024-09-13 05:44:15 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:44:15 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:44:31 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:44:32 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:46:41 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:46:41 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-09-13 05:46:52 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:46:53 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:47:06 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:47:17 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:47:17 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:47:22 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:47:22 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:47:24 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:47:24 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:47:28 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:47:28 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:49:08 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -87
+[2024-09-13 05:49:15 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:49:17 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:49:17 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:49:20 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:49:28 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:49:33 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:49:41 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:49:47 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:49:55 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:50:03 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:50:13 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:50:16 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:50:17 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:50:17 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:50:19 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:50:19 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:50:19 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:50:25 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:50:32 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:50:37 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:50:43 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:50:52 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:51:01 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:51:05 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:51:21 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:51:25 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:51:27 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:51:27 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:51:31 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 54
+[2024-09-13 05:51:35 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 53
+[2024-09-13 05:51:40 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -56
+[2024-09-13 05:51:44 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG 122
+[2024-09-13 05:51:57 DEBUG (reader: /127.0.0.1:57170)] - id event 9
+[2024-09-13 05:54:09 DEBUG (reader: /127.0.0.1:57170)] - Đây là MSG -87
+[2024-09-13 05:56:41 INFO  (Thread SaveData)] - Lưu data tự động

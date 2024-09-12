@@ -2560,7 +2560,7 @@ public class Char extends Body {
                 if (Bag.arrItemBody[10] != null && Bag.arrItemBody[10].isSucManh()) {
                     removeItem(item);
                     msgUseItemBag(item);
-                    Bag.arrItemBody[10].updateViThu(500);
+                    Bag.arrItemBody[10].updateViThu(10);
                     msgUpdateItemBody();
                 } else {
                     service.alertMessage("Vui lòng mở sức mạnh vĩ thú");
@@ -3193,7 +3193,7 @@ public class Char extends Body {
             int gioiTinh = Info.gioiTinh;
             int idClass = Info.idClass;
             if (idClass == 0) {
-                service.alertMessage("Vao lop roi hay dung");
+                service.alertMessage("Bạn chưa vào lớp!");
                 return;
             }
             Item[] _269 = new Item[]{
@@ -3235,7 +3235,13 @@ public class Char extends Body {
                         }
                         Item.GetOptionHokage(itemRQ[i]);
                         itemRQ[i].createItemOptions();
-                        itemRQ[i].a(6);
+                        if (itemRQ[i].isVuKhi()) {
+                            itemRQ[i].a(8);
+                        }else {
+                            itemRQ[i].a(6);
+                        }
+
+
                         itemRQ[i].strOptions += ";148,0";
                     }
                     addItem(itemRQ[i]);
@@ -4983,102 +4989,101 @@ public class Char extends Body {
            /*
              0. Chính xác*/
             writer.writeShort(exactly);/*
+
              1. Bỏ qua né tránh*/
-
             writer.writeShort(ignoreMiss);/*
+
              2. Chí mạng*/
-
             writer.writeShort(critical >= 3000 ? 3000 : critical);/*
+
              3. Tấn công khi đánh chí mạng*/
-
             writer.writeShort(criticalAttack);/*
+
              4. Tăng tấn công lên hệ Lôi*/
-
             writer.writeShort(lightningResistance);/*
+
              5. Tăng tấn công lên hệ Thổ*/
-
             writer.writeShort(earthResistance);/*
-             6. Tăng tấn công lên hệ Thủy*/
 
+             6. Tăng tấn công lên hệ Thủy*/
             writer.writeShort(waterAttackBoost);/*
 
              7. Tăng tấn công lên hệ Hỏa*/
-
             writer.writeShort(fireAttackBoost);/*
+
              8. Tăng tấn công lên hệ Phong*/
-
             writer.writeShort(windAttackBoost);/*
+
              9. Gây suy yếu*/
-
             writer.writeShort(weaken);/*
+
              10. Gây trúng độc*/
-
             writer.writeShort(poison);/*
+
              11. Gây làm chậm*/
-
             writer.writeShort(slow);/*
+
              12. Gây bỏng*/
+            writer.writeShort(burn);/*
 
-            writer.writeShort(slow);/*
              13. Gây choáng*/
-
             writer.writeShort(stun);/*
+
              14. Bỏ qua kháng tính*/
-
             writer.writeShort(ignoreResistance);/*
+
              15. Kháng Lôi*/
-
             writer.writeShort(lightningResistance);/*
+
              16. Kháng Thổ*/
-
             writer.writeShort(earthResistance);/*
+
              17. Kháng Thủy*/
-
             writer.writeShort(waterResistance);/*
+
              18. Kháng Hỏa*/
-
             writer.writeShort(fireResistance);/*
+
              19. Kháng Phong*/
-
             writer.writeShort(windResistance);/*
+
              20. Giảm sát thương*/
-
             writer.writeShort(damageReduction);/*
+
              21. Tốc độ di chuyển*/
-
             writer.writeShort(movementSpeed);/*
+
              22. Né tránh*/
-
             writer.writeShort(miss);/*
+
              23. Phản đòn*/
-
             writer.writeShort(counterAttack);/*
+
              24. Phòng chí mạng*/
-
             writer.writeShort(criticalDefense);/*
+
              25. Tương khắc lên hệ */
-
             writer.writeShort(elementalCounter);/*
+
              26. Giảm tương khắc của hệ */
-
             writer.writeShort(elementalCounterReduce);/*
+
              27. Giảm gây suy yếu*/
-
             writer.writeShort(reduceWeaken);/*
+
              28. Giảm gây trúng độc*/
-
             writer.writeShort(reducePoison);/*
+
              29. Giảm gây làm chậm*/
-
             writer.writeShort(reduceSlow);/*
+
              30. Giảm gây bỏng*/
-
             writer.writeShort(reduceBurn);/*
+
              31. Giảm gây choáng*/
-
             writer.writeShort(reduceStun);/*
-             32. Giảm trừ chí mạng*/
 
+             32. Giảm trừ chí mạng*/
             writer.writeShort(reduceCriticalDamage);/*
              */
 
@@ -11146,9 +11151,19 @@ public class Char extends Body {
                     double percentDameReduction = calculateDamageReduction(khang);
                     damage -= damage * percentDameReduction / 100;
                     damage = Math.max(damage - pl.damageReduction, 0);
-                    int miss = pl.miss;
-                    int exactlyAttack = exactly - miss;
-                    boolean isMiss = exactlyAttack < 0 ? Utlis.randomBoolean(100, 90) : Utlis.randomBoolean(100, 1);
+
+                    int NeTranh2 = pl.miss;;
+                    int ChinhXac2 = exactly;
+                    int randMiss = Utlis.NextInt(0, (NeTranh2 + 100));
+                    int randExactly = Utlis.NextInt(0, (ChinhXac2 + 1000));
+
+                    boolean isMiss = randMiss > randExactly; // sửa lại hàm pk chỗ né
+
+
+
+//                    int miss = pl.miss;
+//                    int exactlyAttack = exactly - miss;
+//                    boolean isMiss = exactlyAttack < 0 ? Utlis.randomBoolean(100, 90) : Utlis.randomBoolean(100, 1);
                     if (isMiss) {
                         damage = 0;
                     }
