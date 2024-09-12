@@ -15,7 +15,7 @@ public class  AutoSaveData implements Runnable {
     public void run() {
         while (!Main.BaoTri) {
             try {
-                Thread.sleep(60*1000*1);
+                Thread.sleep(60*1000*10);
                 for(Char pl: ServerManager.getChars()){
                     if(pl != null && pl.user != null){
                         pl.flush();
