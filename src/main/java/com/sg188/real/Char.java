@@ -2044,6 +2044,7 @@ public class Char extends Body {
         } else if (item.getItemTemplate().type == 100) {
             UseItemType100(item);
         } else if (item.getItemTemplate().type == 28) {
+            item.isLock = true;
             long count = Arrays.stream(Bag.arrItemExtend)
                     .filter(Objects::nonNull)
                     .count();
