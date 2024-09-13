@@ -60,7 +60,7 @@ public class ClickTop {
         }
         Collections.sort(cCuaCai, Comparator.comparing(InfoTop::getPointNap).reversed());
         try {
-            int i = 0;
+            byte i = 0;
             Message m = new Message((byte) -22);
             m.writeBoolean(true); // show top ???
             m.writeByte(cCuaCai.size());
@@ -252,7 +252,7 @@ public class ClickTop {
         ClickTop.order(cTop);
         Message m = new Message((byte) -22);
         try {
-            int i = 0;
+            byte i = 0;
             m.writeBoolean(true); // show top ???
             m.writeByte(cTop.size());
             for (InfoTop c : cTop) {
@@ -293,7 +293,7 @@ public class ClickTop {
         }
         Collections.sort(cTaiPhu, Comparator.comparing(InfoTop::getTaiPhu).reversed());
         try {
-            int i = 0;
+            byte i = 0;
             Message m = new Message((byte) -22);
             m.writeBoolean(true); // show top ???
             m.writeByte(cTaiPhu.size());
@@ -318,7 +318,7 @@ public class ClickTop {
         }
         Collections.sort(cChuyenCan, Comparator.comparing(InfoTop::getChuyenCan).reversed());
         try {
-            int i = 0;
+            byte i = 0;
             Message m = new Message((byte) -22);
             m.writeBoolean(true); // show top ???
             m.writeByte(cChuyenCan.size());

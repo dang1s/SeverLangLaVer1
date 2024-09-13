@@ -3237,7 +3237,7 @@ public class Char extends Body {
                         itemRQ[i].createItemOptions();
                         if (itemRQ[i].isVuKhi()) {
                             itemRQ[i].a(8);
-                        }else {
+                        } else {
                             itemRQ[i].a(6);
                         }
 
@@ -3354,8 +3354,7 @@ public class Char extends Body {
             return;
         }
 
-        if (System.currentTimeMillis() < delayChetao + 500L)
-        {
+        if (System.currentTimeMillis() < delayChetao + 500L) {
             return;
 
         }
@@ -3433,8 +3432,12 @@ public class Char extends Body {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                // Xử lý ngoại lệ InterruptedException hợp lý
+                Thread.currentThread().interrupt();  // Khôi phục trạng thái ngắt của luồng
+                user.session.sendMessage(HanderMessage.SendThongBao("Quá trình chế tạo bị gián đoạn", HanderMessage.RED_MID));
+                return;  // Dừng xử lý tiếp nếu bị gián đoạn
             }
+
             addItem(item);
             msgAddItemBag(item);
             if (type == 0) {
@@ -3827,6 +3830,11 @@ public class Char extends Body {
     }
 
     public void msgUseItemBag(Item item) {
+
+        if (item == null) {
+            return;
+        }
+
         Log.debug("msgUseItemBag");
         try {
             Writer writer = new Writer();
@@ -10466,15 +10474,15 @@ public class Char extends Body {
             }
             Item itemEqip = this.checkBag(typeBag)[index_item];
             if (itemEqip == null) {
-                service.alertMessage("Ôi bạn ơi đừng như thế");
+                service.alertMessage("Vật phẩm không tồn tại, vui lòng thử lại sau");
                 return;
             }
             if (!itemEqip.isItemTrangBi()) {
-                service.alertMessage("Khong phai trang bi");
+                service.alertMessage("Vật phẩm không phải trang bị, vui lòng thử lại");
                 return;
             }
             if (!itemEqip.W()) {
-                service.alertMessage("Không đủ điều kiện , cần nâng cấp lần 1 trước");
+                service.alertMessage("Trang bị không đủ điều kiện");
                 return;
             }
             short countNgoc = 0;
@@ -11152,13 +11160,13 @@ public class Char extends Body {
                     damage -= damage * percentDameReduction / 100;
                     damage = Math.max(damage - pl.damageReduction, 0);
 
-                    int NeTranh2 = pl.miss;;
+                    int NeTranh2 = pl.miss;
+                    ;
                     int ChinhXac2 = exactly;
                     int randMiss = Utlis.NextInt(0, (NeTranh2 + 100));
                     int randExactly = Utlis.NextInt(0, (ChinhXac2 + 1000));
 
                     boolean isMiss = randMiss > randExactly; // sửa lại hàm pk chỗ né
-
 
 
 //                    int miss = pl.miss;
