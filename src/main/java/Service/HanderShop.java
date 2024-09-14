@@ -116,7 +116,7 @@ public class HanderShop {
 
             if (deductCurrency(_myChar, itemShop, it)) return;
 
-            CheckItem(_myChar, it, itemShop.TypeShop >= 8 && itemShop.TypeShop <= 17);
+            CheckItem(it, itemShop.TypeShop >= 8 && itemShop.TypeShop <= 17);
 
             handleItemPurchase(_myChar, it, itemShop);
 
@@ -180,7 +180,7 @@ public class HanderShop {
         return false;
     }
 
-    private static void CheckItem(Char _myChar, Item it, boolean hoakge) {
+    private static void CheckItem(Item it, boolean hoakge) {
         if (it.isVuKhi()) {
             Item.setOptionsVuKhi(it, it.getItemTemplate().levelNeed);
         } else if (it.isPhuKien() || it.isTrangBi()) {

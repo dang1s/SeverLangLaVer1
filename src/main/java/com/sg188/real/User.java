@@ -127,7 +127,7 @@ public class User {
                         _char.Info.gioiTinh = Byte.parseByte(obj.get("gioitinh").toString());
                         _char.Info.idClass = Byte.parseByte(obj.get("idclass").toString());
                         _char.Info.idhe = Byte.parseByte(obj.get("idhe").toString());
-                        _char.Info.selectCaiTrang = Byte.parseByte(obj.get("selectdanhhieu").toString());
+                        _char.Info.selectDanhHieu = Byte.parseByte(obj.get("selectdanhhieu").toString());
                         _char.Info.rank = Byte.parseByte(obj.get("rank").toString());
                         _char.Info.selectCaiTrang = Byte.parseByte(obj.get("selectcaitrang").toString());
                         _char.Info.IdGiaToc = Short.parseShort(obj.get("idclan").toString());

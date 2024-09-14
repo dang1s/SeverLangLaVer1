@@ -741,7 +741,8 @@ public class Zone {
                 if (pl.delaySkill > System.currentTimeMillis()) {
                     return;
                 }
-//                pl.delaySkill = System.currentTimeMillis() + 350;
+
+                pl.delaySkill = System.currentTimeMillis() + skill.coolDown;
                 boolean doc = Utlis.nextInt(0, 100) < pl.poison / 10;
                 boolean bong = Utlis.nextInt(0, 100) < pl.burn / 10;
                 boolean suyyeu = Utlis.nextInt(0, 100) < pl.weaken / 10;

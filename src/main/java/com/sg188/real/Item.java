@@ -311,7 +311,6 @@ public class Item implements Cloneable {
     public static void setOptionsTrangBiPhuKien(Item item, int level) {
         item.addItemOption(new ItemOption(0, 20 * (level / 10), (20 * (level / 10)) + 10));
         item.addItemOption(new ItemOption(1, 20 * (level / 10), (20 * (level / 10)) + 10));
-
         int num1 = 5 * ((level / 10));
         int num2 = 5 * ((level / 10) + 1);
 

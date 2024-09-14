@@ -121,13 +121,13 @@ public class BossManager {
                     }
                 }
 
-                if (item.isItemTrangBi()) {
-                    if (item.isVuKhi()) {
-                        Item.setOptionsVuKhi(item, item.getItemTemplate().levelNeed);
-                    } else {
-                        Item.setOptionsTrangBiPhuKien(item, item.getItemTemplate().levelNeed);
-                    }
-                }
+//                if (item.isItemTrangBi()) {
+//                    if (item.isVuKhi()) {
+//                        Item.setOptionsVuKhi(item, item.getItemTemplate().levelNeed);
+//                    } else {
+//                        Item.setOptionsTrangBiPhuKien(item, item.getItemTemplate().levelNeed);
+//                    }
+//                }
                 mob.itemBoss.add(item);
             }
         } catch (Exception e) {

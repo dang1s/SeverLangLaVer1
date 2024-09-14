@@ -135,8 +135,9 @@ public class Map {
                 _myChar.zone.addToAllChar(_myChar);
                 _myChar.service.sendArrMap(this.mapID);
                 _myChar.service.sendIntoMap();
-                _myChar.service.alertMessage("Làng Lá Đại Chiến Konoha - Chúc các bạn chơi game vui vẻ!" +
-                        "\nNhớ tham gia Box Zalo để nhận thêm Giftcode nhé!");
+                _myChar.service.alertMessage("Ae chú ý: Box giao lưu hiện tại KHÔNG còn do Admin tiếp quản.\n" +
+                        "Hãy tránh giao dịch trong box cũ và cập nhật box mới để tránh lừa đảo.\n" +
+                        "Link box mới: DaiChienKonoha.com Vui lòng truy cập trang chủ để nhận thêm thông tin chi tiết.");
                 isdone = true;
                 break;
             }

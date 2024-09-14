@@ -1282,7 +1282,7 @@ public class Char extends Body {
     }
 
 
-    private void writerSkillViThu(Writer writer) {
+    public void writerSkillViThu(Writer writer) {
         try {
             writer.writeByte(listSkill.size());
             for (int i = 0; i < listSkill.size(); i++) {
@@ -2459,7 +2459,7 @@ public class Char extends Body {
                 int[] itemTypes = new int[]{0, 2, 4, 6, 8};
                 int type = itemTypes[Utlis.nextInt(0, itemTypes.length - 1)];
                 Item trangbi = Item.getItemWithTypeAndLevel(type, level(), Info.gioiTinh, Info.idClass);
-                Item.setOptionsTrangBiPhuKien(trangbi, level());
+                Item.setOptionsTrangBiPhuKien( trangbi, level());
                 Item.GetOptionHokage(trangbi);
                 trangbi.createItemOptions();
                 trangbi.strOptions += ";148,0";
@@ -2484,7 +2484,7 @@ public class Char extends Body {
                 int[] itemTypes1 = new int[]{3, 5, 7, 9};
                 int type1 = itemTypes1[Utlis.nextInt(0, itemTypes1.length - 1)];
                 Item phukien = Item.getItemWithTypeAndLevel(type1, level(), Info.gioiTinh, Info.idClass);
-                Item.setOptionsTrangBiPhuKien(phukien, level());
+                Item.setOptionsTrangBiPhuKien( phukien, level());
                 Item.GetOptionHokage(phukien);
                 phukien.createItemOptions();
                 phukien.strOptions += ";148,0";
@@ -2558,10 +2558,14 @@ public class Char extends Body {
                     service.alertMessage("Vĩ thú đã full sức mạnh");
                     return;
                 }
+                Item item763 = FindItemBag(item.id);
+                int quantity = item763.amount;
+
+
                 if (Bag.arrItemBody[10] != null && Bag.arrItemBody[10].isSucManh()) {
-                    removeItem(item);
+                    removeItemByAmount(item, quantity);
                     msgUseItemBag(item);
-                    Bag.arrItemBody[10].updateViThu(10);
+                    Bag.arrItemBody[10].updateViThu(quantity);
                     msgUpdateItemBody();
                 } else {
                     service.alertMessage("Vui lòng mở sức mạnh vĩ thú");
@@ -2831,6 +2835,22 @@ public class Char extends Body {
                 service.serverMessage("Chúc mừng bạn đã đánh thức huyết kế giới hạn");
                 service.resetScreen();
                 break;
+            case 723:
+                if (Skill.arraySkill.length > 8) {
+                    return;
+                }
+                removeItem(item);
+                msgUseItemBag(item);
+                Skill[] arraySkill_22 = new Skill[Skill.arraySkill.length + 1];
+                for (int i = 0; i < Skill.arraySkill.length; i++) {
+                    arraySkill_22[i] = Skill.arraySkill[i];
+                }
+                arraySkill_22[arraySkill_22.length - 1] = DataSkill.skills_60[Info.idClass - 1].cloneSkill();
+                Skill.arraySkill = arraySkill_22;
+                msgUpdateSkill();
+                service.serverMessage("Chúc mừng bạn đã học được nhẫn thuật đặc biệt");
+                service.resetScreen();
+                break;
             case 308:
                 if (!zone.isDungeoClan()) {
                     return;
@@ -2920,7 +2940,7 @@ public class Char extends Body {
             int trung = 20 * Bag.stnTrung;
             int cao = 30 * Bag.stnCao;
             int banh = 5 * Bag.Banh;
-            Point.diemTiemNang = this.level() * 10 + so + trung + cao + banh;
+            Point.diemTiemNang = (this.level()-1) * 10 + so + trung + cao + banh;
             msgUpdateDataChar();
             updateTiemNang();
             return;
@@ -2985,37 +3005,128 @@ public class Char extends Body {
             msgAddItemBag(da);
         }
         if (item.id == 170) {
+            // Xóa item khỏi túi và gửi thông báo sử dụng item
             removeItem(item);
             msgUseItemBag(item);
+
             boolean isHuyetKe = false;
-            if (Skill.arraySkill[Skill.arraySkill.length - 1].idTemplate == DataSkill.skills_57[Info.idClass - 1].idTemplate) {
-                isHuyetKe = true;
+            boolean isDacBiet = false;
+
+            // Kiểm tra kỹ năng hiện tại để xác định kỹ năng Huyết Kế và Đặc Biệt
+            if (Skill.arraySkill.length > 0) {
+                System.out.println("idTemplate cuối cùng trong arraySkill: " + Skill.arraySkill[Skill.arraySkill.length - 1].idTemplate);
+                System.out.println("idTemplate của HuyetKe: " + DataSkill.skills_57[Info.idClass - 1].idTemplate);
+
+                for(Skill sk : Skill.arraySkill)
+                {
+                    if(sk.idTemplate == DataSkill.skills_57[Info.idClass - 1].idTemplate){
+                        isHuyetKe = true;
+                    }
+                }
+
+
             }
+
+            if (Skill.arraySkill.length > 1) {
+                System.out.println("idTemplate của kỹ năng đặc biệt: " + DataSkill.skills_60[Info.idClass - 1].idTemplate);
+                for(Skill sk : Skill.arraySkill)
+                {
+                    if(sk.idTemplate == DataSkill.skills_60[Info.idClass - 1].idTemplate){
+                        isDacBiet = true;
+                    }
+                }
+            }
+
+            System.out.println("iddacbiet: " + isDacBiet);
+            System.out.println("isHuyetKe: " + isHuyetKe);
+
+            // Sao chép lại kỹ năng theo lớp nhân vật
             Skill[][] _arraySkill = new Skill[][]{
                     DataSkill.skills_0.clone(),
                     DataSkill.skills_1.clone(),
                     DataSkill.skills_2.clone(),
                     DataSkill.skills_3.clone(),
                     DataSkill.skills_4.clone(),
-                    DataSkill.skills_5.clone(),};
+                    DataSkill.skills_5.clone(),
+            };
             Skill.arraySkill = _arraySkill[Info.idClass];
+
+            // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
             if (isHuyetKe) {
-                Skill[] arraySkill_2 = new Skill[Skill.arraySkill.length + 1];
-                for (int i = 0; i < Skill.arraySkill.length; i++) {
-                    arraySkill_2[i] = Skill.arraySkill[i];
-                }
+                Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57[Info.idClass - 1].cloneSkill();
                 Skill.arraySkill = arraySkill_2;
             }
-            Skill.skillFight = Skill.arraySkill[0];
-            int so = 1 * Bag.sknSo;
-            int trung = 2 * Bag.sknTrung;
-            int cao = 3 * Bag.sknCao;
-            Point.diemKyNang = this.level() * 1 + so + trung + cao + Bag.banhUBao;
+
+            // Nếu có kỹ năng Đặc Biệt, thêm vào danh sách kỹ năng
+            if (isDacBiet) {
+                Skill[] arraySkill_22 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                arraySkill_22[arraySkill_22.length - 1] = DataSkill.skills_60[Info.idClass - 1].cloneSkill();
+                Skill.arraySkill = arraySkill_22;
+            }
+
+            // Thiết lập kỹ năng chiến đấu mặc định là kỹ năng đầu tiên
+            if (Skill.arraySkill.length > 0) {
+                Skill.skillFight = Skill.arraySkill[0];
+            }
+
+            // Tính toán điểm kỹ năng dựa trên cấp độ và các yếu tố khác
+            int so = 1 * Bag.sknSo;       // Số điểm từ loại thấp
+            int trung = 2 * Bag.sknTrung; // Số điểm từ loại trung
+            int cao = 3 * Bag.sknCao;     // Số điểm từ loại cao
+            Point.diemKyNang = (this.level()- 1) + so + trung + cao + Bag.banhUBao;
+
+            // Gửi dữ liệu cập nhật cho nhân vật và kỹ năng
             msgUpdateDataChar();
             msgUpdateSkill();
             return;
         }
+
+
+//        if (item.id == 170) {
+//            removeItem(item);
+//            msgUseItemBag(item);
+//            boolean isHuyetKe = false;
+//            boolean isDacBiet = false;
+//            if (Skill.arraySkill[Skill.arraySkill.length - 1].idTemplate == DataSkill.skills_57[Info.idClass - 1].idTemplate) {
+//                isHuyetKe = true;
+//            }
+//            if (Skill.arraySkill[Skill.arraySkill.length - 1].idTemplate == DataSkill.skills_60[Info.idClass - 1].idTemplate) {
+//                isDacBiet = true;
+//            }
+//            Skill[][] _arraySkill = new Skill[][]{
+//                    DataSkill.skills_0.clone(),
+//                    DataSkill.skills_1.clone(),
+//                    DataSkill.skills_2.clone(),
+//                    DataSkill.skills_3.clone(),
+//                    DataSkill.skills_4.clone(),
+//                    DataSkill.skills_5.clone(),};
+//            Skill.arraySkill = _arraySkill[Info.idClass];
+//            if (isHuyetKe) {
+//                Skill[] arraySkill_2 = new Skill[Skill.arraySkill.length + 1];
+//                for (int i = 0; i < Skill.arraySkill.length; i++) {
+//                    arraySkill_2[i] = Skill.arraySkill[i];
+//                }
+//                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57[Info.idClass - 1].cloneSkill();
+//                Skill.arraySkill = arraySkill_2;
+//            }
+//            if (isDacBiet) {
+//                Skill[] arraySkill_22 = new Skill[Skill.arraySkill.length + 1];
+//                for (int i = 0; i < Skill.arraySkill.length; i++) {
+//                    arraySkill_22[i] = Skill.arraySkill[i];
+//                }
+//                arraySkill_22[arraySkill_22.length - 1] = DataSkill.skills_60[Info.idClass - 1].cloneSkill();
+//                Skill.arraySkill = arraySkill_22;
+//            }
+//            Skill.skillFight = Skill.arraySkill[0];
+//            int so = 1 * Bag.sknSo;
+//            int trung = 2 * Bag.sknTrung;
+//            int cao = 3 * Bag.sknCao;
+//            Point.diemKyNang = this.level() * 1 + so + trung + cao + Bag.banhUBao;
+//            msgUpdateDataChar();
+//            msgUpdateSkill();
+//            return;
+//        }
 
         if (item.id == 435) {
             if (Info.sachChienDau < 16) {
@@ -3176,7 +3287,7 @@ public class Char extends Body {
                             } else if (itemRQ[i].isSet3()) {
                                 itemRQ[i].he = (byte) he3;
                             }
-                            Item.setOptionsTrangBiPhuKien(itemRQ[i], level);
+                            Item.setOptionsTrangBiPhuKien( itemRQ[i], level);
                         }
                         itemRQ[i].createItemOptions();
                         itemRQ[i].a(16);
@@ -3232,7 +3343,7 @@ public class Char extends Body {
                             } else if (itemRQ[i].isSet3()) {
                                 itemRQ[i].he = (byte) he3;
                             }
-                            Item.setOptionsTrangBiPhuKien(itemRQ[i], level);
+                            Item.setOptionsTrangBiPhuKien( itemRQ[i], level);
                         }
                         Item.GetOptionHokage(itemRQ[i]);
                         itemRQ[i].createItemOptions();
@@ -5868,7 +5979,7 @@ public class Char extends Body {
                             user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
                             return;
                         }
-                        if (!removeItems(435, 60)) {
+                        if (!removeItems(435, 30)) {
                             user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
                             return;
                         }

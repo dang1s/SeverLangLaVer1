@@ -10,6 +10,7 @@ import SqlConnection.CharDB;
 import com.sg188.clan.Clan;
 import com.sg188.data.DataCenter;
 import com.sg188.data.Skill;
+import com.sg188.data.SkillClan;
 import com.sg188.lib.Log;
 import com.sg188.real.Char;
 import com.sg188.server.ServerManager;
@@ -224,14 +225,27 @@ public class ClickTop {
                 cS.writeItemBody(m.writer, cS.Bag.arrItemBody);
                 cS.writeItemBody(m.writer, cS.Bag.arrItemBody2);
                 
-                //cS.writeSkill(m.writer);
+               // cS.writeSkill(m.writer);
                 m.writeShort(cS.Skill.arraySkill.length);
                 for(Skill sk : cS.Skill.arraySkill)
                 {
                     m.writeShort(sk.index);
                 }
+
+
+
                 m.writeUTF("");
+
                 cS.writeDanhHieu(m.writer);
+                m.writeByte(cS.Info.selectCaiTrang);
+
+                m.writeByte(cS.listSkill.size());
+                for (int i = 0; i < cS.listSkill.size(); i++) {
+                    SkillClan skill = cS.listSkill.get(i);
+                    m.writeByte(skill.id);
+                    m.writeByte(skill.levelNeed);
+                }
+
                 m.writeByte(cS.Point.diempt);
                 m.writeByte(cS.Point.maxpt);
                 m.writeByte(cS.Point.expsach);

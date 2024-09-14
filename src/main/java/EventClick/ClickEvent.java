@@ -32,7 +32,11 @@ public class ClickEvent {
         try {
             Message m = new Message((byte) 122);
             m.writeByte(56);
-            m.writeUTF("Làng Lá");
+            m.writeUTF("---------------------------------THÔNG BÁO---------------------------------\n" +
+                    "Ae chú ý: Box giao lưu hiện tại KHÔNG còn do Admin tiếp quản.\n" +
+                    "Hãy tránh giao dịch trong box cũ và cập nhật box mới để tránh lừa đảo.\n" +
+                    "Link box mới: https://daichienkonoha.com/\n" +
+                    "Vui lòng truy cập trang chủ để nhận thêm thông tin chi tiết.");
             m.writeByte(18);
             for (int i = 0; i < 18; i++) {
                 m.writeUTF("");
@@ -304,10 +308,13 @@ public class ClickEvent {
             List<ItemShop> ic = new ArrayList<>();
             for (ItemShop it : Store.getInstance().items) {
                 Item item = new Item(it.itemID);
-                if (it.TypeShop == typeShop && it.he == he && (item.getItemTemplate().gioiTinh == 2 || item.getItemTemplate().gioiTinh == _myChar.Info.gioiTinh) && (item.getItemTemplate().idClass == 0 || item.getItemTemplate().idClass == _myChar.Info.idClass)) {
+                if (it.TypeShop == typeShop && it.he == he &&
+                        (item.getItemTemplate().gioiTinh == 2 || item.getItemTemplate().gioiTinh == _myChar.Info.gioiTinh) &&
+                        (item.getItemTemplate().idClass == 0 || item.getItemTemplate().idClass == _myChar.Info.idClass)) {
                     ic.add(it);
                 }
             }
+
             if (typeShop >= 8 && typeShop <= 17) {
                 isHoakge = true;
             }
@@ -317,6 +324,7 @@ public class ClickEvent {
             for (int i = 0; i < ic.size(); i++) {
                 ItemShop it = ic.get(i);
                 Item item = new Item(it.itemID);
+                item.he = it.he;
                 if (item.isVuKhi()) {
                     Item.setOptionsVuKhi(item, item.getItemTemplate().levelNeed);
                 } else if (item.isTrangBi() || item.isPhuKien()) {

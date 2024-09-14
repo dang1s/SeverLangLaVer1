@@ -102,7 +102,7 @@ public class Manager {
                 if (item.isVuKhi()) {
                     Item.setOptionsVuKhi(item, item.getItemTemplate().levelNeed);
                 } else if (item.isPhuKien() || item.isTrangBi()) {
-                    Item.setOptionsTrangBiPhuKien(item, item.getItemTemplate().levelNeed);
+               //     Item.setOptionsTrangBiPhuKien( item, item.getItemTemplate().levelNeed);
                 }
                 if (itemTemplateitem.levelNeed < 20) {
                     tb1x.add(item);
