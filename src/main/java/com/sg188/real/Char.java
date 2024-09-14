@@ -2550,7 +2550,7 @@ public class Char extends Body {
                 msgUseItemBag(item);
                 addEffect(new Effect((short) 81, 1, System.currentTimeMillis(), 60 * 1000 * 5));
                 break;
-            case 763:
+            case 763://23232323
                 if (Bag.arrItemBody[10] == null) {
                     return;
                 }
