@@ -253,10 +253,14 @@ public class ClickTop {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            cS.user.session.sendMessage(HanderMessage.SendThongBao(_myChar.Info.name + " đang xem thông tin về bạn", HanderMessage.YELLOW_MID));
             
         }else {
             _myChar.user.session.sendMessage(HanderMessage.SendThongBao("Đối phương đã offline",HanderMessage.WHITE));
         }
+
+
     }
     private static void showTopLevel(Char _myChar, byte index) {
         if (cTop == null) {

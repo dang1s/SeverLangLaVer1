@@ -165,6 +165,10 @@ public class Controller implements IMessageHandler {
                         ClickTop.ShowInfo(_char, msg.readUTF());
                     }
 
+
+
+
+
                     break;
                 case 36:
                     if (_char != null && _char.user != null)
