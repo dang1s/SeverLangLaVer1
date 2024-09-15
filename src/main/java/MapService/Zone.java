@@ -738,11 +738,11 @@ public class Zone {
                 if (skill.level > 17 && (skill.idTemplate == 2 || skill.idTemplate == 8 || skill.idTemplate == 14 || skill.idTemplate == 20 || skill.idTemplate == 26)) {
                     maxTarget = 3;
                 }
-                if (pl.delaySkill > System.currentTimeMillis()) {
-                    return;
-                }
-
-                pl.delaySkill = System.currentTimeMillis() + skill.coolDown;
+//                if (pl.delaySkill > System.currentTimeMillis()) {
+//                    return;
+//                }
+//
+//                pl.delaySkill = System.currentTimeMillis() + skill.coolDown;
                 boolean doc = Utlis.nextInt(0, 100) < pl.poison / 10;
                 boolean bong = Utlis.nextInt(0, 100) < pl.burn / 10;
                 boolean suyyeu = Utlis.nextInt(0, 100) < pl.weaken / 10;

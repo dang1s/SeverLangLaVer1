@@ -57373,3 +57373,53 @@ java.sql.SQLSyntaxErrorException: Unknown column 'topchuyencan' in 'field list'
 [2024-09-15 00:58:28 DEBUG (reader: /127.0.0.1:51462)] - 763
 [2024-09-15 00:58:28 DEBUG (reader: /127.0.0.1:51462)] - msgUseItemBag
 [2024-09-15 00:58:29 DEBUG (reader: /127.0.0.1:51462)] - Đây là MSG 63
+[2024-09-15 08:04:40 INFO  (main)] - Config - db.password: 
+[2024-09-15 08:04:40 INFO  (main)] - Config - mongodb.password: 
+[2024-09-15 08:04:40 INFO  (main)] - Config - mongodb.user: root
+[2024-09-15 08:04:40 INFO  (main)] - Config - mongodb.host: localhost
+[2024-09-15 08:04:40 INFO  (main)] - Config - db.dbData: langla_data
+[2024-09-15 08:04:40 INFO  (main)] - Config - mongodb.port: 27017
+[2024-09-15 08:04:40 INFO  (main)] - Config - db.user: root
+[2024-09-15 08:04:40 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-09-15 08:04:40 INFO  (main)] - Config - db.port: 3306
+[2024-09-15 08:04:40 INFO  (main)] - Config - db.host: localhost
+[2024-09-15 08:04:40 INFO  (main)] - Config - server.debug: true
+[2024-09-15 08:04:40 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-09-15 08:04:40 DEBUG (main)] - size data 93173
+[2024-09-15 08:04:40 DEBUG (main)] - size data 93173
+[2024-09-15 08:04:41 INFO  (main)] - Load itemtempalte: 939
+[2024-09-15 08:04:41 INFO  (main)] - Load danh hieu new: 5
+[2024-09-15 08:04:41 DEBUG (main)] - ItemShop: 1230
+[2024-09-15 08:04:41 DEBUG (main)] - ITEM PHUC LOI: 89
+[2024-09-15 08:04:41 DEBUG (main)] - code load size 5
+[2024-09-15 08:04:41 INFO  (main)] - Load rewardtop done : 0
+[2024-09-15 08:04:41 INFO  (main)] - Market size: 0
+[2024-09-15 08:04:41 INFO  (main)] - Loading clan data
+[2024-09-15 08:04:41 INFO  (main)] - Load clan data successfully
+[2024-09-15 08:04:41 INFO  (main)] - Thread Server: 232
+[2024-09-15 08:04:41 INFO  (main)] - Start server Success!
+[2024-09-15 08:05:36 INFO  (main)] - Config - db.password: 
+[2024-09-15 08:05:36 INFO  (main)] - Config - mongodb.password: 
+[2024-09-15 08:05:36 INFO  (main)] - Config - mongodb.user: root
+[2024-09-15 08:05:36 INFO  (main)] - Config - mongodb.host: localhost
+[2024-09-15 08:05:36 INFO  (main)] - Config - db.dbData: langla_data
+[2024-09-15 08:05:36 INFO  (main)] - Config - mongodb.port: 27017
+[2024-09-15 08:05:36 INFO  (main)] - Config - db.user: root
+[2024-09-15 08:05:36 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-09-15 08:05:36 INFO  (main)] - Config - db.port: 3306
+[2024-09-15 08:05:36 INFO  (main)] - Config - db.host: localhost
+[2024-09-15 08:05:36 INFO  (main)] - Config - server.debug: true
+[2024-09-15 08:05:36 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-09-15 08:05:37 DEBUG (main)] - size data 93173
+[2024-09-15 08:05:37 DEBUG (main)] - size data 93173
+[2024-09-15 08:05:37 INFO  (main)] - Load itemtempalte: 939
+[2024-09-15 08:05:37 INFO  (main)] - Load danh hieu new: 5
+[2024-09-15 08:05:37 DEBUG (main)] - ItemShop: 1230
+[2024-09-15 08:05:37 DEBUG (main)] - ITEM PHUC LOI: 89
+[2024-09-15 08:05:37 DEBUG (main)] - code load size 5
+[2024-09-15 08:05:37 INFO  (main)] - Load rewardtop done : 0
+[2024-09-15 08:05:37 INFO  (main)] - Market size: 0
+[2024-09-15 08:05:37 INFO  (main)] - Loading clan data
+[2024-09-15 08:05:37 INFO  (main)] - Load clan data successfully
+[2024-09-15 08:05:37 INFO  (main)] - Thread Server: 232
+[2024-09-15 08:05:37 INFO  (main)] - Start server Success!

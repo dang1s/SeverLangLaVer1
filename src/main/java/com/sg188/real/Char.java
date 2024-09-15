@@ -3014,8 +3014,7 @@ public class Char extends Body {
 
             // Kiểm tra kỹ năng hiện tại để xác định kỹ năng Huyết Kế và Đặc Biệt
             if (Skill.arraySkill.length > 0) {
-                System.out.println("idTemplate cuối cùng trong arraySkill: " + Skill.arraySkill[Skill.arraySkill.length - 1].idTemplate);
-                System.out.println("idTemplate của HuyetKe: " + DataSkill.skills_57[Info.idClass - 1].idTemplate);
+
 
                 for(Skill sk : Skill.arraySkill)
                 {
@@ -3023,12 +3022,10 @@ public class Char extends Body {
                         isHuyetKe = true;
                     }
                 }
-
-
             }
 
             if (Skill.arraySkill.length > 1) {
-                System.out.println("idTemplate của kỹ năng đặc biệt: " + DataSkill.skills_60[Info.idClass - 1].idTemplate);
+
                 for(Skill sk : Skill.arraySkill)
                 {
                     if(sk.idTemplate == DataSkill.skills_60[Info.idClass - 1].idTemplate){
@@ -3036,10 +3033,6 @@ public class Char extends Body {
                     }
                 }
             }
-
-            System.out.println("iddacbiet: " + isDacBiet);
-            System.out.println("isHuyetKe: " + isHuyetKe);
-
             // Sao chép lại kỹ năng theo lớp nhân vật
             Skill[][] _arraySkill = new Skill[][]{
                     DataSkill.skills_0.clone(),
@@ -3466,7 +3459,7 @@ public class Char extends Body {
             return;
         }
 
-        if (System.currentTimeMillis() < delayChetao + 500L) {
+        if (System.currentTimeMillis() < delayChetao + 400L) {
             return;
 
         }
