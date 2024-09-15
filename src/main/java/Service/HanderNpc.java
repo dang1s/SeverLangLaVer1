@@ -795,28 +795,31 @@ public class HanderNpc {
                     for (Char p : chars) {
                         if (p.idCamThuat != -1) {
                             check = true;
+                            myChar.service.alertMessage("Người chơi " + p.Info.name + " đang ở trong cấm thuật");
                             return;
                         }
                         if (p.Info.countCamThuat < 1) {
+                            myChar.service.alertMessage("Người chơi " + p.Info.name + " không đủ lượt tham gia cấm thuật");
                             checkLuot = false;
                             return;
                         }
                         if (p.level() < 40) {
+                            myChar.service.alertMessage("Người chơi " + p.Info.name + " không đủ level tham gia cấm thuật");
                             checkLevel = false;
                             return;
                         }
                         level += p.level();
                     }
                     if (check) {
-                        myChar.service.alertMessage("Có thành viên trong tổ đội đã tham gia một cấm thuật khác");
+                     //   myChar.service.alertMessage("Có thành viên trong tổ đội đã tham gia một cấm thuật khác");
                         return;
                     }
                     if (!checkLuot) {
-                        myChar.service.alertMessage("Có thành viên trong tổ đội không đủ lượt tham gia cấm thuật");
+                      //  myChar.service.alertMessage("Có thành viên trong tổ đội không đủ lượt tham gia cấm thuật");
                         return;
                     }
                     if (!checkLevel) {
-                        myChar.service.alertMessage("Có thành viên trong tổ đội không đủ level gia cấm thuật");
+                   //     myChar.service.alertMessage("Có thành viên trong tổ đội không đủ level gia cấm thuật");
                         return;
                     }
                     if (myChar.getGroup().memberGroups.get(0).charId == myChar.id) {
@@ -935,11 +938,11 @@ public class HanderNpc {
                         level += p.level();
                     }
                     if (check) {
-                        myChar.service.alertMessage("Có thành viên trong tổ đội đã tham gia một Sơn cáp khác");
+                    //    myChar.service.alertMessage("Có thành viên trong tổ đội đã tham gia một Sơn cáp khác");
                         return;
                     }
                     if (!checkLevel) {
-                        myChar.service.alertMessage("Có thành viên trong tổ đội không đủ level gia Sơn cáp");
+                       // myChar.service.alertMessage("Có thành viên trong tổ đội không đủ level gia Sơn cáp");
                         return;
                     }
                     if (myChar.getGroup().memberGroups.get(0).charId == myChar.id) {

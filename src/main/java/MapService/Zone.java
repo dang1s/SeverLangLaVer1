@@ -685,6 +685,7 @@ public class Zone {
                 return;
 
             }
+
             skill.time = System.currentTimeMillis();
             pl.Point.mp -= skill.mpUse / 2;
             Mob mob = null;
@@ -738,9 +739,7 @@ public class Zone {
                 if (skill.level > 17 && (skill.idTemplate == 2 || skill.idTemplate == 8 || skill.idTemplate == 14 || skill.idTemplate == 20 || skill.idTemplate == 26)) {
                     maxTarget = 3;
                 }
-//                if (pl.delaySkill > System.currentTimeMillis()) {
-//                    return;
-//                }
+//
 //
 //                pl.delaySkill = System.currentTimeMillis() + skill.coolDown;
                 boolean doc = Utlis.nextInt(0, 100) < pl.poison / 10;
