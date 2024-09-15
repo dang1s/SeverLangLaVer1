@@ -918,15 +918,17 @@ public class HanderNpc {
                         return;
                     }
                     if (myChar.level() < 40) {
-                        myChar.service.alertMessage("Ban không đủ level gia Sơn cáp ");
+                        myChar.service.alertMessage("Bạn không đủ cấp độ, yêu cầu level 40 trở lên");
                         return;
                     }
                     for (Char p : chars) {
                         if (SonCapMyo.isInSonCap(p.id)) {
+                            myChar.service.alertMessage("Người chơi " + p.Info.name + " đang ở trong Sơn cáp");
                             check = true;
                             return;
                         }
                         if (p.level() < 40) {
+                            myChar.service.alertMessage("Người chơi " + p.Info.name + " không đủ cấp độ, yêu cầu level 40 trở lên");
                             checkLevel = false;
                             return;
                         }

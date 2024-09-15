@@ -2550,7 +2550,7 @@ public class Char extends Body {
                 msgUseItemBag(item);
                 addEffect(new Effect((short) 81, 1, System.currentTimeMillis(), 60 * 1000 * 5));
                 break;
-            case 763://23232323
+            case 763://chakra vi thu
                 if (Bag.arrItemBody[10] == null) {
                     return;
                 }
@@ -2558,14 +2558,15 @@ public class Char extends Body {
                     service.alertMessage("Vĩ thú đã full sức mạnh");
                     return;
                 }
-                Item item763 = FindItemBag(item.id);
-                int quantity = item763.amount;
+
+                int quantity = item.amount;
 
 
                 if (Bag.arrItemBody[10] != null && Bag.arrItemBody[10].isSucManh()) {
-                    removeItemByAmount(item, quantity);
+
+                   removeItemByAmount(item, quantity);
                     msgUseItemBag(item);
-                    Bag.arrItemBody[10].updateViThu(quantity);
+                    Bag.arrItemBody[10].updateViThu(quantity * 10);
                     msgUpdateItemBody();
                 } else {
                     service.alertMessage("Vui lòng mở sức mạnh vĩ thú");
@@ -3529,7 +3530,7 @@ public class Char extends Body {
             Point.hoatLuc -= requiredHoatLuc;
             item = new Item(idCraft);
             item.amount = 1;
-            item.isLock = true;
+         //   item.isLock = true;
         }
 
         if (item != null) {
@@ -8866,6 +8867,10 @@ public class Char extends Body {
                         items.add(item);
                     }
                 }
+            }
+            if (Info.idClass == 0) {
+                service.serverMessage("Bạn chưa nhập học");
+                return;
             }
             if (items.isEmpty()) {
                 return;
