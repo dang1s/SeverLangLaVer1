@@ -162,7 +162,7 @@ public class Char extends Body {
     private List<Item> tanto = new ArrayList<>();
     private List<Item> aoChoang = new ArrayList<>();
     private List<Item> thoiTrang = new ArrayList<>();
-    //public int pointDungeon;
+    public int pointDungeon;
     public boolean tuLuyenChau;
     public short timeOffline;
     public boolean inLangCo;

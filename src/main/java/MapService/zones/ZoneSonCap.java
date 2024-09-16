@@ -298,16 +298,19 @@ public class ZoneSonCap extends ZWorld {
             if (!createBoss)
                 createBoss();
         }
-        if (mob.levelBoss < 3)
-            player.Info.pointDungeon += 50;
-        else {
-            player.Info.pointDungeon += 100;
+        if (mob.levelBoss < 3) {
+            player.pointDungeon += 10;
+            player.Info.pointDungeon += 10;
+        }else {
+            player.pointDungeon += 20;
+            player.Info.pointDungeon += 20;
         }
         player.service.updatepointDungeon();
         List<Char> member = getChars();
         for (Char pl : member) {
             if (pl != null && pl.user != null) {
-                pl.Info.pointDungeon += 50;
+                pl.pointDungeon += 10;
+                pl.Info.pointDungeon += 10;
                 pl.service.updatepointDungeon();
 //                Calendar calendar = Calendar.getInstance();
 //                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);

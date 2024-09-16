@@ -49,7 +49,7 @@ public class Service {
             msg.writeUTF(text);
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 1 " + ex);
         }
 
     }
@@ -60,7 +60,7 @@ public class Service {
             msg.writeByte(-99);
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 2 " + ex);
         }
 
     }
@@ -129,7 +129,7 @@ public class Service {
     public void updatepointDungeon() {
         try {
             Message ms = new Message((byte) -31);
-            ms.writeInt(player.Info.pointDungeon);
+            ms.writeInt(player.pointDungeon);
             session.sendMessage(ms);
         } catch (Exception ex) {
         }
@@ -229,7 +229,7 @@ public class Service {
             msg.inflate = true;
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 3 " + ex);
         }
     }
 
@@ -240,7 +240,7 @@ public class Service {
             msg.writer.dos.write(DataCenter.gI().MapTemplate[mapID].arrMap);
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 3 " + ex);
         }
     }
 
@@ -251,7 +251,7 @@ public class Service {
             player.zone.write(player, msg.writer);
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 4 " + ex);
         }
     }
 
@@ -259,7 +259,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) -104));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 5 " + ex);
         }
     }
 
@@ -269,7 +269,7 @@ public class Service {
             player.writeMe(msg.writer);
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 34 " + ex);
         }
     }
 
@@ -288,7 +288,7 @@ public class Service {
             }
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 343" + ex);
         }
     }
 
@@ -325,7 +325,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) -102, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 354" + ex);
         }
     }
 
@@ -334,7 +334,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) -101, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 343" + ex);
         }
     }
 
@@ -348,7 +348,7 @@ public class Service {
             }
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 2xxx" + ex);
         }
     }
 
@@ -356,7 +356,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 52, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 1xs" + ex);
         }
     }
 
@@ -364,7 +364,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 57, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service zxzx" + ex);
         }
     }
 
@@ -372,7 +372,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 61, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 123123" + ex);
         }
     }
     public void endCuuSat(int id,boolean win) {
@@ -382,7 +382,7 @@ public class Service {
             msg.writeBoolean(win);
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service xxxxx" + ex);
         }
     }
 
@@ -393,7 +393,7 @@ public class Service {
             player.Info.writeXY(msg.writer);
             session.sendMessage(msg);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service xx" + ex);
         }
     }
 
@@ -401,7 +401,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 102, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service xxxx" + ex);
         }
     }
 
@@ -409,7 +409,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) -6, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service xqqq" + ex);
         }
     }
 
@@ -437,7 +437,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 60, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 122x" + ex);
         }
     }
 
@@ -445,7 +445,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 58, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 12312xxx" + ex);
         }
     }
 
@@ -466,7 +466,7 @@ public class Service {
             }
             session.sendMessage(m);
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 124cccc" + ex);
         }
     }
 
@@ -474,7 +474,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 59, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 211aaa" + ex);
         }
     }
 
@@ -482,7 +482,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 110, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service c121312" + ex);
         }
     }
 
@@ -490,7 +490,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) -4, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 221cxx" + ex);
         }
     }
 
@@ -498,7 +498,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 109, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service cx1112" + ex);
         }
     }
 
@@ -506,7 +506,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 116, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 12321xx" + ex);
         }
     }
 
@@ -514,7 +514,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 94, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 1221xx" + ex);
         }
     }
 
@@ -522,7 +522,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 117, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 9999" + ex);
         }
     }
 
@@ -530,7 +530,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 112, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 12121x" + ex);
         }
     }
 
@@ -538,7 +538,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 118, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 1a2312x" + ex);
         }
     }
 
@@ -546,7 +546,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 83, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service êdccc" + ex);
         }
     }
 
@@ -554,7 +554,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 111, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 55hhhh" + ex);
         }
     }
     public void birdAttackMob(int id){
@@ -571,7 +571,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 55, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 121bbb" + ex);
         }
     }
 
@@ -579,7 +579,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 56, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 324334 " + ex);
         }
     }
 
@@ -587,7 +587,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 64, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 0000" + ex);
         }
     }
 
@@ -595,7 +595,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 65, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service ppppp" + ex);
         }
     }
 
@@ -603,7 +603,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 66, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service pppp" + ex);
         }
     }
 
@@ -611,7 +611,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 67, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 111az" + ex);
         }
     }
 
@@ -619,7 +619,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 68, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service 211212x" + ex);
         }
     }
 
@@ -627,7 +627,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 69, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service ccccccccc" + ex);
         }
     }
 
@@ -635,7 +635,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 70, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service ccccc" + ex);
         }
     }
 
@@ -643,7 +643,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 71, writer));
         } catch (Exception ex) {
-            Log.error("Loi service " + ex);
+            Log.error("Loi service ccccccc" + ex);
         }
     }
 

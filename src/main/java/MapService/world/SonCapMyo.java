@@ -99,7 +99,7 @@ public class SonCapMyo extends World {
                     if (_char.isClean) {
                         continue;
                     }
-                    _char.Info.pointDungeon=0;
+                    _char.pointDungeon=0;
                     Map.maps[85].addChar(_char);
                     _char.service.serverMessage("Hành trình thám hiệm Sơn cốc Myonbokyu đã kết thúc.");
                     _char.removeWorld(World.SONCAP);
