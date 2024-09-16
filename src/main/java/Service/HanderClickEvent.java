@@ -218,6 +218,16 @@ public class HanderClickEvent {
         }
     }
 
+    public static void LuyenBiKip(Char _myChar) {
+        try {
+            Message m = new Message((byte) 122);
+            m.writeByte(76);
+            _myChar.user.session.sendMessage(m);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void thuvanmaySilver(Char _myChar, byte idEvent) {
         try {
             Message m = new Message((byte) 122);

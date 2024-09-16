@@ -457,8 +457,8 @@ public class User {
                                 if (it == null) {
                                     continue;
                                 }
-                                if (it.amount > 50000) {
-                                    it.amount = 50000;
+                                if (it.amount > 500000) { //check item lớn hơn 500k
+                                    it.amount = 500000;
                                 }
                                 _char.addItem(it);
                             }

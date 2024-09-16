@@ -531,6 +531,9 @@ public class HanderNpc {
             case 3:
                 myChar.service.openMsg122((byte) 100);
                 break;
+            case 4:
+                myChar.service.openMsg122((byte) 100);
+                break;
         }
     }
     private static void _selectTsunade(Char myChar, byte index1, byte index2) {

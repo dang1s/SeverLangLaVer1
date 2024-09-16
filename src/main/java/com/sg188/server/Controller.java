@@ -164,11 +164,6 @@ public class Controller implements IMessageHandler {
                     if (_char != null) {
                         ClickTop.ShowInfo(_char, msg.readUTF());
                     }
-
-
-
-
-
                     break;
                 case 36:
                     if (_char != null && _char.user != null)
@@ -278,6 +273,7 @@ public class Controller implements IMessageHandler {
                 case 62:
                     if (_char != null && _char.user != null) {
                         if (_char.Info.idClass == 0) {
+                            service.alertMessage("Yêu cầu vào lớp mới có thể cộng tiềm năng");
                             _char.msgUpdateDataChar();
                             _char.msgGetInfo();
                             return;
@@ -1467,6 +1463,7 @@ public class Controller implements IMessageHandler {
                         _char.doibikip(msg);
                     }
                     break;
+
                 case -69:
                     if (_char != null && _char.user != null) {
                         if (_char.Bag.vang < 500) {

@@ -89,6 +89,8 @@ public class ClickEvent {
         }
     }
 
+
+
     public static void NapDau(Char _myChar) {
         try {
             Message m = new Message((byte) 122);

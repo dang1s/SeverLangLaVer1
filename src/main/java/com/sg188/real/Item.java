@@ -44,7 +44,7 @@ public class Item implements Cloneable {
     public int index;
     public String strOptions = "";
     public int typeShop;
-    public String strOptionsBackCaiTrang="";
+    public String strOptionsBackCaiTrang = "";
     public int amount = 1;
     private long createdAt = System.currentTimeMillis();
     public byte renew;
@@ -85,8 +85,8 @@ public class Item implements Cloneable {
         } catch (Exception e) {
         }
         this.isLock = parse.getBoolean("isLock");
-        if(this.id==178||this.id==500||this.id==931){
-            this.isLock=true;
+        if (this.id == 178 || this.id == 500 || this.id == 931) {
+            this.isLock = true;
         }
         this.createdAt = parse.getLong("created_at");
         this.he = parse.getByte("he");
@@ -94,11 +94,11 @@ public class Item implements Cloneable {
         this.strOptions = removeDuplicatesById(this.strOptions);
         this.level = parse.getByte("level");
         this.amount = parse.getInt("amount");
-        if(parse.containsKey("renew")){
+        if (parse.containsKey("renew")) {
             this.renew = parse.getByte("renew");
         }
-        if(parse.containsKey("strOptionsBackCaiTrang"))
-        this.strOptionsBackCaiTrang = parse.getString("strOptionsBackCaiTrang");
+        if (parse.containsKey("strOptionsBackCaiTrang"))
+            this.strOptionsBackCaiTrang = parse.getString("strOptionsBackCaiTrang");
     }
 
     public static String removeDuplicatesById(String input) {
@@ -166,6 +166,7 @@ public class Item implements Cloneable {
         }
         return count;
     }
+
     @JsonIgnore
     public int checkCountKham() {
         if (this.getItemTemplate().levelNeed >= 50) {
@@ -281,6 +282,7 @@ public class Item implements Cloneable {
         }
         return false;
     }
+
     @JsonIgnore
     public boolean isItemUpdate() {
         if (!strOptions.isEmpty()) {
@@ -394,7 +396,8 @@ public class Item implements Cloneable {
         }
         item.strOptions = String.join(";", options);
     }
-    public static void getOptionBijuu(Item item,int percent) {
+
+    public static void getOptionBijuu(Item item, int percent) {
         String[] options = item.strOptions.split(";");
         for (int i = 0; i < options.length; i++) {
             String[] option = options[i].split(",");
@@ -429,10 +432,10 @@ public class Item implements Cloneable {
             item.addItemOption(new ItemOption(346, 200, 210));
         }
         item.addItemOption(new ItemOption(0, 20 * level + 600, 20 * level + 600 + 100));
-        item.addItemOption(new ItemOption(119, 30+level*3, 30+level*3+15));
-        item.addItemOption(new ItemOption(120, 30+level*3, 30+level*3+15));
-        item.addItemOption(new ItemOption(121, 50+level*6, 50+level*6+20));
-        item.addItemOption(new ItemOption(122, 20+level*2, 20+level*2+10));
+        item.addItemOption(new ItemOption(119, 30 + level * 3, 30 + level * 3 + 15));
+        item.addItemOption(new ItemOption(120, 30 + level * 3, 30 + level * 3 + 15));
+        item.addItemOption(new ItemOption(121, 50 + level * 6, 50 + level * 6 + 20));
+        item.addItemOption(new ItemOption(122, 20 + level * 2, 20 + level * 2 + 10));
         item.addItemOption(new ItemOption(123, (int) (level * 0.4), (int) (level * 0.4) + 2));
         item.addItemOption(new ItemOption(124, (int) (level * 0.4), (int) (level * 0.4) + 2));
         item.addItemOption(new ItemOption(125, (int) (level * 0.4), (int) (level * 0.4) + 2));
@@ -554,7 +557,7 @@ public class Item implements Cloneable {
     }
 
     public ItemOption[] L() {
-        if (this.strOptions != null && this.strOptions.length() > 0&&!this.strOptions.isEmpty()) {
+        if (this.strOptions != null && this.strOptions.length() > 0 && !this.strOptions.isEmpty()) {
             String[] var1;
             ItemOption[] var2 = new ItemOption[(var1 = Utlis.split(this.strOptions, ";")).length];
             for (int var3 = 0; var3 < var1.length; ++var3) {
@@ -562,7 +565,7 @@ public class Item implements Cloneable {
                     var2[var3] = new ItemOption(var1[var3]);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return  null;
+                    return null;
                 }
             }
 
@@ -671,7 +674,7 @@ public class Item implements Cloneable {
             }
         }
         int param = 0;
-        if(this.getItemTemplate().levelNeed < 50){
+        if (this.getItemTemplate().levelNeed < 50) {
             param = 6;
         } else if (this.getItemTemplate().levelNeed < 60) {
             param = 7;
@@ -761,7 +764,7 @@ public class Item implements Cloneable {
                     }
                     if (this.getItemTemplate().levelNeed / 10 == 6 && var2[var7].getItemOptionTemplate().type == 11) {
                         int randomNumber = 355 + Utlis.nextInt(5);
-                        var3.add(new ItemOption(""+randomNumber+",40,-1"));
+                        var3.add(new ItemOption("" + randomNumber + ",40,-1"));
                     }
                     if (var2[var7].getItemOptionTemplate().type == 7) {
                         if (this.getItemTemplate().levelNeed / 10 == 4) {
@@ -773,7 +776,7 @@ public class Item implements Cloneable {
         }
 
         int param = 0;
-        if(this.getItemTemplate().levelNeed < 50){
+        if (this.getItemTemplate().levelNeed < 50) {
             param = 6;
         } else if (this.getItemTemplate().levelNeed < 60) {
             param = 7;
@@ -836,6 +839,7 @@ public class Item implements Cloneable {
         this.strOptions = Item.a(var3);
         this.a(level);
     }
+
     public void updateOptionRinegan_2() {
         byte level = this.level;
         this.a(0);
@@ -862,7 +866,7 @@ public class Item implements Cloneable {
                     }
                     if (this.getItemTemplate().levelNeed / 10 == 6 && var2[var7].getItemOptionTemplate().type == 11) {
                         int randomNumber = 355 + Utlis.nextInt(5);
-                        var3.add(new ItemOption(""+randomNumber+",40,-1"));
+                        var3.add(new ItemOption("" + randomNumber + ",40,-1"));
                     }
                     if (var2[var7].getItemOptionTemplate().type == 7) {
                         if (this.getItemTemplate().levelNeed / 10 == 4) {
@@ -874,7 +878,7 @@ public class Item implements Cloneable {
         }
 
         int param = 0;
-        if(this.getItemTemplate().levelNeed < 50){
+        if (this.getItemTemplate().levelNeed < 50) {
             param = 6;
         } else if (this.getItemTemplate().levelNeed < 60) {
             param = 7;
@@ -912,8 +916,68 @@ public class Item implements Cloneable {
         }
         tuluyen.c(valueadd);
         this.strOptions = Item.a(listops);
-        if (valueadd >= 1000)
+
+
+        if (valueadd >= 1000) {
             this.a(valueadd / 1000);
+        }
+
+        if (valueadd == 4000 && level == 4) {
+            switch (this.id) {
+                case 749:
+                    this.addItemOption(new ItemOption(143, Utlis.NextInt(21, 30)));
+                    break;
+                case 888:
+                    this.addItemOption(new ItemOption(143,  Utlis.NextInt(31, 40)));
+                    break;
+                default:
+                    this.addItemOption(new ItemOption(143, Utlis.NextInt(10, 20)));
+                    break;
+            }
+        }
+
+        if (valueadd == 8000 && level == 8) {
+            switch (this.id) {
+                case 749:
+                    this.addItemOption(new ItemOption(144, Utlis.NextInt(61, 80)));
+                    break;
+                case 888:
+                    this.addItemOption(new ItemOption(144, Utlis.NextInt(81, 100)));
+                    break;
+                default:
+                    this.addItemOption(new ItemOption(144, Utlis.NextInt(40, 60)));
+                    break;
+            }
+        }
+        if (valueadd == 12000 && level == 12) {
+            switch (this.id) {
+                case 749:
+                    this.addItemOption(new ItemOption(145, 5));
+                    break;
+                case 888:
+                    this.addItemOption(new ItemOption(145, 10));
+                    break;
+                default:
+                    this.addItemOption(new ItemOption(145, 3));
+                    break;
+            }
+        }
+        if (valueadd == 16000 && level == 16) {
+            switch (this.id) {
+                case 749:
+                    this.addItemOption(new ItemOption(146,  Utlis.NextInt(400, 600)));
+                    break;
+                case 888:
+                    this.addItemOption(new ItemOption(146,  Utlis.NextInt(600, 800)));
+                    break;
+                default:
+                    this.addItemOption(new ItemOption(146, Utlis.NextInt(200, 400)));
+                    break;
+            }
+        }
+
+
+//
     }
 
     public void updateViThu(int i) {
@@ -997,6 +1061,7 @@ public class Item implements Cloneable {
         this.strOptions = Item.a(var3);
         this.a(level);
     }
+
     public void updateOptionSharigan_2() {
         byte level = this.level;
         this.a(0);
@@ -1023,7 +1088,7 @@ public class Item implements Cloneable {
                     }
                     if (this.getItemTemplate().levelNeed / 10 == 6 && var2[var7].getItemOptionTemplate().type == 11) {
                         int randomNumber = 355 + Utlis.nextInt(5);
-                        var3.add(new ItemOption(""+randomNumber+",40,-1"));
+                        var3.add(new ItemOption("" + randomNumber + ",40,-1"));
                     }
                     if (var2[var7].getItemOptionTemplate().type == 7) {
                         if (this.getItemTemplate().levelNeed / 10 == 4) {
@@ -1035,7 +1100,7 @@ public class Item implements Cloneable {
         }
 
         int param = 0;
-        if(this.getItemTemplate().levelNeed < 50){
+        if (this.getItemTemplate().levelNeed < 50) {
             param = 6;
         } else if (this.getItemTemplate().levelNeed < 60) {
             param = 7;
@@ -1056,7 +1121,7 @@ public class Item implements Cloneable {
             case 7:
                 var1.add(new ItemOption("324,250,-1"));
             default:
-                var1.add(new ItemOption("362,"+Utlis.nextInt(50,200)+",-1"));
+                var1.add(new ItemOption("362," + Utlis.nextInt(50, 200) + ",-1"));
                 return;
             case 8:
                 var1.add(new ItemOption("304,300,-1"));
@@ -1169,14 +1234,17 @@ public class Item implements Cloneable {
     public boolean isVuKhi() {
         return this.getItemTemplate().type == 1;
     }
+
     @JsonIgnore
     public boolean isBayakugan() {
         return this.getItemTemplate().type == 6 || this.getItemTemplate().type == 5 || this.getItemTemplate().type == 9;
     }
+
     @JsonIgnore
     public boolean isRenegan() {
         return this.getItemTemplate().type == 0 || this.getItemTemplate().type == 4 || this.getItemTemplate().type == 3;
     }
+
     @JsonIgnore
     public boolean isSharigan() {
         return this.getItemTemplate().type == 8 || this.getItemTemplate().type == 2 || this.getItemTemplate().type == 7;
@@ -1474,7 +1542,7 @@ public class Item implements Cloneable {
 
     @JsonIgnore
     public ItemOption[] getItemOption() {
-        if (strOptions != null && strOptions.length() > 0&&!strOptions.isEmpty()) {
+        if (strOptions != null && strOptions.length() > 0 && !strOptions.isEmpty()) {
             String[] var1;
             ItemOption[] itemOption = new ItemOption[(var1 = Utlis.split(strOptions, ";")).length];
             for (int var3 = 0; var3 < var1.length; ++var3) {
@@ -1639,6 +1707,7 @@ public class Item implements Cloneable {
 
         return false;
     }
+
     public int checkSucManh() {
         ItemOption[] var1;
         if ((var1 = this.getItemOption()) != null) {
@@ -1800,6 +1869,7 @@ public class Item implements Cloneable {
     public boolean isSet1() {
         return this.getItemTemplate().type == 0 || this.getItemTemplate().type == 4 || this.getItemTemplate().type == 3;
     }
+
     @JsonIgnore
     public boolean checkKichAn(Char pl) {
         if (isSet1()) {
@@ -1834,6 +1904,7 @@ public class Item implements Cloneable {
         }
         return false;
     }
+
     @JsonIgnore
     public boolean checkItemCanAddItem(Char pl, ItemOptionTemplate itemOption) {
         switch (itemOption.type) {
@@ -1858,6 +1929,7 @@ public class Item implements Cloneable {
         }
         return true;
     }
+
     @JsonIgnore
     public boolean checkItemCanAddItem(Char pl, ItemOption itemOption) {
         switch (itemOption.getItemOptionTemplate().type) {
@@ -1882,6 +1954,7 @@ public class Item implements Cloneable {
         }
         return true;
     }
+
     @JsonIgnore
     public boolean V() {
         ItemOption[] var1;
@@ -1895,6 +1968,7 @@ public class Item implements Cloneable {
 
         return false;
     }
+
     @JsonIgnore
     public ItemOption a(Vector var1, int var2) {
         var2 = ItemOption.f(var2);
@@ -1916,6 +1990,7 @@ public class Item implements Cloneable {
 
         return var4;
     }
+
     @JsonIgnore
     public int[] ab(int var1, int var2) {
         ItemOption[] var3;
@@ -1954,6 +2029,7 @@ public class Item implements Cloneable {
             return var5;
         }
     }
+
     @JsonIgnore
     public int Y() {
         ItemOption[] var1;
@@ -1971,8 +2047,9 @@ public class Item implements Cloneable {
 
         return 16;
     }
+
     @JsonIgnore
-    public void createOptionTT(){
+    public void createOptionTT() {
         List<String> indices = new ArrayList<>();
         indices.add("0,200,500");
         indices.add("1,200,500");
@@ -2008,6 +2085,7 @@ public class Item implements Cloneable {
         String result = String.join(";", selectedIndices);
         this.strOptions = result;
     }
+
     public void createOptionTanTo() {
         this.level = 16;
         this.strOptions = "122,10,30;151,50,200;152,50,200;117,100,300;110,50,150;158,1,3;2,50,200;167,50,150;126,3,8";
@@ -2021,18 +2099,22 @@ public class Item implements Cloneable {
     public boolean has() {
         return has(1);
     }
+
     @JsonIgnore
     public boolean has(int amount) {
         return this.amount >= amount;
     }
+
     @JsonIgnore
     public boolean hasExpire() {
         return !isForever();
     }
+
     @JsonIgnore
     public boolean isForever() {
         return this.expiry == -1;
     }
+
     @JsonIgnore
     public void add(int amount) {
         this.amount += amount;
@@ -2041,9 +2123,10 @@ public class Item implements Cloneable {
     public void reduce(int amount) {
         this.amount -= amount;
     }
+
     @JsonIgnore
     public boolean addExp(int exp) {
-        if(exp< 0 )
+        if (exp < 0)
             return false;
         ItemOption[] options = this.getItemOption();
         Vector listops = new Vector<>();
@@ -2069,8 +2152,9 @@ public class Item implements Cloneable {
         this.strOptions = Item.a(listops);
         return true;
     }
+
     @JsonIgnore
-    public int getValueHu(){
+    public int getValueHu() {
         ItemOption[] options = this.getItemOption();
         for (ItemOption ops : options) {
             if (ops.getId() == 283) {

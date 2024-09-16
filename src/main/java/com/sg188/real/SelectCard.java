@@ -213,8 +213,8 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(763).rate(5).quantity(1000).build());
         add(Card.builder().id(763).rate(5).quantity(1000).build());
 
-        add(Card.builder().id(687).rate(1).quantity(50).build());
-        add(Card.builder().id(687).rate(2).quantity(20).build());
+        add(Card.builder().id(687).rate(10).quantity(100).build());
+        add(Card.builder().id(687).rate(10).quantity(100).build());
         add(Card.builder().id(688).rate(1.5).build());
         add(Card.builder().id(860).rate(0.5).build());
         add(Card.builder().id(281).rate(2).quantity(20).build());
@@ -225,6 +225,9 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(310).rate(5).quantity(50).build());
         add(Card.builder().id(310).rate(5).quantity(50).build());
         add(Card.builder().id(310).rate(5).quantity(50).build());
+        add(Card.builder().id(754).rate(10).quantity(500).build());
+        add(Card.builder().id(754).rate(10).quantity(500).build());
+        add(Card.builder().id(754).rate(10).quantity(500).build());
 
     }
 
