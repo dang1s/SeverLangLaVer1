@@ -532,7 +532,7 @@ public class HanderNpc {
                 myChar.service.openMsg122((byte) 100);
                 break;
             case 4:
-                myChar.service.openMsg122((byte) 100);
+                myChar.BiKipHienNhan();
                 break;
         }
     }

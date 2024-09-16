@@ -146,8 +146,8 @@ public class ZDeadForest2 extends ZWorld {
             List<Char> members = getChars();
             for (Char pl : members) {
                 if (pl != null && pl.user != null) {
-                    pl.pointDungeon += 5;
-                    pl.service.updatepointDungeon();
+                 //   pl.pointDungeon += 5;
+                 //   pl.service.updatepointDungeon();
                     Calendar calendar = Calendar.getInstance();
                     int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
                     if (dayOfWeek == Calendar.SUNDAY) {

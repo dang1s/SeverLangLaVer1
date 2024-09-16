@@ -158,6 +158,11 @@ public class MarketManager implements Runnable {
             p.getService().serverMessage("Vui lòng kích hoạt tài khoản để sử dụng tính năng này");
             return;
         }
+        if (p.isSecurity && !p.isUnlockSecurity) {
+            p.service.warningMessage("Vui lòng mở khoá bảo mật trước khi sử dụng tính năng này");
+            return;
+        }
+
         ItemMarket itemMarket = find(id);
         if(itemMarket == null) {
             p.getService().serverMessage("Vật phẩm không tồn tại!");

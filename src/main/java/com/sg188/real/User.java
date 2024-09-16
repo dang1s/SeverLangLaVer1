@@ -152,6 +152,8 @@ public class User {
                         _char.Info.countKham = Byte.parseByte(obj.get("countkham").toString());
                         _char.Info.lvPk = Byte.parseByte(obj.get("lvpk").toString());
                         _char.Info.TimeStartHD = Long.parseLong(obj.get("timestart").toString());
+
+
                         if (obj.containsKey("cx") && obj.containsKey("cy")) {
                             _char.Info.cx = Short.parseShort(obj.get("cx").toString());
                             _char.Info.cy = Short.parseShort(obj.get("cy").toString());
@@ -160,6 +162,12 @@ public class User {
                         if (obj.containsKey("pointnapnew")) {
                             _char.Bag.pointNapNew = Integer.parseInt(obj.get("pointnapnew").toString());
                         }
+
+                        if (obj.containsKey("pointDungeon")) {
+                            _char.Info.pointDungeon = Integer.parseInt(obj.get("pointDungeon").toString());
+                        }
+
+
 
 
                         if (obj.containsKey("khoaexp")) {
@@ -480,8 +488,8 @@ public class User {
                                 if (indexBoxNull == -1) {
                                     break;
                                 }
-                                if (it.amount > 50000) {
-                                    it.amount = 50000;
+                                if (it.amount > 500000) {
+                                    it.amount = 500000;
                                 }
                                 _char.Bag.arrItemBox[indexBoxNull] = it;
                             }

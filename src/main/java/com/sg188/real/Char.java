@@ -113,6 +113,9 @@ public class Char extends Body {
     public boolean canRevive = true;
     private List<World> worlds;// danh sách world đang tham gia
     public HashMap<String, Friend> friends, enemies;
+
+
+
     public int idCamThuat = -1;
     public int idKhuLuyenTap = -1;
     public int idDiaCung = -1;
@@ -159,7 +162,7 @@ public class Char extends Body {
     private List<Item> tanto = new ArrayList<>();
     private List<Item> aoChoang = new ArrayList<>();
     private List<Item> thoiTrang = new ArrayList<>();
-    public int pointDungeon;
+    //public int pointDungeon;
     public boolean tuLuyenChau;
     public short timeOffline;
     public boolean inLangCo;
@@ -2256,7 +2259,7 @@ public class Char extends Body {
                     msgUseItemBag(item);
                     Bag.arrItemBody[11].updateTuLuyen(25);
                     msgUpdateItemBody();
-                }else {
+                } else {
                     service.alertMessage("Yêu cầu trang bị bí kíp");
                     return;
                 }
@@ -2419,7 +2422,7 @@ public class Char extends Body {
                     }
                     sieucap.createItemOptions();
                     addItem(sieucap);
-                    service.serverMessage("Đổi thành công bùa nổ siêu cấp");
+                    service.serverMessage("Đổi thành công Bí kíp siêu cấp");
                     service.resetScreen();
                 } else {
                     service.warningMessage("Cần 100.000 mảnh");
@@ -3462,9 +3465,9 @@ public class Char extends Body {
                 return;
             }
 
-            if (System.currentTimeMillis() < delayChetao + 400L) {
-                return;
-            }
+//            if (System.currentTimeMillis() < delayChetao + 400L) {
+//                return;
+//            }
             if (requiredHoatLuc > 0 && requiredTinhThachAmount > 0) {
                 if (Point.hoatLuc < requiredHoatLuc || tinhThach == null || tinhThach.amount < requiredTinhThachAmount) {
                     user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vật phẩm yêu cầu", HanderMessage.RED_MID));
@@ -3531,9 +3534,9 @@ public class Char extends Body {
             }
 
             if (item != null) {
-                user.session.sendMessage(HanderMessage.MsgLoadPhanTram(this, 500, "Đang chế tạo"));
-                Thread.sleep(500L);
-                user.session.sendMessage(HanderMessage.xoaTab(this));
+               // user.session.sendMessage(HanderMessage.MsgLoadPhanTram(this, 500, "Đang chế tạo"));
+               // Thread.sleep(500L);
+              //  user.session.sendMessage(HanderMessage.xoaTab(this));
                 addItem(item);
                 msgAddItemBag(item);
                 if (type == 0) {
@@ -3542,13 +3545,48 @@ public class Char extends Body {
                     Info.expCheTao += 10;
                 }
                 user.session.sendMessage(HanderMessage.MsgCheTao(Info.expCheTao, Point.hoatLuc, (short) item.amount, item));
-                delayChetao = System.currentTimeMillis();
+                //delayChetao = System.currentTimeMillis();
             }
         } catch (Exception ex) {
             Log.error("che tao loi: " + ex.getMessage(), ex);
         }
 
+    }
+    public void BiKipHienNhan() {
+        if (Info.pointDungeon < 10000) {
 
+            service.alertMessage("Cần 10000 điểm tích lũy Sơn cáp, bạn đang có: " + Info.pointDungeon + " tích lũy");
+            return;
+        }
+        Info.pointDungeon -= 10000;
+
+        Item bkHienNhan = new Item(888);
+        bkHienNhan.isLock = true;
+        bkHienNhan.he = Info.idhe;
+        bkHienNhan.addItemOption(new ItemOption(128, 0, 16000));
+        bkHienNhan.addItemOption(new ItemOption(331, 100, 150));
+        bkHienNhan.addItemOption(new ItemOption(0, 2300, 2500));
+        bkHienNhan.addItemOption(new ItemOption(1, 2300, 2500));
+        if (bkHienNhan.he == 1) {
+            bkHienNhan.addItemOption(new ItemOption(109, 220, 250));
+            bkHienNhan.addItemOption(new ItemOption(114, 420, 450));
+        } else if (bkHienNhan.he == 2) {
+            bkHienNhan.addItemOption(new ItemOption(110, 220, 250));
+            bkHienNhan.addItemOption(new ItemOption(115, 420, 450));
+        } else if (bkHienNhan.he == 3) {
+            bkHienNhan.addItemOption(new ItemOption(111, 220, 250));
+            bkHienNhan.addItemOption(new ItemOption(113, 420, 450));
+        } else if (bkHienNhan.he == 4) {
+            bkHienNhan.addItemOption(new ItemOption(112, 220, 250));
+            bkHienNhan.addItemOption(new ItemOption(117, 420, 450));
+        } else if (bkHienNhan.he == 5) {
+            bkHienNhan.addItemOption(new ItemOption(108, 220, 250));
+            bkHienNhan.addItemOption(new ItemOption(113, 420, 450));
+        }
+        bkHienNhan.createItemOptions();
+        addItem(bkHienNhan);
+        service.serverMessage("Đổi thành công Bí kíp hiền nhân");
+        service.resetScreen();
     }
 
 
@@ -4176,34 +4214,45 @@ public class Char extends Body {
         }
 
         Item item = Bag.arrItemBag[index];
-        if (item != null) {
-            msgRemoveItemBag(Bag.arrItemBag[index]);
-            this.Bag.arrItemBag[index] = null;
-            if (user.actived) {
-                short x = this.Info.cx;
-                short y = this.Info.cy;
-                ItemMap itemMap = new ItemMap((short) zone.id_ENTITY_ITEM_MAP++);
-                itemMap.setY((short) y);
-                itemMap.setX((short) x);
-                itemMap.setOwnerID(this.id);
-                itemMap.setItem(item);
-                zone.addItemMap(itemMap);
-                try {
-                    Writer writer = new Writer();
-                    writer.writeInt(this.id);
-                    itemMap.write(writer, -1, -1, zone);
-                    service.vutItem(writer);
-                } catch (IOException e) {
+        msgRemoveItemBag(Bag.arrItemBag[index]);
+        this.Bag.arrItemBag[index] = null;
 
-                }
-            }
-            Manager.gI().saveDropItemPlayer("Đã vứt item " + item.getItemTemplate().name + "với số lượng : " + item.amount, Info.name);
-        }
+
+//        if (item != null) {
+//            msgRemoveItemBag(Bag.arrItemBag[index]);
+//            this.Bag.arrItemBag[index] = null;
+//            if (user.actived) {
+//                short x = this.Info.cx;
+//                short y = this.Info.cy;
+//                ItemMap itemMap = new ItemMap((short) zone.id_ENTITY_ITEM_MAP++);
+//                itemMap.setY((short) y);
+//                itemMap.setX((short) x);
+//                itemMap.setOwnerID(this.id);
+//                itemMap.setItem(item);
+//                zone.addItemMap(itemMap);
+//                try {
+//                    Writer writer = new Writer();
+//                    writer.writeInt(this.id);
+//                    itemMap.write(writer, -1, -1, zone);
+//                   service.vutItem(writer);
+//                } catch (IOException e) {
+//
+//                }
+//            }
+//            Manager.gI().saveDropItemPlayer("Đã vứt item " + item.getItemTemplate().name + "với số lượng : " + item.amount, Info.name);
+//        }
 
     }
 
     public void tachItem(short index, int amount) {
-        if (index < 0 || index >= Bag.arrItemBag.length || Bag.arrItemBag[index] == null || Bag.arrItemBag[index].getAmount() <= amount || amount > Short.MAX_VALUE || amount < 1) {
+//        if (index < 0 || index >= Bag.arrItemBag.length || Bag.arrItemBag[index] == null || Bag.arrItemBag[index].getAmount() <= amount || amount > Short.MAX_VALUE || amount < 1) {
+//            return;
+//        }
+        if (index < 0 || index >= Bag.arrItemBag.length || Bag.arrItemBag[index] == null || Bag.arrItemBag[index].getAmount() <= amount || amount < 1) {
+            return;
+        }
+        if (amount > 30000) {
+            service.alertMessage("Vật phẩm không thể tách quá 30000");
             return;
         }
         Item itemMain = Bag.arrItemBag[index];
@@ -4439,6 +4488,10 @@ public class Char extends Body {
                 arena.join(1, this);
                 arena.join(2, this);
                 addWorld(arena);
+            } else if (str.equals("soncapzz")) {
+
+                service.alertMessage("ĐIểm sơn cáp: " + this.Info.pointDungeon);
+
             } else if (str.equals("nhaphoc")) {
                 this.Info.idClass = this.getLopFormSelectChar(this.Info.idChar);
                 this.service.sendChar();
@@ -6745,7 +6798,16 @@ public class Char extends Body {
             if (item1 == null || item2 == null) {
                 return;
             }
-            Item bikip = item1.getItemTemplate().levelNeed > item2.getItemTemplate().levelNeed ? item1 : item2;
+            Item bikip;
+
+            if (item1.getItemTemplate().id == 888) {
+                bikip = item1;
+            }
+          else  if (item2.getItemTemplate().id == 888) {
+                bikip = item2;
+            } else {
+                bikip = item1.getItemTemplate().levelNeed > item2.getItemTemplate().levelNeed ? item1 : item2;
+            }
             if (item1.getItemTemplate().levelNeed - item2.getItemTemplate().levelNeed > 15 || item2.getItemTemplate().levelNeed - item1.getItemTemplate().levelNeed > 15) {
                 service.alertMessage("Vui lòng nâng cấp theo hướng dẫn");
                 return;
@@ -6775,6 +6837,10 @@ public class Char extends Body {
                 return;
             }
             int maxTuLuyen = getMaxTuLuyen(bikip.getItemTemplate().levelNeed);
+
+            if (bikip.id == 888){
+                maxTuLuyen = 19000;
+            }
             if (tuluyen.f() >= maxTuLuyen) {
                 service.alertMessage("Đã tới giới hạn");
                 return;
@@ -6849,6 +6915,8 @@ public class Char extends Body {
             case 49:
                 return 17000;
         }
+
+
         return 0;
     }
 

@@ -55,6 +55,8 @@ public class InfoChar extends Entity{
     public byte countBox;
     public boolean khoaExp= false;
 
+    public int pointDungeon;
+
 
 
 
@@ -119,6 +121,7 @@ public class InfoChar extends Entity{
         obj.put("countUseBinhHoatLuc", this.countUseBinhHoatLuc);
         obj.put("countDauCoc", this.countDauCoc);
         obj.put("KinhNghiemVoHan", this.KinhNghiemVoHan);
+        obj.put("pointDungeon", this.pointDungeon);
         return obj;
     }
 

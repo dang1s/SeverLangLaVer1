@@ -129,7 +129,7 @@ public class Map {
     public void AddLoginGame(Char _myChar) {
         boolean isdone = false;
         for (Zone z : this.zones) {
-            if (z.players.size() < z.MAX_CHAR_INZONE / 2) {
+            if (z.players.size() < z.MAX_CHAR_INZONE) {
                 z.addPlayer(_myChar);
                 _myChar.zone = z;
                 _myChar.zone.addToAllChar(_myChar);

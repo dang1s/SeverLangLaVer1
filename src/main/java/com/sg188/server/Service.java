@@ -129,7 +129,7 @@ public class Service {
     public void updatepointDungeon() {
         try {
             Message ms = new Message((byte) -31);
-            ms.writeInt(player.pointDungeon);
+            ms.writeInt(player.Info.pointDungeon);
             session.sendMessage(ms);
         } catch (Exception ex) {
         }

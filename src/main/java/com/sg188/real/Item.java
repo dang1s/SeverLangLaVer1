@@ -975,9 +975,20 @@ public class Item implements Cloneable {
                     break;
             }
         }
+        if (valueadd == 18000 && level == 18) {
+            switch (this.id) {
+                case 749:
+                    this.addItemOption(new ItemOption(146,  Utlis.NextInt(400, 600)));
+                    break;
+                case 888:
+                    this.addItemOption(new ItemOption(146,  Utlis.NextInt(600, 800)));
+                    break;
+                default:
+                    this.addItemOption(new ItemOption(146, Utlis.NextInt(200, 400)));
+                    break;
+            }
+        }
 
-
-//
     }
 
     public void updateViThu(int i) {

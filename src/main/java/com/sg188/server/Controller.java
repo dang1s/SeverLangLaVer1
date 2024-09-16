@@ -997,12 +997,12 @@ public class Controller implements IMessageHandler {
             }
             user.mChar.msgUpdateDataChar();
             ServerManager.addChar(user.mChar);
-            if (user.mChar.id == 4621)
-                Main.HeThongCTG("Chào mừng Đệ Nhất Cao Thủ >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
-            if (user.mChar.id == 84464)
-                Main.HeThongCTG("Chào mừng Top 1 Đại Gia >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
-            if (user.mChar.id == 83875)
-                Main.HeThongCTG("Chào mừng Top 1 Tài Phú >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
+//            if (user.mChar.id == 4621)
+//                Main.HeThongCTG("Chào mừng Đệ Nhất Cao Thủ >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
+//            if (user.mChar.id == 84464)
+//                Main.HeThongCTG("Chào mừng Top 1 Đại Gia >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
+//            if (user.mChar.id == 83875)
+//                Main.HeThongCTG("Chào mừng Top 1 Tài Phú >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
             if (user.mChar.idDiaCung > -1) {
                 Dungeon dungeon = Dungeon.findDungeonById(user.mChar.idDiaCung);
                 if (dungeon != null) {
