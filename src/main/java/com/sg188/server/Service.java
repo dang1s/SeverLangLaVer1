@@ -445,7 +445,7 @@ public class Service {
         try {
             session.sendMessage(new Message((byte) 58, writer));
         } catch (Exception ex) {
-            Log.error("Loi service 12312xxx" + ex);
+            Log.error("Loi service 12312zzzzzzzxxx" + ex);
         }
     }
 
