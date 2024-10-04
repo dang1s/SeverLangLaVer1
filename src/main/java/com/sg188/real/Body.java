@@ -252,7 +252,7 @@ public class Body {
         maxMP+=boostHPMP;
         damageReduction = options[13]+options[173]+options[206];
         counterAttack = options[16];
-        counterAttack+= counterAttack*(options[67]+options[162]+options[371]+options[373])/100;
+        counterAttack+= counterAttack*(options[67]+options[162]+options[371]+options[373]);
         criticalAttack = options[41]+options[95]+options[306]+options[309];
         reduceCriticalDamage = options[344]+options[346]+options[348];
         criticalDefense = options[42]+options[43]+options[44]+options[45]+options[46]+options[174];

@@ -132,7 +132,7 @@ public class User {
                         _char.Info.selectCaiTrang = Byte.parseByte(obj.get("selectcaitrang").toString());
                         _char.Info.IdGiaToc = Short.parseShort(obj.get("idclan").toString());
                         _char.Info.RoleGiaToc = Byte.parseByte(obj.get("roleclan").toString());
-                        _char.Info.BuffEXP = Byte.parseByte(obj.get("buffexp").toString());
+                        _char.Info.BuffEXP = (short) Integer.parseInt(obj.get("buffexp").toString());
                         _char.Info.chuyenCan = Integer.parseInt(obj.get("chuyencan").toString());
                         _char.Info.chuyenCanTuan = Short.parseShort(obj.get("chuyencantuan").toString());
                         _char.Info.cuaCai = Integer.parseInt(obj.get("cuacai").toString());
@@ -700,7 +700,7 @@ public class User {
             int isAdmin = (int) map.get("isAdmin");
             this.isAdmin = isAdmin == 1 ? true : false;
             String dbArr = (String) map.get("ArrSubName");
-            this.coin = (int) map.get("coin");
+            this.coin = (int) map.get("balance");
             this.banner = (int) map.get("lock");
             this.topSm = (int) map.get("topsm");
             int active = (int) map.get("activated");

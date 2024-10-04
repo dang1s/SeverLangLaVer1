@@ -55,7 +55,7 @@ public class InfoInventory {
         arrItemExtend = new Item[3];
         arrItemSkillViThu = new Item[6];
         arrItemBox = new Item[27];
-        vang = 0;
+        vang = 0;//open sửa lại
         vangKhoa = 1000;
         bac = 1000;
         bacKhoa = 1000;

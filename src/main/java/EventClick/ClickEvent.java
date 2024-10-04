@@ -33,10 +33,10 @@ public class ClickEvent {
             Message m = new Message((byte) 122);
             m.writeByte(56);
             m.writeUTF("---------------------------------THÔNG BÁO---------------------------------\n" +
-                    "Ae chú ý: Box giao lưu hiện tại KHÔNG còn do Admin tiếp quản.\n" +
-                    "Hãy tránh giao dịch trong box cũ và cập nhật box mới để tránh lừa đảo.\n" +
-                    "Link box mới: https://daichienkonoha.com/\n" +
-                    "Vui lòng truy cập trang chủ để nhận thêm thông tin chi tiết.");
+                    "Link tải game: langlatoithuong.com\n" +
+                    "Gia nhập box zalo để chơi game tốt hơn.\n" +
+                    "Hãy tham gia like share để nhận code mới nhất.\n" +
+                    "Chúc bạn chơi game vui vẻ.");
             m.writeByte(18);
             for (int i = 0; i < 18; i++) {
                 m.writeUTF("");
@@ -96,21 +96,21 @@ public class ClickEvent {
             Message m = new Message((byte) 122);
             m.writeByte(89);
 
-            Item item = new Item(558, true, 999);
+            Item item = new Item(558, true, 1);
             item.write(m.writer);
 
-            item = new Item(529, true);
+            item = new Item(521, true);
             item.addItemOption(new ItemOption(0, 150));
             item.addItemOption(new ItemOption(1, 150));
             item.addItemOption(new ItemOption(3, 150));
             item.addItemOption(new ItemOption(209, 60));
             item.write(m.writer);
 
-            item = new Item(705, true);
-            item.amount = 2;
+            item = new Item(277, true);
+            item.amount = 10;
             item.write(m.writer);
 
-            item = new Item(938, true);
+            item = new Item(443, true);
             item.write(m.writer);
             _myChar.user.session.sendMessage(m);
         } catch (Exception e) {
@@ -225,7 +225,6 @@ public class ClickEvent {
         try {
             Message m = new Message((byte) 122);
             m.writeByte(typeShop);
-
             int len = Manager.gI().shopRank.size();
             m.writeShort(len);
             for (int i = 0; i < len; i++) {

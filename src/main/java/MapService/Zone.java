@@ -697,7 +697,7 @@ public class Zone {
                 Log.debug("123");
                 return;
             }
-            if (Utlis.getRange(mob.cx, pl.Info.cx) <= skill.rangeNgang + mob.getMobTemplate().speedMove && Utlis.getRange(mob.cy, pl.Info.cy) <= skill.rangeDoc + mob.getMobTemplate().speedMove) {
+            if (Utlis.getRange(mob.cx, pl.Info.cx) <= skill.rangeNgang + mob.getMobTemplate().speedMove + 5 && Utlis.getRange(mob.cy, pl.Info.cy) <= skill.rangeDoc + mob.getMobTemplate().speedMove + 5) {
                //  LangLa_iw animationSkill = (LangLa_iw) DataCenter.gI().K.get(new Short((short) idSkill));
                 LangLa_iw animationSkill = (LangLa_iw) DataCenter.gI().K.get((short) idSkill);
                 if (animationSkill == null) {
@@ -791,13 +791,13 @@ public class Zone {
                     setDameMob(pl, mob, pl.mobBird, false);
                     pl.getService().birdAttackMob(mob.id);
                 }
-//                pl.setAttackMob(mob, dame, timeDelayDame, chi_mang);
+                // pl.setAttackMob(mob, dame, timeDelayDame, chi_mang);
                 setDameMob(pl, mob, dame, chi_mang);
                 HanderUseSkill.SetEffSkillMob(pl, mob, skill);
                 ArrayList<Mob> list = new ArrayList<Mob>();
                 Set<Integer> selectedIds = new HashSet<Integer>(); // Để lưu trữ các ID của Mob đã được chọn
 
-// Giả sử `mob` là Mob hiện tại mà bạn đang xử lý
+                // Giả sử `mob` là Mob hiện tại mà bạn đang xử lý
                 selectedIds.add(mob.idEntity); // Thêm ID của Mob hiện tại vào danh sách đã chọn để tránh tự chọn nó
 
                 for (int i = 0; i < maxTarget - 1; i++) { // Đảm bảo vòng lặp chạy đủ số lần để có thể chọn tối đa 3 Mob
@@ -1474,6 +1474,7 @@ public class Zone {
                             itemMap.setPickedUp(true);
                             Item clone = item.cloneItem();
                             player.addItem(clone);
+                            player.msgUpdateItemBag(clone);
                             try {
                                 addItemRemove(itemMap);
                                 removeItem();

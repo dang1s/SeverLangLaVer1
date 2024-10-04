@@ -125,14 +125,14 @@ public class CharDB {
     public static int getCoinByName(Char pl) {
         int coin = 0;
         try (Connection conn = Connect.getConnection()) {
-            String query = "SELECT coin FROM users WHERE username = ? LIMIT 1"; // Select only necessary column
+            String query = "SELECT balance FROM users WHERE username = ? LIMIT 1"; // Select only necessary column
 
             try (PreparedStatement ps = conn.prepareStatement(query)) {
                 ps.setString(1, pl.user.username);
 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) { // Check if a matching player was found
-                        coin = rs.getInt("coin");
+                        coin = rs.getInt("balance");
                     }
                 }
             }
@@ -165,7 +165,7 @@ public class CharDB {
         PreparedStatement ps = null;
         try {
             conn = Connect.getConnection();
-            ps = conn.prepareStatement("UPDATE users SET coin = coin - ? WHERE id = ?");
+            ps = conn.prepareStatement("UPDATE users SET balance = balance - ? WHERE id = ?");
             ps.setInt(1, coinToSubtract);
             ps.setInt(2, id);
             ps.executeUpdate();

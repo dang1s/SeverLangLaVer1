@@ -160,7 +160,7 @@ public class Main {
         Manager.gI().updateDeadForest(12, 50, 0);
         Manager.gI().updateDeadForest(15, 50, 0);
         Manager.gI().updateDeadForest(18, 50, 0);
-        Manager.gI().updateDaiHoi(20, 20, 0);
+        //Manager.gI().updateDaiHoi(20, 20, 0);
         Manager.gI().updatePhucLoi(0, 0, 0);
         WorldManager.getInstance().start();
         // MongoDbConnection.connect();
@@ -254,10 +254,10 @@ public class Main {
 
     public static void sendRandomMessage() {
         String[] messages = {
-                "Làng Lá - Đại Chiến Konoha chính thức khai mở Alpha Test miễn phí! ",
+                "Làng Lá Tối Thượng chính thức khai mở đua top! ",
                 "Muốn đổi vàng, đổi bạc hãy tới NPC Ginkaku nhé! ",
-                "Tham gia Box Zalo, tương tác với Fanpage Làng Lá - Đại Chiến Konoha để nhận thêm quà! ",
-                "Làng Lá - Đại Chiến Konoha chúc các bạn chơi game vui vẻ! "
+                "Tham gia Box Zalo, tương tác với Fanpage Làng Lá Tối Thượng để nhận thêm quà! ",
+                "Chúc các bạn chơi game vui vẻ! "
         };
         Main.HeThongCTG(messages[new java.util.Random().nextInt(messages.length)], 2);
     }

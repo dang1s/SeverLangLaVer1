@@ -107,6 +107,7 @@ public class Session {
                         Thread.sleep(10);
                     } catch (Exception ex) {
                         //ex.printStackTrace();
+                        //System.out.println("check "+ ex.getMessage());
                         clean();
                         return;
                     }

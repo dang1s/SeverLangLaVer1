@@ -5,18 +5,13 @@ import MapService.world.DeadForest;
 import MapService.world.SonCapMyo;
 import SqlConnection.Connect;
 import SqlConnection.DBData;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.rewards.RewardTop;
 import com.sg188.Shop.ItemShop;
-import com.sg188.Shop.Store;
 import com.sg188.clan.Clan;
 import com.sg188.data.*;
 import com.sg188.lib.Log;
 import com.sg188.lib.Utlis;
 import com.sg188.real.Char;
-import com.sg188.real.DanhHieu;
 import com.sg188.real.DanhHieuNew;
 import com.sg188.real.Item;
 import com.sg188.server.Main;
@@ -29,7 +24,6 @@ import org.json.simple.JSONValue;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 public class Manager {
@@ -335,8 +329,8 @@ public class Manager {
     }
 
     private void createDaiHoi() {
-//        DaiHoiVoThuat.DAIHOI = new DaiHoiVoThuat();
-//        Main.HeThongCTG("Đại hội nhẫn giả đã mở báo danh hãy nhanh tay đến báo danh nào",2);
+        DaiHoiVoThuat.DAIHOI = new DaiHoiVoThuat();
+        Main.HeThongCTG("Đại hội nhẫn giả đã mở báo danh hãy nhanh tay đến báo danh nào",2);
     }
 
     private void createDeadForest() {
