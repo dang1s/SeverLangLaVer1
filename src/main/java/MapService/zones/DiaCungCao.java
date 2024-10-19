@@ -171,7 +171,8 @@ public class DiaCungCao extends ZWorld {
         if (mob.id == 77) {
             for (int i = 0; i < listItem.length; i++) {
                 Item it = new Item(listItem[i], false);
-                it.amount = 5;
+                it.amount = 10;
+//                it.isLock = true;
                 player.addItem(it);
                 player.msgAddItemBag(it);
             }

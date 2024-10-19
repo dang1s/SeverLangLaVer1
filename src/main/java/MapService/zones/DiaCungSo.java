@@ -168,7 +168,7 @@ public class DiaCungSo extends ZWorld {
         if (mob.id == 79) {
             for (int i = 0; i < listItem.length; i++) {
                 Item it = new Item(listItem[i], false);
-                it.amount = 3;
+                it.amount = 5;
                 player.addItem(it);
                 player.msgAddItemBag(it);
             }

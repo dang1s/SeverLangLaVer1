@@ -26,7 +26,9 @@ import java.util.stream.Collectors;
 
 public abstract class Event {
     public static final int GIO_TO_HUNG_VUONG = 0;
-    public static final int SU_KIEN_HE=1;
+    public static final int SU_KIEN_HE = 1;
+
+    public static final int HALLOWEEN = 2;
     public static final long EXPIRE_7_DAY = 604800000L;
     public static final long EXPIRE_14_DAY = 1209600000L;
     public static final long EXPIRE_3_DAY = 259200000L;

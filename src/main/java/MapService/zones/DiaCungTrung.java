@@ -190,7 +190,7 @@ public class DiaCungTrung extends ZWorld {
         if (mob.id == 76) {
             for (int i = 0; i < listItem.length; i++) {
                 Item it = new Item(listItem[i], false);
-                it.amount = 4;
+                it.amount = 8;
                 player.addItem(it);
                 player.msgAddItemBag(it);
             }

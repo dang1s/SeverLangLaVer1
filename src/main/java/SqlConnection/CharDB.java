@@ -331,12 +331,55 @@ public class CharDB {
             "ORDER BY `level` DESC " +
             "LIMIT 100;";
 
+    private static final String QueryTopNhiDong = "SELECT p.`Name`, p.`level`, p.`Info`, p.`Point`, p.`clan` " +
+            "FROM player p " +
+            "JOIN users u ON p.`IdChar` = u.`id` " +
+            "WHERE u.`createtime` > '2025-10-15 00:00:00' " +
+            "ORDER BY p.`level` DESC " +
+            "LIMIT 100;";
+
 
     public static List<InfoTop> getTop(byte type) {
         List<InfoTop> list = new ArrayList<>();
         try (Connection conn = Connect.getConnection();) {
             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             try (ResultSet rs = stmt.executeQuery(QueryTop)) {
+                while (rs.next()) {
+                    InfoTop top = new InfoTop();
+                    top.name = rs.getString("Name");
+                    top.level = rs.getShort("level");
+                    JSONArray jArr = (JSONArray) JSONValue.parse(rs.getString("Point"));
+                    int len = jArr.size();
+                    for (int k = 0; k < len; k++) {
+                        JSONObject obj = (JSONObject) jArr.get(k);
+                        top.exp = Long.parseLong(obj.get("exp").toString());
+                    }
+                    jArr = (JSONArray) JSONValue.parse(rs.getString("Info"));
+                    len = jArr.size();
+                    for (int k = 0; k < len; k++) {
+                        JSONObject obj = (JSONObject) jArr.get(k);
+                        top.idHe = Byte.parseByte(obj.get("idhe").toString());
+                    }
+                    int clanId = rs.getInt("clan");
+                    Optional<Clan> g = Clan.getClanDAO().get(clanId);
+                    if (g != null && g.isPresent()) {
+                        Clan clan = g.get();
+                        top.clanName = clan.name;
+                    }
+                    list.add(top);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static List<InfoTop> getTopNhiDong(byte type) {
+        List<InfoTop> list = new ArrayList<>();
+        try (Connection conn = Connect.getConnection();) {
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            try (ResultSet rs = stmt.executeQuery(QueryTopNhiDong)) {
                 while (rs.next()) {
                     InfoTop top = new InfoTop();
                     top.name = rs.getString("Name");

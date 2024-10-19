@@ -9,6 +9,7 @@ import Manager.Manager;
 import com.sg188.PhucLoi.PhucLoi;
 import com.sg188.PhucLoi.TemplatePL;
 import com.sg188.PhucLoi.Welfare;
+import com.sg188.Shop.DiscountStore;
 import com.sg188.Shop.ItemShop;
 import com.sg188.Shop.Store;
 import com.sg188.data.ItemOption;
@@ -251,6 +252,41 @@ public class ClickEvent {
         }
     }
 
+    public static void shop40(Char _myChar, byte typeShop) {
+        try {
+            Message m = new Message((byte) 122);
+            m.writeByte(typeShop);
+            List<ItemShop> ic = new ArrayList<>();
+            for (ItemShop it : DiscountStore.getInstance().items) {
+                if (it.TypeShop == typeShop) {
+                    ic.add(it);
+                }
+            }
+            m.writeShort(ic.size());
+            for (int i = 0; i < ic.size(); i++) {
+                ItemShop it = ic.get(i);
+                m.writeShort(it.id);
+                m.writeShort(it.itemID);
+                m.writeBoolean(true);
+                m.writeLong(it.expire);
+                m.writeUTF(it.strOption);
+                m.writeInt(it.TinhThach);
+                m.writeInt(it.Vang);
+                m.writeInt(it.VangKhoa);
+                m.writeInt(it.BacKhoa);
+                m.writeInt(it.Bac);
+                m.writeInt(it.giaCu);// giá cũ
+                m.writeInt(it.conLai);// số lượng còn lại
+            }
+
+            m.writeLong(System.currentTimeMillis());
+            m.writeLong(System.currentTimeMillis()+604800000);
+            _myChar.user.session.sendMessage(m);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void ShopRank(Char _myChar, byte typeShop) {
 //        try {

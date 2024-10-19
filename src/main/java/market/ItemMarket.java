@@ -13,4 +13,10 @@ public class ItemMarket {
     private int price;
     private Item item;
     private byte status;
+    public int getItemType() {
+        return item.getItemTemplate().type;
+    }
+    public int getItemLevel() {
+        return item.getItemTemplate().levelNeed;
+    }
 }

@@ -173,6 +173,14 @@ public class Char extends Body {
     public int idCuuSat;
     public int isFatal;
     public int pointDaiHoi;
+
+    public void increasePoints() {
+        this.pointDaiHoi++;
+    }
+
+    public int getPointsDaiHoi() {
+        return pointDaiHoi;
+    }
     public int pointTranhDoat;
     public List<Item> huphach = new ArrayList<>();
     public boolean isDatTre;
@@ -311,7 +319,7 @@ public class Char extends Body {
                         Bag.arrItemBody[item.index] = null;
                     }
                 }
-                if (item.getItemTemplate().type == 14 && item.level > 18) {
+                if (item.getItemTemplate().type == 14 && item.level > 19) {
                     Bag.arrItemBody[item.index] = null;
                 }
             }
@@ -323,7 +331,7 @@ public class Char extends Body {
                         Bag.arrItemBody2[item.index] = null;
                     }
                 }
-                if (item.getItemTemplate().type == 14 && item.level > 18) {
+                if (item.getItemTemplate().type == 14 && item.level > 19) {
                     Bag.arrItemBody2[item.index] = null;
                 }
             }
@@ -335,7 +343,7 @@ public class Char extends Body {
                         Bag.arrItemBox[item.index] = null;
                     }
                 }
-                if (item.getItemTemplate().type == 14 && item.level > 18) {
+                if (item.getItemTemplate().type == 14 && item.level > 19) {
                     Bag.arrItemBox[item.index] = null;
                 }
             }
@@ -347,7 +355,7 @@ public class Char extends Body {
                         removeItem(item, true);
                     }
                 }
-                if (item.getItemTemplate().type == 14 && item.level > 18) {
+                if (item.getItemTemplate().type == 14 && item.level > 19) {
                     Bag.arrItemBag[item.index] = null;
                 }
             }
@@ -602,8 +610,9 @@ public class Char extends Body {
         Info.countTBGT = 50;
         phucLoi.soNgayOnline++;
         removeItemsWithIDPhucLoi(0);
+        removeItemsWithIDPhucLoi(3);
         removeItemsWithIDPhucLoi(5);
-        removeItemsWithIDPhucLoi(7);
+        //removeItemsWithIDPhucLoi(7);
         phucLoi.napNgay = 0;
         phucLoi.tieuNgay = 0;
         Info.countRuong = 0;
@@ -613,7 +622,8 @@ public class Char extends Body {
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         if (dayOfWeek == Calendar.MONDAY) {
             removeItemsWithIDPhucLoi(6);
-            removeItemsWithIDPhucLoi(8);
+            removeItemsWithIDPhucLoi(4);
+            removeItemsWithIDPhucLoi(7);
             removeItemsWithIDPhucLoi(1);
             phucLoi.tieuTuan = 0;
             phucLoi.napTuan = 0;
@@ -2147,6 +2157,10 @@ public class Char extends Body {
                 MapLangCo.gI().maps.get(0).addChar(this);
                 break;
             case 164:
+                if (getCountNullItemBag() < 1) {
+                    service.alertMessage("Túi đầy");
+                    return;
+                }
                 removeItem(item);
                 msgUseItemBag(item);
                 int itemid = ItemDrop.ITEM_TUI_MAY_MAN.next();
@@ -2304,7 +2318,7 @@ public class Char extends Body {
                 }
                 break;
             case 940:
-                /*if (Info.numct == 18) {
+                if (Info.numct < 19) {
                     service.alertMessage("Vui lòng sử dụng nhẫn thuật cao cấp trước");
                     return;
                 }
@@ -2316,7 +2330,7 @@ public class Char extends Body {
                     user.session.sendMessage(HanderMessage.resetScreen());
                 } else {
                     service.alertMessage("Mỗi nhân vật chỉ có thể sử dụng một lần");
-                }*/
+                }
                 break;
             case 688:
                 lockViThu.lock();
@@ -2696,6 +2710,11 @@ public class Char extends Body {
                 removeItem(item);
                 msgUseItemBag(item);
                 this.addEffect(new Effect((short) 86, 100, System.currentTimeMillis(), 60 * 1000 * 60));
+                break;
+            case 645:
+                removeItem(item);
+                msgUseItemBag(item);
+                this.addEffect(new Effect((short) 87, 100, System.currentTimeMillis(), 18 * 60 * 1000 * 60));
                 break;
             case 434:
                 if (item.amount >= 1000) {
@@ -3246,21 +3265,21 @@ public class Char extends Body {
             return;
         }
         if (item.id == 933) {
-            if (getCountNullItemBag() < 16) {
-                warningBagFull();
-                return;
-            }
-            int[] idItem = {353, 563, 565, 567, 428, 174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 434};
-            for (int i = 0; i < idItem.length; i++) {
-                int id = idItem[i];
-                Item item2 = new Item(id);
-                item2.amount = 9999;
-                addItem(item2);
-                msgAddItemBag(item2);
-            }
-            removeItem(item);
-            msgUpdateItemBag(item);
-            user.session.sendMessage(HanderMessage.resetScreen());
+//            if (getCountNullItemBag() < 16) {
+//                warningBagFull();
+//                return;
+//            }
+//            int[] idItem = {353, 563, 565, 567, 428, 174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 434};
+//            for (int i = 0; i < idItem.length; i++) {
+//                int id = idItem[i];
+//                Item item2 = new Item(id);
+//                item2.amount = 9999;
+//                addItem(item2);
+//                msgAddItemBag(item2);
+//            }
+//            removeItem(item);
+//            msgUpdateItemBag(item);
+//            user.session.sendMessage(HanderMessage.resetScreen());
             return;
         }
 
@@ -3584,7 +3603,7 @@ public class Char extends Body {
     public void BiKipHienNhan() {
         if (Info.pointDungeon < 50000) {
 
-            service.alertMessage("Cần 100000 điểm tích lũy Sơn cáp, bạn đang có: " + Info.pointDungeon + " tích lũy");
+            service.alertMessage("Cần 50000 điểm tích lũy Sơn cáp, bạn đang có: " + Info.pointDungeon + " tích lũy");
             return;
         }
         Info.pointDungeon -= 50000;
@@ -3908,7 +3927,7 @@ public class Char extends Body {
                             addItem(keDietThan);
                             msgAddItemBag(keDietThan);
 
-                            Item sach18 = new Item(719);
+                            Item sach18 = new Item(778);
                             sach18.isLock = true;
                             sach18.amount = 1;// sách kỹ năng chiến đấu cao cấp
                             addItem(sach18);
@@ -4263,7 +4282,7 @@ public class Char extends Body {
 //        if (getExpBuff() > 0) {
 //            exp += exp * getExpBuff() / 100;
 //        }
-        exp *= 2;
+        exp *= 5;//open sửa 2
         if (exp < 0) {
             exp = 0;
         }
@@ -5849,6 +5868,9 @@ public class Char extends Body {
             if (ghep) {
                 daGhep = (new Item(i + 1, true));
             } else {
+                if(i>=9){
+                    Main.HeThongCTG("Quá non, nhẫn giả "+ this.Info.name +" vừa ghép xịt đá " + (i+2),2);
+                }
                 daGhep = (new Item(i, true));
             }
             addItem(daGhep);
@@ -6970,12 +6992,15 @@ public class Char extends Body {
             if (item1 == null || item2 == null) {
                 return;
             }
+            if((item2.id == 947 && item1.id == 888) || (item1.id == 947 && item2.id == 888)){
+                return;
+            }
             Item bikip;
 
-            if (item1.getItemTemplate().id == 888) {
+            if (item1.getItemTemplate().id == 888 || item1.getItemTemplate().id == 947) {
                 bikip = item1;
             }
-          else  if (item2.getItemTemplate().id == 888) {
+            else if (item2.getItemTemplate().id == 888 || item1.getItemTemplate().id == 947) {
                 bikip = item2;
             } else {
                 bikip = item1.getItemTemplate().levelNeed > item2.getItemTemplate().levelNeed ? item1 : item2;
@@ -7010,7 +7035,7 @@ public class Char extends Body {
             }
             int maxTuLuyen = getMaxTuLuyen(bikip.getItemTemplate().levelNeed);
 
-            if (bikip.id == 888){
+            if (bikip.id == 888 || bikip.id == 947){
                 maxTuLuyen = 19000;
             }
             if (tuluyen.f() >= maxTuLuyen) {
@@ -8229,6 +8254,11 @@ public class Char extends Body {
                     this.Info.chuyenCan += 10;
                     this.Info.chuyenCanTuan += 10;
                     addBacKhoa(1000000);
+                    Item longViThu = new Item(687);
+                    longViThu.amount = 15;
+                    longViThu.isLock = true;
+                    this.addItem(longViThu);
+                    msgAddItemBag(longViThu);
                     if (this.clan != null) {
                         this.addClanPoint(5);
                     }
@@ -9537,7 +9567,7 @@ public class Char extends Body {
                 service.serverMessage("Giá bạc tối đa là 99.000.000 bạc");
                 return;
             }
-            int fee = 50000;
+            int fee = 5000;
             if (Bag.bac < fee) {
                 service.serverMessage(String.format("Phí bán vật phẩm là %,d bạc.", fee));
                 return;
@@ -10153,7 +10183,10 @@ public class Char extends Body {
 
     public void guiThu(String name, String chuDe, String noiDung, int Bac, short indexItem) {
         try {
-            if (!user.actived) {
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss dd-MM-yyyy");
+            String strDate = formatter.format(date);
+            if (user == null || !user.actived) {
                 service.alertMessage("Bạn chưa thể gửi thư. Vui lòng kích hoạt tài khoản!");
                 return;
             }
@@ -10168,99 +10201,126 @@ public class Char extends Body {
             }
 
             Char plNhan = ServerManager.findCharByName(name);
-            boolean isOffLine = false;
+//            boolean isOffLine = false;
 
-            if (plNhan == null) {
-                plNhan = CharDB.getCharByName(name);
-                isOffLine = true;
-            }
-
-            if (plNhan == null) {
-                this.service.alertMessage("Không tìm thấy người chơi");
+//            if (plNhan == null) {
+//                plNhan = CharDB.getCharByName(name);
+//                isOffLine = true;
+//            }
+            if (plNhan == null || plNhan.Info == null) {
+                this.service.alertMessage("Không tìm thấy người chơi hoặc đối phương đã offline.");
                 return;
-            } else {
-                if (plNhan == this || this.Info.name.equals(name) || this.id == plNhan.id) {
-                    this.service.alertMessage("Gửi thư cho chính mình làm gì vậy bạn");
-                    return;
-                }
-
-                TemplateThu thu = new TemplateThu();
-                int id = plNhan.letters.size() + 1;
-                if (plNhan.letters.size() > 0) {
-                    id = plNhan.letters.get(plNhan.letters.size() - 1).id + 1;
-                }
-                thu.id = (short) (id);
-                thu.Bac = Bac;
-                thu.BacKhoa = 0;
-                thu.Vang = 0;
-                thu.VangKhoa = 0;
-                thu.Exp = 0;
-                thu.Title = chuDe;
-                thu.NameNguoiGui = this.Info.name;
-                thu.NoiDungThu = noiDung;
-                thu.TimeEnd = System.currentTimeMillis() + 864000000;
-
-                int totalCost = 10 + (Bac / 100);
-
-                if (Bag.bac < Bac + totalCost) {
-                    this.service.alertMessage("Không đủ bạc");
-                    return;
-                }
-
-                addBac(-totalCost);
-                if (Bac > 0) {
-                    addBac(-Bac);
-                }
-
-                if (indexItem > -1) {
-                    Item item = Bag.arrItemBag[indexItem];
-                    if (item != null) {
-                        if (item.level > 1) {
-                            this.service.alertMessage("Không thể gửi item đã cường hoá");
-                            return;
-                        }
-                        if (item.isLock) {
-                            this.service.alertMessage("Item bị khoá không thể gửi thư");
-                            return;
-                        }
-
-                        Item itemthu = new Item(item.id);
-                        itemthu.amount = item.amount;
-                        itemthu.strOptions = item.strOptions;
-                        itemthu.expiry = item.expiry;
-                        thu.Item = itemthu;
-                        removeItem(item, true);
-                        msgRemoveItemBag(item);
-                    } else {
-                        this.service.alertMessage("Không có item để gửi");
-                        return;
-                    }
-                }
-                if (thu.Bac < 0) {
-                    //   getService().warningMessage("Cố tình làm điều này sẽ khiến bạn bị ban");
-                    return;
-                }
-                if (Bag.bac < 0) {
-                    //  getService().warningMessage("Cố tình làm điều này sẽ khiến bạn bị ban");
-                    return;
-                }
-                plNhan.letters.add(thu);
-
-                if (isOffLine) {
-                    CharDB.updateDBThu(plNhan, name);
-                } else {
-                    plNhan.getService().reloadLetter();
-                }
-
-                this.user.session.sendMessage(HanderMessage.resetScreen());
-                this.service.alertMessage("Gửi thư thành công");
             }
+            if (this.Info == null || plNhan == this || this.Info.name.equals(name) || this.id == plNhan.id) {
+                this.service.alertMessage("Không thể gửi thư cho chính mình");
+                return;
+            }
+
+            // Kiểm tra nếu không có túi đồ
+            if (Bag == null) {
+                this.service.alertMessage("Không tìm thấy túi đồ");
+                return;
+            }
+
+            // Khởi tạo thư mới
+            TemplateThu thu = new TemplateThu();
+            int id = plNhan.letters.size() + 1;
+            if (plNhan.letters.size() > 0) {
+                id = plNhan.letters.get(plNhan.letters.size() - 1).id + 1;
+            }
+
+            thu.id = (short) id;
+            thu.Bac = Bac;
+            thu.BacKhoa = 0;
+            thu.Vang = 0;
+            thu.VangKhoa = 0;
+            thu.Exp = 0;
+            thu.Title = chuDe;
+
+            // Kiểm tra giá trị null của `this.Info`
+            if (this.Info == null) {
+                this.service.alertMessage("Thông tin người gửi không hợp lệ.");
+                return;
+            }
+
+            thu.NameNguoiGui = this.Info.name;
+            thu.NoiDungThu = noiDung;
+            thu.TimeEnd = System.currentTimeMillis() + 864000000; // 10 ngày
+
+            // Tính toán chi phí tổng
+            int totalCost = 10 + (Bac / 100);
+            if (Bag.bac < Bac + totalCost) {
+                this.service.alertMessage("Không đủ bạc");
+                return;
+            }
+
+            // Trừ bạc sau khi gửi thư
+            addBac(-totalCost);
+            if (Bac > 0) {
+                addBac(-Bac);
+            }
+
+            // Xử lý việc gửi item nếu có
+            if (indexItem > -1) {
+                if (indexItem < 0 || indexItem >= Bag.arrItemBag.length) {
+                    this.service.alertMessage("Vị trí item không hợp lệ");
+                    return;
+                }
+
+                Item item = Bag.arrItemBag[indexItem];
+                if (item == null) {
+                    this.service.alertMessage("Không có item để gửi");
+                    return;
+                }
+
+                // Kiểm tra item có bị cường hoá hoặc bị khoá
+                if (item.level > 1) {
+                    this.service.alertMessage("Không thể gửi item đã cường hoá");
+                    return;
+                }
+                if (item.isLock) {
+                    this.service.alertMessage("Item bị khoá không thể gửi thư");
+                    return;
+                }
+
+                // Tạo bản sao item để gửi kèm
+                Item itemthu = new Item(item.id);
+                itemthu.amount = item.amount;
+                itemthu.expiry = item.expiry;
+                itemthu.he = item.he;
+                itemthu.strOptions = item.strOptions;
+                thu.Item = itemthu;
+
+                // Xóa item khỏi túi và ghi log
+                removeItem(item, true);
+                msgRemoveItemBag(item);
+
+                Utlis.writing("guithu/" + this.Info.name + ".txt",
+                        "Item: " + itemthu.getItemTemplate().name + "[" + itemthu.getItemTemplate().id + "]\nSố Lượng: "
+                                + itemthu.amount + " \nbạc với số lượng: " + Bac + "\n"
+                                + this.Info.name + "=>" + plNhan.Info.name + "\nTime: " + strDate + "\n-----------------\n");
+            }
+
+            // Thêm thư vào danh sách của người nhận
+            plNhan.letters.add(thu);
+
+            // Cập nhật cơ sở dữ liệu nếu người nhận offline
+//            if (isOffLine) {
+//                CharDB.updateDBThu(plNhan, name);
+//            } else {
+            plNhan.getService().reloadLetter();
+//            }
+
+            // Thông báo thành công
+            this.user.session.sendMessage(HanderMessage.resetScreen());
+            this.service.alertMessage("Gửi thư thành công");
+
         } catch (Exception e) {
+            // Bắt lỗi và log lại lỗi xảy ra
             service.alertMessage("Có lỗi xảy ra, vui lòng thử lại sau");
             Log.error("Lỗi gửi thư: ", e);
         }
     }
-
     public void ChangeCoin(int select) {
         try {
             if (user.coin <= 0) {
@@ -10316,6 +10376,7 @@ public class Char extends Body {
                 thu1.NameNguoiGui = "Hệ thống";
                 thu1.NoiDungThu = "Làng Lá Tối Thượng gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
                 Item itemthu1 = new Item(558);//dầu cóc
+                itemthu1.isLock = true;
                 itemthu1.amount = 1;
                 itemthu1.strOptions = "";
                 thu1.Item = itemthu1;
@@ -10332,6 +10393,7 @@ public class Char extends Body {
                 thu2.NameNguoiGui = "Hệ thống";
                 thu2.NoiDungThu = "Làng Lá Tối Thượng gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
                 Item itemthu2 = new Item(521);
+                itemthu2.isLock = true;
                 itemthu2.strOptions = "0,150;1,150;3,150;209,60";
                 thu2.Item = itemthu2;
                 this.letters.add(thu2);
@@ -10346,6 +10408,7 @@ public class Char extends Body {
                 thu3.NameNguoiGui = "Hệ thống";
                 thu3.NoiDungThu = "Làng Lá Tối Thượng gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
                 Item itemthu3 = new Item(277);
+                itemthu3.isLock = true;
                 itemthu3.amount = 20;
                 itemthu3.strOptions = "";
                 thu3.Item = itemthu3;
@@ -10708,7 +10771,7 @@ public class Char extends Body {
                     service.alertMessage("Vui lòng luyện max cấp trước khi đổi bùa mới");
                 }
                 if (full) {
-                    if (Bag.vang < 3000) {
+                    if (Bag.vang < 1000) {
                         service.alertMessage("Không đủ vàng");
                         return;
                     }
@@ -10727,7 +10790,7 @@ public class Char extends Body {
                     Bag.arrItemBody[13] = null;
                     msgAddItemBag(buanew);
                     msgUpdateItemBody_Orther();
-                    addVang(-3000);
+                    addVang(-1000);
                     user.session.sendMessage(HanderMessage.resetScreen());
                 }
             }
@@ -10756,7 +10819,7 @@ public class Char extends Body {
                     service.alertMessage("Vui lòng luyện max cấp trước khi đổi bùa mới");
                 }
                 if (full) {
-                    if (Bag.vang < 9000) {
+                    if (Bag.vang < 2000) {
                         service.alertMessage("Không đủ vàng");
                         return;
                     }
@@ -10778,7 +10841,7 @@ public class Char extends Body {
                     Bag.arrItemBody[13] = null;
                     msgAddItemBag(buanew);
                     msgUpdateItemBody_Orther();
-                    addVang(-9000);
+                    addVang(-2000);
                     user.session.sendMessage(HanderMessage.resetScreen());
                 }
             }

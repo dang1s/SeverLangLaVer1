@@ -63,7 +63,7 @@ public class HanderClickEvent {
                 case 6:
                 case 7:
                 case 18:
-                case 40:
+//                case 40:
                 case 38:
                 case 30:
                 case 37:
@@ -72,6 +72,9 @@ public class HanderClickEvent {
                     break;
                 case 39:
                     ClickEvent.shop39(_myChar, idEvent);
+                    break;
+                case 40:
+                    ClickEvent.shop40(_myChar, idEvent);
                     break;
                 case 56:
                     ClickEvent.HoatDong(_myChar);

@@ -135,7 +135,7 @@ public class Map {
                 _myChar.zone.addToAllChar(_myChar);
                 _myChar.service.sendArrMap(this.mapID);
                 _myChar.service.sendIntoMap();
-                _myChar.service.alertMessage("Link tải game: https://langlatoithuong.com.\n" +
+                _myChar.service.alertMessage("Link tải game: https: //langlatoithuong.com.\n" +
                         "Gia nhập box zalo để chơi game tốt hơn.\n" +
                         "Hãy tham gia like share để nhận code mới nhất.\n" +
                         "Chúc bạn chơi game vui vẻ.");

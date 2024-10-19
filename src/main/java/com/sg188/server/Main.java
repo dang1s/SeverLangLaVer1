@@ -9,6 +9,7 @@ import MapService.world.WorldManager;
 import SqlConnection.*;
 import com.event.Event;
 import com.sg188.PhucLoi.PhucLoi;
+import com.sg188.Shop.DiscountStore;
 import com.sg188.Shop.Store;
 import com.sg188.data.DataCenter;
 import com.sg188.lib.Log;
@@ -117,6 +118,7 @@ public class Main {
         Manager.gI().loadItem();
         Manager.gI().loadDanhHieuNew();
         Store.getInstance().load();
+        DiscountStore.getInstance().load();
         PhucLoi.getInstance().loadWelfare();
         PhucLoi.getInstance().load();
         Manager.gI().readShopRank();
@@ -146,6 +148,10 @@ public class Main {
         threadLuckyDraw.setName("Vòng xoay");
         threadLuckyDraw.start();
         BossManager.gI().initBoss();
+//        BossManager.gI().initBossViThu();
+//        BossManager.gI().updateBossViThu(8, 0, 0);
+//        BossManager.gI().updateBossViThu(16, 30, 0);
+//        BossManager.gI().updateBossViThu(20, 0, 0);
         BossManager.gI().updateBoss(9, 0, 0);
         BossManager.gI().updateBoss(14, 0, 0);
         BossManager.gI().updateBoss(19, 0, 0);

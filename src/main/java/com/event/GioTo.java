@@ -22,7 +22,7 @@ public class GioTo extends Event {
 //        itemsThrownFromMonsters.add(0.2, 5);
 //        itemsThrownFromMonsters.add(0.2, 3);
         itemsThrownFromMonsters.add(60, -1);// ko rơi
-
+        menuKhaTienNu = "Nhận nhiệm vụ,Giết cương thi,Phong ấn;Đổi thẻ,Đinh ba hệ Lôi,Đinh ba hệ Thổ,Đinh ba hệ Thủy,Đinh ba hệ Hỏa,Đinh ba hệ Phong, Đổi cải trang thủy tinh, Đổi cải trang sơn tinh;Làm mâm bạc, 1 cái, 10 cái, 100 cái, Hướng dẫn; Làm mâm vàng, 1 cái, 10 cái, 100 cái, Hướng dẫn;Đổi bánh ít bảo ú bảo, Đổi túi cấp 4, Đổi thẻ đổi tên;BXH";
         keyEventPoint.add(EventPoint.DIEM_TIEU_XAI);
 
     }
@@ -83,8 +83,8 @@ public class GioTo extends Event {
             case 0:
                 switch (index2){
                     case 0:
-                        if(p.Bag.vang < 100){
-                            p.service.alertMessage("Khong du 100 vang");
+                        if(p.Bag.vang < 1000){
+                            p.service.alertMessage("Không đủ 1000 vàng");
                             return;
                         }
                         if(p.taskSeal){
@@ -92,7 +92,7 @@ public class GioTo extends Event {
                             return;
                         }
                         String[] type = {"Cương thi Sasori","Cương thi Deidara","Cương thi Nagato","Cương thi Kisame","Cương thi Itachi"};
-                        p.addVang(-100);
+                        p.addVang(-1000);
                         p.taskSeal = true;
                         p.typeSeal = type[Utlis.nextInt(0,type.length-1)];
                         p.getService().alertMessage("Nhiệm vụ của bạn là giết "+p.typeSeal);
@@ -215,7 +215,9 @@ public class GioTo extends Event {
                         sonTinh.addItemOption(new ItemOption(0,400,500));
                         sonTinh.addItemOption(new ItemOption(2,50,100));
                         sonTinh.addItemOption(new ItemOption(3,100,200));
-                        sonTinh.expiry = EXPIRE_7_DAY+System.currentTimeMillis();
+                        sonTinh.addItemOption(new ItemOption(209,50,100));
+                        /*sonTinh.expiry = EXPIRE_7_DAY+System.currentTimeMillis();*/
+                        sonTinh.expiry = -1;
                         sonTinh.createItemOptions();
                         p.addItem(sonTinh);
                         p.msgAddItemBag(sonTinh);
@@ -229,7 +231,9 @@ public class GioTo extends Event {
                         thuyTinh.addItemOption(new ItemOption(0,400,500));
                         thuyTinh.addItemOption(new ItemOption(2,50,100));
                         thuyTinh.addItemOption(new ItemOption(3,100,200));
-                        thuyTinh.expiry =  EXPIRE_7_DAY+System.currentTimeMillis();
+                        thuyTinh.addItemOption(new ItemOption(209,50,100));
+                        /*thuyTinh.expiry =  EXPIRE_7_DAY+System.currentTimeMillis();*/
+                        thuyTinh.expiry = -1;
                         thuyTinh.createItemOptions();
                         p.addItem(thuyTinh);
                         p.msgAddItemBag(thuyTinh);

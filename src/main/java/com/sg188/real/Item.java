@@ -2098,7 +2098,7 @@ public class Item implements Cloneable {
     }
 
     public void createOptionTanTo() {
-        this.level = 16;
+        this.level = 19;
         this.strOptions = "122,10,30;151,50,200;152,50,200;117,100,300;110,50,150;158,1,3;2,50,200;167,50,150;126,3,8";
     }
 

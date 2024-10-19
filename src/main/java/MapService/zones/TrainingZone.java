@@ -65,15 +65,15 @@ public class TrainingZone extends ZWorld {
         boolean isNhanExp = Math.abs(player.level() - mob.level) <= 5;
         if (isNhanExp) {
             if (mob.level >= 44) {
-                if (mob.levelBoss == 1 && Utlis.nextInt(100) < 25) {
+                if (mob.levelBoss == 1 && Utlis.nextInt(100) < 90) {
                     Item skn = new Item(434);
                     player.addItem(skn);
-                } else if (mob.levelBoss == 2 && Utlis.nextInt(100) < 25) {
+                } else if (mob.levelBoss == 2 && Utlis.nextInt(100) < 90) {
                     Item skn = new Item(434);
                     player.addItem(skn);
                 }
             }
-            if (player.Bag.itemSach != null && player.Info.sachChienDau == 18) {
+            if (player.Bag.itemSach != null && player.Info.sachChienDau >= 18) {
                 if (player.cloneLive) {
                     player.Point.expsach += 32;
                     if (player.tuLuyenChau) {
@@ -105,7 +105,9 @@ public class TrainingZone extends ZWorld {
                 if (player.buffRuou > 0) {
                     num += num * player.buffRuou / 100;
                 }
-                player.Bag.arrItemBody[11].updateTuLuyen(num);
+                if(num > 0){
+                    player.Bag.arrItemBody[11].updateTuLuyen(num);
+                }
             }
             if (player.Bag.arrItemBody[10] != null && player.Bag.arrItemBody[10].isSucManh()) {
                 int num = 0;

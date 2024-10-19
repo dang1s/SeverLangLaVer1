@@ -216,7 +216,7 @@ public class Mob extends Entity implements Cloneable {
             if (zone.isWorld()) {
                 levelBoss = 0;
             } else {
-                int num = Utlis.nextInt(0, 20000);
+                int num = Utlis.nextInt(0, 10000);
                 if (num < 10) {
                     hp = hpFull = hpGoc * 100;
                     exp = expGoc * 100;

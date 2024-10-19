@@ -283,11 +283,6 @@ public class Body {
         elementalCounterReduce = options[311]+options[323]+options[330]+options[331]+options[345];
         movementSpeed = options[91]+options[118]+options[150]+options[17]+500+buffSpeed+isSusanoItatchi;
 
-        if(this.Info.name.equals("concac1")){ //admin
-            movementSpeed+=1000;
-        }
-
-
 
         switch (Info.idhe){
             case 1:

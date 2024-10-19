@@ -30,6 +30,8 @@ public class ClickTop {
     public static List<InfoTop> cCuaCai;
     public static List<InfoTop> cTaiPhu;
 
+    public static List<InfoTop> cNhiDong;
+
     public static List<InfoTop> cChuyenCan;
     public static final Vector[] RANKED= new Vector[14];
     
@@ -47,9 +49,11 @@ public class ClickTop {
             case 3:
                 showTopChuyenCan(_myChar,indexClass);
                 break;
-
             case 4:
                 showTopGiaToc(_myChar);
+                break;
+            case 6:
+                //showTopNhiDong(_myChar,indexClass);
                 break;
         }
         
@@ -274,6 +278,31 @@ public class ClickTop {
             m.writeBoolean(true); // show top ???
             m.writeByte(cTop.size());
             for (InfoTop c : cTop) {
+                m.writeByte(i);
+                m.writeUTF(c.name);
+                m.writeShort(c.level);
+                m.writeLong(0);
+                m.writeByte(c.idHe);
+                m.writeUTF(c.clanName);
+                i++;
+            }
+            _myChar.user.session.sendMessage(m);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private static void showTopNhiDong(Char _myChar, byte index) {
+        if (cNhiDong == null) {
+            cNhiDong = CharDB.getTopNhiDong((byte) 0);
+        }
+
+        ClickTop.order(cNhiDong);
+        Message m = new Message((byte) -22);
+        try {
+            byte i = 0;
+            m.writeBoolean(true); // show top ???
+            m.writeByte(cNhiDong.size());
+            for (InfoTop c : cNhiDong) {
                 m.writeByte(i);
                 m.writeUTF(c.name);
                 m.writeShort(c.level);

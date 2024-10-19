@@ -250,7 +250,7 @@ public class ZoneSonCap extends ZWorld {
             mob.cx = entityList.get(i).cx;
             mob.cy = entityList.get(i).cy;
             mob.status = 4;
-            mob.hpGoc = mob.hp = mob.hpFull = level * mobid * 1000;
+            mob.hpGoc = mob.hp = mob.hpFull = level * mobid * 100; //gốc *1000
             mob.expGoc = mob.hpGoc / 8;
 
             mob.levelBoss = 0;

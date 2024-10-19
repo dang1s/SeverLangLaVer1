@@ -15,6 +15,7 @@ import com.sg188.lib.Log;
 import com.sg188.lib.Utlis;
 import com.sg188.party.Group;
 import com.sg188.real.*;
+import com.sg188.server.Main;
 import com.sg188.server.ServerManager;
 import com.sg188.server.lib.Message;
 import com.sg188.server.lib.Writer;
@@ -251,12 +252,12 @@ public class Zone {
 //                    Mob mob = new Mob();
 //                    int id = map.mapID == 57 ? 285 : map.mapID == 65 ? 286 : map.mapID == 87 ? 287 : map.mapID == 79 ? 288 : 289;
 //                    mob.id = id;
-//                    mob.level = 1;
+//                    mob.level = map.mapID == 57 ? 20 : map.mapID == 65 ? 30 : map.mapID == 87 ? 40 : map.mapID == 79 ? 50 : 60;
 //                    mob.cx = (short) (map.mapID == 57 ? 632 : map.mapID == 65 ? 920 : map.mapID == 87 ? 776 : map.mapID == 79 ? 500 : 1328);
-//                    ;
+//
 //                    mob.levelBoss = 10;
 //                    mob.cy = (short) (map.mapID == 57 ? 190 : map.mapID == 65 ? 148 : map.mapID == 87 ? 155 : map.mapID == 79 ? 297 : 306);
-//                    ;
+//
 //                    mob.status = 2;
 //                    mob.hpGoc = mob.hp = mob.hpFull = 2000000000;
 //                    mob.expGoc = 5;
@@ -265,6 +266,7 @@ public class Zone {
 //                    mob.reSpawn(this);
 //                    monsters.add(mob);
 //                }
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -1087,15 +1089,15 @@ public class Zone {
             boolean isNhanExp = Math.abs(player.level() - mob.level) <= 5;
             if (isNhanExp || isLangCo) {
                 if (mob.level >= 44) {
-                    if (mob.levelBoss == 1 && Utlis.nextInt(100) < 25) {
+                    if (mob.levelBoss == 1 && Utlis.nextInt(100) < 50) {
                         Item skn = new Item(434);
                         player.addItem(skn);
-                    } else if (mob.levelBoss == 2 && Utlis.nextInt(100) < 25) {
+                    } else if (mob.levelBoss == 2 && Utlis.nextInt(100) < 50) {
                         Item skn = new Item(434);
                         player.addItem(skn);
                     }
                 }
-                if (player.Bag.itemSach != null && player.Info.sachChienDau == 18) {
+                if (player.Bag.itemSach != null && player.Info.sachChienDau >= 18) {
                     if (player.cloneLive) {
                         player.Point.expsach += 32;
                         if (player.tuLuyenChau) {
@@ -1127,7 +1129,9 @@ public class Zone {
                     if (player.buffRuou > 0) {
                         num += num * player.buffRuou / 100;
                     }
-                    player.Bag.arrItemBody[11].updateTuLuyen(num);
+                    if(num > 0) {
+                        player.Bag.arrItemBody[11].updateTuLuyen(num);
+                    }
                 }
                 if (player.Bag.arrItemBody[10] != null && player.Bag.arrItemBody[10].isSucManh()) {
                     int num = 0;
@@ -1206,14 +1210,37 @@ public class Zone {
                     for (Item item : mob.itemBoss) {
                         Item it = item.cloneItem();
                         if (!it.strOptions.isEmpty()) {
-                            if (Utlis.nextInt(0, 100000) < 5) {
+                            if (Utlis.nextInt(0, 1000) < 5) {
                                 it.GetOptionHokage(item);
                             }
                             it.createItemOptions();
                         }
                         player.addItem(it);
                     }
+                    Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được cao thủ nhẫn giả và giành được phần thưởng",2);
+                    player.Info.chuyenCan += 50;
+                    player.Info.chuyenCanTuan += 50;
+                    if (player.clan != null) {
+                        player.addClanPoint(50);
+                    }
+                    player.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 50 điểm chuyên cần, 50 cống hiến gia tộc", HanderMessage.YELLOW_MID));
 
+                }
+                monsters.remove(mob);
+                MAX_CHAR_INZONE = 24;
+            } else if(mob.getMobTemplate().id >= 251 && mob.getMobTemplate().id <= 259) {
+                if (mob.itemBoss != null && !mob.itemBoss.isEmpty()) {
+                    for (Item item : mob.itemBoss) {
+                        Item it = item.cloneItem();
+                        if (!it.strOptions.isEmpty()) {
+                            if (Utlis.nextInt(0, 1000) < 5) {
+                                it.GetOptionHokage(item);
+                            }
+                            it.createItemOptions();
+                        }
+                        player.addItem(it);
+                    }
+                    Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được vĩ thú và giành được phần thưởng",2);
                     player.Info.chuyenCan += 50;
                     player.Info.chuyenCanTuan += 50;
                     if (player.clan != null) {
@@ -1280,23 +1307,23 @@ public class Zone {
                     int lowerBound = 0, upperBound = 0;
 
                     if (mob.level < 10) {
-                        lowerBound = 300;
-                        upperBound = 400;
+                        lowerBound = 900;
+                        upperBound = 1200;
                     } else if (mob.level < 20) {
-                        lowerBound = 400;
-                        upperBound = 500;
+                        lowerBound = 1200;
+                        upperBound = 1500;
                     } else if (mob.level < 30) {
-                        lowerBound = 500;
-                        upperBound = 600;
+                        lowerBound = 1500;
+                        upperBound = 1800;
                     } else if (mob.level < 40) {
-                        lowerBound = 600;
-                        upperBound = 800;
+                        lowerBound = 1800;
+                        upperBound = 2400;
                     } else if (mob.level < 60) {
-                        lowerBound = 1000;
-                        upperBound = 1400;
+                        lowerBound = 3000;
+                        upperBound = 4200;
                     } else if (mob.level <= 70) {
-                        lowerBound = 2000;
-                        upperBound = 2200;
+                        lowerBound = 6000;
+                        upperBound = 6600;
                     }
 
                     if (upperBound > 0) { // Đảm bảo rằng upperBound đã được thiết lập

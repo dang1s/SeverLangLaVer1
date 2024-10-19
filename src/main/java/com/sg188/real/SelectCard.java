@@ -22,62 +22,64 @@ public class SelectCard extends AbsSelectCard {
     @Override
     protected void init() {
 //test cho thêm đá
-        add(Card.builder().id(354).rate(10).quantity(5).build()); // đá myo
-        add(Card.builder().id(354).rate(10).quantity(5).build()); // đá myo
-        add(Card.builder().id(354).rate(10).quantity(5).build()); // đá myo
+        add(Card.builder().id(354).rate(10).quantity(6).build()); // đá myo
+        add(Card.builder().id(354).rate(10).quantity(6).build()); // đá myo
+        add(Card.builder().id(354).rate(10).quantity(6).build()); // đá myo
 
-        add(Card.builder().id(562).rate(10).quantity(5).build()); // đá baku
-        add(Card.builder().id(562).rate(10).quantity(5).build()); // đá baku
-        add(Card.builder().id(562).rate(10).quantity(5).build()); // đá baku
+        add(Card.builder().id(562).rate(10).quantity(10).build()); // đá baku
+        add(Card.builder().id(562).rate(10).quantity(10).build()); // đá baku
+        add(Card.builder().id(562).rate(10).quantity(10).build()); // đá baku
 
-        add(Card.builder().id(564).rate(10).quantity(5).build()); // đá sharin
-        add(Card.builder().id(564).rate(10).quantity(5).build()); // đá sharin
-        add(Card.builder().id(564).rate(10).quantity(5).build()); // đá sharin
+        add(Card.builder().id(564).rate(10).quantity(10).build()); // đá sharin
+        add(Card.builder().id(564).rate(10).quantity(10).build()); // đá sharin
+        add(Card.builder().id(564).rate(10).quantity(10).build()); // đá sharin
 
-        add(Card.builder().id(566).rate(10).quantity(5).build()); // đá rine
-        add(Card.builder().id(566).rate(10).quantity(5).build()); // đá rine
-        add(Card.builder().id(566).rate(10).quantity(5).build()); // đá rine
+        add(Card.builder().id(566).rate(10).quantity(10).build()); // đá rine
+        add(Card.builder().id(566).rate(10).quantity(10).build()); // đá rine
+        add(Card.builder().id(566).rate(10).quantity(10).build()); // đá rine
 
 
-        add(Card.builder().id(6).rate(15).build()); // đá 7
-        add(Card.builder().id(6).rate(15).build()); // đá 7
-        add(Card.builder().id(7).rate(10).build()); // đá 9
-        add(Card.builder().id(8).rate(5).build()); // đá 10
-        add(Card.builder().id(9).rate(3).build()); // đá 11
-        add(Card.builder().id(644).rate(10).quantity(1).build()); // bùa bạc khóa
-        add(Card.builder().id(277).rate(10).quantity(5).build()); // rương đá
+        //add(Card.builder().id(6).rate(15).build()); // đá 7
+        add(Card.builder().id(8).rate(15).build()); // đá 8
+        add(Card.builder().id(8).rate(10).build()); // đá 8
+        add(Card.builder().id(8).rate(5).build()); // đá 9
+        add(Card.builder().id(9).rate(3).build()); // đá 10
+        add(Card.builder().id(644).rate(10).quantity(10).build()); // bùa bạc khóa
+        //add(Card.builder().id(643).rate(10).quantity(5).build()); // bùa exp
+        add(Card.builder().id(643).rate(10).quantity(5).build()); // bùa exp
+        add(Card.builder().id(277).rate(10).quantity(10).build()); // rương đá
         add(Card.builder().id(161).rate(10).quantity(1).build()); // rương tinh thạch
         add(Card.builder().id(161).rate(10).quantity(2).build()); // rương tinh thạch
         add(Card.builder().id(160).rate(5).quantity(100).build()); // tinh thạch
-        add(Card.builder().id(160).rate(5).quantity(1200).build()); // tinh thạch
-         add(Card.builder().id(176).rate(5).quantity(50).build()); //vỏ sò
+        add(Card.builder().id(160).rate(5).quantity(120).build()); // tinh thạch
         add(Card.builder().id(176).rate(5).quantity(50).build()); //vỏ sò
-        add(Card.builder().id(187).rate(2).build()); // túi mở rộng cấp 3
-        add(Card.builder().id(187).rate(2).build()); // túi mở rộng cấp 3
+        add(Card.builder().id(176).rate(5).quantity(50).build()); //vỏ sò
+        //add(Card.builder().id(187).rate(2).build()); // túi mở rộng cấp 3
+        //add(Card.builder().id(187).rate(2).build()); // túi mở rộng cấp 3
         add(Card.builder().id(134).rate(3).build()); //bùa nổ
-        add(Card.builder().id(468).rate(1).build()); //túi mở rộng cấp 4
-        add(Card.builder().id(468).rate(1).build()); //túi mở rộng cấp 4
-        add(Card.builder().id(163).rate(20).quantity(200000).build());// bạc khóa
-        add(Card.builder().id(163).rate(20).quantity(200000).build());// bạc khóa
-        add(Card.builder().id(163).rate(10).quantity(200000).build());// bạc khóa
-        add(Card.builder().id(163).rate(8).quantity(500000).build());
-        add(Card.builder().id(163).rate(8).quantity(500000).build());
-        add(Card.builder().id(163).rate(5).quantity(1000000).build());
-        add(Card.builder().id(163).rate(5).quantity(1000000).build());
-        add(Card.builder().id(163).rate(3).quantity(5000000).build());
-        add(Card.builder().id(163).rate(1).quantity(15000000).build());
+        add(Card.builder().id(468).rate(2).build()); //túi mở rộng cấp 4
+        add(Card.builder().id(468).rate(2).build()); //túi mở rộng cấp 4
+        //add(Card.builder().id(163).rate(10).quantity(500000).build());// bạc khóa
+        //add(Card.builder().id(163).rate(10).quantity(700000).build());// bạc khóa
+        //add(Card.builder().id(163).rate(10).quantity(900000).build());// bạc khóa
+        add(Card.builder().id(163).rate(8).quantity(3000000).build());// bạc khóa
+        add(Card.builder().id(163).rate(8).quantity(5000000).build());// bạc khóa
+        add(Card.builder().id(163).rate(5).quantity(7000000).build());// bạc khóa
+        add(Card.builder().id(163).rate(5).quantity(9000000).build());// bạc khóa
+        add(Card.builder().id(163).rate(3).quantity(10000000).build());// bạc khóa
+        add(Card.builder().id(163).rate(1).quantity(15000000).build());// bạc khóa
 
-        add(Card.builder().id(192).rate(10).quantity(100).build()); // vàng khóa
+        //add(Card.builder().id(192).rate(20).quantity(150).build()); // vàng khóa
         add(Card.builder().id(192).rate(10).quantity(200).build()); // vàng khóa
 
-        add(Card.builder().id(192).rate(5).quantity(100).build());// vàng khóa
-        add(Card.builder().id(192).rate(5).quantity(150).build());
-        add(Card.builder().id(192).rate(5).quantity(200).build());
-        add(Card.builder().id(192).rate(3).quantity(300).build());
-        add(Card.builder().id(192).rate(1).quantity(500).build());
+        //add(Card.builder().id(192).rate(5).quantity(100).build());// vàng khóa
+        add(Card.builder().id(192).rate(5).quantity(150).build());// vàng khóa
+        add(Card.builder().id(192).rate(5).quantity(200).build());// vàng khóa
+        add(Card.builder().id(192).rate(3).quantity(300).build());// vàng khóa
+        add(Card.builder().id(192).rate(1).quantity(500).build());// vàng khóa
 
 
-        add(Card.builder().id(463).rate(0.5).build());// Cải trang Lục Đạo
+        //add(Card.builder().id(463).rate(0.5).build());// Cải trang Lục Đạo
 
         add(Card.builder().id(464).rate(0.5).build());// cai trang kakashi
         add(Card.builder().id(465).rate(0.5).build()); //minato
@@ -101,7 +103,7 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(525).rate(0.5).build()); //tsunade
         add(Card.builder().id(526).rate(0.5).build()); //orochimaru
         add(Card.builder().id(527).rate(0.5).build()); //jiraiya
-        add(Card.builder().id(528).rate(0.5).build()); //kakashi lục đạo
+        //add(Card.builder().id(528).rate(0.5).build()); //kakashi lục đạo
         add(Card.builder().id(529).rate(0.5).build()); //tobirama
         add(Card.builder().id(530).rate(0.5).build()); //madara
         add(Card.builder().id(555).rate(0.5).build()); //phù thủy
@@ -130,7 +132,7 @@ public class SelectCard extends AbsSelectCard {
 
         add(Card.builder().id(682).rate(0.5).build()); //thu linh văn lang
 
-        add(Card.builder().id(702).rate(0.5).build()); //madara lục đạo
+        //add(Card.builder().id(702).rate(0.5).build()); //madara lục đạo
 
         add(Card.builder().id(722).rate(0.5).build()); //franken
 
@@ -141,7 +143,7 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(775).rate(0.5).build()); //thũ lĩnh anbu
         add(Card.builder().id(783).rate(0.5).build()); //người sói
         add(Card.builder().id(784).rate(0.5).build()); //nagato
-        add(Card.builder().id(788).rate(0.5).build()); //shisui
+        //add(Card.builder().id(788).rate(0.5).build()); //shisui
 
         add(Card.builder().id(813).rate(0.5).build()); //thần cọp
         add(Card.builder().id(821).rate(0.5).build()); //sơn tinh
@@ -184,16 +186,16 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(906).rate(0.5).expire(EXPIRE_3_DAY).build());//mn thỏ ngọc
         add(Card.builder().id(907).rate(0.5).expire(EXPIRE_3_DAY).build());//mn thỏ tinh
 
-//tanto type 15
-        add(Card.builder().id(284).rate(0.5).expire(EXPIRE_7_DAY).build());//gậy kẹo
-        add(Card.builder().id(309).rate(0.5).expire(EXPIRE_7_DAY).build());//gậy phép thuật
-        add(Card.builder().id(871).rate(0.5).expire(EXPIRE_7_DAY).build());//gậy trường thọ
-        add(Card.builder().id(881).rate(0.5).expire(EXPIRE_3_DAY).build());//gậy sắt
-        add(Card.builder().id(882).rate(0.5).expire(EXPIRE_7_DAY).build());//bó tre
-        add(Card.builder().id(908).rate(0.5).expire(EXPIRE_3_DAY).build()); //lồng đèn trái bí
-        add(Card.builder().id(909).rate(0.5).expire(EXPIRE_3_DAY).build()); //đèn lồng đỏ
-        add(Card.builder().id(910).rate(0.5).expire(EXPIRE_3_DAY).build()); //lồng đèn hoa sen
-        add(Card.builder().id(911).rate(0.5).expire(EXPIRE_3_DAY).build()); //lồng đèn quả trám
+        //tanto type 15
+        add(Card.builder().id(284).rate(0.2).expire(EXPIRE_7_DAY).build());//gậy kẹo
+        add(Card.builder().id(309).rate(0.2).expire(EXPIRE_7_DAY).build());//gậy phép thuật
+        add(Card.builder().id(871).rate(0.2).expire(EXPIRE_7_DAY).build());//gậy trường thọ
+        add(Card.builder().id(881).rate(0.2).expire(EXPIRE_3_DAY).build());//gậy sắt
+        add(Card.builder().id(882).rate(0.2).expire(EXPIRE_7_DAY).build());//bó tre
+        add(Card.builder().id(908).rate(0.2).expire(EXPIRE_3_DAY).build()); //lồng đèn trái bí
+        add(Card.builder().id(909).rate(0.2).expire(EXPIRE_3_DAY).build()); //đèn lồng đỏ
+        add(Card.builder().id(910).rate(0.2).expire(EXPIRE_3_DAY).build()); //lồng đèn hoa sen
+        add(Card.builder().id(911).rate(0.2).expire(EXPIRE_3_DAY).build()); //lồng đèn quả trám
 
         add(Card.builder().id(150).rate(1).build());//sach tiem nang , ky nang
         add(Card.builder().id(151).rate(1).build());
@@ -202,32 +204,32 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(154).rate(1).build());
         add(Card.builder().id(155).rate(1).build());
 
-        add(Card.builder().id(704).rate(0.5).build());
-        add(Card.builder().id(790).rate(0.2).build());
+        add(Card.builder().id(704).rate(5).build());//ct +17
+        add(Card.builder().id(790).rate(1).build());//ct +18
 
         add(Card.builder().id(294).rate(5).quantity(20).build());// tu luyện đan
-        add(Card.builder().id(434).rate(5).quantity(100).build());// mảnh sách
-        add(Card.builder().id(434).rate(5).quantity(100).build());
-        add(Card.builder().id(434).rate(5).quantity(200).build());
-        add(Card.builder().id(763).rate(5).quantity(100).build());// charka vĩ thú
-        add(Card.builder().id(763).rate(5).quantity(100).build());
-        add(Card.builder().id(763).rate(5).quantity(100).build());
+        add(Card.builder().id(434).rate(5).quantity(200).build());// mảnh sách
+        add(Card.builder().id(434).rate(5).quantity(200).build());// mảnh sách
+        add(Card.builder().id(434).rate(5).quantity(200).build());// mảnh sách
+        //add(Card.builder().id(763).rate(5).quantity(100).build());// charka vĩ thú
+        add(Card.builder().id(763).rate(5).quantity(500).build());// charka vĩ thú
+        //add(Card.builder().id(763).rate(5).quantity(200).build());// charka vĩ thú
 
         add(Card.builder().id(687).rate(10).quantity(10).build());//lông vĩ thú
-        add(Card.builder().id(687).rate(10).quantity(10).build());
-        add(Card.builder().id(688).rate(1.5).build());
-        add(Card.builder().id(860).rate(0.5).build());//knvt db
-        add(Card.builder().id(281).rate(2).quantity(10).build());
+        add(Card.builder().id(687).rate(10).quantity(10).build());//lông vĩ thú
+        add(Card.builder().id(688).rate(1.5).build());//knvt
+        add(Card.builder().id(860).rate(0.1).build());//knvt db
+        add(Card.builder().id(281).rate(2).quantity(10).build());// sâm 75
         add(Card.builder().id(347).rate(1).quantity(5).build());// sâm 100
         add(Card.builder().id(599).rate(5).quantity(20).build());// mảnh huyết kế
         add(Card.builder().id(428).rate(5).quantity(10).build());// rương khảm
-        add(Card.builder().id(428).rate(5).quantity(10).build());
-        add(Card.builder().id(310).rate(5).quantity(50).build());// mảnh bí kíp
-        add(Card.builder().id(310).rate(5).quantity(50).build());
-        add(Card.builder().id(310).rate(5).quantity(50).build());
-        add(Card.builder().id(754).rate(10).quantity(500).build());// mảnh bí kíp siêu cấp
-        add(Card.builder().id(754).rate(10).quantity(500).build());
-        add(Card.builder().id(754).rate(10).quantity(500).build());
+        add(Card.builder().id(428).rate(5).quantity(10).build());// rương khảm
+        add(Card.builder().id(310).rate(5).quantity(200).build());// mảnh bí kíp
+        //add(Card.builder().id(310).rate(5).quantity(100).build());// mảnh bí kíp
+        //add(Card.builder().id(310).rate(5).quantity(100).build());// mảnh bí kíp
+        //add(Card.builder().id(754).rate(20).quantity(500).build());// mảnh bí kíp siêu cấp
+        //add(Card.builder().id(754).rate(15).quantity(700).build());// mảnh bí kíp siêu cấp
+        add(Card.builder().id(754).rate(10).quantity(2000).build());// mảnh bí kíp siêu cấp
 
     }
 

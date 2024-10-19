@@ -2,8 +2,11 @@ package Service;
 
 import EventClick.ClickEvent;
 import Manager.Manager;
+import SqlConnection.DBData;
+import com.sg188.Shop.DiscountStore;
 import com.sg188.Shop.ItemShop;
 import com.sg188.Shop.Store;
+import com.sg188.data.DataCenter;
 import com.sg188.data.ItemOption;
 import com.sg188.lib.Log;
 import com.sg188.lib.Utlis;
@@ -13,6 +16,7 @@ import com.sg188.server.lib.Message;
 import com.sg188.task.TaskName;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class HanderShop {
 
@@ -25,8 +29,14 @@ public class HanderShop {
 
             short idBuy = msg.readShort();
             short quantity = msg.readShort();
+            if(quantity <= 0){
+                return;
+            }
             ItemShop itemShop = Store.getInstance().find(idBuy);
-            if(itemShop== null && idBuy < 0){
+            if(itemShop== null && idBuy < -5000){
+                itemShop = DiscountStore.getInstance().find(idBuy);
+            }
+            else if(itemShop== null && idBuy < 0){
                 itemShop = Manager.gI().findShopRank(idBuy);
             }
             if (itemShop == null) {
@@ -89,6 +99,41 @@ public class HanderShop {
                 return;
             }
 
+            if(itemShop.TypeShop == 40) {
+                if(itemShop.conLai <= 0){
+                    _myChar.getService().warningMessage("Hết hàng mất rồi");
+                    return;
+                }
+                Item it = createItem(_myChar, itemShop, quantity);
+                if (_myChar.getCountNullItemBag() < 1) {
+                    _myChar.warningBagFull();
+                    return;
+                }
+                if (!it.getItemTemplate().isXepChong && it.amount > _myChar.getCountNullItemBag()) {
+                    _myChar.warningBagFull();
+                    return;
+                }
+                if(it.isTypeTrangBi()){
+                    it.he = itemShop.he;
+                }
+
+                if (deductCurrency(_myChar, itemShop, it)) return;
+
+                if(DiscountStore.getInstance().purchaseItem(itemShop.id,1)) { //check trừ số lượng trên db
+                    boolean updated = DiscountStore.getInstance().updateItemQuantity(itemShop.id, 1);//update mảng items
+                    if (updated) {
+                        Item clone = it.cloneItem();
+                        clone.createItemOptions();
+                        if (_myChar.addItem(clone)) {
+                            _myChar.user.session.sendMessage(HanderMessage.BuyShop(_myChar, clone));
+                        }
+                        //ClickEvent.shop40(_myChar, (byte) 40);
+                    }
+                } else {
+                    _myChar.getService().warningMessage("Hết hàng mất rồi");
+                }
+                return;
+            }
             Item it = createItem(_myChar, itemShop, quantity);
 
             if (_myChar.getCountNullItemBag() < 1) {

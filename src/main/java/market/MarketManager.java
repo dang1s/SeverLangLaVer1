@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MarketManager implements Runnable {
@@ -103,11 +104,36 @@ public class MarketManager implements Runnable {
 
     public void show(Char p,byte type,byte type2,short index){
         try {
+//            Message m = new Message((byte) 101);
+//            m.writeShort(index);
+//            int size = productList.size();
+//            m.writeShort(size);
+            List<ItemMarket> DataCho_OK = new ArrayList<>();
+            for (ItemMarket cho : productList) {
+                if (cho.getStatus() == 0 && cho.getTime() > System.currentTimeMillis() / 1000L) {
+                    DataCho_OK.add(cho);
+                }
+            }
+            // 1. Lọc danh sách dựa trên `type`
+            List<ItemMarket> filteredList = filterList(DataCho_OK, type);
+            // 2. Sắp xếp danh sách dựa trên `type2`
+            sortList(filteredList, type2);
+
+            // mỗi trang có 30 items
+            int itemsPerPage = 20;
+            int totalItems = filteredList.size();
+            int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+            if(index >=  totalPages) index = (short) ((short) totalPages-1);
+            if(index <= Short.MIN_VALUE) index = 0;
+
+            // 3. Phân trang
+            List<ItemMarket> pageItems = getPageItems(filteredList, index, itemsPerPage);
+
             Message m = new Message((byte) 101);
             m.writeShort(index);
-            int size = productList.size();
-            m.writeShort(size);
-            for (ItemMarket market: productList){
+            m.writeShort(pageItems.size());
+
+            for (ItemMarket market: pageItems){
                 m.writeLong(market.getId());
                 m.writeUTF(market.getName());
                 m.writeInt(market.getPrice());
@@ -118,6 +144,111 @@ public class MarketManager implements Runnable {
         } catch (IOException e) {
 
         }
+    }
+    private List<ItemMarket> filterList(List<ItemMarket> DataCho, byte timtheo) {
+        List<ItemMarket> filteredList = new ArrayList<>();
+        for (ItemMarket cho : DataCho) {
+            if(cho.getStatus() != 0) continue;
+            if (timtheo == 0) { // Tất cả
+                filteredList.add(cho);
+            } else if (timtheo >= 1 && timtheo <= 27) {
+                if (matchesCriteria(cho, timtheo)) {
+                    filteredList.add(cho);
+                }
+            } else if (timtheo == 28) {
+                if (!matchesAnyCriteria(cho, (byte) 1, (byte) 27)) {
+                    filteredList.add(cho);
+                }
+            }
+        }
+        return filteredList;
+    }
+    private List<ItemMarket> getPageItems(List<ItemMarket> list, int page, int itemsPerPage) {
+        int startIndex =  page * itemsPerPage;
+        // Kiểm tra để đảm bảo không vượt quá kích thước danh sách
+        if (startIndex > list.size()) {
+            //startIndex = list.size()-itemsPerPage;
+            startIndex = Math.max(list.size() - itemsPerPage, 0);
+        }
+        if (startIndex < 0) {
+            startIndex = 0;
+        }
+        int endIndex = startIndex + itemsPerPage;
+
+
+        if (endIndex > list.size()) {
+            endIndex = list.size();
+        }
+
+        return new ArrayList<>(list.subList(startIndex, endIndex));
+    }
+    private void sortList(List<ItemMarket> list, byte sapxep) {
+        Comparator<ItemMarket> comparator;
+
+        switch (sapxep) {
+            case 0: // Mới nhất
+                comparator = Comparator.comparing(ItemMarket::getTime).reversed();
+                break;
+            case 1: // Giá
+                comparator = Comparator.comparing(ItemMarket::getPrice);
+                break;
+            case 2: // Loại vật phẩm
+                comparator = Comparator.comparing(ItemMarket::getItemType);
+                break;
+            case 3: // Thời gian bán
+                comparator = Comparator.comparing(ItemMarket::getTime);
+                break;
+            case 4: // Tên người dùng
+                comparator = Comparator.comparing(ItemMarket::getName);
+                break;
+            case 5: // Cấp vật phẩm
+                comparator = Comparator.comparing(ItemMarket::getItemLevel);
+                break;
+            default:
+                return; // Không sắp xếp nếu không có tiêu chí phù hợp
+        }
+
+        list.sort(comparator);
+    }
+    private boolean matchesCriteria(ItemMarket cho, byte criteria) {
+        switch (criteria) {
+            case 1: return cho.getItem().getItemTemplate().type == 21; // tất cả đá
+            case 2: return cho.getItem().getItemTemplate().id == 0; // Đá cấp 1
+            case 3: return cho.getItem().getItemTemplate().id == 1; // Đá cấp 2
+            case 4: return cho.getItem().getItemTemplate().id == 2; // Đá cấp 3
+            case 5: return cho.getItem().getItemTemplate().id == 3; // Đá cấp 4
+            case 6: return cho.getItem().getItemTemplate().id == 4; // Đá cấp 5
+            case 7: return cho.getItem().getItemTemplate().id == 5; // Đá cấp 6
+            case 8: return cho.getItem().getItemTemplate().id == 6; // Đá cấp 7
+            case 9: return cho.getItem().getItemTemplate().id == 7; // Đá cấp 8
+            case 10: return cho.getItem().getItemTemplate().id == 8; // Đá cấp 9
+            case 11: return cho.getItem().getItemTemplate().id == 9; // Đá cấp 10
+            case 12: return cho.getItem().getItemTemplate().id == 10; // Đá cấp 11
+            case 13: return cho.getItem().getItemTemplate().id == 11; // Đá cấp 12
+            case 14: return cho.getItem().isTypeTrangBi(); // tất cả trang bị
+            case 15: return cho.getItem().getItemTemplate().type == 1; // vũ khí
+            case 16: return cho.getItem().getItemTemplate().type == 3; // dây thừng
+            case 17: return cho.getItem().getItemTemplate().type == 5; // móc sắt
+            case 18: return cho.getItem().getItemTemplate().type == 7; // Ống tiêu
+            case 19: return cho.getItem().getItemTemplate().type == 9; // Túi Nhẫn Giả
+            case 20: return cho.getItem().getItemTemplate().type == 0; // đai
+            case 21: return cho.getItem().getItemTemplate().type == 2; // Áo
+            case 22: return cho.getItem().getItemTemplate().type == 4; // Bao tay
+            case 23: return cho.getItem().getItemTemplate().type == 6; // Quần
+            case 24: return cho.getItem().getItemTemplate().type == 8; // Giày
+            case 25: return cho.getItem().getItemTemplate().name.contains("Lệnh bài"); // Lệnh bài
+            case 26: return cho.getItem().getItemTemplate().name.contains("Vỏ sò"); // vỏ sò
+            case 27: return cho.getItem().getItemTemplate().type == 32; // ngọc khảm
+            default: return false;
+        }
+    }
+    private boolean matchesAnyCriteria(ItemMarket cho, byte start, byte end) {
+        for (byte i = start; i <= end; i++) {
+            if (matchesCriteria(cho, i)) {
+                return true;
+            }
+        }
+        return false;
     }
     public void showListSell(Char p){
         List<ItemMarket>itemSell = new ArrayList<>();
