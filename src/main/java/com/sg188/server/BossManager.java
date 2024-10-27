@@ -225,76 +225,76 @@ public class BossManager {
     public void updateBoss(int hours, int minutes, int seconds) {
         Utlis.schedule(() -> {
             spawnBoss();
-            if(Event.getEvent()!=null) {
-                if (hours == 6) {
-                    Mob boss = bossSK.get(0).cloneMob();
-                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 9) {
-                    Mob boss = bossSK.get(0).cloneMob();
-                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 12) {
-                    Mob boss = bossSK.get(0).cloneMob();
-                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 18) {
-                    Mob boss = bossSK.get(1).cloneMob();
-                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 20) {
-                    Mob boss = bossSK.get(1).cloneMob();
-                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 22) {
-                    Mob boss = bossSK.get(1).cloneMob();
-                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-            }
+//            if(Event.getEvent()!=null) {
+//                if (hours == 6) {
+//                    Mob boss = bossSK.get(0).cloneMob();
+//                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 9) {
+//                    Mob boss = bossSK.get(0).cloneMob();
+//                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 12) {
+//                    Mob boss = bossSK.get(0).cloneMob();
+//                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 18) {
+//                    Mob boss = bossSK.get(1).cloneMob();
+//                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 20) {
+//                    Mob boss = bossSK.get(1).cloneMob();
+//                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 22) {
+//                    Mob boss = bossSK.get(1).cloneMob();
+//                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//            }
         }, hours, minutes, seconds);
     }
 
     public void updateBossViThu(int hours, int minutes, int seconds) {
         Utlis.schedule(() -> {
             spawnBossViThu();
-            if(Event.getEvent()!=null) {
-                if (hours == 6) {
-                    Mob boss = bossSK.get(0).cloneMob();
-                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 9) {
-                    Mob boss = bossSK.get(0).cloneMob();
-                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 12) {
-                    Mob boss = bossSK.get(0).cloneMob();
-                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 18) {
-                    Mob boss = bossSK.get(1).cloneMob();
-                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 20) {
-                    Mob boss = bossSK.get(1).cloneMob();
-                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-                if (hours == 22) {
-                    Mob boss = bossSK.get(1).cloneMob();
-                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
-                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-                }
-            }
+//            if(Event.getEvent()!=null) {
+//                if (hours == 6) {
+//                    Mob boss = bossSK.get(0).cloneMob();
+//                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 9) {
+//                    Mob boss = bossSK.get(0).cloneMob();
+//                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 12) {
+//                    Mob boss = bossSK.get(0).cloneMob();
+//                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 18) {
+//                    Mob boss = bossSK.get(1).cloneMob();
+//                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 20) {
+//                    Mob boss = bossSK.get(1).cloneMob();
+//                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//                if (hours == 22) {
+//                    Mob boss = bossSK.get(1).cloneMob();
+//                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
+//                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+//                }
+//            }
         }, hours, minutes, seconds);
     }
     public void updateBossSK(int hours, int minutes, int seconds) {

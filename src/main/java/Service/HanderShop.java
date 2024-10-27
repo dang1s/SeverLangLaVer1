@@ -120,15 +120,12 @@ public class HanderShop {
                 if (deductCurrency(_myChar, itemShop, it)) return;
 
                 if(DiscountStore.getInstance().purchaseItem(itemShop.id,1)) { //check trừ số lượng trên db
-                    boolean updated = DiscountStore.getInstance().updateItemQuantity(itemShop.id, 1);//update mảng items
-                    if (updated) {
-                        Item clone = it.cloneItem();
-                        clone.createItemOptions();
-                        if (_myChar.addItem(clone)) {
-                            _myChar.user.session.sendMessage(HanderMessage.BuyShop(_myChar, clone));
-                        }
-                        //ClickEvent.shop40(_myChar, (byte) 40);
+                    Item clone = it.cloneItem();
+                    clone.createItemOptions();
+                    if (_myChar.addItem(clone)) {
+                        _myChar.user.session.sendMessage(HanderMessage.BuyShop(_myChar, clone));
                     }
+                    //ClickEvent.shop40(_myChar, (byte) 40);
                 } else {
                     _myChar.getService().warningMessage("Hết hàng mất rồi");
                 }

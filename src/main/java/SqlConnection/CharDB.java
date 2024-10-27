@@ -331,14 +331,6 @@ public class CharDB {
             "ORDER BY `level` DESC " +
             "LIMIT 100;";
 
-    private static final String QueryTopNhiDong = "SELECT p.`Name`, p.`level`, p.`Info`, p.`Point`, p.`clan` " +
-            "FROM player p " +
-            "JOIN users u ON p.`IdChar` = u.`id` " +
-            "WHERE u.`createtime` > '2025-10-15 00:00:00' " +
-            "ORDER BY p.`level` DESC " +
-            "LIMIT 100;";
-
-
     public static List<InfoTop> getTop(byte type) {
         List<InfoTop> list = new ArrayList<>();
         try (Connection conn = Connect.getConnection();) {
@@ -374,6 +366,13 @@ public class CharDB {
         }
         return list;
     }
+
+    private static final String QueryTopNhiDong = "SELECT p.`Name`, p.`level`, p.`Info`, p.`Point`, p.`clan` " +
+            "FROM player p " +
+            "JOIN users u ON p.`IdChar` = u.`id` " +
+            "WHERE u.`createtime` > '2024-10-27 23:59:00' " +
+            "ORDER BY p.`level` DESC " +
+            "LIMIT 100;";
 
     public static List<InfoTop> getTopNhiDong(byte type) {
         List<InfoTop> list = new ArrayList<>();
@@ -556,6 +555,40 @@ public class CharDB {
         return list;
     }
 
+    public static List<InfoTop> getTopChuyenCanTuan() {
+        List<InfoTop> list = new ArrayList<>();
+        try (Connection conn = Connect.getConnection();) {
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            try (ResultSet rs = stmt.executeQuery(CHUYENCAN)) {
+                rs.last();
+                int i = rs.getRow();
+                rs.beforeFirst();
+                int j = 0;
+                while (rs.next()) {
+                    InfoTop top = new InfoTop();
+                    top.name = rs.getString("Name");
+                    top.chuyencan = rs.getInt("topchuyencan");
+                    JSONArray jArr = (JSONArray) JSONValue.parse(rs.getString("Info"));
+                    int len = jArr.size();
+                    for (int k = 0; k < len; k++) {
+                        JSONObject obj = (JSONObject) jArr.get(k);
+                        top.idHe = Byte.parseByte(obj.get("idhe").toString());
+                    }
+                    int clanId = rs.getInt("clan");
+                    Optional<Clan> g = Clan.getClanDAO().get(clanId);
+                    if (g != null && g.isPresent()) {
+                        Clan clan = g.get();
+                        top.clanName = clan.name;
+                    }
+                    list.add(top);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     private static final String cuacai = "SELECT `Name`,`topnap`,`Info`,`clan`" +
             "FROM player " +
             "ORDER BY `topnap` DESC " +
@@ -596,6 +629,49 @@ public class CharDB {
         }
         return list;
     }
+
+    public final static String napTuan = "SELECT `Name`,\n" +
+            "       JSON_EXTRACT(`PhucLoi`, '$[0].naptuan') AS naptuan,\n" +
+            "       `Info`,\n" +
+            "       `clan`\n" +
+            "FROM player\n" +
+            "ORDER BY naptuan DESC\n" +
+            "LIMIT 100;";
+
+    public static List<InfoTop> getTopNapTuan() {
+        List<InfoTop> list = new ArrayList<>();
+        try (Connection conn = Connect.getConnection();) {
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            try (ResultSet rs = stmt.executeQuery(napTuan)) {
+                rs.last();
+                int i = rs.getRow();
+                rs.beforeFirst();
+                int j = 0;
+                while (rs.next()) {
+                    InfoTop top = new InfoTop();
+                    top.name = rs.getString("Name");
+                    top.pointNapTuan = rs.getInt("naptuan");
+                    JSONArray jArr = (JSONArray) JSONValue.parse(rs.getString("Info"));
+                    int len = jArr.size();
+                    for (int k = 0; k < len; k++) {
+                        JSONObject obj = (JSONObject) jArr.get(k);
+                        top.idHe = Byte.parseByte(obj.get("idhe").toString());
+                    }
+                    int clanId = rs.getInt("clan");
+                    Optional<Clan> g = Clan.getClanDAO().get(clanId);
+                    if (g != null && g.isPresent()) {
+                        Clan clan = g.get();
+                        top.clanName = clan.name;
+                    }
+                    list.add(top);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public static void initTopGiaToc() {
         try {
             Vector<Clan> ranked = new Vector<>();

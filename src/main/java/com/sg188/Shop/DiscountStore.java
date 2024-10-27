@@ -20,17 +20,17 @@ public class DiscountStore {
     public List<ItemShop> items = new ArrayList<>();
 
 
-
+    //new
 //    public boolean purchaseItem(int itemId, int quantity) {
 //        String sqlSelect = "SELECT `conlai` FROM `discount_store` WHERE `id` = ?";
 //        String sqlUpdate = "UPDATE `discount_store` SET `conlai` = ? WHERE `id` = ?";
 //
-//        Connection conn = null; // Khai báo kết nối bên ngoài try-with-resources
+//        Connection conn = null;
 //        try {
-//            DBData.openConnection(); // Mở kết nối
-//            conn = DBData.getConnection(); // Lấy kết nối vừa mở
+//            DBData.openConnection();
+//            conn = DBData.getConnection();
+//            conn.setAutoCommit(false); // Bắt đầu transaction
 //
-//            // Sử dụng try-with-resources cho PreparedStatement và ResultSet
 //            try (PreparedStatement stmtSelect = conn.prepareStatement(sqlSelect);
 //                 PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
 //
@@ -49,86 +49,97 @@ public class DiscountStore {
 //                            stmtUpdate.setInt(2, itemId);
 //
 //                            int rowsAffected = stmtUpdate.executeUpdate();
-//                            return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+//                            if (rowsAffected > 0) {
+//                                conn.commit(); // Commit transaction nếu thành công
+//                                return true;
+//                            } else {
+//                                conn.rollback(); // Rollback nếu không thành công
+//                                return false;
+//                            }
 //                        } else {
 //                            System.out.println("Không đủ số lượng để mua.");
+//                            conn.rollback(); // Rollback nếu không đủ số lượng
 //                            return false;
 //                        }
 //                    } else {
 //                        System.out.println("Item không tồn tại.");
+//                        conn.rollback(); // Rollback nếu item không tồn tại
 //                        return false;
 //                    }
 //                }
+//            } catch (SQLException e) {
+//                if (conn != null) {
+//                    conn.rollback(); // Rollback nếu có lỗi
+//                }
+//                e.printStackTrace();
+//                return false;
+//            } finally {
+//                conn.setAutoCommit(true); // Trở về chế độ mặc định
+//                DBData.closeConnection();
 //            }
 //        } catch (SQLException e) {
-//            e.printStackTrace(); // In ra lỗi để debug
-//            return false; // Trả về false nếu có lỗi
-//        } finally {
-//            DBData.closeConnection(); // Đảm bảo đóng kết nối khi hoàn tất
+//            e.printStackTrace();
+//            return false;
 //        }
 //    }
 
-    //new
     public boolean purchaseItem(int itemId, int quantity) {
-        String sqlSelect = "SELECT `conlai` FROM `discount_store` WHERE `id` = ?";
-        String sqlUpdate = "UPDATE `discount_store` SET `conlai` = ? WHERE `id` = ?";
+        // Bước 1: Kiểm tra số lượng trong mảng bộ nhớ trước
+        synchronized (items) {
+            for (ItemShop item : items) {
+                if (item.id == itemId) { // Kiểm tra xem item có tồn tại không
+                    if (item.conLai >= quantity) { // Kiểm tra số lượng đủ để mua không
+                        // Bước 2: Cập nhật cơ sở dữ liệu
+                        String sqlUpdate = "UPDATE `discount_store` SET `conlai` = ? WHERE `id` = ?";
 
-        Connection conn = null;
-        try {
-            DBData.openConnection();
-            conn = DBData.getConnection();
-            conn.setAutoCommit(false); // Bắt đầu transaction
+                        Connection conn = null;
+                        try {
+                            DBData.openConnection();
+                            conn = DBData.getConnection();
+                            conn.setAutoCommit(false); // Bắt đầu transaction
 
-            try (PreparedStatement stmtSelect = conn.prepareStatement(sqlSelect);
-                 PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+                            try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+                                // Giảm số lượng
+                                int newQuantity = item.conLai - quantity;
 
-                // Truy vấn số lượng hiện có trong bảng
-                stmtSelect.setInt(1, itemId);
-                try (ResultSet rs = stmtSelect.executeQuery()) {
-                    if (rs.next()) {
-                        int soLuong = rs.getInt("conlai");
+                                // Cập nhật cơ sở dữ liệu
+                                stmtUpdate.setInt(1, newQuantity);
+                                stmtUpdate.setInt(2, itemId);
+                                int rowsAffected = stmtUpdate.executeUpdate();
 
-                        // Kiểm tra xem có đủ số lượng để mua không
-                        if (soLuong >= quantity) {
-                            soLuong -= quantity; // Giảm số lượng tồn kho
+                                if (rowsAffected > 0) {
+                                    conn.commit(); // Commit transaction nếu thành công
 
-                            // Cập nhật lại số lượng trong cơ sở dữ liệu
-                            stmtUpdate.setInt(1, soLuong);
-                            stmtUpdate.setInt(2, itemId);
-
-                            int rowsAffected = stmtUpdate.executeUpdate();
-                            if (rowsAffected > 0) {
-                                conn.commit(); // Commit transaction nếu thành công
-                                return true;
-                            } else {
-                                conn.rollback(); // Rollback nếu không thành công
+                                    // Bước 3: Cập nhật số lượng trong bộ nhớ
+                                    item.conLai = newQuantity;
+                                    return true; // Thành công
+                                } else {
+                                    conn.rollback(); // Rollback nếu thất bại
+                                    return false;
+                                }
+                            } catch (SQLException e) {
+                                if (conn != null) {
+                                    conn.rollback(); // Rollback nếu có lỗi
+                                }
+                                e.printStackTrace();
                                 return false;
+                            } finally {
+                                conn.setAutoCommit(true); // Trở về chế độ mặc định
+                                DBData.closeConnection();
                             }
-                        } else {
-                            System.out.println("Không đủ số lượng để mua.");
-                            conn.rollback(); // Rollback nếu không đủ số lượng
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                             return false;
                         }
                     } else {
-                        System.out.println("Item không tồn tại.");
-                        conn.rollback(); // Rollback nếu item không tồn tại
+                        System.out.println("Không đủ số lượng để mua.");
                         return false;
                     }
                 }
-            } catch (SQLException e) {
-                if (conn != null) {
-                    conn.rollback(); // Rollback nếu có lỗi
-                }
-                e.printStackTrace();
-                return false;
-            } finally {
-                conn.setAutoCommit(true); // Trở về chế độ mặc định
-                DBData.closeConnection();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         }
+        System.out.println("Item không tồn tại.");
+        return false;
     }
 
     public boolean load() {
@@ -235,22 +246,22 @@ public class DiscountStore {
         return items.get(index);
     }
 
-    public boolean updateItemQuantity(int itemId, int quantityToDeduct) {
-        synchronized (items) {
-            for (ItemShop item : items) {
-                if (item.id == itemId) { // Kiểm tra ID của item
-                    if (item.conLai >= quantityToDeduct) { // Kiểm tra số lượng còn lại
-                        item.conLai -= quantityToDeduct; // Giảm số lượng
-                        return true; // Cập nhật thành công
-                    } else {
-                        System.out.println("Không đủ số lượng để giảm."); // Ghi log thông báo
-                        return false;
-                    }
-                }
-            }
-            System.out.println("Không tìm thấy món đồ với ID: " + itemId);
-            return false;
-        }
-    }
+//    public boolean updateItemQuantity(int itemId, int quantityToDeduct) {
+//        synchronized (items) {
+//            for (ItemShop item : items) {
+//                if (item.id == itemId) { // Kiểm tra ID của item
+//                    if (item.conLai >= quantityToDeduct) { // Kiểm tra số lượng còn lại
+//                        item.conLai -= quantityToDeduct; // Giảm số lượng
+//                        return true; // Cập nhật thành công
+//                    } else {
+//                        System.out.println("Không đủ số lượng để giảm."); // Ghi log thông báo
+//                        return false;
+//                    }
+//                }
+//            }
+//            System.out.println("Không tìm thấy món đồ với ID: " + itemId);
+//            return false;
+//        }
+//    }
 
 }

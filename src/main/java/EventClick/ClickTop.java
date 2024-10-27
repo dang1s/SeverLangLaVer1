@@ -33,6 +33,8 @@ public class ClickTop {
     public static List<InfoTop> cNhiDong;
 
     public static List<InfoTop> cChuyenCan;
+
+    public static List<InfoTop> cNapTuan;
     public static final Vector[] RANKED= new Vector[14];
     
     public static void ShowTop(Char _myChar, byte typeTop, byte indexClass) {
@@ -53,7 +55,12 @@ public class ClickTop {
                 showTopGiaToc(_myChar);
                 break;
             case 6:
-                //showTopNhiDong(_myChar,indexClass);
+                showTopNhiDong(_myChar,indexClass);
+                break;
+            case 20: //nạp tuần
+                showTopNapTuan(_myChar,indexClass);
+                break;
+            case 21: //cc tuần
                 break;
         }
         
@@ -75,6 +82,32 @@ public class ClickTop {
                 m.writeUTF(c.name);
                 m.writeShort((int) c.getPointNap());
                 m.writeLong(c.getPointNap());
+                m.writeByte(c.idHe);
+                m.writeUTF(c.clanName);
+                i++;
+            }
+            _myChar.user.session.sendMessage(m);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void showTopNapTuan(Char _myChar, byte indexClass) {
+        if (cNapTuan == null) {
+            cNapTuan = CharDB.getTopNapTuan();
+        }
+        Collections.sort(cNapTuan, Comparator.comparing(InfoTop::getPointNapTuan).reversed());
+        try {
+            byte i = 0;
+            Message m = new Message((byte) -22);
+            m.writeBoolean(true); // show top ???
+            m.writeByte(cNapTuan.size());
+
+            for (InfoTop c : cNapTuan) {
+                m.writeByte(i);
+                m.writeUTF(c.name);
+                m.writeShort((int) c.getPointNapTuan());
+                m.writeLong(c.getPointNapTuan());
                 m.writeByte(c.idHe);
                 m.writeUTF(c.clanName);
                 i++;
@@ -384,6 +417,8 @@ public class ClickTop {
             e.printStackTrace();
         }
     }
+
+
     private static void showTopGiaToc(Char _myChar) {
         try {
             if(RANKED[2]==null){

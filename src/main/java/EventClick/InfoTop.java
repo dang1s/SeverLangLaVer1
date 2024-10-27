@@ -11,6 +11,8 @@ public class InfoTop {
     public byte idHe;
     public short level;
     public int pointNap;
+
+    public int pointNapTuan;
     public String clanName="";
 
     public long getExp() {
@@ -28,6 +30,9 @@ public class InfoTop {
         return pointNap;
     }
 
+    public long getPointNapTuan() {
+        return pointNapTuan;
+    }
     public short getLevvel() {
         long var1 = this.exp;
 

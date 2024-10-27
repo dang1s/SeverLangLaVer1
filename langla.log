@@ -93810,3 +93810,1787 @@ Caused by: java.net.SocketException: Connection reset
 [2024-10-19 23:22:49 INFO  (Thread SaveData)] - Lưu data tự động
 [2024-10-19 23:27:49 INFO  (Thread SaveData)] - Lưu data tự động
 [2024-10-19 23:32:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-19 23:37:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-19 23:42:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-19 23:47:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-19 23:52:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-19 23:57:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 00:02:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 00:07:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 00:12:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 00:17:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 00:22:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 00:27:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 00:32:49 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 11:06:55 INFO  (main)] - Config - db.password: 
+[2024-10-20 11:06:55 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 11:06:55 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 11:06:55 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 11:06:55 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 11:06:55 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 11:06:55 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 11:06:55 INFO  (main)] - Config - db.user: root
+[2024-10-20 11:06:55 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 11:06:55 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 11:06:55 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 11:06:55 INFO  (main)] - Config - server.debug: false
+[2024-10-20 11:06:55 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 11:06:57 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 11:06:57 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 11:06:57 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 11:06:57 INFO  (main)] - Market size: 0
+[2024-10-20 11:06:57 INFO  (main)] - Loading clan data
+[2024-10-20 11:06:57 INFO  (main)] - Load clan data successfully
+[2024-10-20 11:06:57 INFO  (main)] - Thread Server: 233
+[2024-10-20 11:06:57 INFO  (main)] - Start server Success!
+[2024-10-20 11:11:57 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 11:16:57 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 11:21:57 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 11:26:14 INFO  (main)] - Config - db.password: 
+[2024-10-20 11:26:14 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 11:26:14 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 11:26:14 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 11:26:14 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 11:26:14 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 11:26:14 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 11:26:14 INFO  (main)] - Config - db.user: root
+[2024-10-20 11:26:14 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 11:26:14 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 11:26:14 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 11:26:14 INFO  (main)] - Config - server.debug: false
+[2024-10-20 11:26:14 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 11:26:16 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 11:26:16 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 11:26:16 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 11:26:16 INFO  (main)] - Market size: 0
+[2024-10-20 11:26:16 INFO  (main)] - Loading clan data
+[2024-10-20 11:26:16 INFO  (main)] - Load clan data successfully
+[2024-10-20 11:26:16 INFO  (main)] - Thread Server: 233
+[2024-10-20 11:26:16 INFO  (main)] - Start server Success!
+[2024-10-20 11:29:05 INFO  (main)] - Config - db.password: 
+[2024-10-20 11:29:05 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 11:29:05 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 11:29:05 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 11:29:05 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 11:29:05 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 11:29:05 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 11:29:05 INFO  (main)] - Config - db.user: root
+[2024-10-20 11:29:05 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 11:29:05 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 11:29:05 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 11:29:05 INFO  (main)] - Config - server.debug: false
+[2024-10-20 11:29:05 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 11:29:06 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 11:29:06 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 11:29:06 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 11:29:06 INFO  (main)] - Market size: 0
+[2024-10-20 11:29:07 INFO  (main)] - Loading clan data
+[2024-10-20 11:29:07 INFO  (main)] - Load clan data successfully
+[2024-10-20 11:29:07 INFO  (main)] - Thread Server: 233
+[2024-10-20 11:29:07 INFO  (main)] - Start server Success!
+[2024-10-20 11:30:00 INFO  (main)] - Config - db.password: 
+[2024-10-20 11:30:00 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 11:30:00 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 11:30:00 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 11:30:00 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 11:30:00 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 11:30:00 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 11:30:00 INFO  (main)] - Config - db.user: root
+[2024-10-20 11:30:00 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 11:30:00 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 11:30:00 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 11:30:00 INFO  (main)] - Config - server.debug: false
+[2024-10-20 11:30:00 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 11:30:01 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 11:30:01 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 11:30:01 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 11:30:01 INFO  (main)] - Market size: 0
+[2024-10-20 11:30:02 INFO  (main)] - Loading clan data
+[2024-10-20 11:30:02 INFO  (main)] - Load clan data successfully
+[2024-10-20 11:30:02 INFO  (main)] - Thread Server: 233
+[2024-10-20 11:30:02 INFO  (main)] - Start server Success!
+[2024-10-20 11:35:01 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 11:36:35 INFO  (main)] - Config - db.password: 
+[2024-10-20 11:36:35 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 11:36:35 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 11:36:35 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 11:36:35 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 11:36:35 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 11:36:35 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 11:36:35 INFO  (main)] - Config - db.user: root
+[2024-10-20 11:36:35 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 11:36:35 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 11:36:35 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 11:36:35 INFO  (main)] - Config - server.debug: false
+[2024-10-20 11:36:35 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 11:36:36 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 11:36:36 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 11:36:36 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 11:36:36 INFO  (main)] - Market size: 0
+[2024-10-20 11:36:36 INFO  (main)] - Loading clan data
+[2024-10-20 11:36:36 INFO  (main)] - Load clan data successfully
+[2024-10-20 11:36:36 INFO  (main)] - Thread Server: 233
+[2024-10-20 11:36:36 INFO  (main)] - Start server Success!
+[2024-10-20 11:41:36 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 11:46:38 INFO  (main)] - Config - db.password: 
+[2024-10-20 11:46:38 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 11:46:38 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 11:46:38 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 11:46:38 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 11:46:38 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 11:46:38 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 11:46:38 INFO  (main)] - Config - db.user: root
+[2024-10-20 11:46:38 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 11:46:38 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 11:46:38 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 11:46:38 INFO  (main)] - Config - server.debug: false
+[2024-10-20 11:46:38 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 11:46:39 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 11:46:39 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 11:46:40 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 11:46:40 INFO  (main)] - Market size: 0
+[2024-10-20 11:46:40 INFO  (main)] - Loading clan data
+[2024-10-20 11:46:40 INFO  (main)] - Load clan data successfully
+[2024-10-20 11:46:40 INFO  (main)] - Thread Server: 233
+[2024-10-20 11:46:40 INFO  (main)] - Start server Success!
+[2024-10-20 11:51:12 INFO  (main)] - Config - db.password: 
+[2024-10-20 11:51:12 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 11:51:12 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 11:51:12 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 11:51:12 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 11:51:12 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 11:51:12 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 11:51:12 INFO  (main)] - Config - db.user: root
+[2024-10-20 11:51:12 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 11:51:12 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 11:51:12 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 11:51:12 INFO  (main)] - Config - server.debug: false
+[2024-10-20 11:51:12 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 11:51:14 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 11:51:14 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 11:51:14 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 11:51:15 INFO  (main)] - Market size: 0
+[2024-10-20 11:51:15 INFO  (main)] - Loading clan data
+[2024-10-20 11:51:15 INFO  (main)] - Load clan data successfully
+[2024-10-20 11:51:15 INFO  (main)] - Thread Server: 233
+[2024-10-20 11:51:15 INFO  (main)] - Start server Success!
+[2024-10-20 11:56:15 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:01:15 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:06:16 INFO  (main)] - Config - db.password: 
+[2024-10-20 12:06:16 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 12:06:16 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 12:06:16 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 12:06:16 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 12:06:16 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 12:06:16 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 12:06:16 INFO  (main)] - Config - db.user: root
+[2024-10-20 12:06:16 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 12:06:16 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 12:06:16 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 12:06:16 INFO  (main)] - Config - server.debug: false
+[2024-10-20 12:06:16 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 12:06:17 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 12:06:17 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 12:06:17 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 12:06:17 INFO  (main)] - Market size: 0
+[2024-10-20 12:06:17 INFO  (main)] - Loading clan data
+[2024-10-20 12:06:17 INFO  (main)] - Load clan data successfully
+[2024-10-20 12:06:17 INFO  (main)] - Thread Server: 233
+[2024-10-20 12:06:17 INFO  (main)] - Start server Success!
+[2024-10-20 12:08:18 INFO  (main)] - Config - db.password: 
+[2024-10-20 12:08:18 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 12:08:18 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 12:08:18 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 12:08:18 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 12:08:18 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 12:08:18 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 12:08:18 INFO  (main)] - Config - db.user: root
+[2024-10-20 12:08:18 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 12:08:18 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 12:08:18 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 12:08:18 INFO  (main)] - Config - server.debug: false
+[2024-10-20 12:08:18 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 12:08:19 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 12:08:19 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 12:08:20 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 12:08:20 INFO  (main)] - Market size: 0
+[2024-10-20 12:08:20 INFO  (main)] - Loading clan data
+[2024-10-20 12:08:20 INFO  (main)] - Load clan data successfully
+[2024-10-20 12:08:20 INFO  (main)] - Thread Server: 233
+[2024-10-20 12:08:20 INFO  (main)] - Start server Success!
+[2024-10-20 12:13:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:18:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:23:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:28:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:33:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:38:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:43:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:48:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:53:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 12:58:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 13:03:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 13:08:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 13:13:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 13:18:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 13:23:20 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 17:13:08 INFO  (main)] - Config - db.password: 
+[2024-10-20 17:13:08 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 17:13:08 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 17:13:08 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 17:13:08 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 17:13:08 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 17:13:08 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 17:13:08 INFO  (main)] - Config - db.user: root
+[2024-10-20 17:13:08 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 17:13:08 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 17:13:08 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 17:13:08 INFO  (main)] - Config - server.debug: false
+[2024-10-20 17:13:08 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 17:13:09 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 17:13:09 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 17:13:10 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 17:13:10 INFO  (main)] - Market size: 0
+[2024-10-20 17:13:10 INFO  (main)] - Loading clan data
+[2024-10-20 17:13:10 INFO  (main)] - Load clan data successfully
+[2024-10-20 17:13:10 INFO  (main)] - Thread Server: 233
+[2024-10-20 17:13:10 INFO  (main)] - Start server Success!
+[2024-10-20 17:14:14 INFO  (main)] - Config - db.password: 
+[2024-10-20 17:14:14 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 17:14:14 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 17:14:14 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 17:14:14 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 17:14:14 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 17:14:14 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 17:14:14 INFO  (main)] - Config - db.user: root
+[2024-10-20 17:14:14 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 17:14:14 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 17:14:14 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 17:14:14 INFO  (main)] - Config - server.debug: false
+[2024-10-20 17:14:14 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 17:14:16 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 17:14:16 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 17:14:16 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 17:14:16 INFO  (main)] - Market size: 0
+[2024-10-20 17:14:17 INFO  (main)] - Loading clan data
+[2024-10-20 17:14:17 INFO  (main)] - Load clan data successfully
+[2024-10-20 17:14:17 INFO  (main)] - Thread Server: 233
+[2024-10-20 17:14:17 INFO  (main)] - Start server Success!
+[2024-10-20 17:14:36 INFO  (main)] - Config - db.password: 
+[2024-10-20 17:14:36 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 17:14:36 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 17:14:36 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 17:14:36 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 17:14:36 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 17:14:36 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 17:14:36 INFO  (main)] - Config - db.user: root
+[2024-10-20 17:14:36 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 17:14:36 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 17:14:36 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 17:14:36 INFO  (main)] - Config - server.debug: false
+[2024-10-20 17:14:36 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 17:14:37 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 17:14:37 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 17:14:37 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 17:14:38 INFO  (main)] - Market size: 0
+[2024-10-20 17:14:38 INFO  (main)] - Loading clan data
+[2024-10-20 17:14:38 INFO  (main)] - Load clan data successfully
+[2024-10-20 17:14:38 INFO  (main)] - Thread Server: 233
+[2024-10-20 17:14:38 INFO  (main)] - Start server Success!
+[2024-10-20 17:15:10 INFO  (main)] - Config - db.password: 
+[2024-10-20 17:15:10 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 17:15:10 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 17:15:10 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 17:15:10 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 17:15:10 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 17:15:10 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 17:15:10 INFO  (main)] - Config - db.user: root
+[2024-10-20 17:15:10 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 17:15:10 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 17:15:10 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 17:15:10 INFO  (main)] - Config - server.debug: false
+[2024-10-20 17:15:10 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 17:15:12 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 17:15:12 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 17:15:12 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 17:15:12 INFO  (main)] - Market size: 0
+[2024-10-20 17:15:12 INFO  (main)] - Loading clan data
+[2024-10-20 17:15:12 INFO  (main)] - Load clan data successfully
+[2024-10-20 17:15:12 INFO  (main)] - Thread Server: 233
+[2024-10-20 17:15:12 INFO  (main)] - Start server Success!
+[2024-10-20 17:20:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 17:25:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 17:30:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 17:35:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 17:40:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 17:45:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 17:50:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 17:55:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 18:00:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 18:05:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 18:10:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 18:15:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 18:20:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 18:25:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 21:28:55 INFO  (main)] - Config - db.password: 
+[2024-10-20 21:28:55 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 21:28:55 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 21:28:55 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 21:28:55 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 21:28:55 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 21:28:55 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 21:28:55 INFO  (main)] - Config - db.user: root
+[2024-10-20 21:28:55 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 21:28:55 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 21:28:55 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 21:28:55 INFO  (main)] - Config - server.debug: false
+[2024-10-20 21:28:55 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 21:28:56 INFO  (main)] - Load itemtempalte: 949
+[2024-10-20 21:28:56 INFO  (main)] - Load danh hieu new: 6
+[2024-10-20 21:28:56 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 21:28:56 INFO  (main)] - Market size: 0
+[2024-10-20 21:28:56 INFO  (main)] - Loading clan data
+[2024-10-20 21:28:56 INFO  (main)] - Load clan data successfully
+[2024-10-20 21:28:56 INFO  (main)] - Thread Server: 233
+[2024-10-20 21:28:56 INFO  (main)] - Start server Success!
+[2024-10-20 21:33:56 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 21:38:56 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 21:43:56 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 21:48:56 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 21:53:56 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 21:58:56 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:03:56 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:08:56 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:13:56 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:18:57 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:20:19 INFO  (main)] - Config - db.password: 
+[2024-10-20 22:20:19 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 22:20:19 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 22:20:19 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 22:20:19 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 22:20:19 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 22:20:19 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 22:20:19 INFO  (main)] - Config - db.user: root
+[2024-10-20 22:20:19 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 22:20:19 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 22:20:19 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 22:20:19 INFO  (main)] - Config - server.debug: false
+[2024-10-20 22:20:19 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 22:20:22 INFO  (main)] - Load itemtempalte: 950
+[2024-10-20 22:20:22 INFO  (main)] - Load danh hieu new: 7
+[2024-10-20 22:20:22 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 22:20:22 INFO  (main)] - Market size: 0
+[2024-10-20 22:20:22 INFO  (main)] - Loading clan data
+[2024-10-20 22:20:22 INFO  (main)] - Load clan data successfully
+[2024-10-20 22:20:22 INFO  (main)] - Thread Server: 233
+[2024-10-20 22:20:22 INFO  (main)] - Start server Success!
+[2024-10-20 22:20:34 ERROR (reader: /127.0.0.1:52749)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:20:34 ERROR (reader: /127.0.0.1:52749)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:20:49 ERROR (reader: /127.0.0.1:52777)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:20:49 ERROR (reader: /127.0.0.1:52777)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:20:50 ERROR (reader: /127.0.0.1:52784)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:20:50 ERROR (reader: /127.0.0.1:52784)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:20:51 ERROR (reader: /127.0.0.1:52800)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:20:51 ERROR (reader: /127.0.0.1:52800)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:20:51 ERROR (reader: /127.0.0.1:52804)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:20:51 ERROR (reader: /127.0.0.1:52804)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:20:52 ERROR (reader: /127.0.0.1:52808)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:20:52 ERROR (reader: /127.0.0.1:52808)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:21:08 ERROR (reader: /127.0.0.1:52838)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:21:08 ERROR (reader: /127.0.0.1:52838)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:21:10 ERROR (reader: /127.0.0.1:52858)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:21:10 ERROR (reader: /127.0.0.1:52858)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:21:27 ERROR (reader: /127.0.0.1:52888)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:21:27 ERROR (reader: /127.0.0.1:52888)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:21:28 ERROR (reader: /127.0.0.1:52901)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:21:28 ERROR (reader: /127.0.0.1:52901)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:21:44 ERROR (reader: /127.0.0.1:52926)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:21:44 ERROR (reader: /127.0.0.1:52926)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:21:47 ERROR (reader: /127.0.0.1:52951)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:21:47 ERROR (reader: /127.0.0.1:52951)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:21:47 ERROR (reader: /127.0.0.1:52955)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:21:47 ERROR (reader: /127.0.0.1:52955)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:21:48 ERROR (reader: /127.0.0.1:52972)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:21:48 ERROR (reader: /127.0.0.1:52972)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:22:04 ERROR (reader: /127.0.0.1:53000)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:22:04 ERROR (reader: /127.0.0.1:53000)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:22:06 ERROR (reader: /127.0.0.1:53018)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:22:06 ERROR (reader: /127.0.0.1:53018)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:22:07 ERROR (reader: /127.0.0.1:53030)] - Loi login cua player 1
+java.lang.ArrayIndexOutOfBoundsException: Index 34 out of bounds for length 17
+	at com.sg188.real.User.initCharacterList(User.java:508)
+	at com.sg188.server.Service.sendTabSelectChar(Service.java:281)
+	at com.sg188.server.Session.login(Session.java:304)
+	at com.sg188.server.Controller.readMessage123(Controller.java:1058)
+	at com.sg188.server.Controller.readMessage(Controller.java:71)
+	at com.sg188.server.Session$MessageCollector.run(Session.java:387)
+	at java.base/java.lang.Thread.run(Thread.java:1623)
+[2024-10-20 22:22:07 ERROR (reader: /127.0.0.1:53030)] - Loi service 343java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+[2024-10-20 22:22:13 INFO  (main)] - Config - db.password: 
+[2024-10-20 22:22:13 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 22:22:13 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 22:22:13 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 22:22:13 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 22:22:13 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 22:22:13 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 22:22:13 INFO  (main)] - Config - db.user: root
+[2024-10-20 22:22:13 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 22:22:13 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 22:22:13 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 22:22:13 INFO  (main)] - Config - server.debug: false
+[2024-10-20 22:22:13 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 22:22:14 INFO  (main)] - Load itemtempalte: 950
+[2024-10-20 22:22:14 INFO  (main)] - Load danh hieu new: 7
+[2024-10-20 22:22:15 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 22:22:15 INFO  (main)] - Market size: 0
+[2024-10-20 22:22:15 INFO  (main)] - Loading clan data
+[2024-10-20 22:22:15 INFO  (main)] - Load clan data successfully
+[2024-10-20 22:22:15 INFO  (main)] - Thread Server: 233
+[2024-10-20 22:22:15 INFO  (main)] - Start server Success!
+[2024-10-20 22:24:58 INFO  (main)] - Config - db.password: 
+[2024-10-20 22:24:58 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 22:24:58 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 22:24:58 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 22:24:58 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 22:24:58 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 22:24:58 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 22:24:58 INFO  (main)] - Config - db.user: root
+[2024-10-20 22:24:58 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 22:24:58 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 22:24:58 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 22:24:58 INFO  (main)] - Config - server.debug: false
+[2024-10-20 22:24:58 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 22:24:59 INFO  (main)] - Load itemtempalte: 950
+[2024-10-20 22:24:59 INFO  (main)] - Load danh hieu new: 7
+[2024-10-20 22:25:00 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 22:25:00 INFO  (main)] - Market size: 0
+[2024-10-20 22:25:00 INFO  (main)] - Loading clan data
+[2024-10-20 22:25:00 INFO  (main)] - Load clan data successfully
+[2024-10-20 22:25:00 INFO  (main)] - Thread Server: 233
+[2024-10-20 22:25:00 INFO  (main)] - Start server Success!
+[2024-10-20 22:25:20 INFO  (main)] - Config - db.password: 
+[2024-10-20 22:25:20 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 22:25:20 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 22:25:20 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 22:25:20 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 22:25:20 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 22:25:20 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 22:25:20 INFO  (main)] - Config - db.user: root
+[2024-10-20 22:25:20 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 22:25:20 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 22:25:20 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 22:25:20 INFO  (main)] - Config - server.debug: false
+[2024-10-20 22:25:20 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 22:25:23 INFO  (main)] - Load itemtempalte: 950
+[2024-10-20 22:25:23 INFO  (main)] - Load danh hieu new: 7
+[2024-10-20 22:25:23 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 22:25:23 INFO  (main)] - Market size: 0
+[2024-10-20 22:25:23 INFO  (main)] - Loading clan data
+[2024-10-20 22:25:23 INFO  (main)] - Load clan data successfully
+[2024-10-20 22:25:23 INFO  (main)] - Thread Server: 233
+[2024-10-20 22:25:23 INFO  (main)] - Start server Success!
+[2024-10-20 22:26:58 INFO  (main)] - Config - db.password: 
+[2024-10-20 22:26:58 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 22:26:58 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 22:26:58 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 22:26:58 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 22:26:58 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 22:26:58 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 22:26:58 INFO  (main)] - Config - db.user: root
+[2024-10-20 22:26:58 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 22:26:58 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 22:26:58 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 22:26:58 INFO  (main)] - Config - server.debug: false
+[2024-10-20 22:26:58 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 22:27:00 INFO  (main)] - Load itemtempalte: 950
+[2024-10-20 22:27:00 INFO  (main)] - Load danh hieu new: 7
+[2024-10-20 22:27:00 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 22:27:00 INFO  (main)] - Market size: 0
+[2024-10-20 22:27:00 INFO  (main)] - Loading clan data
+[2024-10-20 22:27:00 INFO  (main)] - Load clan data successfully
+[2024-10-20 22:27:00 INFO  (main)] - Thread Server: 233
+[2024-10-20 22:27:00 INFO  (main)] - Start server Success!
+[2024-10-20 22:32:00 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:34:36 INFO  (main)] - Config - db.password: 
+[2024-10-20 22:34:36 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 22:34:36 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 22:34:36 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 22:34:36 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 22:34:36 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 22:34:36 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 22:34:36 INFO  (main)] - Config - db.user: root
+[2024-10-20 22:34:36 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 22:34:36 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 22:34:36 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 22:34:36 INFO  (main)] - Config - server.debug: false
+[2024-10-20 22:34:36 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 22:34:38 INFO  (main)] - Load itemtempalte: 950
+[2024-10-20 22:34:38 INFO  (main)] - Load danh hieu new: 7
+[2024-10-20 22:34:39 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 22:34:39 INFO  (main)] - Market size: 0
+[2024-10-20 22:34:39 INFO  (main)] - Loading clan data
+[2024-10-20 22:34:39 INFO  (main)] - Load clan data successfully
+[2024-10-20 22:34:39 INFO  (main)] - Thread Server: 233
+[2024-10-20 22:34:39 INFO  (main)] - Start server Success!
+[2024-10-20 22:39:39 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:44:39 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:49:39 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:49:57 INFO  (main)] - Config - db.password: 
+[2024-10-20 22:49:57 INFO  (main)] - Config - mongodb.password: 
+[2024-10-20 22:49:57 INFO  (main)] - Config - mongodb.user: root
+[2024-10-20 22:49:57 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-20 22:49:57 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-20 22:49:57 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-20 22:49:57 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-20 22:49:57 INFO  (main)] - Config - db.user: root
+[2024-10-20 22:49:57 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-20 22:49:57 INFO  (main)] - Config - db.port: 3306
+[2024-10-20 22:49:57 INFO  (main)] - Config - db.host: localhost
+[2024-10-20 22:49:57 INFO  (main)] - Config - server.debug: false
+[2024-10-20 22:49:57 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-20 22:49:58 INFO  (main)] - Load itemtempalte: 950
+[2024-10-20 22:49:58 INFO  (main)] - Load danh hieu new: 7
+[2024-10-20 22:49:59 INFO  (main)] - Load rewardtop done : 0
+[2024-10-20 22:49:59 INFO  (main)] - Market size: 0
+[2024-10-20 22:49:59 INFO  (main)] - Loading clan data
+[2024-10-20 22:49:59 INFO  (main)] - Load clan data successfully
+[2024-10-20 22:49:59 INFO  (main)] - Thread Server: 233
+[2024-10-20 22:49:59 INFO  (main)] - Start server Success!
+[2024-10-20 22:54:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 22:59:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:04:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:09:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:14:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:19:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:24:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:29:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:34:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:39:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:44:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:49:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:54:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-20 23:59:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 00:04:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 00:09:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 00:14:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 00:19:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 00:24:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 20:33:33 INFO  (main)] - Config - db.password: 
+[2024-10-21 20:33:33 INFO  (main)] - Config - mongodb.password: 
+[2024-10-21 20:33:33 INFO  (main)] - Config - mongodb.user: root
+[2024-10-21 20:33:33 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-21 20:33:33 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-21 20:33:33 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-21 20:33:33 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-21 20:33:33 INFO  (main)] - Config - db.user: root
+[2024-10-21 20:33:33 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-21 20:33:33 INFO  (main)] - Config - db.port: 3306
+[2024-10-21 20:33:33 INFO  (main)] - Config - db.host: localhost
+[2024-10-21 20:33:33 INFO  (main)] - Config - server.debug: false
+[2024-10-21 20:33:33 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-21 20:33:36 INFO  (main)] - Load itemtempalte: 950
+[2024-10-21 20:33:37 INFO  (main)] - Load danh hieu new: 7
+[2024-10-21 20:33:37 INFO  (main)] - Config - db.password: 
+[2024-10-21 20:33:37 INFO  (main)] - Config - mongodb.password: 
+[2024-10-21 20:33:37 INFO  (main)] - Config - mongodb.user: root
+[2024-10-21 20:33:37 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-21 20:33:37 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-21 20:33:37 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-21 20:33:37 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-21 20:33:37 INFO  (main)] - Config - db.user: root
+[2024-10-21 20:33:37 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-21 20:33:37 INFO  (main)] - Config - db.port: 3306
+[2024-10-21 20:33:37 INFO  (main)] - Config - db.host: localhost
+[2024-10-21 20:33:37 INFO  (main)] - Config - server.debug: false
+[2024-10-21 20:33:37 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-21 20:33:37 INFO  (main)] - Load rewardtop done : 0
+[2024-10-21 20:33:37 INFO  (main)] - Market size: 0
+[2024-10-21 20:33:38 INFO  (main)] - Loading clan data
+[2024-10-21 20:33:38 INFO  (main)] - Load clan data successfully
+[2024-10-21 20:33:38 INFO  (main)] - Thread Server: 234
+[2024-10-21 20:33:38 INFO  (main)] - Start server Success!
+[2024-10-21 20:33:39 INFO  (main)] - Load itemtempalte: 950
+[2024-10-21 20:33:39 INFO  (main)] - Load danh hieu new: 7
+[2024-10-21 20:33:39 INFO  (main)] - Load rewardtop done : 0
+[2024-10-21 20:33:39 INFO  (main)] - Market size: 0
+[2024-10-21 20:33:40 INFO  (main)] - Loading clan data
+[2024-10-21 20:33:40 INFO  (main)] - Load clan data successfully
+[2024-10-21 20:33:40 INFO  (main)] - Thread Server: 233
+[2024-10-21 20:38:37 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 20:38:39 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 20:43:37 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 20:43:39 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 20:47:56 INFO  (main)] - Config - db.password: 
+[2024-10-21 20:47:56 INFO  (main)] - Config - mongodb.password: 
+[2024-10-21 20:47:56 INFO  (main)] - Config - mongodb.user: root
+[2024-10-21 20:47:56 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-21 20:47:56 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-21 20:47:56 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-21 20:47:56 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-21 20:47:56 INFO  (main)] - Config - db.user: root
+[2024-10-21 20:47:56 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-21 20:47:56 INFO  (main)] - Config - db.port: 3306
+[2024-10-21 20:47:56 INFO  (main)] - Config - db.host: localhost
+[2024-10-21 20:47:56 INFO  (main)] - Config - server.debug: false
+[2024-10-21 20:47:56 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-21 20:47:58 INFO  (main)] - Load itemtempalte: 951
+[2024-10-21 20:47:58 INFO  (main)] - Load danh hieu new: 7
+[2024-10-21 20:47:58 INFO  (main)] - Load rewardtop done : 0
+[2024-10-21 20:47:59 INFO  (main)] - Market size: 0
+[2024-10-21 20:47:59 INFO  (main)] - Loading clan data
+[2024-10-21 20:47:59 INFO  (main)] - Load clan data successfully
+[2024-10-21 20:47:59 INFO  (main)] - Thread Server: 233
+[2024-10-21 20:47:59 INFO  (main)] - Start server Success!
+[2024-10-21 20:50:13 INFO  (main)] - Config - db.password: 
+[2024-10-21 20:50:13 INFO  (main)] - Config - mongodb.password: 
+[2024-10-21 20:50:13 INFO  (main)] - Config - mongodb.user: root
+[2024-10-21 20:50:13 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-21 20:50:13 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-21 20:50:13 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-21 20:50:13 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-21 20:50:13 INFO  (main)] - Config - db.user: root
+[2024-10-21 20:50:13 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-21 20:50:13 INFO  (main)] - Config - db.port: 3306
+[2024-10-21 20:50:13 INFO  (main)] - Config - db.host: localhost
+[2024-10-21 20:50:13 INFO  (main)] - Config - server.debug: false
+[2024-10-21 20:50:13 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-21 20:50:14 INFO  (main)] - Load itemtempalte: 951
+[2024-10-21 20:50:14 INFO  (main)] - Load danh hieu new: 7
+[2024-10-21 20:50:14 INFO  (main)] - Load rewardtop done : 0
+[2024-10-21 20:50:14 INFO  (main)] - Market size: 0
+[2024-10-21 20:50:14 INFO  (main)] - Loading clan data
+[2024-10-21 20:50:14 INFO  (main)] - Load clan data successfully
+[2024-10-21 20:50:14 INFO  (main)] - Thread Server: 233
+[2024-10-21 20:50:14 INFO  (main)] - Start server Success!
+[2024-10-21 20:50:56 INFO  (main)] - Config - db.password: 
+[2024-10-21 20:50:56 INFO  (main)] - Config - mongodb.password: 
+[2024-10-21 20:50:56 INFO  (main)] - Config - mongodb.user: root
+[2024-10-21 20:50:56 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-21 20:50:56 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-21 20:50:56 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-21 20:50:56 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-21 20:50:56 INFO  (main)] - Config - db.user: root
+[2024-10-21 20:50:56 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-21 20:50:56 INFO  (main)] - Config - db.port: 3306
+[2024-10-21 20:50:56 INFO  (main)] - Config - db.host: localhost
+[2024-10-21 20:50:56 INFO  (main)] - Config - server.debug: false
+[2024-10-21 20:50:56 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-21 20:50:58 INFO  (main)] - Load itemtempalte: 951
+[2024-10-21 20:50:58 INFO  (main)] - Load danh hieu new: 7
+[2024-10-21 20:50:58 INFO  (main)] - Load rewardtop done : 0
+[2024-10-21 20:50:58 INFO  (main)] - Market size: 0
+[2024-10-21 20:50:58 INFO  (main)] - Loading clan data
+[2024-10-21 20:50:58 INFO  (main)] - Load clan data successfully
+[2024-10-21 20:50:58 INFO  (main)] - Thread Server: 233
+[2024-10-21 20:50:58 INFO  (main)] - Start server Success!
+[2024-10-21 20:55:58 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:00:58 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:05:58 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:10:58 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:15:58 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:19:57 INFO  (main)] - Config - db.password: 
+[2024-10-21 21:19:57 INFO  (main)] - Config - mongodb.password: 
+[2024-10-21 21:19:57 INFO  (main)] - Config - mongodb.user: root
+[2024-10-21 21:19:57 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-21 21:19:57 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-21 21:19:57 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-21 21:19:57 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-21 21:19:57 INFO  (main)] - Config - db.user: root
+[2024-10-21 21:19:57 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-21 21:19:57 INFO  (main)] - Config - db.port: 3306
+[2024-10-21 21:19:57 INFO  (main)] - Config - db.host: localhost
+[2024-10-21 21:19:57 INFO  (main)] - Config - server.debug: false
+[2024-10-21 21:19:57 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-21 21:19:58 INFO  (main)] - Load itemtempalte: 955
+[2024-10-21 21:19:58 INFO  (main)] - Load danh hieu new: 7
+[2024-10-21 21:19:58 INFO  (main)] - Load rewardtop done : 0
+[2024-10-21 21:19:59 INFO  (main)] - Market size: 0
+[2024-10-21 21:19:59 INFO  (main)] - Loading clan data
+[2024-10-21 21:19:59 INFO  (main)] - Load clan data successfully
+[2024-10-21 21:19:59 INFO  (main)] - Thread Server: 233
+[2024-10-21 21:19:59 INFO  (main)] - Start server Success!
+[2024-10-21 21:20:46 INFO  (main)] - Config - db.password: 
+[2024-10-21 21:20:46 INFO  (main)] - Config - mongodb.password: 
+[2024-10-21 21:20:46 INFO  (main)] - Config - mongodb.user: root
+[2024-10-21 21:20:46 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-21 21:20:46 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-21 21:20:46 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-21 21:20:46 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-21 21:20:46 INFO  (main)] - Config - db.user: root
+[2024-10-21 21:20:46 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-21 21:20:46 INFO  (main)] - Config - db.port: 3306
+[2024-10-21 21:20:46 INFO  (main)] - Config - db.host: localhost
+[2024-10-21 21:20:46 INFO  (main)] - Config - server.debug: false
+[2024-10-21 21:20:46 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-21 21:20:48 INFO  (main)] - Load itemtempalte: 955
+[2024-10-21 21:20:48 INFO  (main)] - Load danh hieu new: 7
+[2024-10-21 21:20:48 INFO  (main)] - Load rewardtop done : 0
+[2024-10-21 21:20:48 INFO  (main)] - Market size: 0
+[2024-10-21 21:20:48 INFO  (main)] - Loading clan data
+[2024-10-21 21:20:48 INFO  (main)] - Load clan data successfully
+[2024-10-21 21:20:48 INFO  (main)] - Thread Server: 233
+[2024-10-21 21:20:48 INFO  (main)] - Start server Success!
+[2024-10-21 21:23:05 INFO  (main)] - Config - db.password: 
+[2024-10-21 21:23:05 INFO  (main)] - Config - mongodb.password: 
+[2024-10-21 21:23:05 INFO  (main)] - Config - mongodb.user: root
+[2024-10-21 21:23:05 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-21 21:23:05 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-21 21:23:05 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-21 21:23:05 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-21 21:23:05 INFO  (main)] - Config - db.user: root
+[2024-10-21 21:23:05 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-21 21:23:05 INFO  (main)] - Config - db.port: 3306
+[2024-10-21 21:23:05 INFO  (main)] - Config - db.host: localhost
+[2024-10-21 21:23:05 INFO  (main)] - Config - server.debug: false
+[2024-10-21 21:23:05 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-21 21:23:07 INFO  (main)] - Load itemtempalte: 955
+[2024-10-21 21:23:07 INFO  (main)] - Load danh hieu new: 7
+[2024-10-21 21:23:07 INFO  (main)] - Load rewardtop done : 0
+[2024-10-21 21:23:07 INFO  (main)] - Market size: 0
+[2024-10-21 21:23:07 INFO  (main)] - Loading clan data
+[2024-10-21 21:23:07 INFO  (main)] - Load clan data successfully
+[2024-10-21 21:23:07 INFO  (main)] - Thread Server: 233
+[2024-10-21 21:23:07 INFO  (main)] - Start server Success!
+[2024-10-21 21:28:07 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:33:07 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:38:07 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:43:07 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:48:07 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:53:07 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 21:58:07 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 22:03:07 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-21 22:08:07 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 21:25:20 INFO  (main)] - Config - db.password: 
+[2024-10-22 21:25:20 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 21:25:20 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 21:25:20 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-22 21:25:20 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 21:25:20 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 21:25:20 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 21:25:20 INFO  (main)] - Config - db.user: root
+[2024-10-22 21:25:20 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 21:25:20 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 21:25:20 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 21:25:20 INFO  (main)] - Config - server.debug: false
+[2024-10-22 21:25:20 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 21:25:24 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 21:25:24 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 21:25:24 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 21:25:24 INFO  (main)] - Market size: 0
+[2024-10-22 21:25:24 INFO  (main)] - Loading clan data
+[2024-10-22 21:25:25 INFO  (main)] - Load clan data successfully
+[2024-10-22 21:25:25 INFO  (main)] - Thread Server: 233
+[2024-10-22 21:25:25 INFO  (main)] - Start server Success!
+[2024-10-22 21:29:38 INFO  (main)] - Config - db.password: 
+[2024-10-22 21:29:38 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 21:29:38 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 21:29:38 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-22 21:29:38 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 21:29:38 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 21:29:38 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 21:29:38 INFO  (main)] - Config - db.user: root
+[2024-10-22 21:29:38 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 21:29:38 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 21:29:38 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 21:29:38 INFO  (main)] - Config - server.debug: false
+[2024-10-22 21:29:38 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 21:29:41 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 21:29:41 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 21:29:41 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 21:29:41 INFO  (main)] - Market size: 0
+[2024-10-22 21:29:41 INFO  (main)] - Loading clan data
+[2024-10-22 21:29:41 INFO  (main)] - Load clan data successfully
+[2024-10-22 21:29:42 INFO  (main)] - Thread Server: 233
+[2024-10-22 21:29:42 INFO  (main)] - Start server Success!
+[2024-10-22 21:34:41 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 21:39:41 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 21:44:41 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 21:49:41 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 21:54:42 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 21:59:42 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 22:04:42 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 22:07:48 INFO  (main)] - Config - db.password: 
+[2024-10-22 22:07:48 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 22:07:48 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 22:07:48 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-22 22:07:48 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 22:07:48 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 22:07:48 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 22:07:48 INFO  (main)] - Config - db.user: root
+[2024-10-22 22:07:48 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 22:07:48 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 22:07:48 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 22:07:48 INFO  (main)] - Config - server.debug: false
+[2024-10-22 22:07:48 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 22:07:49 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 22:07:49 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 22:07:49 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 22:07:49 INFO  (main)] - Market size: 0
+[2024-10-22 22:07:50 INFO  (main)] - Loading clan data
+[2024-10-22 22:07:50 INFO  (main)] - Load clan data successfully
+[2024-10-22 22:07:50 INFO  (main)] - Thread Server: 233
+[2024-10-22 22:07:50 INFO  (main)] - Start server Success!
+[2024-10-22 22:11:49 INFO  (main)] - Config - db.password: 
+[2024-10-22 22:11:49 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 22:11:49 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 22:11:49 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-22 22:11:49 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 22:11:49 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 22:11:49 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 22:11:49 INFO  (main)] - Config - db.user: root
+[2024-10-22 22:11:49 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 22:11:49 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 22:11:49 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 22:11:49 INFO  (main)] - Config - server.debug: false
+[2024-10-22 22:11:49 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 22:11:50 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 22:11:50 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 22:11:50 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 22:11:51 INFO  (main)] - Market size: 0
+[2024-10-22 22:11:51 INFO  (main)] - Loading clan data
+[2024-10-22 22:11:51 INFO  (main)] - Load clan data successfully
+[2024-10-22 22:11:51 INFO  (main)] - Thread Server: 233
+[2024-10-22 22:11:51 INFO  (main)] - Start server Success!
+[2024-10-22 22:12:46 INFO  (main)] - Config - db.password: 
+[2024-10-22 22:12:46 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 22:12:46 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 22:12:46 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-22 22:12:46 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 22:12:46 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 22:12:46 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 22:12:46 INFO  (main)] - Config - db.user: root
+[2024-10-22 22:12:46 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 22:12:46 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 22:12:46 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 22:12:46 INFO  (main)] - Config - server.debug: false
+[2024-10-22 22:12:46 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 22:12:47 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 22:12:47 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 22:12:47 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 22:12:47 INFO  (main)] - Market size: 0
+[2024-10-22 22:12:47 INFO  (main)] - Loading clan data
+[2024-10-22 22:12:47 INFO  (main)] - Load clan data successfully
+[2024-10-22 22:12:47 INFO  (main)] - Thread Server: 233
+[2024-10-22 22:12:47 INFO  (main)] - Start server Success!
+[2024-10-22 22:13:18 INFO  (main)] - Config - db.password: 
+[2024-10-22 22:13:18 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 22:13:18 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 22:13:18 INFO  (main)] - Config - game.event: com.event.Summer
+[2024-10-22 22:13:18 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 22:13:18 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 22:13:18 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 22:13:18 INFO  (main)] - Config - db.user: root
+[2024-10-22 22:13:18 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 22:13:18 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 22:13:18 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 22:13:18 INFO  (main)] - Config - server.debug: false
+[2024-10-22 22:13:18 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 22:13:19 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 22:13:19 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 22:13:20 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 22:13:20 INFO  (main)] - Market size: 0
+[2024-10-22 22:13:20 INFO  (main)] - Loading clan data
+[2024-10-22 22:13:20 INFO  (main)] - Load clan data successfully
+[2024-10-22 22:13:20 INFO  (main)] - Thread Server: 233
+[2024-10-22 22:13:20 INFO  (main)] - Start server Success!
+[2024-10-22 22:18:15 INFO  (main)] - Config - db.password: 
+[2024-10-22 22:18:15 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 22:18:15 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 22:18:15 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-22 22:18:15 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 22:18:15 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 22:18:15 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 22:18:15 INFO  (main)] - Config - db.user: root
+[2024-10-22 22:18:15 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 22:18:15 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 22:18:15 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 22:18:15 INFO  (main)] - Config - server.debug: false
+[2024-10-22 22:18:15 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 22:18:16 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 22:18:16 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 22:18:17 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 22:18:17 INFO  (main)] - Market size: 0
+[2024-10-22 22:18:17 INFO  (main)] - Loading clan data
+[2024-10-22 22:18:17 INFO  (main)] - Load clan data successfully
+[2024-10-22 22:18:17 INFO  (main)] - Thread Server: 233
+[2024-10-22 22:18:17 INFO  (main)] - Start server Success!
+[2024-10-22 22:23:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 22:28:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 22:33:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 22:37:12 INFO  (main)] - Config - db.password: 
+[2024-10-22 22:37:12 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 22:37:12 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 22:37:12 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-22 22:37:12 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 22:37:12 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 22:37:12 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 22:37:12 INFO  (main)] - Config - db.user: root
+[2024-10-22 22:37:12 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 22:37:12 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 22:37:12 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 22:37:12 INFO  (main)] - Config - server.debug: false
+[2024-10-22 22:37:12 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 22:37:13 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 22:37:13 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 22:37:13 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 22:37:13 INFO  (main)] - Market size: 0
+[2024-10-22 22:37:13 INFO  (main)] - Loading clan data
+[2024-10-22 22:37:13 INFO  (main)] - Load clan data successfully
+[2024-10-22 22:37:13 INFO  (main)] - Thread Server: 233
+[2024-10-22 22:37:13 INFO  (main)] - Start server Success!
+[2024-10-22 22:42:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 22:46:56 INFO  (main)] - Config - db.password: 
+[2024-10-22 22:46:56 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 22:46:56 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 22:46:56 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-22 22:46:56 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 22:46:56 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 22:46:56 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 22:46:56 INFO  (main)] - Config - db.user: root
+[2024-10-22 22:46:56 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 22:46:56 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 22:46:56 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 22:46:56 INFO  (main)] - Config - server.debug: false
+[2024-10-22 22:46:56 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 22:46:57 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 22:46:57 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 22:46:57 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 22:46:57 INFO  (main)] - Market size: 0
+[2024-10-22 22:46:57 INFO  (main)] - Loading clan data
+[2024-10-22 22:46:57 INFO  (main)] - Load clan data successfully
+[2024-10-22 22:46:57 INFO  (main)] - Thread Server: 233
+[2024-10-22 22:46:57 INFO  (main)] - Start server Success!
+[2024-10-22 22:51:57 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 22:56:57 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 22:58:31 INFO  (main)] - Config - db.password: 
+[2024-10-22 22:58:31 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 22:58:31 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 22:58:31 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-22 22:58:31 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 22:58:31 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 22:58:31 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 22:58:31 INFO  (main)] - Config - db.user: root
+[2024-10-22 22:58:31 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 22:58:31 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 22:58:31 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 22:58:31 INFO  (main)] - Config - server.debug: false
+[2024-10-22 22:58:31 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 22:58:33 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 22:58:33 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 22:58:33 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 22:58:33 INFO  (main)] - Market size: 0
+[2024-10-22 22:58:33 INFO  (main)] - Loading clan data
+[2024-10-22 22:58:33 INFO  (main)] - Load clan data successfully
+[2024-10-22 22:58:33 INFO  (main)] - Thread Server: 233
+[2024-10-22 22:58:33 INFO  (main)] - Start server Success!
+[2024-10-22 23:03:33 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:07:11 INFO  (main)] - Config - db.password: 
+[2024-10-22 23:07:11 INFO  (main)] - Config - mongodb.password: 
+[2024-10-22 23:07:11 INFO  (main)] - Config - mongodb.user: root
+[2024-10-22 23:07:11 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-22 23:07:11 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-22 23:07:11 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-22 23:07:11 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-22 23:07:11 INFO  (main)] - Config - db.user: root
+[2024-10-22 23:07:11 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-22 23:07:11 INFO  (main)] - Config - db.port: 3306
+[2024-10-22 23:07:11 INFO  (main)] - Config - db.host: localhost
+[2024-10-22 23:07:11 INFO  (main)] - Config - server.debug: false
+[2024-10-22 23:07:11 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-22 23:07:12 INFO  (main)] - Load itemtempalte: 955
+[2024-10-22 23:07:12 INFO  (main)] - Load danh hieu new: 7
+[2024-10-22 23:07:12 INFO  (main)] - Load rewardtop done : 0
+[2024-10-22 23:07:12 INFO  (main)] - Market size: 0
+[2024-10-22 23:07:13 INFO  (main)] - Loading clan data
+[2024-10-22 23:07:13 INFO  (main)] - Load clan data successfully
+[2024-10-22 23:07:13 INFO  (main)] - Thread Server: 233
+[2024-10-22 23:07:13 INFO  (main)] - Start server Success!
+[2024-10-22 23:12:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:17:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:22:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:27:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:32:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:37:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:42:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:47:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:52:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-22 23:57:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-23 00:02:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-23 00:07:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-23 00:12:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 20:52:10 INFO  (main)] - Config - db.password: 
+[2024-10-24 20:52:10 INFO  (main)] - Config - mongodb.password: 
+[2024-10-24 20:52:10 INFO  (main)] - Config - mongodb.user: root
+[2024-10-24 20:52:10 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-24 20:52:10 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-24 20:52:10 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-24 20:52:10 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-24 20:52:10 INFO  (main)] - Config - db.user: root
+[2024-10-24 20:52:10 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-24 20:52:10 INFO  (main)] - Config - db.port: 3306
+[2024-10-24 20:52:10 INFO  (main)] - Config - db.host: localhost
+[2024-10-24 20:52:10 INFO  (main)] - Config - server.debug: false
+[2024-10-24 20:52:10 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-24 20:52:12 INFO  (main)] - Load itemtempalte: 955
+[2024-10-24 20:52:12 INFO  (main)] - Load danh hieu new: 7
+[2024-10-24 20:52:12 INFO  (main)] - Load rewardtop done : 0
+[2024-10-24 20:52:12 INFO  (main)] - Market size: 0
+[2024-10-24 20:52:12 INFO  (main)] - Loading clan data
+[2024-10-24 20:52:12 INFO  (main)] - Load clan data successfully
+[2024-10-24 20:52:12 INFO  (main)] - Thread Server: 233
+[2024-10-24 20:52:12 INFO  (main)] - Start server Success!
+[2024-10-24 20:57:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:02:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:07:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:12:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:17:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:22:12 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:27:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:32:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:37:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:42:13 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:46:10 INFO  (main)] - Config - db.password: 
+[2024-10-24 21:46:10 INFO  (main)] - Config - mongodb.password: 
+[2024-10-24 21:46:10 INFO  (main)] - Config - mongodb.user: root
+[2024-10-24 21:46:10 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-24 21:46:10 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-24 21:46:10 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-24 21:46:10 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-24 21:46:10 INFO  (main)] - Config - db.user: root
+[2024-10-24 21:46:10 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-24 21:46:10 INFO  (main)] - Config - db.port: 3306
+[2024-10-24 21:46:10 INFO  (main)] - Config - db.host: localhost
+[2024-10-24 21:46:10 INFO  (main)] - Config - server.debug: false
+[2024-10-24 21:46:10 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-24 21:46:11 INFO  (main)] - Load itemtempalte: 955
+[2024-10-24 21:46:11 INFO  (main)] - Load danh hieu new: 7
+[2024-10-24 21:46:12 INFO  (main)] - Load rewardtop done : 0
+[2024-10-24 21:46:12 INFO  (main)] - Market size: 0
+[2024-10-24 21:46:12 INFO  (main)] - Loading clan data
+[2024-10-24 21:46:12 INFO  (main)] - Load clan data successfully
+[2024-10-24 21:46:12 INFO  (main)] - Thread Server: 233
+[2024-10-24 21:46:12 INFO  (main)] - Start server Success!
+[2024-10-24 21:47:37 INFO  (main)] - Config - db.password: 
+[2024-10-24 21:47:37 INFO  (main)] - Config - mongodb.password: 
+[2024-10-24 21:47:37 INFO  (main)] - Config - mongodb.user: root
+[2024-10-24 21:47:37 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-24 21:47:37 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-24 21:47:37 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-24 21:47:37 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-24 21:47:37 INFO  (main)] - Config - db.user: root
+[2024-10-24 21:47:37 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-24 21:47:37 INFO  (main)] - Config - db.port: 3306
+[2024-10-24 21:47:37 INFO  (main)] - Config - db.host: localhost
+[2024-10-24 21:47:37 INFO  (main)] - Config - server.debug: false
+[2024-10-24 21:47:37 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-24 21:47:38 INFO  (main)] - Load itemtempalte: 955
+[2024-10-24 21:47:38 INFO  (main)] - Load danh hieu new: 7
+[2024-10-24 21:47:38 INFO  (main)] - Load rewardtop done : 0
+[2024-10-24 21:47:38 INFO  (main)] - Market size: 0
+[2024-10-24 21:47:38 INFO  (main)] - Loading clan data
+[2024-10-24 21:47:38 INFO  (main)] - Load clan data successfully
+[2024-10-24 21:47:38 INFO  (main)] - Thread Server: 233
+[2024-10-24 21:47:38 INFO  (main)] - Start server Success!
+[2024-10-24 21:52:38 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 21:57:38 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:02:38 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:07:38 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:12:39 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:17:39 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:22:39 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:27:39 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:35:24 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:40:24 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:45:24 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:47:29 INFO  (main)] - Config - db.password: 
+[2024-10-24 22:47:29 INFO  (main)] - Config - mongodb.password: 
+[2024-10-24 22:47:29 INFO  (main)] - Config - mongodb.user: root
+[2024-10-24 22:47:29 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-24 22:47:29 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-24 22:47:29 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-24 22:47:29 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-24 22:47:29 INFO  (main)] - Config - db.user: root
+[2024-10-24 22:47:29 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-24 22:47:29 INFO  (main)] - Config - db.port: 3306
+[2024-10-24 22:47:29 INFO  (main)] - Config - db.host: localhost
+[2024-10-24 22:47:29 INFO  (main)] - Config - server.debug: false
+[2024-10-24 22:47:29 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-24 22:47:31 INFO  (main)] - Load itemtempalte: 955
+[2024-10-24 22:47:31 INFO  (main)] - Load danh hieu new: 7
+[2024-10-24 22:47:31 INFO  (main)] - Load rewardtop done : 0
+[2024-10-24 22:47:31 INFO  (main)] - Market size: 0
+[2024-10-24 22:47:31 INFO  (main)] - Loading clan data
+[2024-10-24 22:47:31 INFO  (main)] - Load clan data successfully
+[2024-10-24 22:47:31 INFO  (main)] - Thread Server: 233
+[2024-10-24 22:47:31 INFO  (main)] - Start server Success!
+[2024-10-24 22:52:31 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 22:57:31 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:02:31 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:07:31 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:12:31 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:12:40 INFO  (main)] - Config - db.password: 
+[2024-10-24 23:12:40 INFO  (main)] - Config - mongodb.password: 
+[2024-10-24 23:12:40 INFO  (main)] - Config - mongodb.user: root
+[2024-10-24 23:12:40 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-24 23:12:40 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-24 23:12:40 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-24 23:12:40 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-24 23:12:40 INFO  (main)] - Config - db.user: root
+[2024-10-24 23:12:40 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-24 23:12:40 INFO  (main)] - Config - db.port: 3306
+[2024-10-24 23:12:40 INFO  (main)] - Config - db.host: localhost
+[2024-10-24 23:12:40 INFO  (main)] - Config - server.debug: false
+[2024-10-24 23:12:40 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-24 23:12:42 INFO  (main)] - Load itemtempalte: 955
+[2024-10-24 23:12:42 INFO  (main)] - Load danh hieu new: 7
+[2024-10-24 23:12:43 INFO  (main)] - Load rewardtop done : 0
+[2024-10-24 23:12:43 INFO  (main)] - Market size: 0
+[2024-10-24 23:12:43 INFO  (main)] - Loading clan data
+[2024-10-24 23:12:43 INFO  (main)] - Load clan data successfully
+[2024-10-24 23:12:43 INFO  (main)] - Thread Server: 233
+[2024-10-24 23:12:43 INFO  (main)] - Start server Success!
+[2024-10-24 23:17:43 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:22:43 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:27:43 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:32:43 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:37:43 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:42:43 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-24 23:43:40 INFO  (main)] - Config - db.password: 
+[2024-10-24 23:43:40 INFO  (main)] - Config - mongodb.password: 
+[2024-10-24 23:43:40 INFO  (main)] - Config - mongodb.user: root
+[2024-10-24 23:43:40 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-24 23:43:40 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-24 23:43:40 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-24 23:43:40 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-24 23:43:40 INFO  (main)] - Config - db.user: root
+[2024-10-24 23:43:40 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-24 23:43:40 INFO  (main)] - Config - db.port: 3306
+[2024-10-24 23:43:40 INFO  (main)] - Config - db.host: localhost
+[2024-10-24 23:43:40 INFO  (main)] - Config - server.debug: false
+[2024-10-24 23:43:40 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-24 23:43:41 INFO  (main)] - Load itemtempalte: 955
+[2024-10-24 23:43:41 INFO  (main)] - Load danh hieu new: 7
+[2024-10-24 23:43:41 INFO  (main)] - Load rewardtop done : 0
+[2024-10-24 23:43:42 INFO  (main)] - Market size: 0
+[2024-10-24 23:43:42 INFO  (main)] - Loading clan data
+[2024-10-24 23:43:42 INFO  (main)] - Load clan data successfully
+[2024-10-24 23:43:42 INFO  (main)] - Thread Server: 233
+[2024-10-24 23:43:42 INFO  (main)] - Start server Success!
+[2024-10-24 23:46:30 INFO  (main)] - Config - db.password: 
+[2024-10-24 23:46:30 INFO  (main)] - Config - mongodb.password: 
+[2024-10-24 23:46:30 INFO  (main)] - Config - mongodb.user: root
+[2024-10-24 23:46:30 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-24 23:46:30 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-24 23:46:30 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-24 23:46:30 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-24 23:46:30 INFO  (main)] - Config - db.user: root
+[2024-10-24 23:46:30 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-24 23:46:30 INFO  (main)] - Config - db.port: 3306
+[2024-10-24 23:46:30 INFO  (main)] - Config - db.host: localhost
+[2024-10-24 23:46:30 INFO  (main)] - Config - server.debug: false
+[2024-10-24 23:46:30 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-24 23:46:31 INFO  (main)] - Load itemtempalte: 955
+[2024-10-24 23:46:31 INFO  (main)] - Load danh hieu new: 7
+[2024-10-24 23:46:31 INFO  (main)] - Load rewardtop done : 0
+[2024-10-24 23:46:31 INFO  (main)] - Market size: 0
+[2024-10-24 23:46:31 INFO  (main)] - Loading clan data
+[2024-10-24 23:46:32 INFO  (main)] - Load clan data successfully
+[2024-10-24 23:46:32 INFO  (main)] - Thread Server: 233
+[2024-10-24 23:46:32 INFO  (main)] - Start server Success!
+[2024-10-24 23:48:46 INFO  (main)] - Config - db.password: 
+[2024-10-24 23:48:46 INFO  (main)] - Config - mongodb.password: 
+[2024-10-24 23:48:46 INFO  (main)] - Config - mongodb.user: root
+[2024-10-24 23:48:46 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-24 23:48:46 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-24 23:48:46 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-24 23:48:46 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-24 23:48:46 INFO  (main)] - Config - db.user: root
+[2024-10-24 23:48:46 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-24 23:48:46 INFO  (main)] - Config - db.port: 3306
+[2024-10-24 23:48:46 INFO  (main)] - Config - db.host: localhost
+[2024-10-24 23:48:46 INFO  (main)] - Config - server.debug: false
+[2024-10-24 23:48:46 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-24 23:48:47 INFO  (main)] - Load itemtempalte: 955
+[2024-10-24 23:48:47 INFO  (main)] - Load danh hieu new: 7
+[2024-10-24 23:48:47 INFO  (main)] - Load rewardtop done : 0
+[2024-10-24 23:48:47 INFO  (main)] - Market size: 0
+[2024-10-24 23:48:47 INFO  (main)] - Loading clan data
+[2024-10-24 23:48:47 INFO  (main)] - Load clan data successfully
+[2024-10-24 23:48:47 INFO  (main)] - Thread Server: 233
+[2024-10-24 23:48:47 INFO  (main)] - Start server Success!
+[2024-10-24 23:50:28 INFO  (main)] - Config - db.password: 
+[2024-10-24 23:50:28 INFO  (main)] - Config - mongodb.password: 
+[2024-10-24 23:50:28 INFO  (main)] - Config - mongodb.user: root
+[2024-10-24 23:50:28 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-24 23:50:28 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-24 23:50:28 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-24 23:50:28 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-24 23:50:28 INFO  (main)] - Config - db.user: root
+[2024-10-24 23:50:28 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-24 23:50:28 INFO  (main)] - Config - db.port: 3306
+[2024-10-24 23:50:28 INFO  (main)] - Config - db.host: localhost
+[2024-10-24 23:50:28 INFO  (main)] - Config - server.debug: false
+[2024-10-24 23:50:28 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-24 23:50:29 INFO  (main)] - Load itemtempalte: 955
+[2024-10-24 23:50:29 INFO  (main)] - Load danh hieu new: 7
+[2024-10-24 23:50:29 INFO  (main)] - Load rewardtop done : 0
+[2024-10-24 23:50:29 INFO  (main)] - Market size: 0
+[2024-10-24 23:50:29 INFO  (main)] - Loading clan data
+[2024-10-24 23:50:29 INFO  (main)] - Load clan data successfully
+[2024-10-24 23:50:29 INFO  (main)] - Thread Server: 233
+[2024-10-24 23:50:29 INFO  (main)] - Start server Success!
+[2024-10-26 16:47:00 INFO  (main)] - Config - db.password: 
+[2024-10-26 16:47:00 INFO  (main)] - Config - mongodb.password: 
+[2024-10-26 16:47:00 INFO  (main)] - Config - mongodb.user: root
+[2024-10-26 16:47:00 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-26 16:47:00 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-26 16:47:00 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-26 16:47:00 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-26 16:47:00 INFO  (main)] - Config - db.user: root
+[2024-10-26 16:47:00 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-26 16:47:00 INFO  (main)] - Config - db.port: 3306
+[2024-10-26 16:47:00 INFO  (main)] - Config - db.host: localhost
+[2024-10-26 16:47:00 INFO  (main)] - Config - server.debug: false
+[2024-10-26 16:47:00 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-26 16:47:02 INFO  (main)] - Load itemtempalte: 955
+[2024-10-26 16:47:02 INFO  (main)] - Load danh hieu new: 7
+[2024-10-26 16:47:03 INFO  (main)] - Load rewardtop done : 0
+[2024-10-26 16:47:03 INFO  (main)] - Market size: 0
+[2024-10-26 16:47:03 INFO  (main)] - Loading clan data
+[2024-10-26 16:47:03 INFO  (main)] - Load clan data successfully
+[2024-10-26 16:47:03 INFO  (main)] - Thread Server: 233
+[2024-10-26 16:47:03 INFO  (main)] - Start server Success!
+[2024-10-26 16:52:03 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 16:57:03 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:02:03 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:07:03 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:12:03 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:14:29 INFO  (main)] - Config - db.password: 
+[2024-10-26 17:14:29 INFO  (main)] - Config - mongodb.password: 
+[2024-10-26 17:14:29 INFO  (main)] - Config - mongodb.user: root
+[2024-10-26 17:14:29 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-26 17:14:29 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-26 17:14:29 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-26 17:14:29 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-26 17:14:29 INFO  (main)] - Config - db.user: root
+[2024-10-26 17:14:29 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-26 17:14:29 INFO  (main)] - Config - db.port: 3306
+[2024-10-26 17:14:29 INFO  (main)] - Config - db.host: localhost
+[2024-10-26 17:14:29 INFO  (main)] - Config - server.debug: false
+[2024-10-26 17:14:29 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-26 17:14:31 INFO  (main)] - Load itemtempalte: 956
+[2024-10-26 17:14:31 INFO  (main)] - Load danh hieu new: 7
+[2024-10-26 17:14:31 INFO  (main)] - Load rewardtop done : 0
+[2024-10-26 17:14:31 INFO  (main)] - Market size: 0
+[2024-10-26 17:14:31 INFO  (main)] - Loading clan data
+[2024-10-26 17:14:32 INFO  (main)] - Load clan data successfully
+[2024-10-26 17:14:32 INFO  (main)] - Thread Server: 233
+[2024-10-26 17:14:32 INFO  (main)] - Start server Success!
+[2024-10-26 17:19:23 INFO  (main)] - Config - db.password: 
+[2024-10-26 17:19:23 INFO  (main)] - Config - mongodb.password: 
+[2024-10-26 17:19:23 INFO  (main)] - Config - mongodb.user: root
+[2024-10-26 17:19:23 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-26 17:19:23 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-26 17:19:23 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-26 17:19:23 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-26 17:19:23 INFO  (main)] - Config - db.user: root
+[2024-10-26 17:19:23 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-26 17:19:23 INFO  (main)] - Config - db.port: 3306
+[2024-10-26 17:19:23 INFO  (main)] - Config - db.host: localhost
+[2024-10-26 17:19:23 INFO  (main)] - Config - server.debug: false
+[2024-10-26 17:19:23 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-26 17:19:24 INFO  (main)] - Load itemtempalte: 956
+[2024-10-26 17:19:24 INFO  (main)] - Load danh hieu new: 7
+[2024-10-26 17:19:24 INFO  (main)] - Load rewardtop done : 0
+[2024-10-26 17:19:24 INFO  (main)] - Market size: 0
+[2024-10-26 17:19:24 INFO  (main)] - Loading clan data
+[2024-10-26 17:19:24 INFO  (main)] - Load clan data successfully
+[2024-10-26 17:19:24 INFO  (main)] - Thread Server: 233
+[2024-10-26 17:19:24 INFO  (main)] - Start server Success!
+[2024-10-26 17:20:49 INFO  (main)] - Config - db.password: 
+[2024-10-26 17:20:49 INFO  (main)] - Config - mongodb.password: 
+[2024-10-26 17:20:49 INFO  (main)] - Config - mongodb.user: root
+[2024-10-26 17:20:49 INFO  (main)] - Config - game.event: com.event.Halloween
+[2024-10-26 17:20:49 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-26 17:20:49 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-26 17:20:49 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-26 17:20:49 INFO  (main)] - Config - db.user: root
+[2024-10-26 17:20:49 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-26 17:20:49 INFO  (main)] - Config - db.port: 3306
+[2024-10-26 17:20:49 INFO  (main)] - Config - db.host: localhost
+[2024-10-26 17:20:49 INFO  (main)] - Config - server.debug: false
+[2024-10-26 17:20:49 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-26 17:20:50 INFO  (main)] - Load itemtempalte: 956
+[2024-10-26 17:20:50 INFO  (main)] - Load danh hieu new: 7
+[2024-10-26 17:20:51 INFO  (main)] - Load rewardtop done : 0
+[2024-10-26 17:20:51 INFO  (main)] - Market size: 0
+[2024-10-26 17:20:51 INFO  (main)] - Loading clan data
+[2024-10-26 17:20:51 INFO  (main)] - Load clan data successfully
+[2024-10-26 17:20:51 INFO  (main)] - Thread Server: 233
+[2024-10-26 17:20:51 INFO  (main)] - Start server Success!
+[2024-10-26 17:25:51 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:30:51 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:35:51 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:37:15 INFO  (main)] - Config - db.password: 
+[2024-10-26 17:37:15 INFO  (main)] - Config - mongodb.password: 
+[2024-10-26 17:37:15 INFO  (main)] - Config - mongodb.user: root
+[2024-10-26 17:37:15 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-26 17:37:15 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-26 17:37:15 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-26 17:37:15 INFO  (main)] - Config - db.user: root
+[2024-10-26 17:37:15 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-26 17:37:15 INFO  (main)] - Config - db.port: 3306
+[2024-10-26 17:37:15 INFO  (main)] - Config - db.host: localhost
+[2024-10-26 17:37:15 INFO  (main)] - Config - server.debug: false
+[2024-10-26 17:37:15 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-26 17:37:16 INFO  (main)] - Load itemtempalte: 956
+[2024-10-26 17:37:16 INFO  (main)] - Load danh hieu new: 7
+[2024-10-26 17:37:16 INFO  (main)] - Load rewardtop done : 0
+[2024-10-26 17:37:16 INFO  (main)] - Market size: 0
+[2024-10-26 17:37:16 INFO  (main)] - Loading clan data
+[2024-10-26 17:37:16 INFO  (main)] - Load clan data successfully
+[2024-10-26 17:37:16 INFO  (main)] - Thread Server: 233
+[2024-10-26 17:37:16 INFO  (main)] - Start server Success!
+[2024-10-26 17:42:16 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:47:16 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:52:16 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 17:57:16 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 18:02:16 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-26 18:07:16 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 14:21:06 INFO  (main)] - Config - db.password: 
+[2024-10-27 14:21:06 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 14:21:06 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 14:21:06 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 14:21:06 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 14:21:06 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 14:21:06 INFO  (main)] - Config - db.user: root
+[2024-10-27 14:21:06 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 14:21:06 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 14:21:06 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 14:21:06 INFO  (main)] - Config - server.debug: false
+[2024-10-27 14:21:06 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 14:21:08 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 14:21:08 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 14:21:08 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 14:21:08 INFO  (main)] - Market size: 0
+[2024-10-27 14:21:08 INFO  (main)] - Loading clan data
+[2024-10-27 14:21:08 INFO  (main)] - Load clan data successfully
+[2024-10-27 14:21:08 INFO  (main)] - Thread Server: 233
+[2024-10-27 14:21:08 INFO  (main)] - Start server Success!
+[2024-10-27 14:26:08 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 14:31:08 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 14:36:07 INFO  (main)] - Config - db.password: 
+[2024-10-27 14:36:07 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 14:36:07 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 14:36:07 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 14:36:07 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 14:36:07 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 14:36:07 INFO  (main)] - Config - db.user: root
+[2024-10-27 14:36:07 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 14:36:07 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 14:36:07 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 14:36:07 INFO  (main)] - Config - server.debug: false
+[2024-10-27 14:36:07 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 14:36:09 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 14:36:09 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 14:36:09 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 14:36:09 INFO  (main)] - Market size: 0
+[2024-10-27 14:36:09 INFO  (main)] - Loading clan data
+[2024-10-27 14:36:09 INFO  (main)] - Load clan data successfully
+[2024-10-27 14:36:09 INFO  (main)] - Thread Server: 233
+[2024-10-27 14:36:09 INFO  (main)] - Start server Success!
+[2024-10-27 14:38:50 INFO  (main)] - Config - db.password: 
+[2024-10-27 14:38:50 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 14:38:50 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 14:38:50 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 14:38:50 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 14:38:50 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 14:38:50 INFO  (main)] - Config - db.user: root
+[2024-10-27 14:38:50 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 14:38:50 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 14:38:50 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 14:38:50 INFO  (main)] - Config - server.debug: false
+[2024-10-27 14:38:50 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 14:38:52 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 14:38:52 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 14:38:52 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 14:38:52 INFO  (main)] - Market size: 0
+[2024-10-27 14:38:52 INFO  (main)] - Loading clan data
+[2024-10-27 14:38:52 INFO  (main)] - Load clan data successfully
+[2024-10-27 14:38:52 INFO  (main)] - Thread Server: 233
+[2024-10-27 14:38:52 INFO  (main)] - Start server Success!
+[2024-10-27 14:40:24 INFO  (main)] - Config - db.password: 
+[2024-10-27 14:40:24 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 14:40:24 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 14:40:24 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 14:40:24 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 14:40:24 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 14:40:24 INFO  (main)] - Config - db.user: root
+[2024-10-27 14:40:24 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 14:40:24 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 14:40:24 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 14:40:24 INFO  (main)] - Config - server.debug: false
+[2024-10-27 14:40:24 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 14:40:25 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 14:40:25 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 14:40:25 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 14:40:25 INFO  (main)] - Market size: 0
+[2024-10-27 14:40:25 INFO  (main)] - Loading clan data
+[2024-10-27 14:40:25 INFO  (main)] - Load clan data successfully
+[2024-10-27 14:40:25 INFO  (main)] - Thread Server: 233
+[2024-10-27 14:40:25 INFO  (main)] - Start server Success!
+[2024-10-27 14:43:44 INFO  (main)] - Config - db.password: 
+[2024-10-27 14:43:44 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 14:43:44 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 14:43:44 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 14:43:44 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 14:43:44 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 14:43:44 INFO  (main)] - Config - db.user: root
+[2024-10-27 14:43:44 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 14:43:44 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 14:43:44 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 14:43:44 INFO  (main)] - Config - server.debug: false
+[2024-10-27 14:43:44 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 14:43:45 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 14:43:45 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 14:43:45 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 14:43:45 INFO  (main)] - Market size: 0
+[2024-10-27 14:43:46 INFO  (main)] - Loading clan data
+[2024-10-27 14:43:46 INFO  (main)] - Load clan data successfully
+[2024-10-27 14:43:46 INFO  (main)] - Thread Server: 233
+[2024-10-27 14:43:46 INFO  (main)] - Start server Success!
+[2024-10-27 14:48:45 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 14:53:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 14:58:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:03:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:08:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:13:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:18:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:23:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:28:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:33:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:38:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:43:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:48:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:53:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 15:58:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:03:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:08:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:13:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:18:46 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:21:27 INFO  (main)] - Config - db.password: 
+[2024-10-27 16:21:27 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 16:21:27 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 16:21:27 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 16:21:27 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 16:21:27 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 16:21:27 INFO  (main)] - Config - db.user: root
+[2024-10-27 16:21:27 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 16:21:27 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 16:21:27 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 16:21:27 INFO  (main)] - Config - server.debug: false
+[2024-10-27 16:21:27 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 16:21:28 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 16:21:28 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 16:21:29 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 16:21:29 INFO  (main)] - Market size: 0
+[2024-10-27 16:21:29 INFO  (main)] - Loading clan data
+[2024-10-27 16:21:29 INFO  (main)] - Load clan data successfully
+[2024-10-27 16:21:29 INFO  (main)] - Thread Server: 233
+[2024-10-27 16:21:29 INFO  (main)] - Start server Success!
+[2024-10-27 16:26:15 INFO  (main)] - Config - db.password: 
+[2024-10-27 16:26:15 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 16:26:15 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 16:26:15 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 16:26:15 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 16:26:15 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 16:26:15 INFO  (main)] - Config - db.user: root
+[2024-10-27 16:26:15 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 16:26:15 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 16:26:15 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 16:26:15 INFO  (main)] - Config - server.debug: false
+[2024-10-27 16:26:15 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 16:26:17 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 16:26:17 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 16:26:17 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 16:26:17 INFO  (main)] - Market size: 0
+[2024-10-27 16:26:17 INFO  (main)] - Loading clan data
+[2024-10-27 16:26:17 INFO  (main)] - Load clan data successfully
+[2024-10-27 16:26:17 INFO  (main)] - Thread Server: 233
+[2024-10-27 16:26:17 INFO  (main)] - Start server Success!
+[2024-10-27 16:30:00 INFO  (pool-2-thread-1)] - khu: 0 mod: Shukaku
+[2024-10-27 16:30:00 INFO  (pool-2-thread-1)] - khu: 0 mod: Matatabi
+[2024-10-27 16:30:00 INFO  (pool-2-thread-1)] - khu: 0 mod: Isobu
+[2024-10-27 16:30:00 INFO  (pool-2-thread-1)] - khu: 0 mod: Goku
+[2024-10-27 16:30:00 INFO  (pool-2-thread-1)] - khu: 0 mod: Kokuo
+[2024-10-27 16:30:00 INFO  (pool-2-thread-1)] - khu: 0 mod: Saiken
+[2024-10-27 16:30:00 INFO  (pool-2-thread-1)] - khu: 0 mod: Chomei
+[2024-10-27 16:30:00 INFO  (pool-2-thread-1)] - khu: 0 mod: Gyuki
+[2024-10-27 16:30:00 INFO  (pool-2-thread-1)] - khu: 0 mod: Kurama
+[2024-10-27 16:31:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:36:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:41:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:46:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:51:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 16:56:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 17:01:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 17:06:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 17:11:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 17:16:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 17:21:17 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 17:21:32 INFO  (main)] - Config - db.password: 
+[2024-10-27 17:21:32 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 17:21:32 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 17:21:32 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 17:21:32 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 17:21:32 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 17:21:32 INFO  (main)] - Config - db.user: root
+[2024-10-27 17:21:32 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 17:21:32 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 17:21:32 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 17:21:32 INFO  (main)] - Config - server.debug: false
+[2024-10-27 17:21:32 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 17:21:33 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 17:21:33 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 17:21:33 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 17:21:33 INFO  (main)] - Market size: 0
+[2024-10-27 17:21:34 INFO  (main)] - Loading clan data
+[2024-10-27 17:21:34 INFO  (main)] - Load clan data successfully
+[2024-10-27 17:21:34 INFO  (main)] - Thread Server: 233
+[2024-10-27 17:21:34 INFO  (main)] - Start server Success!
+[2024-10-27 17:21:57 INFO  (main)] - Config - db.password: 
+[2024-10-27 17:21:57 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 17:21:57 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 17:21:57 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 17:21:57 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 17:21:57 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 17:21:57 INFO  (main)] - Config - db.user: root
+[2024-10-27 17:21:57 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 17:21:57 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 17:21:57 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 17:21:57 INFO  (main)] - Config - server.debug: false
+[2024-10-27 17:21:57 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 17:21:58 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 17:21:58 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 17:21:58 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 17:21:58 INFO  (main)] - Market size: 0
+[2024-10-27 17:21:58 INFO  (main)] - Loading clan data
+[2024-10-27 17:21:58 INFO  (main)] - Load clan data successfully
+[2024-10-27 17:21:58 INFO  (main)] - Thread Server: 233
+[2024-10-27 17:21:58 INFO  (main)] - Start server Success!
+[2024-10-27 17:23:25 INFO  (main)] - Config - db.password: 
+[2024-10-27 17:23:25 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 17:23:25 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 17:23:25 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 17:23:25 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 17:23:25 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 17:23:25 INFO  (main)] - Config - db.user: root
+[2024-10-27 17:23:25 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 17:23:25 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 17:23:25 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 17:23:25 INFO  (main)] - Config - server.debug: false
+[2024-10-27 17:23:25 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 17:23:26 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 17:23:26 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 17:23:26 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 17:23:26 INFO  (main)] - Market size: 0
+[2024-10-27 17:23:26 INFO  (main)] - Loading clan data
+[2024-10-27 17:23:26 INFO  (main)] - Load clan data successfully
+[2024-10-27 17:23:26 INFO  (main)] - Thread Server: 233
+[2024-10-27 17:23:26 INFO  (main)] - Start server Success!
+[2024-10-27 17:28:26 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 21:11:39 INFO  (main)] - Config - db.password: 
+[2024-10-27 21:11:39 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 21:11:39 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 21:11:39 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 21:11:39 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 21:11:39 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 21:11:39 INFO  (main)] - Config - db.user: root
+[2024-10-27 21:11:39 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 21:11:39 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 21:11:39 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 21:11:39 INFO  (main)] - Config - server.debug: false
+[2024-10-27 21:11:39 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 21:11:41 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 21:11:41 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 21:11:41 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 21:11:41 INFO  (main)] - Market size: 0
+[2024-10-27 21:11:41 INFO  (main)] - Loading clan data
+[2024-10-27 21:11:41 INFO  (main)] - Load clan data successfully
+[2024-10-27 21:11:41 INFO  (main)] - Thread Server: 233
+[2024-10-27 21:11:41 INFO  (main)] - Start server Success!
+[2024-10-27 21:16:41 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 21:21:41 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 21:26:41 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 21:26:57 INFO  (main)] - Config - db.password: 
+[2024-10-27 21:26:57 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 21:26:57 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 21:26:57 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 21:26:57 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 21:26:57 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 21:26:57 INFO  (main)] - Config - db.user: root
+[2024-10-27 21:26:57 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 21:26:57 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 21:26:57 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 21:26:57 INFO  (main)] - Config - server.debug: false
+[2024-10-27 21:26:57 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 21:26:58 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 21:26:58 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 21:26:58 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 21:26:58 INFO  (main)] - Market size: 0
+[2024-10-27 21:26:59 INFO  (main)] - Loading clan data
+[2024-10-27 21:26:59 INFO  (main)] - Load clan data successfully
+[2024-10-27 21:26:59 INFO  (main)] - Thread Server: 233
+[2024-10-27 21:26:59 INFO  (main)] - Start server Success!
+[2024-10-27 21:31:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 21:36:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 21:41:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 21:46:59 INFO  (Thread SaveData)] - Lưu data tự động
+[2024-10-27 21:49:29 INFO  (main)] - Config - db.password: 
+[2024-10-27 21:49:29 INFO  (main)] - Config - mongodb.password: 
+[2024-10-27 21:49:29 INFO  (main)] - Config - mongodb.user: root
+[2024-10-27 21:49:29 INFO  (main)] - Config - mongodb.host: localhost
+[2024-10-27 21:49:29 INFO  (main)] - Config - db.dbData: langla_data
+[2024-10-27 21:49:29 INFO  (main)] - Config - mongodb.port: 27017
+[2024-10-27 21:49:29 INFO  (main)] - Config - db.user: root
+[2024-10-27 21:49:29 INFO  (main)] - Config - db.dbname: langla_acc
+[2024-10-27 21:49:29 INFO  (main)] - Config - db.port: 3306
+[2024-10-27 21:49:29 INFO  (main)] - Config - db.host: localhost
+[2024-10-27 21:49:29 INFO  (main)] - Config - server.debug: false
+[2024-10-27 21:49:29 INFO  (main)] - Config - mongodb.dbname: admin
+[2024-10-27 21:49:30 INFO  (main)] - Load itemtempalte: 956
+[2024-10-27 21:49:30 INFO  (main)] - Load danh hieu new: 7
+[2024-10-27 21:49:30 INFO  (main)] - Load rewardtop done : 0
+[2024-10-27 21:49:30 INFO  (main)] - Market size: 0
+[2024-10-27 21:49:30 INFO  (main)] - Loading clan data
+[2024-10-27 21:49:30 INFO  (main)] - Load clan data successfully
+[2024-10-27 21:49:30 INFO  (main)] - Thread Server: 233
+[2024-10-27 21:49:30 INFO  (main)] - Start server Success!
+[2024-10-27 21:54:30 INFO  (Thread SaveData)] - Lưu data tự động

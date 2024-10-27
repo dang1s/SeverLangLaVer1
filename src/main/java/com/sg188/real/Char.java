@@ -22,6 +22,7 @@ import SqlConnection.CharDB;
 import SqlConnection.Connect;
 import Template.TemplateThu;
 import com.event.Event;
+import com.event.Halloween;
 import com.event.Summer;
 import com.event.eventpoint.EventPoint;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -627,7 +628,8 @@ public class Char extends Body {
             removeItemsWithIDPhucLoi(1);
             phucLoi.tieuTuan = 0;
             phucLoi.napTuan = 0;
-            phucLoi.soNgayOnline = 0;
+            phucLoi.soNgayOnline = 1;
+            Info.chuyenCan = 0;
         }
         Info.countCamThuat = 1;
         idCamThuat = -1;
@@ -2892,6 +2894,22 @@ public class Char extends Body {
                 service.serverMessage("Chúc mừng bạn đã học được nhẫn thuật đặc biệt");
                 service.resetScreen();
                 break;
+            case 995:
+                if (Skill.arraySkill.length > 8) {
+                    return;
+                }
+                removeItem(item);
+                msgUseItemBag(item);
+                Skill[] arraySkill_NV = new Skill[Skill.arraySkill.length + 1];
+                for (int i = 0; i < Skill.arraySkill.length; i++) {
+                    arraySkill_NV[i] = Skill.arraySkill[i];
+                }
+                arraySkill_NV[arraySkill_NV.length - 1] = DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.SUSANO_ITACHI, 0).cloneSkill();
+                Skill.arraySkill = arraySkill_NV;
+                msgUpdateSkill();
+                service.serverMessage("Chúc mừng bạn đã học được nhẫn thuật đặc biệt");
+                service.resetScreen();
+                break;
             case 308:
                 if (!zone.isDungeoClan()) {
                     return;
@@ -2958,7 +2976,7 @@ public class Char extends Body {
                     }
                     service.sendMessage(HanderMessage.TestMess7(Info.idEntity));
                     isCatchItem = false;
-                    getEventPoint().addPoint(Summer.TOP_FISH, 1);
+                    getEventPoint().addPoint(Halloween.TOP_FISH, 1);
                     getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 1);
                 }
                 break;
@@ -10361,7 +10379,8 @@ public class Char extends Body {
                 return;
             }
             CharDB.logExchange(this.Info.name, coinPlayer, coinPlayer - coin);
-            addVang(vang);
+            //hết x2 sửa lại
+            addVang(vang*2);
 
             if (Bag.pointNAP == 0) { //quà nạp đầu
                 TemplateThu thu1 = new TemplateThu();

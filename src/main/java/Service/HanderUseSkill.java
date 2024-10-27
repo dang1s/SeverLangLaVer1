@@ -103,7 +103,7 @@ public class HanderUseSkill {
                 _myChar.addEffect(new Effect((short) idEff, value, System.currentTimeMillis(), sec));
                 break;
             case 35:
-                _myChar.addEffect(new Effect((short) 107, 10, System.currentTimeMillis(), 1000*30));
+                _myChar.addEffect(new Effect((short) 107, 100, System.currentTimeMillis(), 1000*30));
                 break;
             case 25:
                 value = Integer.parseInt(option[0].split(",")[1]);

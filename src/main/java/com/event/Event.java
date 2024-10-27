@@ -337,15 +337,15 @@ public abstract class Event {
 //        itemsRecFromGoldItem.add(0.005, 530);
 //        itemsRecFromGoldItem.add(0.005, 702);
 
-        itemsRecFromGoldItem.add(0.2, 529);//ct new
-        itemsRecFromGoldItem.add(0.2, 555);
-        itemsRecFromGoldItem.add(0.2, 556);
-        itemsRecFromGoldItem.add(0.2, 856);
-        itemsRecFromGoldItem.add(0.2, 521);
+        itemsRecFromGoldItem.add(0.1, 529);//ct new
+        itemsRecFromGoldItem.add(0.1, 555);
+        itemsRecFromGoldItem.add(0.1, 556);
+        itemsRecFromGoldItem.add(0.1, 856);
+        itemsRecFromGoldItem.add(0.1, 521);
 //        itemsRecFromGoldItem.add(0.001, 914);//ngoi sao hiem
-        itemsRecFromGoldItem.add(0.2, 871);//tanto doc la binh duong
-        itemsRecFromGoldItem.add(0.2, 881);
-        itemsRecFromGoldItem.add(0.2, 882);
+        itemsRecFromGoldItem.add(0.1, 871);//tanto doc la binh duong
+        itemsRecFromGoldItem.add(0.1, 881);
+        itemsRecFromGoldItem.add(0.1, 882);
 //        itemsRecFromGoldItem.add(0.1, 911);
         itemsRecFromGoldItem.add(1, 688);//ky nang vi thu
         itemsRecFromGoldItem.add(40, 763);//chakra vi thu

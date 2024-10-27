@@ -557,7 +557,84 @@ public class HanderNpc {
                 myChar.service.alertMessage("Xóa hành trang thành công!");
 
                 break;
+            case 3:
+                switch (index2) {
+                    case 0:
+                        try {
+                            if(myChar.Bag.bacKhoa >= 2000000000) {
+                                myChar.service.alertMessage("Full bạc khóa!");
+                                return;
+                            }
+                            if(myChar.Info.chuyenCan < 5000) {
+                                myChar.service.alertMessage("Không đủ 5000 chuyên cần!");
+                                return;
+                            }
+                            myChar.Info.chuyenCan -= 5000;
+                            myChar.addBacKhoa(100000000);
 
+                        } catch (Exception ex) {
+
+                        }
+                        break;
+                    case 1:
+                        try {
+                            if(myChar.getCountNullItemBag() < 0) {
+                                myChar.service.alertMessage("Túi đầy!");
+                                return;
+                            }
+                            if(myChar.Info.chuyenCan < 2000) {
+                                myChar.service.alertMessage("Không đủ 2000 chuyên cần!");
+                                return;
+                            }
+                            myChar.Info.chuyenCan -= 2000;
+                            Item danhHieuCH = new Item(549);
+                            danhHieuCH.isLock = true;
+                            myChar.addItem(danhHieuCH);
+                            myChar.msgAddItemBag(danhHieuCH);
+                        } catch (Exception ex) {
+
+                        }
+                        break;
+                    case 2:
+                        try {
+                            if(myChar.getCountNullItemBag() < 0) {
+                                myChar.service.alertMessage("Túi đầy!");
+                                return;
+                            }
+                            if(myChar.Info.chuyenCan < 2000) {
+                                myChar.service.alertMessage("Không đủ 2000 chuyên cần!");
+                                return;
+                            }
+                            myChar.Info.chuyenCan -= 2000;
+                            Item danhHieuTK = new Item(588);
+                            danhHieuTK.isLock = true;
+                            myChar.addItem(danhHieuTK);
+                            myChar.msgAddItemBag(danhHieuTK);
+                        } catch (Exception ex) {
+
+                        }
+                        break;
+                    case 3:
+                        try {
+                            if(myChar.getCountNullItemBag() < 0) {
+                                myChar.service.alertMessage("Túi đầy!");
+                                return;
+                            }
+                            if(myChar.Info.chuyenCan < 2000) {
+                                myChar.service.alertMessage("Không đủ 2000 chuyên cần!");
+                                return;
+                            }
+                            myChar.Info.chuyenCan -= 2000;
+                            Item danhHieuUV = new Item(824);
+                            danhHieuUV.isLock = true;
+                            myChar.addItem(danhHieuUV);
+                            myChar.msgAddItemBag(danhHieuUV);
+                        } catch (Exception ex) {
+
+                        }
+                        break;
+                }
+                //myChar.service.alertMessage("Xóa hành trang thành công!");
         }
     }
 

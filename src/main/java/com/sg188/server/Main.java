@@ -148,10 +148,10 @@ public class Main {
         threadLuckyDraw.setName("Vòng xoay");
         threadLuckyDraw.start();
         BossManager.gI().initBoss();
-//        BossManager.gI().initBossViThu();
-//        BossManager.gI().updateBossViThu(8, 0, 0);
-//        BossManager.gI().updateBossViThu(16, 30, 0);
-//        BossManager.gI().updateBossViThu(20, 0, 0);
+        BossManager.gI().initBossViThu();
+        BossManager.gI().updateBossViThu(8, 0, 0);
+        BossManager.gI().updateBossViThu(16, 30, 0);
+        BossManager.gI().updateBossViThu(20, 0, 0);
         BossManager.gI().updateBoss(9, 0, 0);
         BossManager.gI().updateBoss(14, 0, 0);
         BossManager.gI().updateBoss(19, 0, 0);

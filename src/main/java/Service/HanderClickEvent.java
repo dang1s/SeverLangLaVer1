@@ -76,6 +76,9 @@ public class HanderClickEvent {
                 case 40:
                     ClickEvent.shop40(_myChar, idEvent);
                     break;
+                case 103:
+                    ClickEvent.Shop(_myChar, idEvent);
+                    break;
                 case 56:
                     ClickEvent.HoatDong(_myChar);
                     break;

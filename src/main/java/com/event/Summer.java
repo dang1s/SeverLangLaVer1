@@ -5,6 +5,7 @@ import MapService.world.Dungeon;
 import MapService.world.SummerEvent;
 import Service.HanderMessage;
 import com.event.eventpoint.EventPoint;
+import com.sg188.data.ItemOption;
 import com.sg188.lib.Log;
 import com.sg188.lib.Utlis;
 import com.sg188.real.Char;
@@ -24,11 +25,12 @@ public class Summer extends Event {
         itemsThrownFromMonsters.add(1, 927);
         itemsThrownFromMonsters.add(1, 928);
         itemsThrownFromMonsters.add(1, 929);
-        itemsThrownFromMonsters.add(80, -1);//ko rơi
+        itemsThrownFromMonsters.add(70, -1);//ko rơi
         keyEventPoint.add(TOP_LAM_KEM);
         keyEventPoint.add(EventPoint.DIEM_TIEU_XAI);
         keyEventPoint.add(TOP_FISH);
-        menuKhaTienNu = "Làm hũ kem,1 cái,10 cái,100 cái,Hướng dẫn;Giải cứu Tiên Nhân,Tham gia(500 vàng),Từ chối;BXH Top Làm Kem;BXH Top Câu Cá;Kiểm tra điểm sự kiện;Đổi điểm,Sách nhẫn thuật đặc biệt, Thẻ đổi tên, Cải trang Madara, Cải trang Madara Lục Đạo, Cải trang Kakashi Lục Đạo";
+//        menuKhaTienNu = "Làm hũ kem,1 cái,10 cái,100 cái,Hướng dẫn;Giải cứu Tiên Nhân,Tham gia(500 vàng),Từ chối;BXH Top Làm Kem;BXH Top Câu Cá;Kiểm tra điểm sự kiện;Đổi điểm,Sách nhẫn thuật đặc biệt, Thẻ đổi tên, Cải trang Madara, Cải trang Madara Lục Đạo, Cải trang Kakashi Lục Đạo, Bí kíp Bí Ngô";
+        menuKhaTienNu = "Làm hũ kem,1 cái,10 cái,100 cái,Hướng dẫn;Giải cứu Tiên Nhân,Tham gia(500 vàng),Từ chối;BXH Top Làm Kem;Khóa/mở khóa cấp;Kiểm tra điểm sự kiện;Đổi điểm,Sách nhẫn thuật đặc biệt, Thẻ đổi tên, Cải trang Madara, Cải trang Madara Lục Đạo, Cải trang Kakashi Lục Đạo, Bí kíp Bí Ngô";
     }
 
     private void makeIceCream(Char p, int amount) {
@@ -197,7 +199,16 @@ public class Summer extends Event {
                 viewTop(p, TOP_LAM_KEM, "Bảng xếp hạng SK", "%d. %s có %s điểm làm kem");
                 break;
             case 3:
-                viewTop(p, TOP_FISH, "Bảng xếp hạng Top câu cá", "%d. %s có %s điểm câu cá");
+                //viewTop(p, TOP_FISH, "Bảng xếp hạng Top câu cá", "%d. %s có %s điểm câu cá");
+                p.Info.khoaExp = !p.Info.khoaExp;
+                String str = p.Info.khoaExp ? "Khoá cấp thành công" : "Đã mở khoá cấp";
+                String str2;
+                if (str == "Khoá cấp thành công"){
+                    str2 = " (Lúc này bạn không thể nhận Exp)";
+                }else {
+                    str2= " (Lúc này bạn có thể nhận Exp)";
+                }
+                p.service.alertMessage(str + str2);
                 break;
             case 4:
                 p.getService().sendTextNPC("Bảng điểm SK của bạn: ", "Điểm làm kem: " + p.getEventPoint().getPoint(TOP_LAM_KEM) + "; Điểm câu cá: " + p.getEventPoint().getPoint(TOP_FISH)+";Điểm tiêu sài: "+p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI));
@@ -242,7 +253,7 @@ public class Summer extends Event {
                     case 3:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
                         if(point < 4000){
-                            p.service.serverMessage("Bạn không có đủ 2000 điểm tiêu sài");
+                            p.service.serverMessage("Bạn không có đủ 4000 điểm tiêu sài");
                             return;
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
@@ -254,7 +265,7 @@ public class Summer extends Event {
                     case 4:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
                         if(point < 4000){
-                            p.service.serverMessage("Bạn không có đủ 2000 điểm tiêu sài");
+                            p.service.serverMessage("Bạn không có đủ 4000 điểm tiêu sài");
                             return;
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
@@ -262,6 +273,40 @@ public class Summer extends Event {
                         kakashilucdao.strOptions = "71,100;72,100;0,1000;2,200;4,200;5,200";
                         p.addItem(kakashilucdao);
                         p.msgAddItemBag(kakashilucdao);
+                        break;
+                    case 5:
+                        point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
+                        if(point < 4000){
+                            p.service.serverMessage("Bạn không có đủ 4000 điểm tiêu sài");
+                            return;
+                        }
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
+                        Item biKipBiNgo = new Item(947);
+                        biKipBiNgo.isLock = true;
+                        biKipBiNgo.he = p.Info.idhe;
+                        biKipBiNgo.addItemOption(new ItemOption(128, 0, 16000));
+                        biKipBiNgo.addItemOption(new ItemOption(331, 300, 350));
+                        biKipBiNgo.addItemOption(new ItemOption(0, 7000, 7500));
+                        biKipBiNgo.addItemOption(new ItemOption(1, 7000, 7500));
+                        if (biKipBiNgo.he == 1) {
+                            biKipBiNgo.addItemOption(new ItemOption(109, 520, 550));
+                            biKipBiNgo.addItemOption(new ItemOption(114, 820, 850));
+                        } else if (biKipBiNgo.he == 2) {
+                            biKipBiNgo.addItemOption(new ItemOption(110, 520, 550));
+                            biKipBiNgo.addItemOption(new ItemOption(115, 820, 850));
+                        } else if (biKipBiNgo.he == 3) {
+                            biKipBiNgo.addItemOption(new ItemOption(111, 520, 550));
+                            biKipBiNgo.addItemOption(new ItemOption(113, 420, 450));
+                        } else if (biKipBiNgo.he == 4) {
+                            biKipBiNgo.addItemOption(new ItemOption(112, 520, 550));
+                            biKipBiNgo.addItemOption(new ItemOption(117, 420, 450));
+                        } else if (biKipBiNgo.he == 5) {
+                            biKipBiNgo.addItemOption(new ItemOption(108, 520, 550));
+                            biKipBiNgo.addItemOption(new ItemOption(113, 420, 450));
+                        }
+                        biKipBiNgo.createItemOptions();
+                        p.addItem(biKipBiNgo);
+                        p.msgAddItemBag(biKipBiNgo);
                         break;
                 }
                 break;

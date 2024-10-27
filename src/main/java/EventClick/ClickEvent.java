@@ -279,14 +279,15 @@ public class ClickEvent {
                 m.writeInt(it.conLai);// số lượng còn lại
             }
 
-            m.writeLong(System.currentTimeMillis());
-            m.writeLong(System.currentTimeMillis()+604800000);
+            m.writeLong(1730160000000L);
+            m.writeLong(1730160000000L+604800000);
             _myChar.user.session.sendMessage(m);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     public static void ShopRank(Char _myChar, byte typeShop) {
 //        try {
