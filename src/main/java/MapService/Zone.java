@@ -1183,27 +1183,29 @@ public class Zone {
                 } catch (Exception e) {
 
                 }
-                if (player.getGroup() != null) {
-                    List<Char> charList = player.getGroup().getCharsInZone(player.Info._mapID, player.zone.zoneID);
-                    if (charList != null) {
-                        exp = exp * 20 / 100;
-//                    for (Char plToDoi : charList) {
-//                        if(plToDoi.getChiSoFormSkill(104)>0){
-//                            exp += exp * plToDoi.getChiSoFormSkill(104) / 100;
+                /*hết nhi đồng bật lại*/
+
+//                if (player.getGroup() != null) {
+//                    List<Char> charList = player.getGroup().getCharsInZone(player.Info._mapID, player.zone.zoneID);
+//                    if (charList != null) {
+//                        exp = exp * 20 / 100;
+////                    for (Char plToDoi : charList) {
+////                        if(plToDoi.getChiSoFormSkill(104)>0){
+////                            exp += exp * plToDoi.getChiSoFormSkill(104) / 100;
+////                        }
+////                    }
+//                        for (Char plToDoi : charList) {
+//                            if (plToDoi != player) {
+//                                plToDoi.addExp(exp);
+//                                if (plToDoi.taskSeal) {
+//                                    if (mob.getMobTemplate().name.equals(plToDoi.typeSeal)) {
+//                                        plToDoi.stepSeal = 1;
+//                                    }
+//                                }
+//                            }
 //                        }
 //                    }
-                        for (Char plToDoi : charList) {
-                            if (plToDoi != player) {
-                                plToDoi.addExp(exp);
-                                if (plToDoi.taskSeal) {
-                                    if (mob.getMobTemplate().name.equals(plToDoi.typeSeal)) {
-                                        plToDoi.stepSeal = 1;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+//                }
             }
             if (mob.getMobTemplate().id >= 199 && mob.getMobTemplate().id <= 203) {
                 if (mob.itemBoss != null && !mob.itemBoss.isEmpty()) {

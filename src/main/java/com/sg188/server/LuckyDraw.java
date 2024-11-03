@@ -51,8 +51,8 @@ public class LuckyDraw {
         this.name = name;
         this.type = type;
         this.id = 0;
-        bacMin = 5000000;
-        bacMax = 50000000;
+        bacMin = 100000;
+        bacMax = 10000000;
         this.timeCount = LuckyDrawManager.TIME_COUNT_DOWN;
     }
     public int getNumberOfMemeber() {

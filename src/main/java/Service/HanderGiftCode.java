@@ -48,7 +48,7 @@ public class HanderGiftCode {
 //                    }
 //                }
 //
-                if(code.equals("kichhoat")){
+                if(code.equals("kichhoat") || code.equals("vequay")){
                     if(!_myChar.user.actived){
                         _myChar.service.alertMessage("Sau khi kích hoạt bạn sẽ sử dụng được Giftcode này!");
                         return;

@@ -31,7 +31,7 @@ public class Halloween extends Event{
         itemsThrownFromMonsters.add(94, -1);// ko rơi
         keyEventPoint.add(TOP_KEO);
         keyEventPoint.add(TOP_FISH);
-        menuKhaTienNu = "Nhận nhiệm vụ,Giết cương thi,Phong ấn;Đổi kẹo bí, 1 cái, 10 cái, 100 cái, Hướng dẫn;Đổi kẹo bí ma, 1 cái, 10 cái, 100 cái, Hướng dẫn;Đổi điểm,Nhẫn thuật sao chép thượng cấp, Thẻ đổi tên, Con mắt shisui (SUSANO), Cải trang Madara Lục Đạo, Cải trang Kakashi Lục Đạo, Bí kíp Bí Ngô;BXH SỰ KIỆN;BXH Top Câu Cá";
+        menuKhaTienNu = "Nhận nhiệm vụ,Giết cương thi,Phong ấn;Đổi kẹo bí, 1 cái, 10 cái, 100 cái, Hướng dẫn;Đổi kẹo bí ma, 1 cái, 10 cái, 100 cái, Hướng dẫn;Đổi điểm, Xem điểm, Nhẫn thuật sao chép thượng cấp, Con mắt shisui (SUSANO), Cải trang Bí Ngô, Cải trang Dracula, Bí kíp Bí Ngô;BXH làm kẹo;BXH Top Câu Cá";
         keyEventPoint.add(EventPoint.DIEM_TIEU_XAI);
     }
 
@@ -55,17 +55,19 @@ public class Halloween extends Event{
         int[][] itemRequires = new int[][]{{712, 10}, {713, 10}, {714, 10},{715, 10},{716, 10},{717, 10},{718, 10}};
         int itemIdReceive = 851;
         boolean isDone = makeEventItem(p, amount, itemRequires, 0, 100000, 0, itemIdReceive);
-//        if (isDone) {
-//            p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
-//        }
+        if (isDone) {
+            p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
+            p.getEventPoint().addPoint(TOP_KEO, amount);
+        }
     }
 
     private void doiKeoBiMa(Char p, int amount) {
         int[][] itemRequires = new int[][]{{712, 10}, {713, 10}, {714, 10},{715, 10},{716, 10},{717, 10},{718, 10}};
         int itemIdReceive = 711;
-        boolean isDone = makeEventItem(p, amount, itemRequires, 10, 0, 0, itemIdReceive);
+        boolean isDone = makeEventItem(p, amount, itemRequires, 20, 0, 0, itemIdReceive);
         if (isDone) {
             p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
+            p.getEventPoint().addPoint(TOP_KEO, amount);
         }
     }
     @Override
@@ -128,7 +130,7 @@ public class Halloween extends Event{
                         p.stepSeal = 0;
                         p.typeSeal ="";
                         Item thebai = new Item(711);
-                        thebai.amount = 80;
+                        thebai.amount = 100;
                         thebai.isLock=true;
                         p.addItem(thebai);
                         p.msgAddItemBag(thebai);
@@ -173,7 +175,7 @@ public class Halloween extends Event{
                         action(p,1,100);
                         break;
                     case 3:
-                        p.service.sendTextNPC("10 chữ H A L O W E N +  10 Vàng","");
+                        p.service.sendTextNPC("10 chữ H A L O W E N +  20 Vàng","");
                         break;
                 }
                 break;
@@ -181,6 +183,9 @@ public class Halloween extends Event{
                 int point = 0;
                 switch (index2){
                     case 0:
+                        p.getService().sendTextNPC("Bảng điểm SK của bạn: ", "Điểm làm kẹo: " + p.getEventPoint().getPoint(TOP_KEO) + "; Điểm câu cá: " + p.getEventPoint().getPoint(TOP_FISH)+";Điểm tiêu sài: "+p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI));
+                        break;
+                    case 1:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
                         if(point < 2000){
                             p.service.serverMessage("Bạn không có đủ 2000 điểm tiêu sài");
@@ -190,17 +195,6 @@ public class Halloween extends Event{
                         Item tvc4 = new Item(940);
                         p.addItem(tvc4);
                         p.msgAddItemBag(tvc4);
-                        break;
-                    case 1:
-                        point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 1000){
-                            p.service.serverMessage("Bạn không có đủ 1000 điểm tiêu sài");
-                            return;
-                        }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,1000);
-                        Item changeName = new Item(437);
-                        p.addItem(changeName);
-                        p.msgAddItemBag(changeName);
                         break;
                     case 2:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
@@ -220,10 +214,10 @@ public class Halloween extends Event{
                             return;
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
-                        Item madaralucdao = new Item(702);
-                        madaralucdao.strOptions = "69,100;71,100;0,1000;2,200;4,200;5,200";
-                        p.addItem(madaralucdao);
-                        p.msgAddItemBag(madaralucdao);
+                        Item caiTrangBiNgo = new Item(556);
+                        caiTrangBiNgo.strOptions = "69,100;71,100;0,1000;2,200;4,200;5,200";
+                        p.addItem(caiTrangBiNgo);
+                        p.msgAddItemBag(caiTrangBiNgo);
                         break;
                     case 4:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
@@ -232,10 +226,10 @@ public class Halloween extends Event{
                             return;
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
-                        Item kakashilucdao = new Item(528);
-                        kakashilucdao.strOptions = "71,100;72,100;0,1000;2,200;4,200;5,200";
-                        p.addItem(kakashilucdao);
-                        p.msgAddItemBag(kakashilucdao);
+                        Item dracula = new Item(653);
+                        dracula.strOptions = "71,100;72,100;0,1000;2,200;4,200;5,200";
+                        p.addItem(dracula);
+                        p.msgAddItemBag(dracula);
                         break;
                     case 5:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);

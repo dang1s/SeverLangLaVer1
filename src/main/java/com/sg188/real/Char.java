@@ -2683,7 +2683,346 @@ public class Char extends Body {
                     service.serverMessage("Hành trang không đủ 13 ô trống");
                 }
                 break;
+            case 956://top 1 nhi đồng
+                if (getCountNullItemBag() >= 9) {
+                    removeItem(item);
+                    msgUseItemBag(item);
 
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 200;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 300;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item ngocBya = new Item(563);
+                    ngocBya.amount = 300;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocSha = new Item(565);
+                    ngocSha.amount = 300;
+                    ngocSha.isLock = true;
+                    addItem(ngocSha);
+                    msgAddItemBag(ngocSha);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 7;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    addVang(10000);
+                }
+                break;
+            case 957://top 2 nhi đồng
+                if (getCountNullItemBag() >= 9) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 150;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 200;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item ngocBya = new Item(563);
+                    ngocBya.amount = 200;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocSha = new Item(565);
+                    ngocSha.amount = 200;
+                    ngocSha.isLock = true;
+                    addItem(ngocSha);
+                    msgAddItemBag(ngocSha);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 5;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    addVang(7000);
+                }
+                break;
+            case 958://top 3 nhi đồng
+                if (getCountNullItemBag() >= 9) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 100;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 150;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item ngocBya = new Item(563);
+                    ngocBya.amount = 150;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocSha = new Item(565);
+                    ngocSha.amount = 150;
+                    ngocSha.isLock = true;
+                    addItem(ngocSha);
+                    msgAddItemBag(ngocSha);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 4;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    addVang(5000);
+                }
+                break;
+            case 959://top 4 - 6 nhi đồng
+                if (getCountNullItemBag() >= 9) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 70;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 100;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item ngocBya = new Item(563);
+                    ngocBya.amount = 100;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocSha = new Item(565);
+                    ngocSha.amount = 100;
+                    ngocSha.isLock = true;
+                    addItem(ngocSha);
+                    msgAddItemBag(ngocSha);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    addVang(3000);
+                }
+                break;
+            case 960:
+                if (getCountNullItemBag() >= 9) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 40;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 70;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item ngocBya = new Item(563);
+                    ngocBya.amount = 70;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocSha = new Item(565);
+                    ngocSha.amount = 70;
+                    ngocSha.isLock = true;
+                    addItem(ngocSha);
+                    msgAddItemBag(ngocSha);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 1;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    addVang(2000);
+                }
+                break;
+            case 961://top 1 nạp tuần
+                if (getCountNullItemBag() >= 5) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 700;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 700;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item manhBiKip = new Item(754);
+                    manhBiKip.amount = 70000;
+                    manhBiKip.isLock = true;
+                    addItem(manhBiKip);
+                    msgAddItemBag(manhBiKip);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 5;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+                }
+                break;
+            case 962:// top 2 nạp tuần
+                if (getCountNullItemBag() >= 5) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 500;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 500;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item manhBiKip = new Item(754);
+                    manhBiKip.amount = 50000;
+                    manhBiKip.isLock = true;
+                    addItem(manhBiKip);
+                    msgAddItemBag(manhBiKip);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 4;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+                }
+                break;
+            case 963://top 3 nạp tuần
+                if (getCountNullItemBag() >= 5) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 400;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 400;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item manhBiKip = new Item(754);
+                    manhBiKip.amount = 40000;
+                    manhBiKip.isLock = true;
+                    addItem(manhBiKip);
+                    msgAddItemBag(manhBiKip);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 3;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+                }
+                break;
+            case 964://top 4 - 6 nạp tuần
+                if (getCountNullItemBag() >= 5) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 200;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 200;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item manhBiKip = new Item(754);
+                    manhBiKip.amount = 20000;
+                    manhBiKip.isLock = true;
+                    addItem(manhBiKip);
+                    msgAddItemBag(manhBiKip);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+                }
+                break;
+            case 965://top 7 - 10 nạp tuần
+                if (getCountNullItemBag() >= 5) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 100;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 100;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item manhBiKip = new Item(754);
+                    manhBiKip.amount = 10000;
+                    manhBiKip.isLock = true;
+                    addItem(manhBiKip);
+                    msgAddItemBag(manhBiKip);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 1;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+                }
+                break;
             case 361:
                 if (getCountNullItemBag() >= 3) {
                     removeItem(item);
@@ -2894,8 +3233,8 @@ public class Char extends Body {
                 service.serverMessage("Chúc mừng bạn đã học được nhẫn thuật đặc biệt");
                 service.resetScreen();
                 break;
-            case 995:
-                if (Skill.arraySkill.length > 8) {
+            case 955:
+                if (Skill.arraySkill.length > 9) {
                     return;
                 }
                 removeItem(item);

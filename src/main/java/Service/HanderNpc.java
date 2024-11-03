@@ -224,7 +224,9 @@ public class HanderNpc {
             case 30:
                 _selectTsunade(_myChar, index1, index2);
                 break;
-
+            case 74:
+                _SelectThanThu(_myChar,index1,index2);
+                break;
         }
     }
 
@@ -678,6 +680,29 @@ public class HanderNpc {
 //                myChar.isWheelGold = true;
 //                HanderClickEvent.thuvanmay(myChar, (byte) 74);
 //                break;
+        }
+    }
+
+    public static void _SelectThanThu(Char myChar, byte index1, byte index2) {
+        switch (index1) {
+            case 0:
+//                if (true) {
+//                    myChar.service.alertMessage("Thử vận may bạc chưa mở");
+//                    return;
+//                }
+                myChar.isWheelSilver = true;
+                myChar.isWheelGold = false;
+                HanderClickEvent.thuvanmaySilver(myChar, (byte) 74);
+                break;
+            case 1:
+                if (true) {
+                    myChar.service.alertMessage("Thử vận may VIP chưa mở");
+                    return;
+                }
+                myChar.isWheelSilver = false;
+                myChar.isWheelGold = true;
+                HanderClickEvent.thuvanmay(myChar, (byte) 74);
+                break;
         }
     }
 
