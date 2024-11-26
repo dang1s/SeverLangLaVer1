@@ -32,7 +32,7 @@ public class InfoGame {
     
 
      */
-
+    public boolean isScheduledForRespawn = false;
 
 
 

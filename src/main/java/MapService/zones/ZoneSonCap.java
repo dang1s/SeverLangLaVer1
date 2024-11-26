@@ -336,7 +336,7 @@ public class ZoneSonCap extends ZWorld {
 
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 1;
+                    it.amount = 2;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -347,7 +347,7 @@ public class ZoneSonCap extends ZWorld {
             case 268:
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 1;
+                    it.amount = 2;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -357,7 +357,7 @@ public class ZoneSonCap extends ZWorld {
             case 269:
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 1;
+                    it.amount = 2;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -367,7 +367,7 @@ public class ZoneSonCap extends ZWorld {
             case 270:
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 1;
+                    it.amount = 2;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -377,7 +377,7 @@ public class ZoneSonCap extends ZWorld {
             case 271:
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 1;
+                    it.amount = 2;
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -420,7 +420,7 @@ public class ZoneSonCap extends ZWorld {
             boss.level = level;
             boss.levelBoss = 3;
             boss.status = 2;
-            boss.hpGoc = boss.hp = boss.hpFull = 1000000000;
+            boss.hpGoc = boss.hp = boss.hpFull = 700000000;
             boss.exp = 200000000;
             boss.expGoc = boss.hpGoc / 8;
             boss.paintMiniMap = false;

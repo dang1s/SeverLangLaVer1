@@ -24,7 +24,7 @@ public class ZoneCamThuat extends ZWorld {
     private boolean IsRepsawBoss;
     private byte CountVonglap = 1;
     private World camthuat;
-    private int[] listItem = {564, 428, // đá sharingan, rương ngọc khảm
+    private int[] listItem = {564, 566, 562 ,428, // đá sharingan, rương ngọc khảm
             174, 175, 179, 216, 217, 218, 248, 278, 302, 315};  //lệnh bài Hokage};
     private boolean isClose;
     private boolean IsReSetVongLap;

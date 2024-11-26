@@ -34,8 +34,14 @@ public class ZoneDaihoi extends ZWorld{
             return;
         }
         DaiHoiVoThuat daiHoiVoThuat = (DaiHoiVoThuat) world;
-        if(daiHoiVoThuat.groupStage||daiHoiVoThuat.qualifierRound||daiHoiVoThuat.semiFinals||daiHoiVoThuat.finalRound)
-            return;
+//        if(daiHoiVoThuat.groupStage||daiHoiVoThuat.qualifierRound||daiHoiVoThuat.semiFinals||daiHoiVoThuat.finalRound)
+//            return;
+        if(DaiHoiVoThuat.gI().qualifierRound||DaiHoiVoThuat.gI().semiFinals||DaiHoiVoThuat.gI().finalRound){
+            player.setXY((short) 410, (short) 566);
+            //player.InfoGame.TypePk = 1;
+            //player.service.setXYChar();
+            //return;
+        }
         if (zoneNext >= 0 && zoneNext < map.getZones().size()) {
             Zone z = map.getZones().get(zoneNext);
             if (z.players.size() < z.MAX_CHAR_INZONE) {

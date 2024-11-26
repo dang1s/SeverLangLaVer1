@@ -18,7 +18,7 @@ public class ItemDrop {
         ITEM_TUI_MAY_MAN.add(5,4);
         ITEM_TUI_MAY_MAN.add(1,163);
 
-        ITEM_LANG_CO.add(10,434);
+        ITEM_LANG_CO.add(1,434);
         ITEM_LANG_CO.add(0.5,562);
         ITEM_LANG_CO.add(0.5,564);
         ITEM_LANG_CO.add(0.5,566);
@@ -39,7 +39,7 @@ public class ItemDrop {
         ITEM_LANG_CO.add(0.5,278);
         ITEM_LANG_CO.add(0.5,302);
         ITEM_LANG_CO.add(0.5,315);
-        ITEM_LANG_CO.add(150,-1);
+        ITEM_LANG_CO.add(200,-1);
     }
 
 }

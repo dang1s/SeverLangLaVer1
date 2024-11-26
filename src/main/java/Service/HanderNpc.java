@@ -227,6 +227,9 @@ public class HanderNpc {
             case 74:
                 _SelectThanThu(_myChar,index1,index2);
                 break;
+            case 78:
+                _SelectKyLan(_myChar,index1,index2);
+                break;
         }
     }
 
@@ -567,12 +570,12 @@ public class HanderNpc {
                                 myChar.service.alertMessage("Full bạc khóa!");
                                 return;
                             }
-                            if(myChar.Info.chuyenCan < 5000) {
-                                myChar.service.alertMessage("Không đủ 5000 chuyên cần!");
+                            if(myChar.Info.chuyenCan < 3000) {
+                                myChar.service.alertMessage("Không đủ 3000 chuyên cần!");
                                 return;
                             }
-                            myChar.Info.chuyenCan -= 5000;
-                            myChar.addBacKhoa(100000000);
+                            myChar.Info.chuyenCan -= 3000;
+                            myChar.addBacKhoa(200000000);
 
                         } catch (Exception ex) {
 
@@ -589,7 +592,7 @@ public class HanderNpc {
                                 return;
                             }
                             myChar.Info.chuyenCan -= 2000;
-                            Item danhHieuCH = new Item(549);
+                            Item danhHieuCH = new Item(11);
                             danhHieuCH.isLock = true;
                             myChar.addItem(danhHieuCH);
                             myChar.msgAddItemBag(danhHieuCH);
@@ -603,12 +606,12 @@ public class HanderNpc {
                                 myChar.service.alertMessage("Túi đầy!");
                                 return;
                             }
-                            if(myChar.Info.chuyenCan < 2000) {
-                                myChar.service.alertMessage("Không đủ 2000 chuyên cần!");
+                            if(myChar.Info.chuyenCan < 2100) {
+                                myChar.service.alertMessage("Không đủ 2100 chuyên cần!");
                                 return;
                             }
-                            myChar.Info.chuyenCan -= 2000;
-                            Item danhHieuTK = new Item(588);
+                            myChar.Info.chuyenCan -= 2100;
+                            Item danhHieuTK = new Item(11);
                             danhHieuTK.isLock = true;
                             myChar.addItem(danhHieuTK);
                             myChar.msgAddItemBag(danhHieuTK);
@@ -622,12 +625,12 @@ public class HanderNpc {
                                 myChar.service.alertMessage("Túi đầy!");
                                 return;
                             }
-                            if(myChar.Info.chuyenCan < 2000) {
-                                myChar.service.alertMessage("Không đủ 2000 chuyên cần!");
+                            if(myChar.Info.chuyenCan < 2200) {
+                                myChar.service.alertMessage("Không đủ 2200 chuyên cần!");
                                 return;
                             }
-                            myChar.Info.chuyenCan -= 2000;
-                            Item danhHieuUV = new Item(824);
+                            myChar.Info.chuyenCan -= 2200;
+                            Item danhHieuUV = new Item(11);
                             danhHieuUV.isLock = true;
                             myChar.addItem(danhHieuUV);
                             myChar.msgAddItemBag(danhHieuUV);
@@ -683,22 +686,37 @@ public class HanderNpc {
         }
     }
 
+    public static void _SelectKyLan(Char myChar, byte index1, byte index2) {
+        switch (index1) {
+            case 0:
+                myChar.Info.khoaExp = !myChar.Info.khoaExp;
+                String str = myChar.Info.khoaExp ? "Khoá cấp thành công" : "Đã mở khoá cấp";
+                String str2;
+                if (str == "Khoá cấp thành công"){
+                    str2 = " (Lúc này bạn không thể nhận Exp)";
+                }else {
+                    str2= " (Lúc này bạn có thể nhận Exp)";
+                }
+                myChar.service.alertMessage(str + str2);
+                break;
+        }
+    }
     public static void _SelectThanThu(Char myChar, byte index1, byte index2) {
         switch (index1) {
             case 0:
-//                if (true) {
-//                    myChar.service.alertMessage("Thử vận may bạc chưa mở");
-//                    return;
-//                }
+                if (true) {
+                    myChar.service.alertMessage("Thử vận may bạc chưa mở");
+                    return;
+                }
                 myChar.isWheelSilver = true;
                 myChar.isWheelGold = false;
                 HanderClickEvent.thuvanmaySilver(myChar, (byte) 74);
                 break;
             case 1:
-                if (true) {
-                    myChar.service.alertMessage("Thử vận may VIP chưa mở");
-                    return;
-                }
+//                if (true) {
+//                    myChar.service.alertMessage("Thử vận may VIP chưa mở");
+//                    return;
+//                }
                 myChar.isWheelSilver = false;
                 myChar.isWheelGold = true;
                 HanderClickEvent.thuvanmay(myChar, (byte) 74);

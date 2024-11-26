@@ -140,8 +140,8 @@ public class Map {
 //                        "Hãy tham gia like share để nhận code mới nhất.\n" +
 //                        "Chúc bạn chơi game vui vẻ.");
                 _myChar.service.alertMessage("Khuyến mãi 100% đổi từ coin sang vàng.\n" +
-                        "Cùng sự kiện đua top nhi đồng.\n" +
-                        "Thời gian: 0h 28/10/2024 - 0h 4/11/2024.\n" +
+                        "Cùng sự kiện Halloween.\n" +
+                        "Thời gian: 0h 4/11/2024 - 0h 11/11/2024.\n" +
                         "Chúc bạn chơi game vui vẻ.");
                 isdone = true;
                 break;

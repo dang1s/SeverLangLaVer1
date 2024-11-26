@@ -119,6 +119,10 @@ public class Controller implements IMessageHandler {
                         _char.zone.nextMap(_char);
                     break;
                 case -15:
+                    if(_char.Info._mapID == 49) {
+                        _char.service.serverMessage("Không thể đổi cờ tại đây");
+                        return;
+                    }
                     if (_char != null) {
                         if (_char.zone.isLoiDai()) {
                             _char.service.serverMessage("Không thể đổi cờ tại đây");
@@ -732,6 +736,9 @@ public class Controller implements IMessageHandler {
                         client.sendMessage(HanderMessage.SendThongBao("Dang trong trạng thái bảo hộ", HanderMessage.WHITE));
                         return;
                     }
+                    if (_char.Info._mapID == 49) {
+                        return;
+                    }
                     String name = msg.readUTF();
                     Char pl = ServerManager.findCharByName(name);
                     if (pl != null) {
@@ -786,6 +793,9 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 32:
+                    if(_char.Info._mapID == 49) {
+                        return;
+                    }
                     if (_char != null && _char.user != null) {
                         _char.inviteTyVo(msg);
                     }
@@ -1235,21 +1245,33 @@ public class Controller implements IMessageHandler {
                                 service.alertMessage("Hành trang không đủ chỗ trống");
                                 return;
                             }
-                            if (_char.Bag.vang < 100) {
-                                client.sendMessage(HanderMessage.SendThongBao("Không đủ 100 vàng", HanderMessage.RED_MID));
+                            Item veVanMayVip = _char.FindItemBag(966);
+                            if (veVanMayVip == null) {
+                                _char.service.alertMessage("Không tìm thấy vé vận may VIP trong hành trang");
                                 return;
                             }
-                            _char.addVang(-100);
+                            if (veVanMayVip.amount < 1) {
+                                _char.service.alertMessage("Không đủ vé vận may VIP");
+                                return;
+                            }
+                            _char.removeItemByAmount(veVanMayVip, 1);
+                            _char.msgRemoveItemBag(veVanMayVip);
+//                            if (_char.Bag.vang < 100) {
+//                                client.sendMessage(HanderMessage.SendThongBao("Không đủ 100 vàng", HanderMessage.RED_MID));
+//                                return;
+//                            }
+//                            _char.addVang(-100);
                             int indexi = Utlis.nextInt(0, Manager.gI().listTVM[_char.idListTVM].length - 1);
                             Item item = new Item(Manager.gI().listTVM[_char.idListTVM][indexi]);
                             if (item.isItemBody()) {
-                                item.addItemOption(new ItemOption(Utlis.nextInt(63, 65), Utlis.nextInt(10, 50)));
-                                item.addItemOption(new ItemOption(Utlis.nextInt(68, 72), Utlis.nextInt(10, 35)));
-                                item.addItemOption(new ItemOption(66, Utlis.nextInt(1, 3)));
-                                item.addItemOption(new ItemOption(0, Utlis.nextInt(50, 200)));
-                                item.addItemOption(new ItemOption(2, Utlis.nextInt(30, 100)));
+                                item.addItemOption(new ItemOption(Utlis.nextInt(63, 65), Utlis.nextInt(70, 100)));
+                                item.addItemOption(new ItemOption(Utlis.nextInt(68, 72), Utlis.nextInt(20, 25)));
+                                item.addItemOption(new ItemOption(66, Utlis.nextInt(5, 10)));
+                                item.addItemOption(new ItemOption(0, Utlis.nextInt(500, 1000)));
+                                item.addItemOption(new ItemOption(2, Utlis.nextInt(100, 120)));
                                 item.addItemOption(new ItemOption(3, Utlis.nextInt(40, 60)));
-                                item.addItemOption(new ItemOption(209, Utlis.nextInt(20, 30)));
+                                item.addItemOption(new ItemOption(209, Utlis.nextInt(90, 110)));
+                                item.addItemOption(new ItemOption(306, Utlis.nextInt(20, 25)));
                             }
                             if (item.id == 163) {
                                 _char.addBacKhoa(Manager.gI().amountTVM[_char.idListTVM][indexi]);
@@ -1261,6 +1283,7 @@ public class Controller implements IMessageHandler {
                                 _char.addVang(Manager.gI().amountTVM[_char.idListTVM][indexi]);
                             } else {
                                 item.setAmount(Manager.gI().amountTVM[_char.idListTVM][indexi]);
+                                //item.amount = Manager.gI().amountTVM[_char.idListTVM][indexi];
                                 if (item.getItemTemplate().type == 15 || item.getItemTemplate().type == 16) {
                                     item.expiry = System.currentTimeMillis() + Event.EXPIRE_7_DAY;
                                 }
@@ -1326,6 +1349,7 @@ public class Controller implements IMessageHandler {
                                 _char.addItem(item);
                                 _char.msgAddItemBag(item);
                             }
+                            //item.amount = 1;
                             Message message = Message.c((byte) -85);
                             message.writeShort(item.id);
                             message.writeInt(item.amount);

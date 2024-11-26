@@ -95,6 +95,18 @@ public class Halloween extends Event{
                 }
                 useEventItem(p, item.id, itemsRecFromCoinItem);
                 break;
+            case 920:
+            case 921:
+            case 922:
+            case 923:
+            case 924:
+            case 925:
+                if (p.getCountNullItemBag() == 0) {
+                    p.warningBagFull();
+                    return;
+                }
+                useEventItem(p, item.id, itemsRecFromGoldItem);
+                break;
         }
     }
     @Override
@@ -134,6 +146,9 @@ public class Halloween extends Event{
                         thebai.isLock=true;
                         p.addItem(thebai);
                         p.msgAddItemBag(thebai);
+                        p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 70);
+                        p.getEventPoint().addPoint(TOP_KEO, 100);
+                        p.getService().serverMessage("Bạn nhận được 70 điểm tiêu xài và 100 điểm làm kẹo");
                         break;
                     case 2:
                         if(!p.taskSeal){
@@ -187,57 +202,57 @@ public class Halloween extends Event{
                         break;
                     case 1:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 2000){
-                            p.service.serverMessage("Bạn không có đủ 2000 điểm tiêu sài");
+                        if(point < 5000){
+                            p.service.serverMessage("Bạn không có đủ 5000 điểm tiêu sài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,2000);
-                        Item tvc4 = new Item(940);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
+                        Item tvc4 = new Item(950);
                         p.addItem(tvc4);
                         p.msgAddItemBag(tvc4);
                         break;
                     case 2:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 4000){
-                            p.service.serverMessage("Bạn không có đủ 4000 điểm tiêu sài");
+                        if(point < 5000){
+                            p.service.serverMessage("Bạn không có đủ 5000 điểm tiêu sài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item conMatShisui = new Item(955);
                         p.addItem(conMatShisui);
                         p.msgAddItemBag(conMatShisui);
                         break;
                     case 3:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 4000){
-                            p.service.serverMessage("Bạn không có đủ 4000 điểm tiêu sài");
+                        if(point < 5000){
+                            p.service.serverMessage("Bạn không có đủ 5000 điểm tiêu sài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item caiTrangBiNgo = new Item(556);
-                        caiTrangBiNgo.strOptions = "69,100;71,100;0,1000;2,200;4,200;5,200";
+                        caiTrangBiNgo.strOptions = "68,100;71,100;0,1000;2,200;4,200;5,200";
                         p.addItem(caiTrangBiNgo);
                         p.msgAddItemBag(caiTrangBiNgo);
                         break;
                     case 4:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 4000){
-                            p.service.serverMessage("Bạn không có đủ 4000 điểm tiêu sài");
+                        if(point < 5000){
+                            p.service.serverMessage("Bạn không có đủ 5000 điểm tiêu sài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item dracula = new Item(653);
-                        dracula.strOptions = "71,100;72,100;0,1000;2,200;4,200;5,200";
+                        dracula.strOptions = "70,100;69,100;0,1000;2,200;4,200;5,200";
                         p.addItem(dracula);
                         p.msgAddItemBag(dracula);
                         break;
                     case 5:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 4000){
-                            p.service.serverMessage("Bạn không có đủ 4000 điểm tiêu sài");
+                        if(point < 5000){
+                            p.service.serverMessage("Bạn không có đủ 5000 điểm tiêu sài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item biKipBiNgo = new Item(947);
                         biKipBiNgo.isLock = true;
                         biKipBiNgo.he = p.Info.idhe;

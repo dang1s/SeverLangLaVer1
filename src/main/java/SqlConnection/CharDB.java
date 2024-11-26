@@ -370,7 +370,7 @@ public class CharDB {
     private static final String QueryTopNhiDong = "SELECT p.`Name`, p.`level`, p.`Info`, p.`Point`, p.`clan` " +
             "FROM player p " +
             "JOIN users u ON p.`IdChar` = u.`id` " +
-            "WHERE u.`createtime` > '2024-10-27 23:59:00' " +
+            "WHERE u.`createtime` > '2024-11-10 23:00:00' " +
             "ORDER BY p.`level` DESC " +
             "LIMIT 100;";
 
@@ -785,4 +785,27 @@ public class CharDB {
         }
     }
 
+    public static void activedUser(int id) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = Connect.getConnection();
+            ps = conn.prepareStatement("UPDATE users SET activated = 0 WHERE id = ?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
 }

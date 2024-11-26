@@ -626,10 +626,14 @@ public class Char extends Body {
             removeItemsWithIDPhucLoi(4);
             removeItemsWithIDPhucLoi(7);
             removeItemsWithIDPhucLoi(1);
+            //removeItemsWithIDPhucLoi(8);//nạp 3 mốc
+            //removeItemsWithIDPhucLoi(9);//nạp đơn
+            //phucLoi.nap3moc = 0;
+            //phucLoi.napDon = 0;
             phucLoi.tieuTuan = 0;
             phucLoi.napTuan = 0;
             phucLoi.soNgayOnline = 1;
-            Info.chuyenCan = 0;
+            //Info.chuyenCan = 0;
         }
         Info.countCamThuat = 1;
         idCamThuat = -1;
@@ -2154,6 +2158,10 @@ public class Char extends Body {
                 addEffect(new Effect((short) 91, 100, System.currentTimeMillis(), (int) TimeUnit.DAYS.toMillis(7)));
                 break;
             case 919:
+                if(this.Info.lvPk > 0){
+                    this.getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
+                    return;
+                }
                 removeItem(item);
                 msgUseItemBag(item);
                 MapLangCo.gI().maps.get(0).addChar(this);
@@ -2575,11 +2583,17 @@ public class Char extends Body {
                 updateTiemNang();
                 break;
             case 404:
+                if(this.Info._mapID == 49) {
+                    return;
+                }
                 removeItem(item);
                 msgUseItemBag(item);
                 addEffect(new Effect((short) 66, 1, System.currentTimeMillis(), 60 * 1000 * 60));
                 break;
             case 617:
+                if(this.Info._mapID == 49) {
+                    return;
+                }
                 if (buaUeTho) {
                     return;
                 }
@@ -4992,7 +5006,8 @@ public class Char extends Body {
                 summerEvent.addMember(this);
                 summerEvent.join(this);
             } else if (str.equals("daihoi")) {
-                DaiHoiVoThuat.DAIHOI = new DaiHoiVoThuat();
+                DaiHoiVoThuat.DAIHOI = DaiHoiVoThuat.gI();
+                Main.HeThongCTG("Đại hội võ thuật đã mở, hãy nhanh chóng tham gia",2);
                 DaiHoiVoThuat.DAIHOI.join(1, this);
             } else if (str.startsWith(
                     "clan")) {
@@ -6224,6 +6239,9 @@ public class Char extends Body {
             Item daGhep = null;
             if (ghep) {
                 daGhep = (new Item(i + 1, true));
+                if(i>=9){
+                    Main.HeThongCTG("Quá đỏ, nhẫn giả "+ this.Info.name +" vừa ghép thành công đá " + (i+2),2);
+                }
             } else {
                 if(i>=9){
                     Main.HeThongCTG("Quá non, nhẫn giả "+ this.Info.name +" vừa ghép xịt đá " + (i+2),2);
@@ -6370,7 +6388,7 @@ public class Char extends Body {
             boolean CuongHoa = Utlis.randomBoolean(100, percent);
             if (CuongHoa) {
                 itemch.a(itemch.level + 1);
-                if (itemch.level > 16) {
+                if (itemch.level >= 16) {
                     Utlis.logText("log/cuonghoa.txt", Info.name + " đã đập đồ " + itemch.getItemTemplate().levelNeed + " lên cấp " + itemch.level);
                     Main.HeThongCTG("Bất ngờ chưa , nhẫn giả " + Info.name + " vừa đập thành công " + itemch.getItemTemplate().name + " cấp " + itemch.level, 2);
                 }
@@ -6766,7 +6784,20 @@ public class Char extends Body {
         } catch (Exception ex) {
         }
     }
-
+    public synchronized void addVangToBox(long vang) {
+        long l = ((long) Bag.vang) + ((long) vang);
+        if (l > Integer.MAX_VALUE) {
+            l = Integer.MAX_VALUE;
+        }
+        Bag.vang = (int) l;
+        try {
+            Writer writer = new Writer();
+            writer.writeInt(Bag.vang);
+            writer.writeBoolean(true);
+            this.service.updateVang(writer);
+        } catch (Exception ex) {
+        }
+    }
 
     public synchronized void addVangKhoa(long vangkhoa) {
         long l = ((long) Bag.vangKhoa) + ((long) vangkhoa);
@@ -10103,7 +10134,7 @@ public class Char extends Body {
                         getService().warningMessage("Đã tới giới hạn lưu trữ vàng trong hòm đồ");
                         return;
                     }
-                    addVang(-money);
+                    addVangToBox(-money);
                     addVangBox(money);
                     getService().serverMessage("Chuyển vàng vào hòm đồ thành công");
                     break;
@@ -10689,28 +10720,28 @@ public class Char extends Body {
             int vang = 0;
             switch (select) {
                 case 0:
-                    coin = 10000;
-                    vang = 300;
+                    coin = 20000;
+                    vang = 2000;
                     break;
                 case 1:
                     coin = 50000;
-                    vang = 1500;
+                    vang = 5000;
                     break;
                 case 2:
                     coin = 100000;
-                    vang = 3200;
+                    vang = 11000;
                     break;
                 case 3:
-                    coin = 500000;
-                    vang = 16000;
+                    coin = 200000;
+                    vang = 22000;
                     break;
                 case 4:
-                    coin = 1000000;
-                    vang = 33000;
+                    coin = 500000;
+                    vang = 60000;
                     break;
                 case 5:
-                    coin = 5000000;
-                    vang = 180000;
+                    coin = 1000000;
+                    vang = 120000;
                     break;
             }
             if (user.coin < coin) {
@@ -10719,9 +10750,12 @@ public class Char extends Body {
             }
             CharDB.logExchange(this.Info.name, coinPlayer, coinPlayer - coin);
             //hết x2 sửa lại
-            addVang(vang*2);
+            addVang(vang);
 
             if (Bag.pointNAP == 0) { //quà nạp đầu
+
+                CharDB.activedUser(user.ID_USER);
+
                 TemplateThu thu1 = new TemplateThu();
 
                 int id = this.letters.size() + 1;
@@ -12008,7 +12042,9 @@ public class Char extends Body {
                                 Map.maps[Info.mapReSpawm].addChar(this);
                             }
                         }
-
+                        if(pl.Info._mapID == 49) {
+                            this.increasePoints();
+                        }
                     }
                 }
             } catch (Exception e) {

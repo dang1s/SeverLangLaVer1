@@ -5,6 +5,7 @@
  */
 package EventClick;
 
+import MapService.world.DaiHoiVoThuat;
 import Service.HanderMessage;
 import SqlConnection.CharDB;
 import com.sg188.clan.Clan;
@@ -35,11 +36,26 @@ public class ClickTop {
     public static List<InfoTop> cChuyenCan;
 
     public static List<InfoTop> cNapTuan;
+
+    public static List<InfoTop> cDaiHoi;
     public static final Vector[] RANKED= new Vector[14];
     
     public static void ShowTop(Char _myChar, byte typeTop, byte indexClass) {
         switch (typeTop) {
             case 0:
+                if(_myChar.Info._mapID == 49 && !DaiHoiVoThuat.gI().isVong18 && !DaiHoiVoThuat.gI().isVong14 && !DaiHoiVoThuat.gI().isVongChungKet) {
+                    showTopDaiHoi(_myChar, indexClass);
+                    break;
+                } else if(_myChar.Info._mapID == 49 && DaiHoiVoThuat.gI().isVong18) {
+                    showVong1_8(_myChar, indexClass);
+                    break;
+                } else if(_myChar.Info._mapID == 49 && DaiHoiVoThuat.gI().isVong14) {
+                    showVong1_4(_myChar, indexClass);
+                    break;
+                } else if(_myChar.Info._mapID == 49 && DaiHoiVoThuat.gI().isVongChungKet) {
+                    showVongChungKet(_myChar, indexClass);
+                    break;
+                }
                 showTopLevel(_myChar, indexClass);
                 break;
             case 1:
@@ -64,6 +80,110 @@ public class ClickTop {
                 break;
         }
         
+    }
+    private static void showVong1_8(Char myChar, byte indexClass) {
+        try {
+
+            Message m = new Message((byte) -32);
+            int messageCode = DaiHoiVoThuat.gI().getCountDown();
+            m.writeInt(messageCode);
+
+            String mainMessage = "Vòng 8";
+            m.writeUTF(mainMessage);
+
+            // 3. Số lượng đối tượng trong danh sách (byte)
+            byte objectCount = (byte) DaiHoiVoThuat.gI().vong1_8.size(); // Ví dụ: 3 đối tượng
+            m.writeByte(objectCount);
+
+            // 4. Gửi từng đối tượng trong danh sách
+            for (int i = 0; i < objectCount; i++) {
+                m.writeUTF(DaiHoiVoThuat.gI().vong1_8.get(i).getChar1().Info.name);
+                m.writeUTF(DaiHoiVoThuat.gI().vong1_8.get(i).getChar2().Info.name);
+                m.writeByte(DaiHoiVoThuat.gI().vong1_8.get(i).getResult());
+            }
+
+            myChar.user.session.sendMessage(m);
+        } catch (Exception x) {
+            x.printStackTrace();
+        }
+    }
+
+    private static void showVong1_4(Char myChar, byte indexClass) {
+        try {
+
+            Message m = new Message((byte) -32);
+            int messageCode = DaiHoiVoThuat.gI().getCountDown();
+            m.writeInt(messageCode);
+
+            String mainMessage = "Bán kết";
+            m.writeUTF(mainMessage);
+
+            // 3. Số lượng đối tượng trong danh sách (byte)
+            byte objectCount = (byte) DaiHoiVoThuat.gI().vong1_4.size(); // Ví dụ: 3 đối tượng
+            m.writeByte(objectCount);
+
+            // 4. Gửi từng đối tượng trong danh sách
+            for (int i = 0; i < objectCount; i++) {
+                m.writeUTF(DaiHoiVoThuat.gI().vong1_4.get(i).getChar1().Info.name);
+                m.writeUTF(DaiHoiVoThuat.gI().vong1_4.get(i).getChar2().Info.name);
+                m.writeByte(DaiHoiVoThuat.gI().vong1_4.get(i).getResult());
+            }
+
+            myChar.user.session.sendMessage(m);
+        } catch (Exception x) {
+            x.printStackTrace();
+        }
+    }
+    private static void showVongChungKet(Char myChar, byte indexClass) {
+        try {
+
+            Message m = new Message((byte) -32);
+            int messageCode = DaiHoiVoThuat.gI().getCountDown();
+            m.writeInt(messageCode);
+
+            String mainMessage = "Chung kết";
+            m.writeUTF(mainMessage);
+
+            // 3. Số lượng đối tượng trong danh sách (byte)
+            byte objectCount = (byte) DaiHoiVoThuat.gI().vong1_4.size(); // Ví dụ: 3 đối tượng
+            m.writeByte(objectCount);
+
+            // 4. Gửi từng đối tượng trong danh sách
+            for (int i = 0; i < objectCount; i++) {
+                m.writeUTF(DaiHoiVoThuat.gI().vongChungKet.get(i).getChar1().Info.name);
+                m.writeUTF(DaiHoiVoThuat.gI().vongChungKet.get(i).getChar2().Info.name);
+                m.writeByte(DaiHoiVoThuat.gI().vongChungKet.get(i).getResult());
+            }
+
+            myChar.user.session.sendMessage(m);
+        } catch (Exception x) {
+            x.printStackTrace();
+        }
+    }
+    private static void showTopDaiHoi(Char _myChar, byte indexClass) {
+        if (cDaiHoi == null) {
+            cDaiHoi = DaiHoiVoThuat.gI().listTopDaiHoi();
+        }
+        Collections.sort(cDaiHoi, Comparator.comparing(InfoTop::getPointDaiHoi).reversed());
+        try {
+            byte i = 0;
+            Message m = new Message((byte) -22);
+            m.writeBoolean(true); // show top ???
+            m.writeByte(cDaiHoi.size());
+
+            for (InfoTop c : cDaiHoi) {
+                m.writeByte(i);
+                m.writeUTF(c.name);
+                m.writeShort((int) 0);
+                m.writeLong(c.getPointDaiHoi());
+                m.writeByte(c.idHe != -1 ? c.idHe : 1);
+                m.writeUTF(c.clanName);
+                i++;
+            }
+            _myChar.user.session.sendMessage(m);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void showTopNap(Char _myChar, byte indexClass) {

@@ -259,7 +259,7 @@ public class Zone {
 //                    mob.cy = (short) (map.mapID == 57 ? 190 : map.mapID == 65 ? 148 : map.mapID == 87 ? 155 : map.mapID == 79 ? 297 : 306);
 //
 //                    mob.status = 2;
-//                    mob.hpGoc = mob.hp = mob.hpFull = 2000000000;
+//                    mob.hpGoc = mob.hp = mob.hpFull = 1000000000;
 //                    mob.expGoc = 5;
 //                    mob.paintMiniMap = false;
 //                    mob.idEntity = monsters.size();
@@ -771,7 +771,9 @@ public class Zone {
                     dame += dame / 2;
                 }
                 boolean outLevel = Math.abs(pl.level() - mob.level) <= 10;
-                if (mob.levelBoss == 10 && !outLevel && mob.id != 293 && mob.id != 294) {
+                if (mob.levelBoss == 10 && !outLevel && mob.id != 293
+                        && mob.id != 294 && mob.id != 285 && mob.id != 286
+                        && mob.id != 287 && mob.id != 288 && mob.id != 289) {
                     dame = 1;
                 }
                 if (mob.id == 293) {
@@ -1185,27 +1187,27 @@ public class Zone {
                 }
                 /*hết nhi đồng bật lại*/
 
-//                if (player.getGroup() != null) {
-//                    List<Char> charList = player.getGroup().getCharsInZone(player.Info._mapID, player.zone.zoneID);
-//                    if (charList != null) {
-//                        exp = exp * 20 / 100;
-////                    for (Char plToDoi : charList) {
-////                        if(plToDoi.getChiSoFormSkill(104)>0){
-////                            exp += exp * plToDoi.getChiSoFormSkill(104) / 100;
-////                        }
-////                    }
-//                        for (Char plToDoi : charList) {
-//                            if (plToDoi != player) {
-//                                plToDoi.addExp(exp);
-//                                if (plToDoi.taskSeal) {
-//                                    if (mob.getMobTemplate().name.equals(plToDoi.typeSeal)) {
-//                                        plToDoi.stepSeal = 1;
-//                                    }
-//                                }
-//                            }
+                if (player.getGroup() != null) {
+                    List<Char> charList = player.getGroup().getCharsInZone(player.Info._mapID, player.zone.zoneID);
+                    if (charList != null) {
+                        exp = exp * 20 / 100;
+//                    for (Char plToDoi : charList) {
+//                        if(plToDoi.getChiSoFormSkill(104)>0){
+//                            exp += exp * plToDoi.getChiSoFormSkill(104) / 100;
 //                        }
 //                    }
-//                }
+                        for (Char plToDoi : charList) {
+                            if (plToDoi != player) {
+                                plToDoi.addExp(exp);
+                                if (plToDoi.taskSeal) {
+                                    if (mob.getMobTemplate().name.equals(plToDoi.typeSeal)) {
+                                        plToDoi.stepSeal = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             if (mob.getMobTemplate().id >= 199 && mob.getMobTemplate().id <= 203) {
                 if (mob.itemBoss != null && !mob.itemBoss.isEmpty()) {
@@ -1242,11 +1244,12 @@ public class Zone {
                         }
                         player.addItem(it);
                     }
-                    Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được vĩ thú và giành được phần thưởng",2);
+                    Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được vĩ thú và giành được 1 lượt ải gia tộc + phần thưởng",2);
                     player.Info.chuyenCan += 50;
                     player.Info.chuyenCanTuan += 50;
                     if (player.clan != null) {
                         player.addClanPoint(50);
+                        player.clan.openDun += 1;
                     }
                     player.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 50 điểm chuyên cần, 50 cống hiến gia tộc", HanderMessage.YELLOW_MID));
 

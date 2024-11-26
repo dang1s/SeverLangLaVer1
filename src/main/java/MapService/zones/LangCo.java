@@ -146,7 +146,7 @@ public class LangCo extends Zone {
     @Override
     public void mobAttackChar(Mob mob, Char player) {
         try {
-            int dameAdjusted = mob.getDame()*40;// sua dame o day
+            int dameAdjusted = mob.getDame()*50;// sua dame o day
             int khang = InfoPoint.getKhangByClass(player, mob.he);
             dameAdjusted -= dameAdjusted * InfoPoint.calculateKhang(khang) / 100;
             dameAdjusted -= player.damageReduction;

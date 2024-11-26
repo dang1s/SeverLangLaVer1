@@ -161,17 +161,17 @@ public class TrainingZone extends ZWorld {
 
             }
             // tắt exp pt hết nhi đồng mở lại
-//            if (player.getGroup() != null) {
-//                List<Char> charList = player.getGroup().getCharsInZone(player.Info._mapID, player.zone.zoneID);
-//                if (charList != null) {
-//                    exp = exp * 20 / 100;
-//                    for (Char plToDoi : charList) {
-//                        if (plToDoi != player) {
-//                            plToDoi.addExp(exp);
-//                        }
-//                    }
-//                }
-//            }
+            if (player.getGroup() != null) {
+                List<Char> charList = player.getGroup().getCharsInZone(player.Info._mapID, player.zone.zoneID);
+                if (charList != null) {
+                    exp = exp * 20 / 100;
+                    for (Char plToDoi : charList) {
+                        if (plToDoi != player) {
+                            plToDoi.addExp(exp);
+                        }
+                    }
+                }
+            }
         }
     }
 }

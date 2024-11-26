@@ -1192,6 +1192,17 @@ public class Service {
         }
     }
 
+    public void sendChienTich(int chienTich) {
+        try {
+            Message m = new Message((byte) -31);
+            //m.writeLong(timeStart);
+            m.writeInt(chienTich);
+            //m.writeBoolean(start);
+            session.sendMessage(m);
+        } catch (Exception e) {
+
+        }
+    }
     public void tradeItemLock(Trader trader) {
         Message m = new Message((byte) 81);
         try {
