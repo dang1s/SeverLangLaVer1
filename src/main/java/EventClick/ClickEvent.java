@@ -92,12 +92,12 @@ public class ClickEvent {
 
 
 
-    public static void NapDau(Char _myChar) {
+    public static void NapDau(Char _myChar) {//nạp đầu
         try {
             Message m = new Message((byte) 122);
             m.writeByte(89);
 
-            Item item = new Item(558, true, 1);
+            Item item = new Item(558, true, 10);
             item.write(m.writer);
 
             item = new Item(521, true);
@@ -107,11 +107,11 @@ public class ClickEvent {
             item.addItemOption(new ItemOption(209, 60));
             item.write(m.writer);
 
-            item = new Item(277, true);
-            item.amount = 10;
+            item = new Item(11, true);
+            item.amount = 5;
             item.write(m.writer);
 
-            item = new Item(443, true);
+            item = new Item(687, true, 800);
             item.write(m.writer);
             _myChar.user.session.sendMessage(m);
         } catch (Exception e) {
@@ -137,10 +137,10 @@ public class ClickEvent {
                 }
             }
             m.writeBoolean(_myChar.theGiuTien > System.currentTimeMillis());
-            m.writeInt(_myChar.Bag.bacBox);
-            m.writeInt(_myChar.Bag.bacKhoaBox);
-            m.writeInt(_myChar.Bag.vangBox);
-            m.writeInt(_myChar.Bag.vangKhoaBox);
+            m.writeLong(_myChar.Bag.bacBox);
+            m.writeLong(_myChar.Bag.bacKhoaBox);
+            m.writeLong(_myChar.Bag.vangBox);
+            m.writeLong(_myChar.Bag.vangKhoaBox);
             _myChar.user.session.sendMessage(m);
         } catch (Exception e) {
             e.printStackTrace();
@@ -267,7 +267,7 @@ public class ClickEvent {
                 ItemShop it = ic.get(i);
                 m.writeShort(it.id);
                 m.writeShort(it.itemID);
-                m.writeBoolean(true);
+                m.writeBoolean(false);
                 m.writeLong(it.expire);
                 m.writeUTF(it.strOption);
                 m.writeInt(it.TinhThach);

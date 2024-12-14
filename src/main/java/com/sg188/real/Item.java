@@ -644,13 +644,14 @@ public class Item implements Cloneable {
         this.a(level);
     }
 
-    public void updateOption_2() {
+    public void updateOption_2() {//lục đạo
         byte level = this.level;
         this.a(0);
         ItemOption[] var2 = this.L();
         Vector var3 = new Vector();
         String[] var4 = new String[]{"", "168,10,-1", "169,10,-1", "170,10,-1", "171,10,-1", "172,10,-1"};
         String[] var5 = new String[]{"", "259,80,-1", "260,80,-1", "261,80,-1", "262,80,-1", "263,80,-1"};
+        String[] var10 = new String[]{"", "350,300,-1", "351,300,-1", "352,300,-1", "353,300,-1", "354,300,-1"};
         boolean var6 = false;
         boolean var7 = false;
         for (int var8 = 0; var8 < var2.length; ++var8) {
@@ -659,16 +660,37 @@ public class Item implements Cloneable {
                 if (!var7) {
                     if (var2[var8].getItemOptionTemplate().type == 7) {
                         if (this.getItemTemplate().levelNeed / 10 == 4) {
-                            var3.add(new ItemOption("252,5,-1"));
-                            var3.add(new ItemOption(var5[this.he]));
+                            var3.add(new ItemOption("252,5,-1")); //(+17) Sát thương chuyển thành hồi phục Hp: +#%
+                            var3.add(new ItemOption(var5[this.he])); //(+17) Gây suy yếu, trúng độc, làm chậm,...: +#
+                            var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
+                            var3.add(new ItemOption(var10[this.he])); //(+19) Tấn công lên hệ #: #
+                            var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
                         }
                     }
                     if (this.getItemTemplate().levelNeed / 10 == 5 && var2[var8].getItemOptionTemplate().type == 10) {
-                        var3.add(new ItemOption("286,300,-1"));
+                        var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
+                        var3.add(new ItemOption(var10[this.he])); //(+19) Tấn công lên hệ #: #
+                        var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
+                        var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                        var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                        var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                        var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
+                        var3.add(new ItemOption("376,5,-1")); //(+24) Tỉ lệ xuất hiện trạng thái kháng hiệu ứng cơ bản: +#%
+                        var3.add(new ItemOption("383,200,-1")); //(+24) Tăng tương khắc: +#
                     }
                     if (this.getItemTemplate().levelNeed / 10 == 6 && var2[var8].getItemOptionTemplate().type == 11) {
-                        var3.add(new ItemOption("350,300,-1"));
+                        var3.add(new ItemOption(var10[this.he]));
                         var3.add(new ItemOption("360,5,-1"));
+                        var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                        var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                        var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                        var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
+                        var3.add(new ItemOption("376,5,-1")); //(+24) Tỉ lệ xuất hiện trạng thái kháng hiệu ứng cơ bản: +#%
+                        var3.add(new ItemOption("383,200,-1")); //(+24) Tăng tương khắc: +#
+                        var3.add(new ItemOption("377,5,-1")); //(+26) Xác suất tăng tấn công theo tỉ lệ +#% Hp của đối phương
+                        var3.add(new ItemOption("384,7,-1")); //(+26) Bỏ qua kháng tính: +#%
+                        var3.add(new ItemOption("378,5,-1")); //(+28) Xác suất tăng Hp khi đánh chí mạng: +#%
+                        var3.add(new ItemOption("385,500,-1")); //(+28) Kháng tất cả: +#
                     }
                 }
             }
@@ -686,6 +708,48 @@ public class Item implements Cloneable {
         this.a(level);
     }
 
+    public void updateOption_3() {//thiên đạo
+        byte level = this.level;
+        this.a(0);
+        ItemOption[] var2 = this.L();
+        Vector var3 = new Vector();
+
+        for (int var8 = 0; var8 < var2.length; ++var8) {
+            var3.add(var2[var8]);
+        }
+        int param = 0;
+        if (this.getItemTemplate().levelNeed < 50) {
+            param = 60;
+        } else if (this.getItemTemplate().levelNeed < 60) {
+            param = 70;
+        } else if (this.getItemTemplate().levelNeed < 70) {
+            param = 80;
+        }
+        var3.add(new ItemOption("379," + param + ",-1"));
+        this.strOptions = Item.a(var3);
+        this.a(level);
+    }
+
+    public void updateOption_4() {//vô cực
+        byte level = this.level;
+        this.a(0);
+        ItemOption[] var2 = this.L();
+        Vector var3 = new Vector();
+        for (int var8 = 0; var8 < var2.length; ++var8) {
+            var3.add(var2[var8]);
+        }
+        int param = 0;
+        if (this.getItemTemplate().levelNeed < 50) {
+            param = 10;
+        } else if (this.getItemTemplate().levelNeed < 60) {
+            param = 15;
+        } else if (this.getItemTemplate().levelNeed < 70) {
+            param = 20;
+        }
+        var3.add(new ItemOption("380," + param + ",-1"));
+        this.strOptions = Item.a(var3);
+        this.a(level);
+    }
     public void updateOptionByakugan() {
         byte level = this.level;
         this.a(0);
@@ -755,20 +819,54 @@ public class Item implements Cloneable {
         boolean var5 = false;
         boolean var6 = false;
 
+        //mới
+        String[] var15 = new String[]{"", "259,80,-1", "260,80,-1", "261,80,-1", "262,80,-1", "263,80,-1"};
+        String[] var16 = new String[]{"", "350,300,-1", "351,300,-1", "352,300,-1", "353,300,-1", "354,300,-1"};
+
         for (int var7 = 0; var7 < var2.length; ++var7) {
             if (var2[var7].a[0] != 163) {
                 var3.add(var2[var7]);
                 if (!var6) {
                     if (this.getItemTemplate().levelNeed / 10 == 5 && var2[var7].getItemOptionTemplate().type == 10) {
                         this.b(var3);
+                        //mới
+                        var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
+                        var3.add(new ItemOption(var16[this.he])); //(+19) Tấn công lên hệ #: #
+                        var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
+                        var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                        var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                        var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                        var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
+                        var3.add(new ItemOption("376,5,-1")); //(+24) Tỉ lệ xuất hiện trạng thái kháng hiệu ứng cơ bản: +#%
+                        var3.add(new ItemOption("383,200,-1")); //(+24) Tăng tương khắc: +#
                     }
                     if (this.getItemTemplate().levelNeed / 10 == 6 && var2[var7].getItemOptionTemplate().type == 11) {
                         int randomNumber = 355 + Utlis.nextInt(5);
                         var3.add(new ItemOption("" + randomNumber + ",40,-1"));
+
+                        //mới
+                        var3.add(new ItemOption(var16[this.he]));
+                        var3.add(new ItemOption("360,5,-1"));
+                        var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                        var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                        var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                        var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
+                        var3.add(new ItemOption("376,5,-1")); //(+24) Tỉ lệ xuất hiện trạng thái kháng hiệu ứng cơ bản: +#%
+                        var3.add(new ItemOption("383,200,-1")); //(+24) Tăng tương khắc: +#
+                        var3.add(new ItemOption("377,5,-1")); //(+26) Xác suất tăng tấn công theo tỉ lệ +#% Hp của đối phương
+                        var3.add(new ItemOption("384,7,-1")); //(+26) Bỏ qua kháng tính: +#%
+                        var3.add(new ItemOption("378,5,-1")); //(+28) Xác suất tăng Hp khi đánh chí mạng: +#%
+                        var3.add(new ItemOption("385,500,-1")); //(+28) Kháng tất cả: +#
                     }
                     if (var2[var7].getItemOptionTemplate().type == 7) {
                         if (this.getItemTemplate().levelNeed / 10 == 4) {
                             var3.add(new ItemOption(var4[2]));
+                            //mới
+                            var3.add(new ItemOption("252,5,-1")); //(+17) Sát thương chuyển thành hồi phục Hp: +#%
+                            var3.add(new ItemOption(var15[this.he])); //(+17) Gây suy yếu, trúng độc, làm chậm,...: +#
+                            var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
+                            var3.add(new ItemOption(var16[this.he])); //(+19) Tấn công lên hệ #: #
+                            var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
                         }
                     }
                 }
@@ -857,20 +955,53 @@ public class Item implements Cloneable {
         boolean var5 = false;
         boolean var6 = false;
 
+        //mới
+        String[] var15 = new String[]{"", "259,80,-1", "260,80,-1", "261,80,-1", "262,80,-1", "263,80,-1"};
+        String[] var16 = new String[]{"", "350,300,-1", "351,300,-1", "352,300,-1", "353,300,-1", "354,300,-1"};
+
         for (int var7 = 0; var7 < var2.length; ++var7) {
             if (var2[var7].a[0] != 164) {
                 var3.add(var2[var7]);
                 if (!var6) {
                     if (this.getItemTemplate().levelNeed / 10 == 5 && var2[var7].getItemOptionTemplate().type == 10) {
                         this.b(var3);
+                        //mới
+                        //var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
+                        var3.add(new ItemOption(var16[this.he])); //(+19) Tấn công lên hệ #: #
+                        var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
+                        var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                        var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                        var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                        var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
+                        var3.add(new ItemOption("376,5,-1")); //(+24) Tỉ lệ xuất hiện trạng thái kháng hiệu ứng cơ bản: +#%
+                        var3.add(new ItemOption("383,200,-1")); //(+24) Tăng tương khắc: +#
                     }
                     if (this.getItemTemplate().levelNeed / 10 == 6 && var2[var7].getItemOptionTemplate().type == 11) {
                         int randomNumber = 355 + Utlis.nextInt(5);
                         var3.add(new ItemOption("" + randomNumber + ",40,-1"));
+                        //mới
+//                        var3.add(new ItemOption(var16[this.he]));
+//                        var3.add(new ItemOption("360,5,-1"));
+                        var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                        var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                        var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                        var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
+                        var3.add(new ItemOption("376,5,-1")); //(+24) Tỉ lệ xuất hiện trạng thái kháng hiệu ứng cơ bản: +#%
+                        var3.add(new ItemOption("383,200,-1")); //(+24) Tăng tương khắc: +#
+                        var3.add(new ItemOption("377,5,-1")); //(+26) Xác suất tăng tấn công theo tỉ lệ +#% Hp của đối phương
+                        var3.add(new ItemOption("384,7,-1")); //(+26) Bỏ qua kháng tính: +#%
+                        var3.add(new ItemOption("378,5,-1")); //(+28) Xác suất tăng Hp khi đánh chí mạng: +#%
+                        var3.add(new ItemOption("385,500,-1")); //(+28) Kháng tất cả: +#
                     }
                     if (var2[var7].getItemOptionTemplate().type == 7) {
                         if (this.getItemTemplate().levelNeed / 10 == 4) {
                             var3.add(new ItemOption(var4[2]));
+                            //mới
+//                            var3.add(new ItemOption("252,5,-1")); //(+17) Sát thương chuyển thành hồi phục Hp: +#%
+//                            var3.add(new ItemOption(var15[this.he])); //(+17) Gây suy yếu, trúng độc, làm chậm,...: +#
+                            var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
+                            var3.add(new ItemOption(var16[this.he])); //(+19) Tấn công lên hệ #: #
+                            var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
                         }
                     }
                 }
@@ -1089,6 +1220,7 @@ public class Item implements Cloneable {
 
         boolean var5 = false;
         boolean var6 = false;
+        String[] var16 = new String[]{"", "350,300,-1", "351,300,-1", "352,300,-1", "353,300,-1", "354,300,-1"};
 
         for (int var7 = 0; var7 < var2.length; ++var7) {
             if (var2[var7].a[0] != 159) {
@@ -1096,14 +1228,43 @@ public class Item implements Cloneable {
                 if (!var6) {
                     if (this.getItemTemplate().levelNeed / 10 == 5 && var2[var7].getItemOptionTemplate().type == 10) {
                         this.b(var3);
+                        //mới
+                        //var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
+                        var3.add(new ItemOption(var16[this.he])); //(+19) Tấn công lên hệ #: #
+                        var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
+                        var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                        var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                        var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                        var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
+                        var3.add(new ItemOption("376,5,-1")); //(+24) Tỉ lệ xuất hiện trạng thái kháng hiệu ứng cơ bản: +#%
+                        var3.add(new ItemOption("383,200,-1")); //(+24) Tăng tương khắc: +#
                     }
                     if (this.getItemTemplate().levelNeed / 10 == 6 && var2[var7].getItemOptionTemplate().type == 11) {
                         int randomNumber = 355 + Utlis.nextInt(5);
                         var3.add(new ItemOption("" + randomNumber + ",40,-1"));
+                        //mới
+//                        var3.add(new ItemOption(var16[this.he]));
+//                        var3.add(new ItemOption("360,5,-1"));
+                        var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                        var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                        var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                        var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
+                        var3.add(new ItemOption("376,5,-1")); //(+24) Tỉ lệ xuất hiện trạng thái kháng hiệu ứng cơ bản: +#%
+                        var3.add(new ItemOption("383,200,-1")); //(+24) Tăng tương khắc: +#
+                        var3.add(new ItemOption("377,5,-1")); //(+26) Xác suất tăng tấn công theo tỉ lệ +#% Hp của đối phương
+                        var3.add(new ItemOption("384,7,-1")); //(+26) Bỏ qua kháng tính: +#%
+                        var3.add(new ItemOption("378,5,-1")); //(+28) Xác suất tăng Hp khi đánh chí mạng: +#%
+                        var3.add(new ItemOption("385,500,-1")); //(+28) Kháng tất cả: +#
                     }
                     if (var2[var7].getItemOptionTemplate().type == 7) {
                         if (this.getItemTemplate().levelNeed / 10 == 4) {
                             var3.add(new ItemOption(var4[2]));
+                            //mới
+//                            var3.add(new ItemOption("252,5,-1")); //(+17) Sát thương chuyển thành hồi phục Hp: +#%
+//                            var3.add(new ItemOption(var15[this.he])); //(+17) Gây suy yếu, trúng độc, làm chậm,...: +#
+                            var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
+                            var3.add(new ItemOption(var16[this.he])); //(+19) Tấn công lên hệ #: #
+                            var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
                         }
                     }
                 }
@@ -1206,7 +1367,7 @@ public class Item implements Cloneable {
     public boolean u() {
         if (this.getItemTemplate().type >= 0 && this.getItemTemplate().type <= 9) {
             if (this.X()) {
-                if (this.getItemTemplate().levelNeed >= 60 && this.level < 19 || this.getItemTemplate().levelNeed >= 50 && this.level < 18 || this.getItemTemplate().levelNeed >= 40 && this.level < 17) {
+                if (this.getItemTemplate().levelNeed >= 60 && this.level < 30 || this.getItemTemplate().levelNeed >= 50 && this.level < 26 || this.getItemTemplate().levelNeed >= 40 && this.level < 20) {
                     return true;
                 }
             } else if (this.W()) {
@@ -1373,6 +1534,32 @@ public class Item implements Cloneable {
         return false;
     }
 
+    public boolean WLD() {
+        ItemOption[] var1;
+        if ((var1 = this.getItemOption()) != null) {
+            for (int var2 = 0; var2 < var1.length; ++var2) {
+                if (var1[var2].ld()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean WVC() {
+        ItemOption[] var1;
+        if ((var1 = this.getItemOption()) != null) {
+            for (int var2 = 0; var2 < var1.length; ++var2) {
+                if (var1[var2].vc()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public boolean X() {
         ItemOption[] var1;
         if ((var1 = this.getItemOption()) != null) {
@@ -1385,6 +1572,7 @@ public class Item implements Cloneable {
 
         return false;
     }
+
 
     public boolean isItemTrangBi() {
         return this.isVuKhi() || this.isTrangBi() || this.isPhuKien();
@@ -2023,7 +2211,7 @@ public class Item implements Cloneable {
                     var5[2] = var8;
                     int[] var9 = var3[var7].getItemOptionTemplate().a();
 
-                    for (int var10 = var8 + 1; var10 <= var9.length; ++var10) {
+                    for (int var10 = var8 + 1; var10 < var9.length && var10 < DataCenter.gI().ngocKhamUpgrade.length; ++var10) {
                         if (var1 >= DataCenter.gI().ngocKhamUpgrade[var10] && var10 <= var6) {
                             var5[1] = var8;
                             var5[2] = var10;

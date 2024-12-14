@@ -29,19 +29,22 @@ public class BossManager {
     private int[] itemBoss5x = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
     private int[] itemBossSK={918,918,918,9,9,9,9,8,8,8,10,10,295,296,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,818,819,174,175,179,216,217,218,248,278,302,315,174,175,179,216,217,218,248,278,302,315,174,175,179,216,217,218,248,278,302,315,174,175,179,216,217,218,248,278,302,315,174,175,179,216,217,218,248,278,302,315};
     private int[] itemViThu = {763};
+    private int[] itemBossMadara = {932};
     private byte[] idMap = {57, 65, 87, 79, 73};
     private byte[] idMapViThu = {59, 69, 60, 71, 85, 103, 73, 102, 106};///
+    private byte[] idMapBossMadara = {86};
     private List<Mob> listBoss = new ArrayList<>();
+    private List<Mob> listBossMadara = new ArrayList<>();
     private List<Mob> bossSK = new ArrayList<>();
     private List<Mob> listBossViThu = new ArrayList<>();
     public void initBoss() {
-        Mob boss1x = createBoss(199, 100000000, 7500000, 15, (short) 958, (short) 450);
+        Mob boss1x = createBoss(199, 100000000, 7500000, 45, (short) 958, (short) 450);
         addItemMap(itemBoss1x, boss1x);
         listBoss.add(boss1x);
-        Mob boss2x = createBoss(200, 200000000, 15000000, 25, (short) 906, (short) 137);
+        Mob boss2x = createBoss(200, 200000000, 15000000, 45, (short) 906, (short) 137);
         addItemMap(itemBoss2x, boss2x);
         listBoss.add(boss2x);
-        Mob boss3x = createBoss(201, 400000000, 22500000, 35, (short) 969, (short) 155);
+        Mob boss3x = createBoss(201, 400000000, 22500000, 45, (short) 969, (short) 155);
         addItemMap(itemBoss3x, boss3x);
         listBoss.add(boss3x);
         Mob boss4x = createBoss(202, 1000000000, 30000000, 45, (short) 1036, (short) 186);
@@ -59,35 +62,48 @@ public class BossManager {
         bossSK.add(bossTT);
     }
     public void initBossViThu() {
-        Mob nhatVi = createBoss(251, 100000000, 7500000, 35, (short) 1479, (short) 395);
+        Mob nhatVi = createBoss(251, 100000000, 7500000, 49, (short) 1479, (short) 395);
         addItemMap(itemViThu, nhatVi);
         listBossViThu.add(nhatVi);
-        Mob nhiVi = createBoss(252, 200000000, 15000000, 35, (short) 364, (short) 443);
+        Mob nhiVi = createBoss(252, 200000000, 15000000, 49, (short) 364, (short) 443);
         addItemMap(itemViThu, nhiVi);
         listBossViThu.add(nhiVi);
-        Mob tamVi = createBoss(253, 300000000, 22500000, 45, (short) 1375, (short) 289);
+        Mob tamVi = createBoss(253, 300000000, 22500000, 49, (short) 1375, (short) 289);
         addItemMap(itemViThu, tamVi);
         listBossViThu.add(tamVi);
-        Mob tuVi = createBoss(254, 400000000, 30000000, 45, (short) 1000, (short) 120);
+        Mob tuVi = createBoss(254, 400000000, 30000000, 49, (short) 1000, (short) 120);
         addItemMap(itemViThu, tuVi);
         listBossViThu.add(tuVi);
-        Mob nguVi = createBoss(255, 500000000, 37500000, 55, (short) 1062, (short) 275);
+        Mob nguVi = createBoss(255, 500000000, 37500000, 59, (short) 1062, (short) 275);
         addItemMap(itemViThu, nguVi);
         listBossViThu.add(nguVi);
-        Mob lucVi = createBoss(256, 600000000, 40000000, 55, (short) 171, (short) 194);
+        Mob lucVi = createBoss(256, 600000000, 40000000, 59, (short) 171, (short) 194);
         addItemMap(itemViThu, lucVi);
         listBossViThu.add(lucVi);
-        Mob thatVi = createBoss(257, 700000000, 50000000, 55, (short) 1559, (short) 539);
+        Mob thatVi = createBoss(257, 700000000, 50000000, 59, (short) 1559, (short) 539);
         addItemMap(itemViThu, thatVi);
         listBossViThu.add(thatVi);
-        Mob batVy = createBoss(258, 800000000, 60000000, 60, (short) 892, (short) 401);
+        Mob batVy = createBoss(258, 800000000, 60000000, 59, (short) 892, (short) 401);
         addItemMap(itemViThu, batVy);
         listBossViThu.add(batVy);
-        Mob cuuVi = createBoss(259, 900000000, 70000000, 60, (short) 1144, (short) 178);
+        Mob cuuVi = createBoss(259, 900000000, 70000000, 59, (short) 1144, (short) 178);
         addItemMap(itemViThu, cuuVi);
         listBossViThu.add(cuuVi);
     }
 
+    public void initBossMadara() {
+        Mob madara = createBoss(273, 200000000, 200000000, 59, (short) 2295, (short) 315);
+        addItemMap(itemBossMadara, madara);
+        listBossMadara.add(madara);
+    }
+
+    public void spawnBossMadara() {
+        for (int i = 0; i < listBossMadara.size(); i++) {
+            Mob boss = listBossMadara.get(i).cloneMob();
+            Map.maps[idMapBossMadara[i]].addBoss(0, boss);
+        }
+        thongBaoBossMadara();
+    }
     public void spawnBoss() {
         for (int i = 0; i < listBoss.size(); i++) {
             Mob boss = listBoss.get(i).cloneMob();
@@ -112,6 +128,9 @@ public class BossManager {
 
     }
 
+    public void thongBaoBossMadara() {
+        Main.HeThongCTG("Madara đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
+    }
     public void thongBaoBoss() {
         Main.HeThongCTG("Cao thủ nhẫn giả đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
     }
@@ -165,6 +184,13 @@ public class BossManager {
                 for (int idBossItem : itemViThu) {
                     if (idItem[i] == idBossItem) {
                         item.amount = 500;
+                        break;
+                    }
+                }
+
+                for(int idBossItem: itemBossMadara) {
+                    if (idItem[i] == idBossItem) {
+                        item.amount = 20;
                         break;
                     }
                 }
@@ -263,38 +289,12 @@ public class BossManager {
     public void updateBossViThu(int hours, int minutes, int seconds) {
         Utlis.schedule(() -> {
             spawnBossViThu();
-//            if(Event.getEvent()!=null) {
-//                if (hours == 6) {
-//                    Mob boss = bossSK.get(0).cloneMob();
-//                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
-//                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-//                }
-//                if (hours == 9) {
-//                    Mob boss = bossSK.get(0).cloneMob();
-//                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
-//                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-//                }
-//                if (hours == 12) {
-//                    Mob boss = bossSK.get(0).cloneMob();
-//                    Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);
-//                    Main.HeThongCTG("Sơn Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-//                }
-//                if (hours == 18) {
-//                    Mob boss = bossSK.get(1).cloneMob();
-//                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
-//                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-//                }
-//                if (hours == 20) {
-//                    Mob boss = bossSK.get(1).cloneMob();
-//                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
-//                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-//                }
-//                if (hours == 22) {
-//                    Mob boss = bossSK.get(1).cloneMob();
-//                    Map.maps[66].addBoss(Utlis.nextInt(0, 8), boss);
-//                    Main.HeThongCTG("Thủy Tinh đã xuất hiện,các nhẫn giả mau tìm kiếm và tiêu diệt để nhận những phần quà hấp dẫn", 2);
-//                }
-//            }
+        }, hours, minutes, seconds);
+    }
+
+    public void updateBossMadara(int hours, int minutes, int seconds) {
+        Utlis.schedule(() -> {
+            spawnBossMadara();
         }, hours, minutes, seconds);
     }
     public void updateBossSK(int hours, int minutes, int seconds) {

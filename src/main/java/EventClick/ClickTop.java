@@ -30,13 +30,10 @@ public class ClickTop {
     public static List<InfoTop> cTop;
     public static List<InfoTop> cCuaCai;
     public static List<InfoTop> cTaiPhu;
-
     public static List<InfoTop> cNhiDong;
-
+    public static List<InfoTop> cNhiDongTaiPhu;
     public static List<InfoTop> cChuyenCan;
-
     public static List<InfoTop> cNapTuan;
-
     public static List<InfoTop> cDaiHoi;
     public static final Vector[] RANKED= new Vector[14];
     
@@ -72,6 +69,9 @@ public class ClickTop {
                 break;
             case 6:
                 showTopNhiDong(_myChar,indexClass);
+                break;
+            case 7://tài phú nhi đồng
+                showTopNhiDongTP(_myChar,indexClass);
                 break;
             case 20: //nạp tuần
                 showTopNapTuan(_myChar,indexClass);
@@ -435,6 +435,31 @@ public class ClickTop {
                 m.writeUTF(c.name);
                 m.writeShort(c.level);
                 m.writeLong(0);
+                m.writeByte(c.idHe);
+                m.writeUTF(c.clanName);
+                i++;
+            }
+            _myChar.user.session.sendMessage(m);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private static void showTopNhiDongTP(Char _myChar, byte index) {
+        if (cNhiDongTaiPhu == null) {
+            cNhiDongTaiPhu = CharDB.getTopNhiDongTaiPhu();
+        }
+        Collections.sort(cNhiDongTaiPhu, Comparator.comparing(InfoTop::getTaiPhu).reversed());
+        try {
+            byte i = 0;
+            Message m = new Message((byte) -22);
+            m.writeBoolean(true); // show top ???
+            m.writeByte(cNhiDongTaiPhu.size());
+
+            for (InfoTop c : cNhiDongTaiPhu) {
+                m.writeByte(i);
+                m.writeUTF(c.name);
+                m.writeShort((int) c.getTaiPhu());
+                m.writeLong(c.getTaiPhu());
                 m.writeByte(c.idHe);
                 m.writeUTF(c.clanName);
                 i++;

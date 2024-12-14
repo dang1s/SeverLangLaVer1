@@ -71,4 +71,32 @@ public class DataSkill {
             DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.THANH_SAT_CHAKRA, 0),
             DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.KHONG_THOI_GIAN_THUAT, 0),
             DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.LOA_TOAN_LIEN_THU_LI_KIEM, 0),};
+
+//    public static Skill[] skills_60_nam = new Skill[]{
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.THIEN_CHIEU, 0),
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.BIET_THIEN_THAN, 0),
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.BYAKUGAN_13, 0),
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.KHONG_THOI_GIAN_THUAT, 0),
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.LOA_TOAN_LIEN_THU_LI_KIEM, 0),};
+//
+//    public static Skill[] skills_60_nu = new Skill[]{
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.THIEN_CHIEU, 0),
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.BIET_THIEN_THAN, 0),
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.THANH_SAT_CHAKRA, 0),//eff 72
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.KHONG_THOI_GIAN_THUAT, 0),
+//            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.LOA_TOAN_LIEN_THU_LI_KIEM, 0),};
+
+    public static Skill[] skills_57_nam = new Skill[]{
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.SUSANOO, 0),
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.ANH_THU_PHUOC_CHI_THUAT, 0),
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.NHA_THONG_NHA, 0),
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.THAO_CU_THIEN_TOA, 0),
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.CHARKRA_CUU_VI_HINH, 0)};
+
+    public static Skill[] skills_57_nu = new Skill[]{
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.BACH_HAO_CHI_THUAT, 0),
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.TAM_CHUYEN_THAN_THUAT, 0),
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.BYAKUGAN_19, 0),
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.THAO_CU_THIEN_TOA, 0),
+            DataCenter.gI().getSkillWithIdAndLevel(SkillTemplate.CHARKRA_CUU_VI_HINH, 0)};
 }

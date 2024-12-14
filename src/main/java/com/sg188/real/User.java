@@ -310,12 +310,12 @@ public class User {
                             }else {
                                 _char.Bag.vang = data.getInt("vang");
                             }
-                            _char.Bag.bacKhoa = Integer.parseInt(obj.get("backhoa").toString());
-                            _char.Bag.bacBox = Integer.parseInt(obj.get("bacbox").toString());
-                            _char.Bag.bacKhoaBox = Integer.parseInt(obj.get("backhoabox").toString());
-                            _char.Bag.vangKhoa = Integer.parseInt(obj.get("vangkhoa").toString());
-                            _char.Bag.vangKhoaBox = Integer.parseInt(obj.get("vangkhoabox").toString());
-                            _char.Bag.vangBox = Integer.parseInt(obj.get("vangbox").toString());
+                            _char.Bag.bacKhoa = Long.parseLong(obj.get("backhoa").toString());
+                            _char.Bag.bacBox = Long.parseLong(obj.get("bacbox").toString());
+                            _char.Bag.bacKhoaBox = Long.parseLong(obj.get("backhoabox").toString());
+                            _char.Bag.vangKhoa = Long.parseLong(obj.get("vangkhoa").toString());
+                            _char.Bag.vangKhoaBox = Long.parseLong(obj.get("vangkhoabox").toString());
+                            _char.Bag.vangBox = Long.parseLong(obj.get("vangbox").toString());
                             _char.Bag.pointNAP = Integer.parseInt(obj.get("pointnap").toString());
                             _char.Bag.stnSo = Byte.parseByte(obj.get("stnso").toString());
                             _char.Bag.stnTrung = Byte.parseByte(obj.get("stntrung").toString());

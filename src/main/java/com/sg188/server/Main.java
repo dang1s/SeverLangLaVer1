@@ -149,12 +149,14 @@ public class Main {
         threadLuckyDraw.start();
         BossManager.gI().initBoss();
         BossManager.gI().initBossViThu();
+        BossManager.gI().initBossMadara();
         BossManager.gI().updateBossViThu(8, 0, 0);
         BossManager.gI().updateBossViThu(16, 30, 0);
         BossManager.gI().updateBossViThu(20, 0, 0);
         BossManager.gI().updateBoss(9, 0, 0);
         BossManager.gI().updateBoss(14, 0, 0);
         BossManager.gI().updateBoss(19, 0, 0);
+        BossManager.gI().updateBossMadara(21,0,0);
 //        BossManager.gI().updateBossSK(6,0,0);
 //        BossManager.gI().updateBossSK(9,0,0);
 //        BossManager.gI().updateBossSK(12,0,0);
@@ -171,7 +173,7 @@ public class Main {
         WorldManager.getInstance().start();
         // MongoDbConnection.connect();
         Clan.getClanDAO().load();
-//        AutoMaintenance.maintenance(23, 59, 30);
+        AutoMaintenance.maintenance(23, 59, 30);
         openServerSocket();
         Log.info("Thread Server: " + Thread.activeCount());
     }

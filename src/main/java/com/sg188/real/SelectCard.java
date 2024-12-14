@@ -38,6 +38,9 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(566).rate(10).quantity(10).build()); // đá rine
         add(Card.builder().id(566).rate(10).quantity(10).build()); // đá rine
 
+        add(Card.builder().id(645).rate(15).quantity(2).build()); // than thu
+        add(Card.builder().id(645).rate(15).quantity(2).build()); // than thu
+        add(Card.builder().id(645).rate(15).quantity(2).build()); // than thu
 
         //add(Card.builder().id(6).rate(15).build()); // đá 7
         add(Card.builder().id(8).rate(15).build()); // đá 8
@@ -205,31 +208,31 @@ public class SelectCard extends AbsSelectCard {
         add(Card.builder().id(155).rate(1).build());
 
         add(Card.builder().id(704).rate(5).build());//ct +17
-        add(Card.builder().id(790).rate(1).build());//ct +18
+        add(Card.builder().id(790).rate(3).build());//ct +18
 
-        add(Card.builder().id(294).rate(5).quantity(20).build());// tu luyện đan
+        add(Card.builder().id(294).rate(5).quantity(2000).build());// tu luyện đan 20
         add(Card.builder().id(434).rate(5).quantity(200).build());// mảnh sách
         add(Card.builder().id(434).rate(5).quantity(200).build());// mảnh sách
         add(Card.builder().id(434).rate(5).quantity(200).build());// mảnh sách
         //add(Card.builder().id(763).rate(5).quantity(100).build());// charka vĩ thú
-        add(Card.builder().id(763).rate(5).quantity(500).build());// charka vĩ thú
+        add(Card.builder().id(763).rate(5).quantity(50000).build());// charka vĩ thú 500
         //add(Card.builder().id(763).rate(5).quantity(200).build());// charka vĩ thú
 
-        add(Card.builder().id(687).rate(10).quantity(10).build());//lông vĩ thú
-        add(Card.builder().id(687).rate(10).quantity(10).build());//lông vĩ thú
+        add(Card.builder().id(687).rate(10).quantity(1000).build());//lông vĩ thú 10
+        add(Card.builder().id(687).rate(10).quantity(1000).build());//lông vĩ thú 10
         add(Card.builder().id(688).rate(1.5).build());//knvt
         add(Card.builder().id(860).rate(0.1).build());//knvt db
         add(Card.builder().id(281).rate(2).quantity(10).build());// sâm 75
         add(Card.builder().id(347).rate(1).quantity(5).build());// sâm 100
-        add(Card.builder().id(599).rate(5).quantity(20).build());// mảnh huyết kế
+        add(Card.builder().id(599).rate(5).quantity(200).build());// mảnh huyết kế
         add(Card.builder().id(428).rate(5).quantity(10).build());// rương khảm
         add(Card.builder().id(428).rate(5).quantity(10).build());// rương khảm
-        add(Card.builder().id(310).rate(5).quantity(200).build());// mảnh bí kíp
+        add(Card.builder().id(310).rate(5).quantity(400).build());// mảnh bí kíp
         //add(Card.builder().id(310).rate(5).quantity(100).build());// mảnh bí kíp
         //add(Card.builder().id(310).rate(5).quantity(100).build());// mảnh bí kíp
         //add(Card.builder().id(754).rate(20).quantity(500).build());// mảnh bí kíp siêu cấp
         //add(Card.builder().id(754).rate(15).quantity(700).build());// mảnh bí kíp siêu cấp
-        add(Card.builder().id(754).rate(10).quantity(2000).build());// mảnh bí kíp siêu cấp
+        add(Card.builder().id(754).rate(10).quantity(10000).build());// mảnh bí kíp siêu cấp
 
     }
 
@@ -274,7 +277,7 @@ public class SelectCard extends AbsSelectCard {
             }
 
             if (item.getItemTemplate().type == 15) {
-                item.level = (byte)Utlis.nextInt(14, 19);
+                item.level = (byte)Utlis.nextInt(19, 29);
                 item.addItemOption(new ItemOption(122, Utlis.nextInt(5, 15)));
                 item.addItemOption(new ItemOption(151, Utlis.nextInt(50, 100)));
                 item.addItemOption(new ItemOption(152, Utlis.nextInt(50, 100)));
@@ -284,7 +287,7 @@ public class SelectCard extends AbsSelectCard {
             }
 
             if (item.getItemTemplate().type == 16) {
-                item.level = (byte)Utlis.nextInt(14, 19);
+                item.level = (byte)Utlis.nextInt(19, 29);
                 item.addItemOption(new ItemOption(2, Utlis.nextInt(50, 100)));
                 item.addItemOption(new ItemOption(5, Utlis.nextInt(50, 100)));
                 item.addItemOption(new ItemOption(306, Utlis.nextInt(30, 60)));

@@ -35,7 +35,7 @@ public class ItemOptionTemplate {
         } else {
             String[] var1;
             int var2 = (var1 = this.strOption.split(";")).length;
-            int var3 = 19;
+            int var3 = 29;
             if (this.id == 207 || this.id == 208) {
                 var3 = 18;
             }

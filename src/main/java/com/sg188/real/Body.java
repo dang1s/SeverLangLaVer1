@@ -283,6 +283,10 @@ public class Body {
         elementalCounterReduce = options[311]+options[323]+options[330]+options[331]+options[345];
         movementSpeed = options[91]+options[118]+options[150]+options[17]+500+buffSpeed+isSusanoItatchi;
 
+        //vô cực
+        chakra = (short) ((double) options[380]/100 * chakra + chakra);
+        //thiên đạo
+        maxHP = (int) ((double) options[379]/100 * maxHP + maxHP);
 
         switch (Info.idhe){
             case 1:

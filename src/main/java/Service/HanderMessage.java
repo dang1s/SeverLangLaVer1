@@ -198,10 +198,10 @@ public class HanderMessage {
     public static Message BuyShop(Char _myChar, Item it) {
         Message m = new Message((byte) 121);
         try {
-            m.writeInt(_myChar.Bag.bac);
-            m.writeInt(_myChar.Bag.bacKhoa);
-            m.writeInt(_myChar.Bag.vang);
-            m.writeInt(_myChar.Bag.vangKhoa);
+            m.writeLong(_myChar.Bag.bac);
+            m.writeLong(_myChar.Bag.bacKhoa);
+            m.writeLong(_myChar.Bag.vang);
+            m.writeLong(_myChar.Bag.vangKhoa);
             m.writeShort(1);
             it.write(m.writer);
         } catch (Exception e) {

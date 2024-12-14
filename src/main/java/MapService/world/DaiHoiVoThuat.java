@@ -270,7 +270,7 @@ public class DaiHoiVoThuat extends World{
                             zone.SendMessageInZone(HanderMessage.SendTypePk(byePlayer.id, (byte) 0));
 
                             //thêm người chơi vào vòng sau
-                            Main.HeThongCTG(byePlayer.getName() + " tự động vào vòng tiếp theo (bye).", 2);
+                            Main.HeThongCTG(byePlayer.getName() + " tự động vào vòng tiếp theo.", 2);
                             vong1_8.add(new Match(byePlayer,byePlayer,1));
                         } else {
                             // Xử lý các cặp đấu bình thường

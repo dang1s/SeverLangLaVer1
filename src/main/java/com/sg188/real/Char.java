@@ -1027,8 +1027,8 @@ public class Char extends Body {
                         ps.setString(22, jEnemies);
                         ps.setString(23, jTaskOder);
                         ps.setString(24, task);
-                        ps.setInt(25, Bag.bac);
-                        ps.setInt(26, Bag.vang);
+                        ps.setLong(25, Bag.bac);
+                        ps.setLong(26, Bag.vang);
                         ps.setInt(27, Info.chuyenCan);
                         ps.setString(28, this.Info.name);
 
@@ -1250,10 +1250,10 @@ public class Char extends Body {
         writer.writeInt(Point.mp);
         writer.writeInt(maxMP);
         writer.writeLong(Point.exp);
-        writer.writeInt(Bag.bac);
-        writer.writeInt(Bag.bacKhoa);
-        writer.writeInt(Bag.vang);
-        writer.writeInt(Bag.vangKhoa);
+        writer.writeLong(Bag.bac);
+        writer.writeLong(Bag.bacKhoa);
+        writer.writeLong(Bag.vang);
+        writer.writeLong(Bag.vangKhoa);
 
         writer.writeShort(taskId);
         if (taskMain != null) {
@@ -2162,6 +2162,10 @@ public class Char extends Body {
                     this.getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
                     return;
                 }
+                if(this.level() < 50){
+                    this.getService().serverMessage("Cấp quá thấp không thể vào khu vực này");
+                    return;
+                }
                 removeItem(item);
                 msgUseItemBag(item);
                 MapLangCo.gI().maps.get(0).addChar(this);
@@ -2605,7 +2609,7 @@ public class Char extends Body {
                 if (Bag.arrItemBody[10] == null) {
                     return;
                 }
-                if (Bag.arrItemBody[10].level == 18) {
+                if (Bag.arrItemBody[10].level == 19) {
                     service.alertMessage("Vĩ thú đã full sức mạnh");
                     return;
                 }
@@ -3036,6 +3040,668 @@ public class Char extends Body {
                     addItem(da12);
                     msgAddItemBag(da12);
                 }
+                //skin mới
+//                addEffect(new Effect((short) 74, 50, System.currentTimeMillis(), 100000*10));
+//                addEffect(new Effect((short) 77, 50, System.currentTimeMillis(), 100000*10));
+                break;
+            case 967://top1 CT
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item danhHieu = new Item(948);
+                    danhHieu.amount = 1;
+                    danhHieu.isLock = true;
+                    addItem(danhHieu);
+                    msgAddItemBag(danhHieu);
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 200;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocSharin = new Item(563);
+                    ngocSharin.amount = 500;
+                    ngocSharin.isLock = true;
+                    addItem(ngocSharin);
+                    msgAddItemBag(ngocSharin);
+
+                    Item ngocBya = new Item(565);
+                    ngocBya.amount = 500;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 500;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item sach = new Item(435);
+                    sach.amount = 20;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(20000);
+                }
+
+                break;
+            case 968://top2 CT
+                if (getCountNullItemBag() >= 7) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 150;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocSharin = new Item(563);
+                    ngocSharin.amount = 300;
+                    ngocSharin.isLock = true;
+                    addItem(ngocSharin);
+                    msgAddItemBag(ngocSharin);
+
+                    Item ngocBya = new Item(565);
+                    ngocBya.amount = 300;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 300;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item sach = new Item(435);
+                    sach.amount = 16;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(15000);
+                }
+                break;
+            case 969://top 3 CT
+                if (getCountNullItemBag() >= 7) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 100;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocSharin = new Item(563);
+                    ngocSharin.amount = 200;
+                    ngocSharin.isLock = true;
+                    addItem(ngocSharin);
+                    msgAddItemBag(ngocSharin);
+
+                    Item ngocBya = new Item(565);
+                    ngocBya.amount = 200;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 200;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item sach = new Item(435);
+                    sach.amount = 12;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(10000);
+                }
+                break;
+            case 970://top 4-6 CT
+                if (getCountNullItemBag() >= 7) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 50;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocSharin = new Item(563);
+                    ngocSharin.amount = 100;
+                    ngocSharin.isLock = true;
+                    addItem(ngocSharin);
+                    msgAddItemBag(ngocSharin);
+
+                    Item ngocBya = new Item(565);
+                    ngocBya.amount = 100;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 100;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item sach = new Item(435);
+                    sach.amount = 8;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(5000);
+                }
+                break;
+            case 971://top 7-10 CT
+                if (getCountNullItemBag() >= 7) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = 50;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocSharin = new Item(563);
+                    ngocSharin.amount = 100;
+                    ngocSharin.isLock = true;
+                    addItem(ngocSharin);
+                    msgAddItemBag(ngocSharin);
+
+                    Item ngocBya = new Item(565);
+                    ngocBya.amount = 100;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = 100;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item sach = new Item(435);
+                    sach.amount = 4;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(3000);
+                }
+                break;
+            case 972://top 1 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item danhHieu = new Item(946);
+                    danhHieu.amount = 1;
+                    danhHieu.isLock = true;
+                    addItem(danhHieu);
+                    msgAddItemBag(danhHieu);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 1000;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item longViThu = new Item(687);
+                    longViThu.amount = 1000;
+                    longViThu.isLock = true;
+                    addItem(longViThu);
+                    msgAddItemBag(longViThu);
+
+                    Item chakra = new Item(763);
+                    chakra.amount = 18000;
+                    chakra.isLock = true;
+                    addItem(chakra);
+                    msgAddItemBag(chakra);
+
+                    Item sach = new Item(435);
+                    sach.amount = 30;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(20000);
+                }
+                break;
+            case 973://top 2 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 800;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item longViThu = new Item(687);
+                    longViThu.amount = 800;
+                    longViThu.isLock = true;
+                    addItem(longViThu);
+                    msgAddItemBag(longViThu);
+
+                    Item chakra = new Item(763);
+                    chakra.amount = 15000;
+                    chakra.isLock = true;
+                    addItem(chakra);
+                    msgAddItemBag(chakra);
+
+                    Item sach = new Item(435);
+                    sach.amount = 20;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(15000);
+                }
+                break;
+            case 974://top 3 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 600;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item longViThu = new Item(687);
+                    longViThu.amount = 600;
+                    longViThu.isLock = true;
+                    addItem(longViThu);
+                    msgAddItemBag(longViThu);
+
+                    Item chakra = new Item(763);
+                    chakra.amount = 15000;
+                    chakra.isLock = true;
+                    addItem(chakra);
+                    msgAddItemBag(chakra);
+
+                    Item sach = new Item(435);
+                    sach.amount = 15;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(10000);
+                }
+                break;
+            case 975://top 4-6 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 400;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item longViThu = new Item(687);
+                    longViThu.amount = 400;
+                    longViThu.isLock = true;
+                    addItem(longViThu);
+                    msgAddItemBag(longViThu);
+
+                    Item chakra = new Item(763);
+                    chakra.amount = 12000;
+                    chakra.isLock = true;
+                    addItem(chakra);
+                    msgAddItemBag(chakra);
+
+                    Item sach = new Item(435);
+                    sach.amount = 10;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(5000);
+                }
+                break;
+            case 976://top 7-10 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(428);
+                    ruongKham.amount = 200;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item longViThu = new Item(687);
+                    longViThu.amount = 200;
+                    longViThu.isLock = true;
+                    addItem(longViThu);
+                    msgAddItemBag(longViThu);
+
+                    Item chakra = new Item(763);
+                    chakra.amount = 10000;
+                    chakra.isLock = true;
+                    addItem(chakra);
+                    msgAddItemBag(chakra);
+
+                    Item sach = new Item(435);
+                    sach.amount = 7;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(3000);
+                }
+                break;
+            case 977://top 1 Nạp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item danhHieu = new Item(948);
+                    danhHieu.amount = 1;
+                    danhHieu.isLock = true;
+                    addItem(danhHieu);
+                    msgAddItemBag(danhHieu);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 2000;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(353);
+                    myo.amount = 300;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 15;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 20;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item biKipBiNgo = new Item(947);
+                    biKipBiNgo.isLock = true;
+                    biKipBiNgo.he = this.Info.idhe;
+                    biKipBiNgo.addItemOption(new ItemOption(128, 0, 16000));
+                    biKipBiNgo.addItemOption(new ItemOption(331, 300, 350));
+                    biKipBiNgo.addItemOption(new ItemOption(0, 7000, 7500));
+                    biKipBiNgo.addItemOption(new ItemOption(1, 7000, 7500));
+                    if (biKipBiNgo.he == 1) {
+                        biKipBiNgo.addItemOption(new ItemOption(109, 520, 550));
+                        biKipBiNgo.addItemOption(new ItemOption(114, 820, 850));
+                    } else if (biKipBiNgo.he == 2) {
+                        biKipBiNgo.addItemOption(new ItemOption(110, 520, 550));
+                        biKipBiNgo.addItemOption(new ItemOption(115, 820, 850));
+                    } else if (biKipBiNgo.he == 3) {
+                        biKipBiNgo.addItemOption(new ItemOption(111, 520, 550));
+                        biKipBiNgo.addItemOption(new ItemOption(113, 420, 450));
+                    } else if (biKipBiNgo.he == 4) {
+                        biKipBiNgo.addItemOption(new ItemOption(112, 520, 550));
+                        biKipBiNgo.addItemOption(new ItemOption(117, 420, 450));
+                    } else if (biKipBiNgo.he == 5) {
+                        biKipBiNgo.addItemOption(new ItemOption(108, 520, 550));
+                        biKipBiNgo.addItemOption(new ItemOption(113, 420, 450));
+                    }
+                    biKipBiNgo.createItemOptions();
+                    this.addItem(biKipBiNgo);
+                    this.msgAddItemBag(biKipBiNgo);
+
+                    addVang(20000);
+                }
+                break;
+            case 978://top 2 Nạp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 1500;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(353);
+                    myo.amount = 200;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 10;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 15;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(15000);
+                }
+                break;
+            case 979://top 3 Nạp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 1000;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(353);
+                    myo.amount = 150;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 8;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 10;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(10000);
+                }
+                break;
+            case 980://top 4-6 Nạp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 1000;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(353);
+                    myo.amount = 150;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 8;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 8;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(7000);
+                }
+                break;
+            case 981://top 7-10 Nạp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(294);
+                    tuLuyenDan.amount = 600;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(353);
+                    myo.amount = 100;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 6;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 6;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(3000);
+                }
+                break;
+            case 982://top 1 CC
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item sach = new Item(435);
+                    sach.amount = 10;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(10000);
+                }
+                break;
+            case 983://top 2 CC
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item sach = new Item(435);
+                    sach.amount = 8;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(7000);
+                }
+                break;
+            case 984://top 3 CC
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item sach = new Item(435);
+                    sach.amount = 6;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(5000);
+                }
+                break;
+            case 985://top 4-6 CC
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item sach = new Item(435);
+                    sach.amount = 4;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(4000);
+                }
+                break;
+            case 986://top 7-10 CC
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item sach = new Item(435);
+                    sach.amount = 3;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(3000);
+                }
+                break;
+            case 1000://túi 3 loại ngọc
+                if (getCountNullItemBag() >= 4) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    int[] idNgoc = {563, 565, 567};
+                    for (int j : idNgoc) {
+                        Item itemAdd = new Item(j,true);
+                        itemAdd.amount = 1;
+                        addItem(itemAdd);
+                        msgAddItemBag(itemAdd);
+                    }
+                }
+                break;
+            case 1001://túi 2 loại ngọc khảm
+                if (getCountNullItemBag() >= 3) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    int[] idNgoc = {826, 827};
+                    for (int j : idNgoc) {
+                        Item itemAdd = new Item(j,true);
+                        itemAdd.amount = 1;
+                        addItem(itemAdd);
+                        msgAddItemBag(itemAdd);
+                    }
+                }
                 break;
             case 361:
                 if (getCountNullItemBag() >= 3) {
@@ -3215,8 +3881,21 @@ public class Char extends Body {
                 addItem(svc);
                 msgAddItemBag(svc);
                 break;
+            case 603:
+                if(Info.idClass == 5 || Info.idhe == 5){
+                    service.alertMessage("Class của bạn không được đổi giới");
+                    return;
+                }
+                if (Info.gioiTinh == 0 || Info.gioiTinh == 1) {
+                    Info.gioiTinh = (byte) ((Info.gioiTinh == 1) ? 0 : 1);
+                }
+                service.serverMessage("Chúc mừng bạn đã đổi giới thành công");
+                service.resetScreen();
+                removeItem(item);
+                msgUseItemBag(item);
+                break;
             case 600:
-                if (Skill.arraySkill.length > 7) {
+                if (Skill.arraySkill.length > 7) {//gốc 7
                     return;
                 }
                 removeItem(item);
@@ -3224,8 +3903,17 @@ public class Char extends Body {
                 Skill[] arraySkill_2 = new Skill[Skill.arraySkill.length + 1];
                 for (int i = 0; i < Skill.arraySkill.length; i++) {
                     arraySkill_2[i] = Skill.arraySkill[i];
+                    if(Skill.arraySkill[i].levelNeed == 57) {//check nếu đã có skill 57 k cho học nữa
+                        service.alertMessage("Bạn đã có huyết kế giới hạn rồi");
+                        return;
+                    }
                 }
-                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57[Info.idClass - 1].cloneSkill();
+                if(Info.gioiTinh == 0) {//nữ
+                    arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
+                } else {//nam
+                    arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
+                }
+
                 Skill.arraySkill = arraySkill_2;
                 msgUpdateSkill();
                 service.serverMessage("Chúc mừng bạn đã đánh thức huyết kế giới hạn");
@@ -3304,34 +3992,34 @@ public class Char extends Body {
 
 
             case 931:
-                if (Info._mapID != 85 || Info.cy != 692) {
-                    service.serverMessage("Ở đây làm gì có cá,Muốn câu cá hãy đến làng đá");
-                    return;
-                }
-                if (Info._mapID == 85 && Info.cy == 692) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-                    int[] idItem = {920, 921, 922, 923, 924, 925};
-                    int[] percent = {25, 25, 20, 20, 5, 5};
-                    int index = Utlis.randomWithRate(percent, 100);
-                    int id = idItem[index];
-
-                    Item item2 = new Item(id);
-                    addItem(item2);
-                    msgAddItemBag(item2);
-                    if (!Info.khoaExp) {
-                        addExp(50000);
-                    }
-
-                    if (percent[index] <= 10) {
-                        chatPublic("Haha! Được một con "
-                                + item2.getItemTemplate().name + " rồi nè!");
-                    }
-                    service.sendMessage(HanderMessage.TestMess7(Info.idEntity));
-                    isCatchItem = false;
-                    getEventPoint().addPoint(Halloween.TOP_FISH, 1);
-                    getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 1);
-                }
+//                if (Info._mapID != 85 || Info.cy != 692) {
+//                    service.serverMessage("Ở đây làm gì có cá,Muốn câu cá hãy đến làng đá");
+//                    return;
+//                }
+//                if (Info._mapID == 85 && Info.cy == 692) {
+//                    removeItem(item);
+//                    msgUseItemBag(item);
+//                    int[] idItem = {920, 921, 922, 923, 924, 925};
+//                    int[] percent = {25, 25, 20, 20, 5, 5};
+//                    int index = Utlis.randomWithRate(percent, 100);
+//                    int id = idItem[index];
+//
+//                    Item item2 = new Item(id);
+//                    addItem(item2);
+//                    msgAddItemBag(item2);
+//                    if (!Info.khoaExp) {
+//                        addExp(50000);
+//                    }
+//
+//                    if (percent[index] <= 10) {
+//                        chatPublic("Haha! Được một con "
+//                                + item2.getItemTemplate().name + " rồi nè!");
+//                    }
+//                    service.sendMessage(HanderMessage.TestMess7(Info.idEntity));
+//                    isCatchItem = false;
+//                    getEventPoint().addPoint(Halloween.TOP_FISH, 1);
+//                    getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 1);
+//                }
                 break;
         }
         if (item.id == 169) {
@@ -3355,6 +4043,23 @@ public class Char extends Body {
             Point.diemTiemNang = (this.level() - 1) * 10 + so + trung + cao + banh;
             msgUpdateDataChar();
             updateTiemNang();
+            return;
+        }
+        if(item.id == 998) {
+
+            //updateItemRenew();
+            StringBuilder strBuilder = new StringBuilder();
+            strBuilder.append("Lôi;Thổ;Thủy;Hỏa;Phong");
+
+            try {
+                Writer writer = new Writer();
+                writer.writeShort(item.index);
+                writer.writeUTF(strBuilder.toString());
+                this.service.openTabItem(writer);
+            } catch (IOException e) {
+
+            }
+
             return;
         }
         if (item.id == 182) {
@@ -3585,6 +4290,160 @@ public class Char extends Body {
             }
             return;
         }
+        if (item.id == 987) {
+            if (Info.sachChienDau == 19) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 20;
+                Bag.itemSach = new Item(987);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,500,-1;306,210,-1;68,122,-1;69,122,-1;70,122,-1;71,122,-1;72,122,-1;149,15,-1;371,5,-1;0,4000,-1;1,4000,-1;14,400,-1;20,400,-1;81,400,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 988) {
+            if (Info.sachChienDau == 20) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 21;
+                Bag.itemSach = new Item(988);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,700,-1;306,220,-1;68,152,-1;69,152,-1;70,152,-1;71,152,-1;72,152,-1;149,25,-1;371,7,-1;0,6000,-1;1,6000,-1;14,600,-1;20,600,-1;81,600,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 989) {
+            if (Info.sachChienDau == 21) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 22;
+                Bag.itemSach = new Item(989);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,900,-1;306,230,-1;68,182,-1;69,182,-1;70,182,-1;71,182,-1;72,182,-1;149,35,-1;371,9,-1;0,8000,-1;1,8000,-1;14,800,-1;20,800,-1;81,800,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 990) {
+            if (Info.sachChienDau == 22) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 23;
+                Bag.itemSach = new Item(990);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,1100,-1;306,240,-1;68,212,-1;69,212,-1;70,212,-1;71,212,-1;72,212,-1;149,45,-1;371,11,-1;0,11000,-1;1,11000,-1;14,1000,-1;20,1000,-1;81,1000,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 991) {
+            if (Info.sachChienDau == 23) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 24;
+                Bag.itemSach = new Item(991);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,1300,-1;306,250,-1;68,242,-1;69,242,-1;70,242,-1;71,242,-1;72,242,-1;149,55,-1;371,13,-1;0,12000,-1;1,12000,-1;14,1200,-1;20,1200,-1;81,1200,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 992) {// sách 25
+            if (Info.sachChienDau == 24) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 25;
+                Bag.itemSach = new Item(992);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,1500,-1;306,260,-1;68,272,-1;69,272,-1;70,272,-1;71,272,-1;72,272,-1;149,65,-1;371,15,-1;0,14000,-1;1,14000,-1;14,1400,-1;20,1400,-1;81,1400,-1";
+                Point.maxpt = 5;
+                Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 993) {// sách 26
+            if (Info.sachChienDau == 25) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 26;
+                Bag.itemSach = new Item(993);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,1700,-1;306,302,-1;68,302,-1;69,302,-1;70,302,-1;71,302,-1;72,302,-1;149,65,-1;371,15,-1;0,16000,-1;1,16000,-1;14,1600,-1;20,1600,-1;81,1600,-1";
+                Point.maxpt = 5;
+                Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 994) {// sách 27
+            if (Info.sachChienDau == 26) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 27;
+                Bag.itemSach = new Item(994);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,1900,-1;306,280,-1;68,332,-1;69,332,-1;70,332,-1;71,332,-1;72,332,-1;149,85,-1;371,19,-1;0,18000,-1;1,18000,-1;14,1800,-1;20,1800,-1;81,1800,-1";
+                Point.maxpt = 5;
+                Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 995) {// sách 28
+            if (Info.sachChienDau == 27) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 28;
+                Bag.itemSach = new Item(995);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,2100,-1;306,290,-1;68,362,-1;69,362,-1;70,362,-1;71,362,-1;72,362,-1;149,95,-1;371,21,-1;0,20000,-1;1,20000,-1;14,2000,-1;20,2000,-1;81,2000,-1";
+                Point.maxpt = 5;
+                Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 996) {// sách 29
+            if (Info.sachChienDau == 28) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 29;
+                Bag.itemSach = new Item(996);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,2300,-1;306,300,-1;68,392,-1;69,392,-1;70,392,-1;71,392,-1;72,392,-1;149,105,-1;371,23,-1;0,22000,-1;1,22000,-1;14,2200,-1;20,2200,-1;81,2200,-1";
+                Point.maxpt = 5;
+                Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 997) {// sách 30
+            if (Info.sachChienDau == 29) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 30;
+                Bag.itemSach = new Item(997);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,2500,-1;306,310,-1;68,442,-1;69,442,-1;70,442,-1;71,442,-1;72,442,-1;149,115,-1;371,25,-1;0,24000,-1;1,24000,-1;14,2400,-1;20,2400,-1;81,2400,-1";
+                Point.maxpt = 5;
+                Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
         if (item.id == 277) {
             if (getCountNullItemBag() >= 3) {
                 removeItem(item);
@@ -3636,21 +4495,21 @@ public class Char extends Body {
             return;
         }
         if (item.id == 933) {
-//            if (getCountNullItemBag() < 16) {
-//                warningBagFull();
-//                return;
-//            }
-//            int[] idItem = {353, 563, 565, 567, 428, 174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 434};
-//            for (int i = 0; i < idItem.length; i++) {
-//                int id = idItem[i];
-//                Item item2 = new Item(id);
-//                item2.amount = 9999;
-//                addItem(item2);
-//                msgAddItemBag(item2);
-//            }
-//            removeItem(item);
-//            msgUpdateItemBag(item);
-//            user.session.sendMessage(HanderMessage.resetScreen());
+            if (getCountNullItemBag() < 16) {
+                warningBagFull();
+                return;
+            }
+            int[] idItem = {353, 563, 565, 567, 428, 174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 434, 754};
+            for (int i = 0; i < idItem.length; i++) {
+                int id = idItem[i];
+                Item item2 = new Item(id);
+                item2.amount = 9999;
+                addItem(item2);
+                msgAddItemBag(item2);
+            }
+            removeItem(item);
+            msgUpdateItemBag(item);
+            user.session.sendMessage(HanderMessage.resetScreen());
             return;
         }
 
@@ -4653,7 +5512,7 @@ public class Char extends Body {
 //        if (getExpBuff() > 0) {
 //            exp += exp * getExpBuff() / 100;
 //        }
-        exp *= 5;//open sửa 2
+        exp *= 10;//open sửa 2
         if (exp < 0) {
             exp = 0;
         }
@@ -4846,8 +5705,8 @@ public class Char extends Body {
 
     private void MsgSellItem(short index) throws IOException {
         Message msg = new Message((byte) 119);
-        msg.writeInt(Bag.bacKhoa);
-        msg.writeInt(Bag.bac);
+        msg.writeLong(Bag.bacKhoa);
+        msg.writeLong(Bag.bac);
         msg.writeShort(index);
         user.session.sendMessage(msg);
     }
@@ -4886,7 +5745,7 @@ public class Char extends Body {
     public void msgSendArrItemBag() {
         try {
             Writer writer = new Writer();
-            writer.writeInt(Bag.bac);
+            writer.writeLong(Bag.bac);
             writeItemBag(writer, Bag.arrItemBag);
             service.sendArrItemBag(writer);
         } catch (Exception ex) {
@@ -4977,16 +5836,16 @@ public class Char extends Body {
                 Item buanew = new Item(870);
                 buanew.isLock = true;
                 String stropt = "";
-                stropt += options[0].getId() + "," + "0" + "," + "2500" + ";";
-                stropt += options[1].getId() + "," + "0" + "," + "2500" + ";";
+                stropt += options[0].getId() + "," + "0" + "," + "2900" + ";";
+                stropt += options[1].getId() + "," + "0" + "," + "2900" + ";";
                 stropt += "0,1500;";
                 stropt += "1,1500;";
                 stropt += "3,3500;";
                 stropt += "2,350;";
                 stropt += "5,350;";
                 stropt += "180,450;";
-                stropt += "197," + Utlis.nextInt(1, 3) + ";";
-                stropt += "122," + Utlis.nextInt(10, 20);
+                stropt += "197," + Utlis.nextInt(5, 10) + ";";
+                stropt += "122," + Utlis.nextInt(20, 30);
                 buanew.strOptions = stropt;
                 addItem(buanew);
             } else if (str.contains("xoado")) {
@@ -5022,8 +5881,17 @@ public class Char extends Body {
             } else if (str.startsWith(
                     "getmob")) {
                 service.serverMessage("moblive:: " + zone.getLivingMonsters().size());
-            } else if (str.contains(
-                    "spawm")) {
+            } else if(str.contains("thiendao")){
+
+                this.service.openMsg122((byte) 103);
+
+            } else if(str.contains("vocuc")){
+
+                this.service.openMsg122((byte) 104);
+
+            } else if (str.contains("backhoa")){
+                this.addBacKhoa(100000000000L);
+            } else if (str.contains("spawm")) {
                 try {
                     BossManager.gI().spawnBoss();
                 } catch (Exception e) {
@@ -5054,7 +5922,7 @@ public class Char extends Body {
             } else if (str.contains(
                     "vithu")) {
                 try {
-                    Bag.arrItemBody[10].updateViThu(180000);
+                    Bag.arrItemBody[10].updateViThu(190000);
                 } catch (Exception e) {
 
                 }
@@ -5625,7 +6493,7 @@ public class Char extends Body {
     public void msgDataBag() {
         try {
             Writer writer = new Writer();
-            writer.writeInt(Bag.bac);
+            writer.writeLong(Bag.bac);
             this.writeItemBag(writer, Bag.arrItemBag);
             writer.writeByte(Point.diempt);
             writer.writeByte(Point.maxpt);
@@ -6258,8 +7126,8 @@ public class Char extends Body {
     public void msgGhepDa(Vector<Item> da, Item daGhep) {
         try {
             Writer writer = new Writer();
-            writer.writeInt(Bag.bac);
-            writer.writeInt(Bag.bacKhoa);
+            writer.writeLong(Bag.bac);
+            writer.writeLong(Bag.bacKhoa);
             writer.writeByte(da.size());
             for (int i = 0; i < da.size(); i++) {
                 writer.writeShort(((Item) da.get(i)).index);
@@ -6334,22 +7202,22 @@ public class Char extends Body {
             }
             long temp = 0;
             int percent = 0;
-            int coin = 0;
+            long coin = 0;
             for (int i = 0; i < crystals.size(); i++) {
                 Item itm = crystals.get(i);
                 if (itm != null && (int) itm.getItemTemplate().type == 21) {
                     temp += DataCenter.gI().pointGhepDa[itm.id];
                 }
             }
-            if (itemch.isVuKhi() && itemch.level + 1 <= 19) {
+            if (itemch.isVuKhi() && itemch.level + 1 < 30) {
                 percent = (int) (temp * 100 / DataCenter.gI().pointUpgradeVuKhi[itemch.level + 1]);
                 coin = DataCenter.gI().bacKhoaUpgradeVuKhi[itemch.level + 1];
             }
-            if (itemch.isTrangBi() && itemch.level + 1 <= 19) {
+            if (itemch.isTrangBi() && itemch.level + 1 < 30) {
                 percent = (int) (temp * 100 / DataCenter.gI().pointUpgradeTrangBi[itemch.level + 1]);
                 coin = DataCenter.gI().bacKhoaUpgradeTrangBi[itemch.level + 1];
             }
-            if (itemch.isPhuKien() && itemch.level + 1 <= 19) {
+            if (itemch.isPhuKien() && itemch.level + 1 < 30) {
                 percent = (int) (temp * 100 / DataCenter.gI().pointUpgradePhuKien[itemch.level + 1]);
                 coin = DataCenter.gI().bacKhoaUpgradePhuKien[itemch.level + 1];
             }
@@ -6396,6 +7264,8 @@ public class Char extends Body {
                 if (taskId == TaskName.NV_NHIEM_VU_DAU_TIEN && taskMain != null && taskMain.index == 10 && itemch.isVuKhi()) {
                     taskNext();
                 }
+            } else if (itemch.level + 1 >= 16) {
+                Main.HeThongCTG("Hơi đen , nhẫn giả " + Info.name + " vừa thất bại khi nâng cấp " + itemch.getItemTemplate().name + " lên cấp " + (itemch.level + 1), 2);
             }
             msgCuongHoa(CuongHoa, false, crystals, itemch, bua, type_item);
             msgUpdateItemBody_Orther();
@@ -6409,8 +7279,8 @@ public class Char extends Body {
             Writer writer = new Writer();
             writer.writeBoolean(CuongHoa);
             writer.writeBoolean(b);
-            writer.writeInt(Bag.bac);
-            writer.writeInt(Bag.bacKhoa);
+            writer.writeLong(Bag.bac);
+            writer.writeLong(Bag.bacKhoa);
             writer.writeByte(da.size());
             for (int i = 0; i < da.size(); i++) {
                 writer.writeShort(((Item) da.get(i)).index);
@@ -6546,6 +7416,405 @@ public class Char extends Body {
                 break;
             case 914:
                 break;
+            case 998:
+
+                switch (index1) {
+                    case 0://lôi
+                        int idClassPrev = Info.idClass;
+                        Info.idClass = 1;
+                        Info.idhe = 1;
+                        Item item = FindItemBag(998);
+                        if(item == null) {
+                            return;
+                        }
+
+                        boolean isHuyetKe = false;
+                        boolean isDacBiet = false;
+
+                        // Kiểm tra kỹ năng hiện tại để xác định kỹ năng Huyết Kế và Đặc Biệt
+                        if (Skill.arraySkill.length > 0) {
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_57_nam[idClassPrev - 1].idTemplate || sk.idTemplate == DataSkill.skills_57_nu[idClassPrev - 1].idTemplate) {
+                                    isHuyetKe = true;
+                                }
+                            }
+                        }
+
+                        if (Skill.arraySkill.length > 1) {
+
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_60[idClassPrev - 1].idTemplate) {
+                                    isDacBiet = true;
+                                }
+                            }
+                        }
+                        // Sao chép lại kỹ năng theo lớp nhân vật
+                        Skill[][] _arraySkill = new Skill[][]{
+                                DataSkill.skills_0.clone(),
+                                DataSkill.skills_1.clone(),
+                                DataSkill.skills_2.clone(),
+                                DataSkill.skills_3.clone(),
+                                DataSkill.skills_4.clone(),
+                                DataSkill.skills_5.clone(),
+                        };
+                        Skill.arraySkill = _arraySkill[Info.idClass];
+
+                        // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
+                        if (isHuyetKe) {
+                            Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            if(Info.gioiTinh == 0) {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
+                            } else {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
+                            }
+                            Skill.arraySkill = arraySkill_2;
+                        }
+
+                        // Nếu có kỹ năng Đặc Biệt, thêm vào danh sách kỹ năng
+                        if (isDacBiet) {
+                            Skill[] arraySkill_22 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            arraySkill_22[arraySkill_22.length - 1] = DataSkill.skills_60[Info.idClass - 1].cloneSkill();
+                            Skill.arraySkill = arraySkill_22;
+                        }
+
+                        // Thiết lập kỹ năng chiến đấu mặc định là kỹ năng đầu tiên
+                        if (Skill.arraySkill.length > 0) {
+                            Skill.skillFight = Skill.arraySkill[0];
+                        }
+
+                        // Tính toán điểm kỹ năng dựa trên cấp độ và các yếu tố khác
+                        int so = 1 * Bag.sknSo;       // Số điểm từ loại thấp
+                        int trung = 2 * Bag.sknTrung; // Số điểm từ loại trung
+                        int cao = 3 * Bag.sknCao;     // Số điểm từ loại cao
+                        Point.diemKyNang = (this.level() - 1) + so + trung + cao + Bag.banhUBao;
+
+                        // Gửi dữ liệu cập nhật cho nhân vật và kỹ năng
+                        msgUpdateDataChar();
+                        msgUpdateSkill();
+                        removeItem(item);
+                        msgUseItemBag(item);
+                        service.resetScreen();
+                        service.serverMessage("Chuyển hệ thành công");
+                        break;
+                    case 1:
+                        idClassPrev = Info.idClass;
+                        Info.idClass = 2;
+                        Info.idhe = 2;
+                        item = FindItemBag(998);
+                        if(item == null) {
+                            return;
+                        }
+
+                        isHuyetKe = false;
+                        isDacBiet = false;
+
+                        // Kiểm tra kỹ năng hiện tại để xác định kỹ năng Huyết Kế và Đặc Biệt
+                        if (Skill.arraySkill.length > 0) {
+
+
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_57_nam[idClassPrev - 1].idTemplate || sk.idTemplate == DataSkill.skills_57_nu[idClassPrev - 1].idTemplate) {
+                                    isHuyetKe = true;
+                                }
+                            }
+                        }
+
+                        if (Skill.arraySkill.length > 1) {
+
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_60[idClassPrev - 1].idTemplate) {
+                                    isDacBiet = true;
+                                }
+                            }
+                        }
+                        // Sao chép lại kỹ năng theo lớp nhân vật
+                        _arraySkill = new Skill[][]{
+                                DataSkill.skills_0.clone(),
+                                DataSkill.skills_1.clone(),
+                                DataSkill.skills_2.clone(),
+                                DataSkill.skills_3.clone(),
+                                DataSkill.skills_4.clone(),
+                                DataSkill.skills_5.clone(),
+                        };
+                        Skill.arraySkill = _arraySkill[Info.idClass];
+
+                        // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
+                        if (isHuyetKe) {
+                            Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            if(Info.gioiTinh == 0) {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
+                            } else {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
+                            }
+                            Skill.arraySkill = arraySkill_2;
+                        }
+
+                        // Nếu có kỹ năng Đặc Biệt, thêm vào danh sách kỹ năng
+                        if (isDacBiet) {
+                            Skill[] arraySkill_22 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            arraySkill_22[arraySkill_22.length - 1] = DataSkill.skills_60[Info.idClass - 1].cloneSkill();
+                            Skill.arraySkill = arraySkill_22;
+                        }
+
+                        // Thiết lập kỹ năng chiến đấu mặc định là kỹ năng đầu tiên
+                        if (Skill.arraySkill.length > 0) {
+                            Skill.skillFight = Skill.arraySkill[0];
+                        }
+
+                        // Tính toán điểm kỹ năng dựa trên cấp độ và các yếu tố khác
+                        so = 1 * Bag.sknSo;       // Số điểm từ loại thấp
+                        trung = 2 * Bag.sknTrung; // Số điểm từ loại trung
+                        cao = 3 * Bag.sknCao;     // Số điểm từ loại cao
+                        Point.diemKyNang = (this.level() - 1) + so + trung + cao + Bag.banhUBao;
+
+                        // Gửi dữ liệu cập nhật cho nhân vật và kỹ năng
+                        msgUpdateDataChar();
+                        msgUpdateSkill();
+                        removeItem(item);
+                        msgUseItemBag(item);
+                        service.resetScreen();
+                        service.serverMessage("Chuyển hệ thành công");
+                        break;
+                    case 2:
+                        idClassPrev = Info.idClass;
+                        Info.idClass = 3;
+                        Info.idhe = 3;
+                        item = FindItemBag(998);
+                        if(item == null) {
+                            return;
+                        }
+
+                        isHuyetKe = false;
+                        isDacBiet = false;
+
+                        // Kiểm tra kỹ năng hiện tại để xác định kỹ năng Huyết Kế và Đặc Biệt
+                        if (Skill.arraySkill.length > 0) {
+
+
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_57_nam[idClassPrev - 1].idTemplate || sk.idTemplate == DataSkill.skills_57_nu[idClassPrev - 1].idTemplate) {
+                                    isHuyetKe = true;
+                                }
+                            }
+                        }
+
+                        if (Skill.arraySkill.length > 1) {
+
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_60[idClassPrev - 1].idTemplate) {
+                                    isDacBiet = true;
+                                }
+                            }
+                        }
+                        // Sao chép lại kỹ năng theo lớp nhân vật
+                        _arraySkill = new Skill[][]{
+                                DataSkill.skills_0.clone(),
+                                DataSkill.skills_1.clone(),
+                                DataSkill.skills_2.clone(),
+                                DataSkill.skills_3.clone(),
+                                DataSkill.skills_4.clone(),
+                                DataSkill.skills_5.clone(),
+                        };
+                        Skill.arraySkill = _arraySkill[Info.idClass];
+
+                        // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
+                        if (isHuyetKe) {
+                            Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            if(Info.gioiTinh == 0) {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
+                            } else {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
+                            }
+                            Skill.arraySkill = arraySkill_2;
+                        }
+
+                        // Nếu có kỹ năng Đặc Biệt, thêm vào danh sách kỹ năng
+                        if (isDacBiet) {
+                            Skill[] arraySkill_22 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            arraySkill_22[arraySkill_22.length - 1] = DataSkill.skills_60[Info.idClass - 1].cloneSkill();
+                            Skill.arraySkill = arraySkill_22;
+                        }
+
+                        // Thiết lập kỹ năng chiến đấu mặc định là kỹ năng đầu tiên
+                        if (Skill.arraySkill.length > 0) {
+                            Skill.skillFight = Skill.arraySkill[0];
+                        }
+
+                        // Tính toán điểm kỹ năng dựa trên cấp độ và các yếu tố khác
+                        so = 1 * Bag.sknSo;       // Số điểm từ loại thấp
+                        trung = 2 * Bag.sknTrung; // Số điểm từ loại trung
+                        cao = 3 * Bag.sknCao;     // Số điểm từ loại cao
+                        Point.diemKyNang = (this.level() - 1) + so + trung + cao + Bag.banhUBao;
+
+                        // Gửi dữ liệu cập nhật cho nhân vật và kỹ năng
+                        msgUpdateDataChar();
+                        msgUpdateSkill();
+                        removeItem(item);
+                        msgUseItemBag(item);
+                        service.resetScreen();
+                        service.serverMessage("Chuyển hệ thành công");
+                        break;
+                    case 3:
+                        idClassPrev = Info.idClass;
+                        Info.idClass = 4;
+                        Info.idhe = 4;
+                        item = FindItemBag(998);
+                        if(item == null) {
+                            return;
+                        }
+
+                        isHuyetKe = false;
+                        isDacBiet = false;
+
+                        // Kiểm tra kỹ năng hiện tại để xác định kỹ năng Huyết Kế và Đặc Biệt
+                        if (Skill.arraySkill.length > 0) {
+
+
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_57_nam[idClassPrev - 1].idTemplate || sk.idTemplate == DataSkill.skills_57_nu[idClassPrev - 1].idTemplate) {
+                                    isHuyetKe = true;
+                                }
+                            }
+                        }
+
+                        if (Skill.arraySkill.length > 1) {
+
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_60[idClassPrev - 1].idTemplate) {
+                                    isDacBiet = true;
+                                }
+                            }
+                        }
+                        // Sao chép lại kỹ năng theo lớp nhân vật
+                        _arraySkill = new Skill[][]{
+                                DataSkill.skills_0.clone(),
+                                DataSkill.skills_1.clone(),
+                                DataSkill.skills_2.clone(),
+                                DataSkill.skills_3.clone(),
+                                DataSkill.skills_4.clone(),
+                                DataSkill.skills_5.clone(),
+                        };
+                        Skill.arraySkill = _arraySkill[Info.idClass];
+
+                        // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
+                        if (isHuyetKe) {
+                            Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            if(Info.gioiTinh == 0) {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
+                            } else {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
+                            }
+                            Skill.arraySkill = arraySkill_2;
+                        }
+
+                        // Nếu có kỹ năng Đặc Biệt, thêm vào danh sách kỹ năng
+                        if (isDacBiet) {
+                            Skill[] arraySkill_22 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            arraySkill_22[arraySkill_22.length - 1] = DataSkill.skills_60[Info.idClass - 1].cloneSkill();
+                            Skill.arraySkill = arraySkill_22;
+                        }
+
+                        // Thiết lập kỹ năng chiến đấu mặc định là kỹ năng đầu tiên
+                        if (Skill.arraySkill.length > 0) {
+                            Skill.skillFight = Skill.arraySkill[0];
+                        }
+
+                        // Tính toán điểm kỹ năng dựa trên cấp độ và các yếu tố khác
+                        so = 1 * Bag.sknSo;       // Số điểm từ loại thấp
+                        trung = 2 * Bag.sknTrung; // Số điểm từ loại trung
+                        cao = 3 * Bag.sknCao;     // Số điểm từ loại cao
+                        Point.diemKyNang = (this.level() - 1) + so + trung + cao + Bag.banhUBao;
+
+                        // Gửi dữ liệu cập nhật cho nhân vật và kỹ năng
+                        msgUpdateDataChar();
+                        msgUpdateSkill();
+                        removeItem(item);
+                        msgUseItemBag(item);
+                        service.resetScreen();
+                        service.serverMessage("Chuyển hệ thành công");
+                        break;
+                    case 4:
+                        idClassPrev = Info.idClass;
+                        Info.idClass = 5;
+                        Info.idhe = 5;
+                        item = FindItemBag(998);
+                        if(item == null) {
+                            return;
+                        }
+
+                        isHuyetKe = false;
+                        isDacBiet = false;
+
+                        // Kiểm tra kỹ năng hiện tại để xác định kỹ năng Huyết Kế và Đặc Biệt
+                        if (Skill.arraySkill.length > 0) {
+
+
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_57_nam[idClassPrev - 1].idTemplate || sk.idTemplate == DataSkill.skills_57_nu[idClassPrev - 1].idTemplate) {
+                                    isHuyetKe = true;
+                                }
+                            }
+                        }
+
+                        if (Skill.arraySkill.length > 1) {
+
+                            for (Skill sk : Skill.arraySkill) {
+                                if (sk.idTemplate == DataSkill.skills_60[idClassPrev - 1].idTemplate) {
+                                    isDacBiet = true;
+                                }
+                            }
+                        }
+                        // Sao chép lại kỹ năng theo lớp nhân vật
+                        _arraySkill = new Skill[][]{
+                                DataSkill.skills_0.clone(),
+                                DataSkill.skills_1.clone(),
+                                DataSkill.skills_2.clone(),
+                                DataSkill.skills_3.clone(),
+                                DataSkill.skills_4.clone(),
+                                DataSkill.skills_5.clone(),
+                        };
+                        Skill.arraySkill = _arraySkill[Info.idClass];
+
+                        // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
+                        if (isHuyetKe) {
+                            Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            if(Info.gioiTinh == 0) {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
+                            } else {
+                                arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
+                            }
+                            Skill.arraySkill = arraySkill_2;
+                        }
+
+                        // Nếu có kỹ năng Đặc Biệt, thêm vào danh sách kỹ năng
+                        if (isDacBiet) {
+                            Skill[] arraySkill_22 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
+                            arraySkill_22[arraySkill_22.length - 1] = DataSkill.skills_60[Info.idClass - 1].cloneSkill();
+                            Skill.arraySkill = arraySkill_22;
+                        }
+
+                        // Thiết lập kỹ năng chiến đấu mặc định là kỹ năng đầu tiên
+                        if (Skill.arraySkill.length > 0) {
+                            Skill.skillFight = Skill.arraySkill[0];
+                        }
+
+                        // Tính toán điểm kỹ năng dựa trên cấp độ và các yếu tố khác
+                        so = 1 * Bag.sknSo;       // Số điểm từ loại thấp
+                        trung = 2 * Bag.sknTrung; // Số điểm từ loại trung
+                        cao = 3 * Bag.sknCao;     // Số điểm từ loại cao
+                        Point.diemKyNang = (this.level() - 1) + so + trung + cao + Bag.banhUBao;
+
+                        // Gửi dữ liệu cập nhật cho nhân vật và kỹ năng
+                        msgUpdateDataChar();
+                        msgUpdateSkill();
+                        removeItem(item);
+                        msgUseItemBag(item);
+                        service.resetScreen();
+                        service.serverMessage("Chuyển hệ thành công");
+                        break;
+                }
+
+                break;
             case 435:
                 switch (index1) {
                     case 0:
@@ -6583,7 +7852,7 @@ public class Char extends Body {
                         msgAddItemBag(sachsc);
                         msgUseItemBag(sach435z);
                         break;
-                    case 2:
+                    case 2://sách 19
                         if (Bag.vang < 10000) {
                             user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
                             return;
@@ -6600,6 +7869,202 @@ public class Char extends Body {
                         msgAddItemBag(sachtl);
                         msgUseItemBag(sach435zz);
                         break;
+                    case 3://sách 20
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach20 = new Item(987);
+                        Item sach435_20 = FindItemBag(435);
+                        sach20.isLock = true;
+                        addItem(sach20);
+                        msgAddItemBag(sach20);
+                        msgUseItemBag(sach435_20);
+                        break;
+                    case 4://21
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach21 = new Item(988);
+                        Item sach435_21 = FindItemBag(435);
+                        sach21.isLock = true;
+                        addItem(sach21);
+                        msgAddItemBag(sach21);
+                        msgUseItemBag(sach435_21);
+                        break;
+                    case 5://22
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach22 = new Item(989);
+                        Item sach435_22 = FindItemBag(435);
+                        sach22.isLock = true;
+                        addItem(sach22);
+                        msgAddItemBag(sach22);
+                        msgUseItemBag(sach435_22);
+                        break;
+
+                    case 6://23
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach23 = new Item(990);
+                        Item sach435_23 = FindItemBag(435);
+                        sach23.isLock = true;
+                        addItem(sach23);
+                        msgAddItemBag(sach23);
+                        msgUseItemBag(sach435_23);
+                        break;
+
+                    case 7://24
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach24 = new Item(991);
+                        Item sach435_24 = FindItemBag(435);
+                        sach24.isLock = true;
+                        addItem(sach24);
+                        msgAddItemBag(sach24);
+                        msgUseItemBag(sach435_24);
+                        break;
+
+                    case 8://25
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach25 = new Item(992);
+                        Item sach435_25 = FindItemBag(435);
+                        sach25.isLock = true;
+                        addItem(sach25);
+                        msgAddItemBag(sach25);
+                        msgUseItemBag(sach435_25);
+                        break;
+
+                    case 9://26
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);//26
+                        Item sach26 = new Item(993);
+                        Item sach435_26 = FindItemBag(435);
+                        sach26.isLock = true;
+                        addItem(sach26);
+                        msgAddItemBag(sach26);
+                        msgUseItemBag(sach435_26);
+                        break;
+
+                    case 10://27
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach27 = new Item(994);
+                        Item sach435_27 = FindItemBag(435);
+                        sach27.isLock = true;
+                        addItem(sach27);
+                        msgAddItemBag(sach27);
+                        msgUseItemBag(sach435_27);
+                        break;
+
+                    case 11://28
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach28 = new Item(995);
+                        Item sach435_28 = FindItemBag(435);
+                        sach28.isLock = true;
+                        addItem(sach28);
+                        msgAddItemBag(sach28);
+                        msgUseItemBag(sach435_28);
+                        break;
+
+                    case 12://29
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach29 = new Item(996);
+                        Item sach435_29 = FindItemBag(435);
+                        sach29.isLock = true;
+                        addItem(sach29);
+                        msgAddItemBag(sach29);
+                        msgUseItemBag(sach435_29);
+                        break;
+
+                    case 13://30
+                        if (Bag.vang < 10000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 100)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-10000);
+                        Item sach30 = new Item(997);
+                        Item sach435_30 = FindItemBag(435);
+                        sach30.isLock = true;
+                        addItem(sach30);
+                        msgAddItemBag(sach30);
+                        msgUseItemBag(sach435_30);
+                        break;
+
                 }
                 break;
         }
@@ -6735,13 +8200,13 @@ public class Char extends Body {
 
     public synchronized void addBacKhoa(long bacKhoa) {
         long l = ((long) Bag.bacKhoa) + ((long) bacKhoa);
-        if (l > Integer.MAX_VALUE) {
-            l = Integer.MAX_VALUE;
+        if (l > Long.MAX_VALUE) {
+            l = Long.MAX_VALUE;
         }
-        Bag.bacKhoa = (int) l;
+        Bag.bacKhoa = (long) l;
         try {
             Writer writer = new Writer();
-            writer.writeInt(Bag.bacKhoa);
+            writer.writeLong(Bag.bacKhoa);
             writer.writeBoolean(true);
             this.service.updateBacKhoa(writer);
         } catch (Exception ex) {
@@ -6756,10 +8221,10 @@ public class Char extends Body {
         if (l > Integer.MAX_VALUE) {
             l = Integer.MAX_VALUE;
         }
-        Bag.bac = (int) l;
+        Bag.bac = (long) l;
         try {
             Writer writer = new Writer();
-            writer.writeInt(Bag.bac);
+            writer.writeLong(Bag.bac);
             writer.writeBoolean(true);
             this.service.updateBac(writer);
         } catch (Exception ex) {
@@ -6775,10 +8240,10 @@ public class Char extends Body {
             phucLoi.tieuNgay += vang * -1;
             phucLoi.tieuTuan += vang * -1;
         }
-        Bag.vang = (int) l;
+        Bag.vang = (long) l;
         try {
             Writer writer = new Writer();
-            writer.writeInt(Bag.vang);
+            writer.writeLong(Bag.vang);
             writer.writeBoolean(true);
             this.service.updateVang(writer);
         } catch (Exception ex) {
@@ -6789,10 +8254,10 @@ public class Char extends Body {
         if (l > Integer.MAX_VALUE) {
             l = Integer.MAX_VALUE;
         }
-        Bag.vang = (int) l;
+        Bag.vang = (long) l;
         try {
             Writer writer = new Writer();
-            writer.writeInt(Bag.vang);
+            writer.writeLong(Bag.vang);
             writer.writeBoolean(true);
             this.service.updateVang(writer);
         } catch (Exception ex) {
@@ -6804,10 +8269,10 @@ public class Char extends Body {
         if (l > Integer.MAX_VALUE) {
             l = Integer.MAX_VALUE;
         }
-        Bag.vangKhoa = (int) l;
+        Bag.vangKhoa = (long) l;
         try {
             Writer writer = new Writer();
-            writer.writeInt(Bag.vangKhoa);
+            writer.writeLong(Bag.vangKhoa);
             writer.writeBoolean(true);
             this.service.updateVangKhoa(writer);
         } catch (Exception ex) {
@@ -10766,10 +12231,11 @@ public class Char extends Body {
 
                 thu1.Title = "Quà Nạp Lần Đầu";
                 thu1.NameNguoiGui = "Hệ thống";
-                thu1.NoiDungThu = "Làng Lá Tối Thượng gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
-                Item itemthu1 = new Item(558);//dầu cóc
+                thu1.NoiDungThu = "Admin gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
+                thu1.TimeEnd = System.currentTimeMillis() + (7 * 86400000);
+                Item itemthu1 = new Item(558); //dầu cóc x10
+                itemthu1.amount = 10;
                 itemthu1.isLock = true;
-                itemthu1.amount = 1;
                 itemthu1.strOptions = "";
                 thu1.Item = itemthu1;
                 this.letters.add(thu1);
@@ -10783,11 +12249,12 @@ public class Char extends Body {
                 thu2.id = (short) id1;
                 thu2.Title = "Quà Nạp Lần Đầu";
                 thu2.NameNguoiGui = "Hệ thống";
-                thu2.NoiDungThu = "Làng Lá Tối Thượng gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
+                thu2.NoiDungThu = "Admin gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
                 Item itemthu2 = new Item(521);
                 itemthu2.isLock = true;
                 itemthu2.strOptions = "0,150;1,150;3,150;209,60";
                 thu2.Item = itemthu2;
+                thu2.TimeEnd = System.currentTimeMillis() + (86400000 * 7);
                 this.letters.add(thu2);
 
                 TemplateThu thu3 = new TemplateThu();
@@ -10798,12 +12265,13 @@ public class Char extends Body {
                 thu3.id = (short) id2;
                 thu3.Title = "Quà Nạp Lần Đầu";
                 thu3.NameNguoiGui = "Hệ thống";
-                thu3.NoiDungThu = "Làng Lá Tối Thượng gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
-                Item itemthu3 = new Item(277);
+                thu3.NoiDungThu = "Admin gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
+                Item itemthu3 = new Item(11);
                 itemthu3.isLock = true;
-                itemthu3.amount = 20;
+                itemthu3.amount = 5;
                 itemthu3.strOptions = "";
                 thu3.Item = itemthu3;
+                thu3.TimeEnd = System.currentTimeMillis() + (86400000 * 7);
                 this.letters.add(thu3);
 
                 TemplateThu thu4 = new TemplateThu();
@@ -10811,14 +12279,17 @@ public class Char extends Body {
                 if (this.letters.size() > 0) {
                     id3 = this.letters.get(this.letters.size() - 1).id + 1;
                 }
-                thu3.id = (short) id3;
+                thu4.id = (short) id3;
 
                 thu4.Title = "Quà Nạp Lần Đầu";
                 thu4.NameNguoiGui = "Hệ thống";
-                thu4.NoiDungThu = "Làng Lá Tối Thượng gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
-                Item itemthu4 = new Item(443);
+                thu4.NoiDungThu = "Admin gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
+                Item itemthu4 = new Item(687);
                 itemthu4.strOptions = "";
+                itemthu4.isLock = true;
+                itemthu4.amount = 800;
                 thu4.Item = itemthu4;
+                thu4.TimeEnd = System.currentTimeMillis() + (86400000 * 7);
                 this.letters.add(thu4);
                 this.getService().reloadLetter();
             }
@@ -11218,8 +12689,8 @@ public class Char extends Body {
                     Item buanew = new Item(870);
                     buanew.isLock = true;
                     String stropt = "";
-                    stropt += options[0].getId() + "," + "0" + "," + "2500" + ";";
-                    stropt += options[1].getId() + "," + "0" + "," + "2500" + ";";
+                    stropt += options[0].getId() + "," + "0" + "," + "2900" + ";";
+                    stropt += options[1].getId() + "," + "0" + "," + "2900" + ";";
                     stropt += "0,1500;";
                     stropt += "1,1500;";
                     stropt += "3,3500;";
@@ -11344,6 +12815,189 @@ public class Char extends Body {
         }
     }
 
+    public void updateThienDao(Message msg) {
+        try {
+            byte typeBag = msg.readByte();
+            short index_item = msg.readShort();
+            byte sizeItem = msg.readByte();
+            Vector<Item> items = new Vector<>();
+            boolean[] list = new boolean[Bag.arrItemBag.length];
+            while (msg.reader.Avali() > 0) {
+                int index = msg.readShort();
+                if (index < 0 || index >= Bag.arrItemBag.length) {
+                    continue;
+                }
+                if (!list[index]) {
+                    list[index] = true;
+                    Item item = Bag.arrItemBag[index];
+                    if (item != null)
+                        items.add(item);
+                }
+            }
+            if (items.isEmpty()) {
+                return;
+            }
+            if (items.size() < sizeItem) {
+                return;
+            }
+            Item itemEqip = this.checkBag(typeBag)[index_item];
+            if (itemEqip == null) {
+                service.alertMessage("Vật phẩm không tồn tại, vui lòng thử lại sau");
+                return;
+            }
+            if (!itemEqip.isItemTrangBi()) {
+                service.alertMessage("Vật phẩm không phải trang bị, vui lòng thử lại");
+                return;
+            }
+            if (!itemEqip.WLD()) {
+                service.alertMessage("Trang bị không đủ điều kiện");
+                return;
+            }
+            short countNgoc = 0;
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i) != null) {
+                    if (items.get(i).id != idNgocUpgradate(itemEqip)) {
+                        service.alertMessage("Ngọc không phù hợp");
+                        return;
+                    }
+                    countNgoc += items.get(i).amount;
+                }
+            }
+            short soNgocCan = (short) (itemEqip.getItemTemplate().levelNeed / 10 * 100 + 150);
+            int bacKhoa = itemEqip.getItemTemplate().levelNeed / 10 * 10000000 + 15000000;
+            ;
+            if (countNgoc < soNgocCan) {
+                service.alertMessage("Không đủ ngọc");
+                return;
+            }
+            if (bacKhoa > Bag.bacKhoa) {
+                service.alertMessage("Không đủ bạc khóa");
+                return;
+            }
+            addBacKhoa(-bacKhoa);
+            this.checkBag(typeBag)[index_item] = null;
+            for (Item item : items) {
+                removeItem(item, true);
+            }
+            countNgoc -= soNgocCan;
+            if (itemEqip.isVuKhi()) {
+                itemEqip.updateOption_3();//up thiên đạo
+            } else if (itemEqip.isBayakugan()) {
+                itemEqip.updateOption_3();
+                //itemEqip.updateOptionByakugan_2();
+            } else if (itemEqip.isRenegan()) {
+                itemEqip.updateOption_3();
+                //itemEqip.updateOptionRinegan_2();
+            } else if (itemEqip.isSharigan()) {
+                itemEqip.updateOption_3();
+                //itemEqip.updateOptionSharigan_2();
+            }
+            Item ngocTraLai = new Item(items.get(0).id);
+            ngocTraLai.amount = countNgoc;
+            ngocTraLai.isLock = true;
+            addItem(ngocTraLai);
+            msgAddItemBag(ngocTraLai);
+            itemEqip.isLock = true;
+            addItem(itemEqip);
+            msgAddItemBag(itemEqip);
+            msgSendArrItemBag();
+            msgSortItem((byte) 0);
+            msgUpdateEqip(itemEqip, sizeItem, items);
+        } catch (Exception e) {
+
+        }
+    }
+
+
+    public void updateVoCuc(Message msg) {
+        try {
+            byte typeBag = msg.readByte();
+            short index_item = msg.readShort();
+            byte sizeItem = msg.readByte();
+            Vector<Item> items = new Vector<>();
+            boolean[] list = new boolean[Bag.arrItemBag.length];
+            while (msg.reader.Avali() > 0) {
+                int index = msg.readShort();
+                if (index < 0 || index >= Bag.arrItemBag.length) {
+                    continue;
+                }
+                if (!list[index]) {
+                    list[index] = true;
+                    Item item = Bag.arrItemBag[index];
+                    if (item != null)
+                        items.add(item);
+                }
+            }
+            if (items.isEmpty()) {
+                return;
+            }
+            if (items.size() < sizeItem) {
+                return;
+            }
+            Item itemEqip = this.checkBag(typeBag)[index_item];
+            if (itemEqip == null) {
+                service.alertMessage("Vật phẩm không tồn tại, vui lòng thử lại sau");
+                return;
+            }
+            if (!itemEqip.isItemTrangBi()) {
+                service.alertMessage("Vật phẩm không phải trang bị, vui lòng thử lại");
+                return;
+            }
+            if (!itemEqip.WVC()) {
+                service.alertMessage("Trang bị không đủ điều kiện");
+                return;
+            }
+            short countNgoc = 0;
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i) != null) {
+                    if (items.get(i).id != idNgocUpgradate(itemEqip)) {
+                        service.alertMessage("Ngọc không phù hợp");
+                        return;
+                    }
+                    countNgoc += items.get(i).amount;
+                }
+            }
+            short soNgocCan = (short) (itemEqip.getItemTemplate().levelNeed / 10 * 100 + 150);
+            int bacKhoa = itemEqip.getItemTemplate().levelNeed / 10 * 10000000 + 15000000;
+            ;
+            if (countNgoc < soNgocCan) {
+                service.alertMessage("Không đủ ngọc");
+                return;
+            }
+            if (bacKhoa > Bag.bacKhoa) {
+                service.alertMessage("Không đủ bạc khóa");
+                return;
+            }
+            addBacKhoa(-bacKhoa);
+            this.checkBag(typeBag)[index_item] = null;
+            for (Item item : items) {
+                removeItem(item, true);
+            }
+            countNgoc -= soNgocCan;
+            if (itemEqip.isVuKhi()) {
+                itemEqip.updateOption_4();//up vô cực
+            } else if (itemEqip.isBayakugan()) {
+                itemEqip.updateOption_4();//up vô cực
+            } else if (itemEqip.isRenegan()) {
+                itemEqip.updateOption_4();//up vô cực
+            } else if (itemEqip.isSharigan()) {
+                itemEqip.updateOption_4();//up vô cực
+            }
+            Item ngocTraLai = new Item(items.get(0).id);
+            ngocTraLai.amount = countNgoc;
+            ngocTraLai.isLock = true;
+            addItem(ngocTraLai);
+            msgAddItemBag(ngocTraLai);
+            itemEqip.isLock = true;
+            addItem(itemEqip);
+            msgAddItemBag(itemEqip);
+            msgSendArrItemBag();
+            msgSortItem((byte) 0);
+            msgUpdateEqip(itemEqip, sizeItem, items);
+        } catch (Exception e) {
+
+        }
+    }
     public Effect getEffect(int id) {
         lockEff.lock();
         try {

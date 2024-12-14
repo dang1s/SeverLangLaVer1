@@ -1543,4 +1543,24 @@ public class Utlis {
         return numberFormat.format(number);
     }
 
+    public static long[] addNewValues(long[] originalArray, long[] newValues) {
+        // Mở rộng mảng để chứa các phần tử mới
+        long[] extendedArray = Arrays.copyOf(originalArray, originalArray.length + newValues.length);
+
+        // Thêm các giá trị mới vào mảng
+        for (int i = 0; i < newValues.length; i++) {
+            extendedArray[originalArray.length + i] = newValues[i];
+        }
+        return extendedArray;
+    }
+    public static int[] addNewValues(int[] originalArray, int[] newValues) {
+        // Mở rộng mảng để chứa các phần tử mới
+        int[] extendedArray = Arrays.copyOf(originalArray, originalArray.length + newValues.length);
+
+        // Thêm các giá trị mới vào mảng
+        for (int i = 0; i < newValues.length; i++) {
+            extendedArray[originalArray.length + i] = newValues[i];
+        }
+        return extendedArray;
+    }
 }

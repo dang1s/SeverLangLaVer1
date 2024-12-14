@@ -154,8 +154,9 @@ public class SummerZone extends ZWorld{
                         pl.Info.cy=192;
                         pl.getService().setXYChar();
                         pl.getService().npcChat(0,"Cảm ơn các con đã cứu ta , phần quà đã được gửi vào túi đồ");
-                        Item item = new Item(930);
-                        item.amount = 40;
+                        //Item item = new Item(930);
+                        Item item = new Item(795);
+                        item.amount = 50;
                         pl.addItem(item);
                         pl.addClanPoint(50);
                         pl.msgAddItemBag(item);

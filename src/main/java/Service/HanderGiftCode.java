@@ -48,7 +48,7 @@ public class HanderGiftCode {
 //                    }
 //                }
 //
-                if(code.equals("kichhoat") || code.equals("vequay")){
+                if(code.equals("kichhoat") || code.equals("vequay") || code.equals("quatang")){
                     if(!_myChar.user.actived){
                         _myChar.service.alertMessage("Sau khi kích hoạt bạn sẽ sử dụng được Giftcode này!");
                         return;
@@ -81,7 +81,7 @@ public class HanderGiftCode {
                     thu.Title = "Thư của hệ thống";
                     thu.NameNguoiGui = "Hệ thống";
                     thu.NoiDungThu = "Phần thưởng mã quà tặng";
-                    thu.TimeEnd = System.currentTimeMillis() + (code2.Day * 86400000);
+                    thu.TimeEnd = System.currentTimeMillis() + (code2.Day * 86400000L);
                     if (code2.infoItem != null) {
                         thu.Item = code2.infoItem.cloneItem();
                         if(code2.infoItem.expiry != -1){

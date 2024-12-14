@@ -217,6 +217,14 @@ public class ItemOption {
         return this.a[0] == 159 || this.a[0] == 163 || this.a[0] == 164 || this.a[0] == 165;
     }
 
+    public boolean ld() {
+        return this.a[0] == 361;
+    }
+
+    public boolean vc() {
+        return this.a[0] == 379;
+    }
+
     public boolean k() {
         return this.a[0] == 361;
     }

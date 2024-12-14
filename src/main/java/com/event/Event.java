@@ -29,6 +29,8 @@ public abstract class Event {
     public static final int SU_KIEN_HE = 1;
 
     public static final int HALLOWEEN = 2;
+
+    public static final int CHRISTMAST = 3;
     public static final long EXPIRE_7_DAY = 604800000L;
     public static final long EXPIRE_14_DAY = 1209600000L;
     public static final long EXPIRE_3_DAY = 259200000L;
@@ -314,28 +316,28 @@ public abstract class Event {
         itemsRecFromGoldItem.add(1, 10);
         itemsRecFromGoldItem.add(40, 428);
         itemsRecFromGoldItem.add(0.02, 11);
-//        itemsRecFromGoldItem.add(2.5, 514);//cai trang
-//        itemsRecFromGoldItem.add(2.5, 515);
-//        itemsRecFromGoldItem.add(2.5, 516);
-//        itemsRecFromGoldItem.add(2.5, 517);
-//        itemsRecFromGoldItem.add(2.5, 518);
-//        itemsRecFromGoldItem.add(2.5, 519);
-//        itemsRecFromGoldItem.add(2.5, 520);
-//        itemsRecFromGoldItem.add(2.5, 521);
-//        itemsRecFromGoldItem.add(2.5, 522);
-//        itemsRecFromGoldItem.add(2.5, 523);
-//        itemsRecFromGoldItem.add(2.5, 524);
-//        itemsRecFromGoldItem.add(2.5, 525);
-//        itemsRecFromGoldItem.add(2.5, 526);
-//        itemsRecFromGoldItem.add(2.5, 527);
-//        itemsRecFromGoldItem.add(2.5, 528);
-//        itemsRecFromGoldItem.add(2.5, 529);
-//        itemsRecFromGoldItem.add(2.5, 856);
-//        itemsRecFromGoldItem.add(2.5, 886);
-//        itemsRecFromGoldItem.add(2.5, 887);
-//        itemsRecFromGoldItem.add(0.005, 528);//ct hiem
-//        itemsRecFromGoldItem.add(0.005, 530);
-//        itemsRecFromGoldItem.add(0.005, 702);
+        itemsRecFromGoldItem.add(2.5, 514);//cai trang
+        itemsRecFromGoldItem.add(2.5, 515);
+        itemsRecFromGoldItem.add(2.5, 516);
+        itemsRecFromGoldItem.add(2.5, 517);
+        itemsRecFromGoldItem.add(2.5, 518);
+        itemsRecFromGoldItem.add(2.5, 519);
+        itemsRecFromGoldItem.add(2.5, 520);
+        itemsRecFromGoldItem.add(2.5, 521);
+        itemsRecFromGoldItem.add(2.5, 522);
+        itemsRecFromGoldItem.add(2.5, 523);
+        itemsRecFromGoldItem.add(2.5, 524);
+        itemsRecFromGoldItem.add(2.5, 525);
+        itemsRecFromGoldItem.add(2.5, 526);
+        itemsRecFromGoldItem.add(2.5, 527);
+        itemsRecFromGoldItem.add(2.5, 528);
+        itemsRecFromGoldItem.add(2.5, 529);
+        itemsRecFromGoldItem.add(2.5, 856);
+        itemsRecFromGoldItem.add(2.5, 886);
+        itemsRecFromGoldItem.add(2.5, 887);
+        itemsRecFromGoldItem.add(0.005, 528);//ct hiem
+        itemsRecFromGoldItem.add(0.005, 530);
+        itemsRecFromGoldItem.add(0.005, 702);
 
         itemsRecFromGoldItem.add(0.1, 529);//ct new
         itemsRecFromGoldItem.add(0.1, 555);

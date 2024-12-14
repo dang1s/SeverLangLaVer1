@@ -29,6 +29,7 @@ public class  AutoSaveData implements Runnable {
                 ClickTop.cNhiDong = CharDB.getTopNhiDong((byte) 0);
                 ClickTop.cChuyenCan = CharDB.getTopChuyenCan();
                 ClickTop.cNapTuan = CharDB.getTopNapTuan();
+                ClickTop.cNhiDongTaiPhu = CharDB.getTopNhiDongTaiPhu();
 
                 Main.sendRandomMessage();
 

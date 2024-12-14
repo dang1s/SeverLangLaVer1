@@ -318,6 +318,11 @@ public class HanderNpc {
                                             p.removeItem(p.FindItemBag(itemrequi));
                                             p.service.serverMessage("Đội trưởng đã mở khoá địa cung");
                                         }
+                                        if (p != null && p.user != null && p.taskId == TaskName.NV_BAT_DAU_THU_THACH) {
+                                            if (p.taskMain != null && p.taskMain.index == 0) {
+                                                p.taskNext();
+                                            }
+                                        }
                                     }
                                 } else {
                                     myChar.user.session.sendMessage(HanderMessage.SendThongBao("Bạn không phải đội trưởng", HanderMessage.WHITE));
@@ -403,7 +408,7 @@ public class HanderNpc {
                             myChar.user.session.sendMessage(HanderMessage.SendThongBao("Đã mở khoá sức mạnh rồi", HanderMessage.WHITE));
                             return;
                         }
-                        myChar.Bag.arrItemBody[10].strOptions = "305,0,180000;" + myChar.Bag.arrItemBody[10].strOptions;
+                        myChar.Bag.arrItemBody[10].strOptions = "305,0,190000;" + myChar.Bag.arrItemBody[10].strOptions;
                         myChar.user.session.sendMessage(HanderMessage.SendThongBao("Mở khoá sức mạnh vĩ thú thành công", HanderMessage.WHITE));
                     }
                     break;
@@ -414,7 +419,7 @@ public class HanderNpc {
                             myChar.service.alertMessage("Đã đạt tới giới hạn");
                             return;
                         }
-                        if (vithu.checkSucManh() == 180000) {
+                        if (vithu.checkSucManh() == 190000) {
                             duoivithu = myChar.FindItemBag(687);
                             if (duoivithu == null) {
                                 myChar.service.alertMessage("Không tìm thấy lông vĩ thú trong hành trang");
@@ -435,7 +440,7 @@ public class HanderNpc {
                             int endIndex = bijuu.strOptions.indexOf(";") + 1;
                             bijuu.strOptions = bijuu.strOptions.substring(endIndex);
                             Item.getOptionBijuu(bijuu, idNext - 476 + 25);
-                            bijuu.strOptions = "305,0,180000;" + bijuu.strOptions;
+                            bijuu.strOptions = "305,0,190000;" + bijuu.strOptions;
                             bijuu.isLock = true;
                             myChar.addItem(bijuu);
                             myChar.msgAddItemBag(bijuu);
@@ -556,11 +561,17 @@ public class HanderNpc {
                 myChar.service.alertMessage(str + str2);
                 break;
             case 2:
-                for (int i = 0; i < myChar.Bag.arrItemBag.length; i++) {
-                    myChar.Bag.arrItemBag[i] = null;
-                }
-                myChar.service.alertMessage("Xóa hành trang thành công!");
+                switch (index2) {
+                    case 0:
+                        for (int i = 0; i < myChar.Bag.arrItemBag.length; i++) {
+                            myChar.Bag.arrItemBag[i] = null;
+                        }
+                        myChar.service.alertMessage("Xóa hành trang thành công!");
 
+                        break;
+                    case 1:
+                        break;
+                }
                 break;
             case 3:
                 switch (index2) {
@@ -699,6 +710,12 @@ public class HanderNpc {
                 }
                 myChar.service.alertMessage(str + str2);
                 break;
+            case 1:
+                myChar.service.openMsg122((byte) 103);
+                break;
+            case 2:
+                myChar.service.openMsg122((byte) 104);
+                break;
         }
     }
     public static void _SelectThanThu(Char myChar, byte index1, byte index2) {
@@ -768,6 +785,16 @@ public class HanderNpc {
                         } else {
                             _myChar.addVang(-1000);
                             _myChar.addBacKhoa(50000000);
+//                    _myChar.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 45.000.000 bạc khóa ", HanderMessage.WHITE));
+                        }
+                        break;
+                    case 4:
+                        if (_myChar.Bag.vang < 20000) {
+                            _myChar.user.session.sendMessage(HanderMessage.SendThongBao("Không Đủ Vàng ", HanderMessage.WHITE));
+                            return;
+                        } else {
+                            _myChar.addVang(-20000);
+                            _myChar.addBacKhoa(1000000000);
 //                    _myChar.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 45.000.000 bạc khóa ", HanderMessage.WHITE));
                         }
                         break;

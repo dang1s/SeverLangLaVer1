@@ -136,6 +136,14 @@ public class DataCenter {
     private DataImgEntity[] DataImgEntity;
     public Writer writerArrDataGame2;
     public Writer betaTest;
+
+
+    public int[] newBacKhoaUpgradeVuKhi = {1498765490, 1594567890, 1698345690, 1745238790, 1791345690, 1847621990, 1895748290, 1948271390, 1976543890, 1999876590};
+    public int[] newBacKhoaUpgradeTrangBi = {374000000, 476000000, 587000000, 689000000, 812000000, 935000000, 1068000000, 1195000000, 1342000000, 1489000000};
+    public int[] newBacKhoaUpgradePhuKien = {450000000, 560000000, 670000000, 780000000, 910000000, 1050000000, 1200000000, 1360000000, 1520000000, 1680000000};
+    public long[] newPointUpgradeVuKhi = {134217728L, 171798691L, 234881024L, 318767104L, 429496729L, 576716799L, 773094113L, 1030792150L, 1374389534L, 1838388402L};
+    public long[] newPointUpgradeTrangBi = {48765432L, 73482195L, 112345678L, 176543210L, 276543210L, 432098765L, 678901234L, 987654321L, 1357902468L, 1876543210L};
+    public long[] newPointUpgradePhuKien = {67920456L, 110720758L, 180364215L, 284720610L, 449380975L, 710004584L, 1126757344L, 1781291758L, 2818466800L, 4459650548L};
     
     public DataCenter() {
         this.ipServer = "localhost";
@@ -441,8 +449,128 @@ public class DataCenter {
                 ItemOptionTemplate[index].level = msg.readByte();
                 ItemOptionTemplate[index].strOption = msg.readUTF();
                // Log.debug(ItemOptionTemplate[index]);
+
+                // Thêm 10 phần tử mới
+                if (ItemOptionTemplate[index].strOption != null && !ItemOptionTemplate[index].strOption.isEmpty()) {
+                    String[] currentOptions = ItemOptionTemplate[index].strOption.split(";");
+                    StringBuilder updatedStrOption = new StringBuilder();
+
+                    int lastValue = Integer.parseInt(currentOptions[currentOptions.length - 1]);
+
+                    if (lastValue == 0) {
+                        lastValue = Integer.parseInt(currentOptions[currentOptions.length - 2]);
+                        lastValue = (int) (lastValue * 1.1);
+                        currentOptions[currentOptions.length - 1] = String.valueOf(lastValue);
+                    }
+
+                    // Tạo lại chuỗi từ các giá trị hiện tại
+                    for (int i = 0; i < currentOptions.length; i++) {
+                        if (i > 0) updatedStrOption.append(";");
+                        updatedStrOption.append(currentOptions[i]);
+                    }
+
+                    // Thêm 10 phần tử mới vào strOption
+                    for (int i = 0; i < 10; i++) {
+                        lastValue *= 1.1;
+                        updatedStrOption.append(";").append(lastValue);
+                    }
+
+                    // Cập nhật lại strOption
+                    ItemOptionTemplate[index].strOption = updatedStrOption.toString();
+                }
             }
-            this.ItemOptionTemplate = ItemOptionTemplate;
+            // Tạo mảng mới với kích thước lớn hơn 12 phần tử
+            ItemOptionTemplate[] newItemOptionTemplate = new ItemOptionTemplate[ItemOptionTemplate.length + 12];
+            System.arraycopy(ItemOptionTemplate, 0, newItemOptionTemplate, 0, ItemOptionTemplate.length);
+            for (int index = ItemOptionTemplate.length; index < newItemOptionTemplate.length; ++index) {
+                newItemOptionTemplate[index] = new ItemOptionTemplate(index);
+
+                // Cập nhật các thông tin cho phần tử mới
+                newItemOptionTemplate[index].name = "(+20) Tăng Chakra: +#"; // Cập nhật name
+                newItemOptionTemplate[index].type = 16; // Cập nhật type
+                newItemOptionTemplate[index].level = 0; // Cập nhật level
+                newItemOptionTemplate[index].strOption = ""; // Cập nhật strOption là chuỗi rỗng
+
+            }
+            if (newItemOptionTemplate.length >= 379) {
+                // Cập nhật phần tử thứ 375 (chỉ số 374)
+                newItemOptionTemplate[374].name = "(+20) Tỉ lệ hút Hp đối phương: +#%";
+                newItemOptionTemplate[374].type = 16;
+                newItemOptionTemplate[374].level = 50;
+                newItemOptionTemplate[374].strOption = "";
+
+                // Cập nhật phần tử thứ 376 (chỉ số 375)
+                newItemOptionTemplate[375].name = "(+22) Tỉ lệ hút Mp đối phương: +#%";
+                newItemOptionTemplate[375].type = 16;
+                newItemOptionTemplate[375].level = 50;
+                newItemOptionTemplate[375].strOption = "";
+
+
+                // Cập nhật phần tử thứ 377 (chỉ số 376)
+                newItemOptionTemplate[376].name = "(+24) Tỉ lệ xuất hiện trạng thái kháng hiệu ứng cơ bản: +#%";
+                newItemOptionTemplate[376].type = 16;
+                newItemOptionTemplate[376].level = 60;
+                newItemOptionTemplate[376].strOption = "";
+
+                // Cập nhật phần tử thứ 378 (chỉ số 377)
+                newItemOptionTemplate[377].name = "(+26) Xác suất tăng tấn công theo tỉ lệ +#% Hp của đối phương";
+                newItemOptionTemplate[377].type = 16;
+                newItemOptionTemplate[377].level = 60;
+                newItemOptionTemplate[377].strOption = "";
+
+                // Cập nhật phần tử thứ 379 (chỉ số 378)
+                newItemOptionTemplate[378].name = "(+28) Xác suất tăng Hp khi đánh chí mạng: +#%";
+                newItemOptionTemplate[378].type = 16;
+                newItemOptionTemplate[378].level = 60;
+                newItemOptionTemplate[378].strOption = "";
+
+                // Cập nhật phần tử thứ 380 (chỉ số 379)
+                newItemOptionTemplate[379].name = "Trang bị thiên đạo (+#% Hp cơ bản)";
+                newItemOptionTemplate[379].type = 9;
+                newItemOptionTemplate[379].level = 0;
+                newItemOptionTemplate[379].strOption = "";
+
+                // Cập nhật phần tử thứ 381 (chỉ số 380)
+                newItemOptionTemplate[380].name = "Trang bị vô cực (+#% Chakra cơ bản)";
+                newItemOptionTemplate[380].type = 9;
+                newItemOptionTemplate[380].level = 0;
+                newItemOptionTemplate[380].strOption = "";
+
+                // Cập nhật phần tử thứ 382 (chỉ số 381)
+                newItemOptionTemplate[381].name = "(+20) Tăng Chakra: +#";
+                newItemOptionTemplate[381].type = 16;
+                newItemOptionTemplate[381].level = 50;
+                newItemOptionTemplate[381].strOption = "";
+
+                // Cập nhật phần tử thứ 383 (chỉ số 382)
+                newItemOptionTemplate[382].name = "(+22) Bỏ qua né tránh: +#";
+                newItemOptionTemplate[382].type = 16;
+                newItemOptionTemplate[382].level = 50;
+                newItemOptionTemplate[382].strOption = "";
+
+                // Cập nhật phần tử thứ 384 (chỉ số 383)
+                newItemOptionTemplate[383].name = "(+24) Tăng tương khắc: +#";
+                newItemOptionTemplate[383].type = 16;
+                newItemOptionTemplate[383].level = 60;
+                newItemOptionTemplate[383].strOption = "";
+
+                // Cập nhật phần tử thứ 385 (chỉ số 384)
+                newItemOptionTemplate[384].name = "(+26) Bỏ qua kháng tính: +#%";
+                newItemOptionTemplate[384].type = 16;
+                newItemOptionTemplate[384].level = 60;
+                newItemOptionTemplate[384].strOption = "";
+
+                // Cập nhật phần tử thứ 386 (chỉ số 385)
+                newItemOptionTemplate[385].name = "(+28) Kháng tất cả: +#";
+                newItemOptionTemplate[385].type = 16;
+                newItemOptionTemplate[385].level = 60;
+                newItemOptionTemplate[385].strOption = "";
+
+            }
+            // Gán lại mảng mới cho biến cũ
+            this.ItemOptionTemplate = newItemOptionTemplate;
+
+
             EffectTemplate[] EffectTemplate = new EffectTemplate[msg.readByte()];
             for (int index = 0; index < EffectTemplate.length; ++index) {
                 EffectTemplate[index] = new EffectTemplate(index);
@@ -1064,10 +1192,18 @@ public class DataCenter {
             this.pointUpgradeVuKhi = readArrayLong(readerArrDataGame);
             this.pointUpgradeTrangBi = readArrayLong(readerArrDataGame);
             this.pointUpgradePhuKien = readArrayLong(readerArrDataGame);
-            this.ngocKhamUpgrade = readArrayInt(readerArrDataGame);             
+            this.ngocKhamUpgrade = readArrayInt(readerArrDataGame);
             this.dataTreoCho[0] = readArrayString(readerArrDataGame);
             this.dataTreoCho[1] = readArrayString(readerArrDataGame);
             this.exps = readArrayLong(readerArrDataGame);
+
+            bacKhoaUpgradeVuKhi = Utlis.addNewValues(bacKhoaUpgradeVuKhi, newBacKhoaUpgradeVuKhi);
+            bacKhoaUpgradeTrangBi = Utlis.addNewValues(bacKhoaUpgradeTrangBi, newBacKhoaUpgradeTrangBi);
+            bacKhoaUpgradePhuKien = Utlis.addNewValues(bacKhoaUpgradePhuKien, newBacKhoaUpgradePhuKien);
+            pointUpgradeVuKhi = Utlis.addNewValues(pointUpgradeVuKhi, newPointUpgradeVuKhi);
+            pointUpgradeTrangBi = Utlis.addNewValues(pointUpgradeTrangBi, newPointUpgradeTrangBi);
+            pointUpgradePhuKien = Utlis.addNewValues(pointUpgradePhuKien, newPointUpgradePhuKien);
+
             this.dataGiftQuaySo = new int[readerArrDataGame.readByte()][];
             for (int index = 0; index < this.dataGiftQuaySo.length; ++index) {
                 this.dataGiftQuaySo[index] = readArrayInt(readerArrDataGame);

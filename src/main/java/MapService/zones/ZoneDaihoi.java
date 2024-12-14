@@ -38,7 +38,7 @@ public class ZoneDaihoi extends ZWorld{
 //            return;
         if(DaiHoiVoThuat.gI().qualifierRound||DaiHoiVoThuat.gI().semiFinals||DaiHoiVoThuat.gI().finalRound){
             player.setXY((short) 410, (short) 566);
-            //player.InfoGame.TypePk = 1;
+            player.InfoGame.TypePk = 1;
             //player.service.setXYChar();
             //return;
         }

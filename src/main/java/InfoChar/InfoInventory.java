@@ -22,14 +22,14 @@ public class InfoInventory {
     public Item[] arrItemExtend;
     public Item[] arrItemSkillViThu;
     public Item itemSach;
-    public int bac;
-    public int bacKhoa;
-    public int vangKhoa;
-    public int vang;
-    public int bacBox;
-    public int bacKhoaBox;
-    public int vangKhoaBox;
-    public int vangBox;
+    public long bac;
+    public long bacKhoa;
+    public long vangKhoa;
+    public long vang;
+    public long bacBox;
+    public long bacKhoaBox;
+    public long vangKhoaBox;
+    public long vangBox;
     public int taiPhu;
     public int statusGD = 0;
     public int pointNAP;
@@ -57,8 +57,8 @@ public class InfoInventory {
         arrItemBox = new Item[27];
         vang = 0;//open sửa lại
         vangKhoa = 1000;
-        bac = 1000;
-        bacKhoa = 1000;
+        bac = 0;
+        bacKhoa = 0;
         vangBox = 0;
         vangKhoaBox = 0;
         bacBox = 0;

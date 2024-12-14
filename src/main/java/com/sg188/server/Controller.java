@@ -1238,6 +1238,16 @@ public class Controller implements IMessageHandler {
                         _char.updateLucDao(msg);
                     }
                     break;
+                case -117:
+                    if (_char != null && _char.user != null) {
+                        _char.updateThienDao(msg);
+                    }
+                    break;
+                case -118:
+                    if (_char != null && _char.user != null) {
+                        _char.updateVoCuc(msg);
+                    }
+                    break;
                 case -85:
                     if (_char != null && _char.user != null) {
                         if (_char.isWheelGold) {

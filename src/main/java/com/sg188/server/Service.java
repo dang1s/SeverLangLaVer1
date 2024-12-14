@@ -1288,7 +1288,7 @@ public class Service {
     public void updateItemTrade() {
         try {
             Message m = new Message((byte) 83);
-            m.writeInt(player.Bag.bac);
+            m.writeLong(player.Bag.bac);
             player.writeItemBag(m.writer, player.Bag.arrItemBag);
             session.sendMessage(m);
         } catch (IOException e) {
@@ -1777,39 +1777,72 @@ public void sendTaskOrder(TaskOrder task) {
     public void buyMarket() {
         try {
             Message m = new Message((byte) 98);
-            m.writeInt(player.Bag.bac);
+            m.writeLong(player.Bag.bac);
             session.sendMessage(m);
             m.close();
         } catch (IOException e) {
         }
     }
 
+//    public void reloadLetter() {
+//        try {
+//            Message m = new Message((byte) 97);
+//            m.writeShort(player.letters.size());
+//            for (TemplateThu thu : player.letters) {
+//                m.writeShort(thu.id);
+//                m.writeBoolean(thu.isSucess);
+//                m.writeUTF(thu.NameNguoiGui);
+//                m.writeUTF(thu.Title);
+//                m.writeUTF(thu.NoiDungThu);
+//                m.writeInt(thu.Bac);
+//                m.writeInt(thu.BacKhoa);
+//                m.writeInt(thu.Vang);
+//                m.writeInt(thu.VangKhoa);
+//                m.writeLong(thu.Exp);
+//                m.writeInt((int) (thu.TimeEnd / 1000 + 2000000));
+//                if (thu.Item == null) {
+//                    m.writeShort(-1);
+//                } else {
+//                    thu.Item.write(m.writer);
+//                }
+//            }
+//            sendMessage(m);
+//        } catch (IOException ex) {
+//            Log.error("Loi reload thu "+ex);
+//        }
+//    }
+
     public void reloadLetter() {
         try {
             Message m = new Message((byte) 97);
-            m.writeShort(player.letters.size());
-            for (TemplateThu thu : player.letters) {
-                m.writeShort(thu.id);
-                m.writeBoolean(thu.isSucess);
-                m.writeUTF(thu.NameNguoiGui);
-                m.writeUTF(thu.Title);
-                m.writeUTF(thu.NoiDungThu);
-                m.writeInt(thu.Bac);
-                m.writeInt(thu.BacKhoa);
-                m.writeInt(thu.Vang);
-                m.writeInt(thu.VangKhoa);
-                m.writeLong(thu.Exp);
-                m.writeInt((int) (thu.TimeEnd / 1000 + 2000000));
-                if (thu.Item == null) {
-                    m.writeShort(-1);
-                } else {
-                    thu.Item.write(m.writer);
+
+            synchronized (player.letters) {
+                m.writeShort(player.letters.size());
+                for (TemplateThu thu : player.letters) {
+                    m.writeShort(thu.id);
+                    m.writeBoolean(thu.isSucess);
+                    m.writeUTF(thu.NameNguoiGui);
+                    m.writeUTF(thu.Title);
+                    m.writeUTF(thu.NoiDungThu);
+                    m.writeInt(thu.Bac);
+                    m.writeInt(thu.BacKhoa);
+                    m.writeInt(thu.Vang);
+                    m.writeInt(thu.VangKhoa);
+                    m.writeLong(thu.Exp);
+                    m.writeInt((int) (thu.TimeEnd / 1000 + 2000000));
+                    if (thu.Item == null) {
+                        m.writeShort(-1);
+                    } else {
+                        thu.Item.write(m.writer);
+                    }
                 }
             }
+
             sendMessage(m);
         } catch (IOException ex) {
-            Log.error("Loi reload thu "+ex);
+            Log.error("Loi reload thu " + ex);
         }
     }
+
 }
 

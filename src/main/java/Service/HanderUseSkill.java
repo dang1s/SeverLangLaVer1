@@ -67,7 +67,7 @@ public class HanderUseSkill {
 
                 }
                 break;
-            case 16:
+            case 16://tăng sinh chi thuật
                 value = Short.parseShort(option[0].split(",")[1]);
                 _myChar.addHp(value);
                 if(_myChar.getGroup()!=null){
@@ -123,6 +123,19 @@ public class HanderUseSkill {
                     if(op.getId()==180)
                         _myChar.addEffect(new Effect((short) 54, op.getvalue(), System.currentTimeMillis(), value));
                 }
+                break;
+            case 31://bách hào chi thuật
+                value = Integer.parseInt(option[0].split(",")[1]);
+                value2 = Integer.parseInt(option[1].split(",")[1]);
+                _myChar.addEffect(new Effect((short) 69, value, System.currentTimeMillis(), 1000*10));
+                _myChar.addEffect(new Effect((short) 70, value2, System.currentTimeMillis(), 1000*10));
+                _myChar.msgUpdateHp();
+                break;
+            case 13://bya 60 nữ
+                value = Integer.parseInt(option[0].split(",")[1]);
+                value2 = Integer.parseInt(option[1].split(",")[1]);
+                _myChar.addEffect(new Effect((short) 72, value, System.currentTimeMillis(), 1000*10));
+                _myChar.addEffect(new Effect((short) 73, value2, System.currentTimeMillis(), 1000*10));
                 break;
         }
 

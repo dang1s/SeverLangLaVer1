@@ -1224,6 +1224,12 @@ public class Zone {
                     Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được cao thủ nhẫn giả và giành được phần thưởng",2);
                     player.Info.chuyenCan += 50;
                     player.Info.chuyenCanTuan += 50;
+                    player.addBacKhoa(10000000);
+                    Item da = new Item(9);
+                    da.isLock = true;
+                    da.amount = 1;
+                    player.addItem(da);
+                    player.msgAddItemBag(da);
                     if (player.clan != null) {
                         player.addClanPoint(50);
                     }
@@ -1237,7 +1243,7 @@ public class Zone {
                     for (Item item : mob.itemBoss) {
                         Item it = item.cloneItem();
                         if (!it.strOptions.isEmpty()) {
-                            if (Utlis.nextInt(0, 1000) < 5) {
+                            if (Utlis.nextInt(0, 100) < 5) {
                                 it.GetOptionHokage(item);
                             }
                             it.createItemOptions();
@@ -1247,6 +1253,42 @@ public class Zone {
                     Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được vĩ thú và giành được 1 lượt ải gia tộc + phần thưởng",2);
                     player.Info.chuyenCan += 50;
                     player.Info.chuyenCanTuan += 50;
+                    player.addBacKhoa(10000000);
+                    Item veVanMay = new Item(932);
+                    veVanMay.isLock = false;
+                    veVanMay.amount = 5;
+                    player.addItem(veVanMay);
+                    player.msgAddItemBag(veVanMay);
+                    if (player.clan != null) {
+                        player.addClanPoint(50);
+                        player.clan.openDun += 1;
+                    }
+                    player.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 50 điểm chuyên cần, 50 cống hiến gia tộc", HanderMessage.YELLOW_MID));
+
+                }
+                monsters.remove(mob);
+                MAX_CHAR_INZONE = 24;
+            } else if(mob.getMobTemplate().id == 273) {
+                if (mob.itemBoss != null && !mob.itemBoss.isEmpty()) {
+                    for (Item item : mob.itemBoss) {
+                        Item it = item.cloneItem();
+                        if (!it.strOptions.isEmpty()) {
+                            if (Utlis.nextInt(0, 100) < 5) {
+                                it.GetOptionHokage(item);
+                            }
+                            it.createItemOptions();
+                        }
+                        player.addItem(it);
+                    }
+                    Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được Madara và giành được 1 lượt ải gia tộc + 50 vé quay",2);
+                    player.Info.chuyenCan += 50;
+                    player.Info.chuyenCanTuan += 50;
+                    player.addBacKhoa(10000000);
+                    Item da = new Item(9);
+                    da.isLock = true;
+                    da.amount = 1;
+                    player.addItem(da);
+                    player.msgAddItemBag(da);
                     if (player.clan != null) {
                         player.addClanPoint(50);
                         player.clan.openDun += 1;

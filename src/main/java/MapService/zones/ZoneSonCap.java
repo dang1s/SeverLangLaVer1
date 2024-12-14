@@ -336,7 +336,11 @@ public class ZoneSonCap extends ZWorld {
 
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 2;
+                    if(it.id == 354) {
+                        it.amount = 10;
+                    } else {
+                        it.amount = 2;
+                    }
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -347,7 +351,11 @@ public class ZoneSonCap extends ZWorld {
             case 268:
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 2;
+                    if(it.id == 354) {
+                        it.amount = 10;
+                    } else {
+                        it.amount = 2;
+                    }
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -357,7 +365,11 @@ public class ZoneSonCap extends ZWorld {
             case 269:
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 2;
+                    if(it.id == 354) {
+                        it.amount = 10;
+                    } else {
+                        it.amount = 2;
+                    }
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -367,7 +379,11 @@ public class ZoneSonCap extends ZWorld {
             case 270:
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 2;
+                    if(it.id == 354) {
+                        it.amount = 10;
+                    } else {
+                        it.amount = 2;
+                    }
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
@@ -377,7 +393,11 @@ public class ZoneSonCap extends ZWorld {
             case 271:
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
-                    it.amount = 2;
+                    if(it.id == 354) {
+                        it.amount = 10;
+                    } else {
+                        it.amount = 2;
+                    }
                     player.addItem(it);
                     player.msgAddItemBag(it);
                 }
