@@ -48,9 +48,15 @@ public class HanderGiftCode {
 //                    }
 //                }
 //
-                if(code.equals("kichhoat") || code.equals("vequay") || code.equals("quatang")){
+                if(code.equals("kichhoat") || code.equals("vequay") || code.equals("quatang") || code.equals("giangsinhanlanh2")){
                     if(!_myChar.user.actived){
                         _myChar.service.alertMessage("Sau khi kích hoạt bạn sẽ sử dụng được Giftcode này!");
+                        return;
+                    }
+                }
+                if(code.equals("happynewyear")){
+                    if(!_myChar.user.actived && _myChar.level() < 49){
+                        _myChar.service.alertMessage("Cần kích hoạt và đạt lv 49 trở lên!");
                         return;
                     }
                 }

@@ -31,37 +31,24 @@ public class DaiHoiVoThuat extends World{
     public ArrayList<Char> viewers;
 
     public boolean isOpened;
-    private boolean finished;
+
     public long timeStart;
     public boolean qualifierRound;
-    public boolean groupStage;
     public List<Char>listGroupStage;
     public boolean quarterFinals;
     public List<Char>listQuarterFinals;
-
     public boolean semiFinals;//bán kết
-
     public boolean prepareSemiFinals;// đếm ngược chuẩn bị
-
     public boolean prepareFinals; //đếm ngược chung kết
-    public List<Char>listSemiFinals;
     public boolean finalRound;
     public List<Char>listFinalRound;
-
     public boolean isVong18;
-
     public List<Match> vong1_8 = new ArrayList<>();
-
     public boolean isVong14;
-
     public List<Match> vong1_4 = new ArrayList<>();
-
     public boolean isVongChungKet;
-
     public List<Match> vongChungKet = new ArrayList<>();
-
     public boolean checkClose;
-
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
 
     /*public DaiHoiVoThuat() {
@@ -187,6 +174,26 @@ public class DaiHoiVoThuat extends World{
             e.printStackTrace();
         }
     }
+
+    void prepareCharForBattle(Char pl, Zone zone) {
+        if (pl.InfoGame.isDie) {
+            pl.reSpawn();
+        }
+        zone.addChar(pl);
+        pl.setXY((short) 458, (short) 471);
+        pl.service.setXYChar();
+    }
+
+    private void setupPlayerInZone(Char player, Zone zone) {
+        if (player.InfoGame.isDie) {
+            player.reSpawn();
+        }
+        zone.addChar(player);
+        player.setXY((short) 458, (short) 471);
+        player.service.setXYChar();
+        zone.SendMessageInZone(HanderMessage.SendTypePk(player.id, (byte) 0));
+    }
+
     @Override
     public void update() {
         try {
@@ -217,7 +224,6 @@ public class DaiHoiVoThuat extends World{
                         }
                     }
                 } else if(qualifierRound){
-                    //groupStage = true;
                     qualifierRound= false;
                     quarterFinals = true;
                     isVong18 = true;
@@ -230,63 +236,19 @@ public class DaiHoiVoThuat extends World{
                     Main.HeThongCTG("Vòng Knock-out 8 đại chiến nhẫn giả đã bắt đầu",2);
                     timeStart= System.currentTimeMillis();
 
-//                    for (Char pl:listPlayerInMap){
-//                        if(pl!=null&&pl.user!=null&&!pl.isClean){
-//                            for (int i = 0; i < 3; i++) {
-//                                TemplateThu thu = new TemplateThu();
-//                                thu.id = (short) (pl.letters.size() + 1);
-//                                thu.Bac = 0;
-//                                thu.BacKhoa = 0;
-//                                thu.Vang = 0;
-//                                thu.VangKhoa = 0;
-//                                thu.Exp = 0;
-//                                thu.Title = "Quà tham gia đại hội võ thuật ";
-//                                thu.NameNguoiGui = "Hệ thống";
-//                                thu.NoiDungThu = "";
-//                                thu.TimeEnd = System.currentTimeMillis() + 864000000;
-//                                thu.Item = new Item(1);
-//                                pl.letters.add(thu);
-//                                pl.getService().reloadLetter();
-//                            }
-//                            pl.setXY((short) (500+ Utlis.nextInt(-200,200)), (short) 566);
-//                            pl.service.setXYChar();
-//                            pl.getService().sendTimeInMap(getCountDown()*10,true,timeStart);
-//                        }
-//                    }
-
                     for (int i = 0; i < listGroupStage.size() / 2; i++) {
-                        // Lấy người chơi đầu tiên và cuối cùng trong danh sách
-                        Char pl = listGroupStage.get(i);
-                        Char plAtt = listGroupStage.get(listGroupStage.size() - 1 - i);
-
-                        // Nếu còn số lượng người lẻ
-                        if (i == listGroupStage.size() / 2 - 1 && listGroupStage.size() % 2 != 0) {
-                            // Giải quyết trường hợp có người chơi không tham gia trận đấu này
+                        if (listGroupStage.size() % 2 != 0 && i == listGroupStage.size() / 2 - 1) {
                             Char byePlayer = listGroupStage.get(listGroupStage.size() / 2);
                             Zone zone = zones.get(0);
-                            zone.addChar(byePlayer);
-                            byePlayer.setXY((short) 458, (short) 471);
-                            byePlayer.service.setXYChar();
-                            zone.SendMessageInZone(HanderMessage.SendTypePk(byePlayer.id, (byte) 0));
-
-                            //thêm người chơi vào vòng sau
+                            prepareCharForBattle(byePlayer, zone);
                             Main.HeThongCTG(byePlayer.getName() + " tự động vào vòng tiếp theo.", 2);
-                            vong1_8.add(new Match(byePlayer,byePlayer,1));
+                            vong1_8.add(new Match(byePlayer, byePlayer, 1));
                         } else {
-                            // Xử lý các cặp đấu bình thường
+                            Char pl = listGroupStage.get(i);
+                            Char plAtt = listGroupStage.get(listGroupStage.size() - 1 - i);
                             Zone zone = zones.get(i + 1);
-                            if(pl.InfoGame.isDie) {
-                                pl.reSpawn();
-                            }
-                            zone.addChar(pl);
-                            if(plAtt.InfoGame.isDie) {
-                                plAtt.reSpawn();
-                            }
-                            zone.addChar(plAtt);
-                            pl.setXY((short) 458, (short) 471);
-                            pl.service.setXYChar();
-                            plAtt.setXY((short) 458, (short) 471);
-                            plAtt.service.setXYChar();
+                            prepareCharForBattle(pl, zone);
+                            prepareCharForBattle(plAtt, zone);
                             vong1_8.add(new Match(pl, plAtt));
                             zone.SendMessageInZone(HanderMessage.SendTypePk(pl.id, (byte) 0));
                             zone.SendMessageInZone(HanderMessage.SendTypePk(plAtt.id, (byte) 0));
@@ -296,7 +258,6 @@ public class DaiHoiVoThuat extends World{
                 } else if(quarterFinals) {
                     quarterFinals = false;
                     prepareSemiFinals = true;
-                    System.out.println("Check 1_8");
                     setCountdown(120);
                     timeStart= System.currentTimeMillis();
                     List<Char> list = listGroupStage;
@@ -314,50 +275,42 @@ public class DaiHoiVoThuat extends World{
                     semiFinals = true;
                     prepareSemiFinals = false;
                     setCountdown(120);
+
                     for (int i = 0; i < listQuarterFinals.size() / 2; i++) {
                         Char pl = listQuarterFinals.get(i);
                         Char plAtt = listQuarterFinals.get(listQuarterFinals.size() - 1 - i);
 
-                        // Kiểm tra nếu số người chơi là lẻ
+                        // Kiểm tra nếu số người chơi là lẻ và đây là người chơi cuối cùng chưa được ghép cặp
                         if (listQuarterFinals.size() % 2 != 0 && i == listQuarterFinals.size() / 2 - 1) {
-                            // Người chơi cuối cùng sẽ tự động tiến vào vòng tiếp theo
                             Char plBye = listQuarterFinals.get(listQuarterFinals.size() - 1);
-                            Zone zone = zones.get(i + 5); // Lấy zone cho trận đấu
-                            zone.addChar(plBye);  // Thêm người chơi vào zone
-                            plBye.setXY((short) 458, (short) 471);
-                            plBye.service.setXYChar();
 
-                            // Thông báo người chơi đi tiếp mà không phải thi đấu
-                            Main.HeThongCTG(plBye.getName() + " tự động vào vòng tiếp theo (bye).", 2);
+                            Zone zone = zones.get(i + 5); // Lấy zone cho trận đấu
+                            setupPlayerInZone(plBye, zone); // Đặt người chơi vào zone
+
+                            // Thông báo người chơi tự động đi tiếp mà không phải thi đấu
+                            Main.HeThongCTG(plBye.getName() + " tự động vào vòng tiếp theo .", 2);
                             listFinalRound.add(plBye);
-                            //vong1_4.add(new Match(plBye, null));
-                            zone.SendMessageInZone(HanderMessage.SendTypePk(plBye.id, (byte) 0));
                             break;
                         }
 
-                        // Trường hợp số lượng người chơi là chẵn, thực hiện như bình thường
+                        // Xử lý các cặp đấu
                         Zone zone = zones.get(i + 5);
-                        zone.addChar(pl);
-                        zone.addChar(plAtt);
-                        pl.setXY((short) 458, (short) 471);
-                        pl.service.setXYChar();
-                        plAtt.setXY((short) 458, (short) 471);
-                        plAtt.service.setXYChar();
-                        vong1_4.add(new Match(pl, plAtt));
-                        zone.SendMessageInZone(HanderMessage.SendTypePk(pl.id, (byte) 0));
-                        zone.SendMessageInZone(HanderMessage.SendTypePk(plAtt.id, (byte) 0));
+
+                        setupPlayerInZone(pl, zone); // Thêm người chơi 1 vào zone
+                        setupPlayerInZone(plAtt, zone); // Thêm người chơi 2 vào zone
+
+                        vong1_4.add(new Match(pl, plAtt)); // Tạo cặp đấu
                     }
 
                 } else if (semiFinals) {
                     semiFinals = false;
                     prepareFinals = true;
-                    System.out.println("Check 1_4");
                     setCountdown(120);
                     timeStart= System.currentTimeMillis();
                     List<Char> list = listQuarterFinals;
 
-                    for(Char pl:list){
-                        if(pl!=null&&pl.user!=null&&!pl.isClean){
+                    for(Char pl: list ){
+                        if(pl!=null && pl.user!= null && !pl.isClean){
                             pl.InfoGame.TypePk = 3;
                             pl.zone.SendMessageInZone(HanderMessage.SendTypePk(pl.id, (byte) 3));
                             pl.getService().sendTimeInMap(getCountDown()*10,true,timeStart);
@@ -366,8 +319,8 @@ public class DaiHoiVoThuat extends World{
                 } else if(prepareFinals){
                     prepareFinals = false;
                     finalRound = true;
+                    isVong14 = false;
                     isVongChungKet = true;
-                    System.out.println("Check chung kết");
                     setCountdown(120);
                     timeStart= System.currentTimeMillis();
                     List<Char> list = listFinalRound;
@@ -393,7 +346,6 @@ public class DaiHoiVoThuat extends World{
                             zone.SendMessageInZone(HanderMessage.SendTypePk(plBye.id, (byte) 0));
                             break;
                         }
-
                         // Trường hợp số lượng người chơi là chẵn, thực hiện như bình thường
                         Zone zone = zones.get(i + 9);
                         zone.addChar(pl);
@@ -407,24 +359,23 @@ public class DaiHoiVoThuat extends World{
                         zone.SendMessageInZone(HanderMessage.SendTypePk(plAtt.id, (byte) 0));
                     }
                 } else if(finalRound) {
+                    finalRound = false;
                     checkClose = true;
                     setCountdown(120);
                     timeStart= System.currentTimeMillis();
-                    //List<Char> list = listFinalRound;
                     if(listFinalRound.size() <= 1) {
-                        if(listFinalRound.get(0) != null && listFinalRound.get(0).Info.name != null) {
-                            Main.HeThongCTG(listFinalRound.get(0).Info.name + " đã chiến thắng đại hội nhẫn giả! Độc cô cầu bại!!", 2);
-                        }
-                        scheduler.schedule(() -> {
-                            try {
-                                Main.HeThongCTG( "Đại hội sẽ đóng sau 15s", 2);
-                                close();
-                            } catch (Exception e) {
-                                System.out.println("Error during respawn: "+ e);
-                            } finally {
-                                Main.HeThongCTG( "Đại hội đã kết thúc", 2);
+                        if (!listFinalRound.isEmpty()) {
+                            if (listFinalRound.get(0) != null && listFinalRound.get(0).Info.name != null) {
+                                Main.HeThongCTG(listFinalRound.get(0).Info.name + " đã chiến thắng đại hội nhẫn giả! Độc cô cầu bại!!", 2);
                             }
-                        }, 15, TimeUnit.SECONDS);
+                        }
+                        try {
+                            Main.HeThongCTG( "Đại hội sẽ đóng sau 15s", 2);
+                            close();
+                            return;
+                        } catch (Exception e) {
+                            System.out.println("Error during respawn: "+ e);
+                        }
                     }
                     for(Char pl : listFinalRound) {
                         if(pl != null && pl.user != null && !pl.isClean){
@@ -558,5 +509,28 @@ public class DaiHoiVoThuat extends World{
         return false;
     }
 
+    public void close() {
+        if (this.isClosed) {
+            return;
+        }
+        try {
+            for (Char _char : listPlayerInMap) {
+                try {
+                    if (_char.isClean) {
+                        continue;
+                    }
+                    Map.maps[86].addChar(_char);
+                    _char.service.serverMessage("Đại hội võ thuật đã kết thúc.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }catch (Exception e){
 
+        }finally {
+            super.close();
+            DaiHoiVoThuat.gI().destroy();
+        }
+
+    }
 }

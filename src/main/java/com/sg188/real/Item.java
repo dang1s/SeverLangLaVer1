@@ -665,6 +665,10 @@ public class Item implements Cloneable {
                             var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
                             var3.add(new ItemOption(var10[this.he])); //(+19) Tấn công lên hệ #: #
                             var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
+                            var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                            var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                            var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                            var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
                         }
                     }
                     if (this.getItemTemplate().levelNeed / 10 == 5 && var2[var8].getItemOptionTemplate().type == 10) {
@@ -719,11 +723,11 @@ public class Item implements Cloneable {
         }
         int param = 0;
         if (this.getItemTemplate().levelNeed < 50) {
-            param = 60;
+            param = 6;
         } else if (this.getItemTemplate().levelNeed < 60) {
-            param = 70;
+            param = 7;
         } else if (this.getItemTemplate().levelNeed < 70) {
-            param = 80;
+            param = 8;
         }
         var3.add(new ItemOption("379," + param + ",-1"));
         this.strOptions = Item.a(var3);
@@ -740,11 +744,11 @@ public class Item implements Cloneable {
         }
         int param = 0;
         if (this.getItemTemplate().levelNeed < 50) {
-            param = 10;
+            param = 4;
         } else if (this.getItemTemplate().levelNeed < 60) {
-            param = 15;
+            param = 5;
         } else if (this.getItemTemplate().levelNeed < 70) {
-            param = 20;
+            param = 6;
         }
         var3.add(new ItemOption("380," + param + ",-1"));
         this.strOptions = Item.a(var3);
@@ -867,6 +871,10 @@ public class Item implements Cloneable {
                             var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
                             var3.add(new ItemOption(var16[this.he])); //(+19) Tấn công lên hệ #: #
                             var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
+                            var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                            var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                            var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                            var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
                         }
                     }
                 }
@@ -1002,6 +1010,10 @@ public class Item implements Cloneable {
                             var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
                             var3.add(new ItemOption(var16[this.he])); //(+19) Tấn công lên hệ #: #
                             var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
+                            var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                            var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                            var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                            var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
                         }
                     }
                 }
@@ -1265,6 +1277,10 @@ public class Item implements Cloneable {
                             var3.add(new ItemOption("286,300,-1")); //(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây)
                             var3.add(new ItemOption(var16[this.he])); //(+19) Tấn công lên hệ #: #
                             var3.add(new ItemOption("360,5,-1")); //(+19) Bỏ qua kháng tính: +#%
+                            var3.add(new ItemOption("374,5,-1")); //(+20) Tỉ lệ hút Hp đối phương: +#%
+                            var3.add(new ItemOption("381,200,-1")); //(+20) Tăng Chakra: +#
+                            var3.add(new ItemOption("375,5,-1")); //(+22) Tỉ lệ hút Mp đối phương: +#%
+                            var3.add(new ItemOption("382,200,-1")); //(+22) Bỏ qua né tránh: +#
                         }
                     }
                 }
@@ -1367,7 +1383,7 @@ public class Item implements Cloneable {
     public boolean u() {
         if (this.getItemTemplate().type >= 0 && this.getItemTemplate().type <= 9) {
             if (this.X()) {
-                if (this.getItemTemplate().levelNeed >= 60 && this.level < 30 || this.getItemTemplate().levelNeed >= 50 && this.level < 26 || this.getItemTemplate().levelNeed >= 40 && this.level < 20) {
+                if (this.getItemTemplate().levelNeed >= 60 && this.level < 30 || this.getItemTemplate().levelNeed >= 50 && this.level < 26 || this.getItemTemplate().levelNeed >= 40 && this.level < 23) {
                     return true;
                 }
             } else if (this.W()) {
@@ -2095,10 +2111,9 @@ public class Item implements Cloneable {
                 return he1 == he2 && he2 == he3;
             }
         }
-        if (this.getItemTemplate().type == 1) {
+        if (this.getItemTemplate().type == 1) {//kích ẩn??
             if (pl.Bag.arrItemBody[1] != null) {
                 return pl.Info.idhe == pl.Bag.arrItemBody[1].he || pl.Bag.arrItemBody[15] != null && pl.Bag.arrItemBody[15].he == pl.Bag.arrItemBody[1].he;
-
             }
         }
         return false;
@@ -2282,11 +2297,12 @@ public class Item implements Cloneable {
             selectedIndices.add(indices.get(i));
         }
         String result = String.join(";", selectedIndices);
+        this.level = (byte) Utlis.nextInt(19,29);//level thời trang
         this.strOptions = result;
     }
 
     public void createOptionTanTo() {
-        this.level = 19;
+        this.level = (byte) Utlis.nextInt(19,29);
         this.strOptions = "122,10,30;151,50,200;152,50,200;117,100,300;110,50,150;158,1,3;2,50,200;167,50,150;126,3,8";
     }
 

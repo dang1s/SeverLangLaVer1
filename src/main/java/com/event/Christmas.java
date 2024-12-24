@@ -28,13 +28,13 @@ public class Christmas extends Event{
         keyEventPoint.add(EventPoint.DIEM_TIEU_XAI);
         //keyEventPoint.add(TOP_FISH);
 //        menuKhaTienNu = "Làm hũ kem,1 cái,10 cái,100 cái,Hướng dẫn;Giải cứu Tiên Nhân,Tham gia(500 vàng),Từ chối;BXH Top Làm Kem;BXH Top Câu Cá;Kiểm tra điểm sự kiện;Đổi điểm,Sách nhẫn thuật đặc biệt, Thẻ đổi tên, Cải trang Madara, Cải trang Madara Lục Đạo, Cải trang Kakashi Lục Đạo, Bí kíp Bí Ngô";
-        menuKhaTienNu = "Làm vớ,1 cái,10 cái,100 cái,Hướng dẫn;Làm găng tay,1 cái,10 cái,100 cái,Hướng dẫn;Giải cứu Tiên Nhân,Tham gia(5000 vàng),Từ chối;BXH Top Làm Vớ;Kiểm tra điểm sự kiện;Đổi điểm, Nhẫn thuật sao chép thượng cấp, Thẻ đổi tên, Cải trang Noel, Đá 12, Vé vận may VIP, Bí kíp Bí Ngô";
+        menuKhaTienNu = "Làm vớ,1 cái,10 cái,100 cái,Hướng dẫn;Làm găng tay,1 cái,10 cái,100 cái,Hướng dẫn;Nhận nhiệm vụ,Giết cương thi(1k vàng),Phong ấn,Hướng dẫn;BXH Top Làm Vớ;Kiểm tra điểm sự kiện;Đổi điểm, Nhẫn thuật sao chép thượng cấp, Thẻ đổi tên, Cải trang Noel, Đá 12, Vé vận may VIP, Bí kíp Bí Ngô";
     }
 
     private void makeSocks(Char p, int amount) {
         int[][] itemRequires = new int[][]{{792, 5}, {793, 5}, {794, 5}};
         int itemIdReceive = 795;
-        boolean isDone = makeEventItem(p, amount, itemRequires, 100, 0, 0, itemIdReceive);
+        boolean isDone = makeEventItem(p, amount, itemRequires, 20, 0, 0, itemIdReceive);
         if (isDone) {
             p.getEventPoint().addPoint(TOP_MAKE_SOCKS, amount);
             p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
@@ -123,96 +123,55 @@ public class Christmas extends Event{
                 }
                 break;
             case 2:
-                switch (index2) {
+                switch (index2){
                     case 0:
-                        if (p.idDungeonEvent != -1) {
-                            SummerEvent summerEvent = SummerEvent.findSummerEventById(p.idDungeonEvent);
-                            if (summerEvent != null && !summerEvent.isClosed()) {
-                                p.addWorld(summerEvent);
-                                summerEvent.join(p);
-                                return;
-                            } else {
-                                p.idDungeonEvent = -1;
-                            }
+                        if(p.Bag.vang < 1000){
+                            p.service.alertMessage("Không đủ 1000 vàng");
+                            return;
                         }
-                        if (p.level() > 44) {
-                            if (p.getGroup() != null) {
-                                boolean check = false;
-                                boolean checkVang = false;
-                                boolean checkLevel = true;
-                                int level = 0;
-                                List<Char> chars = p.getGroup().getCharsInZone(p.zone.map.mapID, p.zone.zoneID);
-                                if (chars.size() < p.getGroup().getChars().size()) {
-                                    p.service.alertMessage("Vui lòng tập hợp đủ thành viên lại");
-                                    return;
-                                }
-                                if (p.level() < 45) {
-                                    p.service.alertMessage("Ban không đủ level tham gia phó bản");
-                                    return;
-                                }
-                                for (Char p2 : chars) {
-                                    if (p2.idDungeonEvent != -1) {
-                                        check = true;
-                                        return;
-                                    }
-                                    if (p2.level() < 45) {
-                                        checkLevel = false;
-                                        return;
-                                    }
-                                    if (p2.Bag.vang < 5000) {
-                                        checkVang = true;
-                                        return;
-                                    }
-                                    level += p2.level();
-                                }
-                                if (check) {
-                                    p.service.alertMessage("Có thành viên trong tổ đội đã tham gia một phó bản giải cứu thầy khác");
-                                    return;
-                                }
-                                if (!checkLevel) {
-                                    p.service.alertMessage("Có thành viên trong tổ đội không đủ level gia giải cứu thầy ");
-                                    return;
-                                }
-                                if (checkVang) {
-                                    p.service.alertMessage("Có thành viên trong tổ đội không đủ 500 vàng");
-                                    return;
-                                }
-                                if (p.getGroup().memberGroups.get(0).charId == p.id) {
-                                    if (p.Bag.vang < 5000) {
-                                        p.getService().serverMessage("Bạn không có đủ 500 vàng");
-                                        return;
-                                    }
-                                    level = level / chars.size();
-                                    SummerEvent summerEvent = new SummerEvent(level);
-                                    SummerEvent.addDungeon(summerEvent);
-                                    if (summerEvent != null) {
-                                        if (summerEvent.isClosed()) {
-                                            return;
-                                        }
-                                        for (Char p2 : chars) {
-                                            if (p2.idDungeonEvent == -1) {
-                                                p2.idDungeonEvent = summerEvent.getId();
-                                                Log.debug(summerEvent.getId());
-                                            }
-                                            p2.addVang(-5000);
-                                            p2.addWorld(summerEvent);
-                                            summerEvent.join(p2);
-                                            summerEvent.addMember(p2);
-                                        }
-
-                                    }
-
-                                } else {
-                                    p.user.session.sendMessage(HanderMessage.SendThongBao("Bạn không phải đội trưởng", HanderMessage.WHITE));
-                                }
-                            } else {
-                                p.user.session.sendMessage(HanderMessage.SendThongBao("Bạn không có tổ đội", HanderMessage.WHITE));
-                            }
-                        } else {
-                            p.service.serverMessage("Phó bản này này không phù hợp với cấp độ của bạn");
+                        if(p.taskSeal){
+                            p.getService().serverMessage("Bạn chưa hoàn thành nhiệm vụ cũ");
+                            return;
                         }
+                        String[] type = {"Cương thi Sasori","Cương thi Deidara","Cương thi Nagato","Cương thi Kisame","Cương thi Itachi"};
+                        p.addVang(-1000);
+                        p.taskSeal = true;
+                        p.typeSeal = type[Utlis.nextInt(0,type.length-1)];
+                        p.getService().alertMessage("Nhiệm vụ của bạn là giết "+p.typeSeal);
                         break;
                     case 1:
+                        if(!p.taskSeal){
+                            p.getService().serverMessage("Bạn chưa nhận nhiệm vụ phong ấn");
+                            return;
+                        }
+                        if(p.stepSeal == 0){
+                            p.getService().alertMessage("Bạn chưa hoàn thành nhiệm vụ giết "+p.typeSeal);
+                            return;
+                        }
+                        p.taskSeal = false;
+                        p.stepSeal = 0;
+                        p.typeSeal ="";
+                        Item thebai = new Item(795);
+                        thebai.amount = 100;
+                        thebai.isLock=true;
+                        p.addItem(thebai);
+                        p.msgAddItemBag(thebai);
+                        p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 70);
+                        p.getEventPoint().addPoint(TOP_MAKE_SOCKS, 100);
+                        p.getService().serverMessage("Bạn nhận được 70 điểm tiêu xài và 100 điểm làm vớ");
+                        break;
+                    case 2:
+                        if(!p.taskSeal){
+                            p.getService().serverMessage("Bạn chưa nhận nhiệm vụ phong ấn");
+                            return;
+                        }
+                        p.taskSeal = false;
+                        p.stepSeal = 0;
+                        p.typeSeal ="";
+                        p.getService().serverMessage("Đã huỷ nhiệm vụ phong ấn");
+                        break;
+                    case 3:
+                        p.getService().sendTextNPC("1k vàng làm nv xong sẽ nhận được 70 điểm tiêu xài và 100 điểm làm vớ", "");
                         break;
                 }
                 break;
@@ -232,9 +191,9 @@ public class Christmas extends Event{
                             return;
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,2000);
-                        Item tvc4 = new Item(940);
-                        p.addItem(tvc4);
-                        p.msgAddItemBag(tvc4);
+                        Item ct19 = new Item(940);
+                        p.addItem(ct19);
+                        p.msgAddItemBag(ct19);
                         break;
                     case 1:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
@@ -296,11 +255,11 @@ public class Christmas extends Event{
                         break;
                     case 5:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 4000){
-                            p.service.serverMessage("Bạn không có đủ 4000 điểm tiêu xài");
+                        if(point < 5000){
+                            p.service.serverMessage("Bạn không có đủ 5000 điểm tiêu xài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,4000);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item biKipBiNgo = new Item(947);
                         biKipBiNgo.isLock = true;
                         biKipBiNgo.he = p.Info.idhe;

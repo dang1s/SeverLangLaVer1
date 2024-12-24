@@ -97,10 +97,10 @@ public class ClickEvent {
             Message m = new Message((byte) 122);
             m.writeByte(89);
 
-            Item item = new Item(558, true, 10);
+            Item item = new Item(558, true, 5);
             item.write(m.writer);
 
-            item = new Item(521, true);
+            item = new Item(464, true);
             item.addItemOption(new ItemOption(0, 150));
             item.addItemOption(new ItemOption(1, 150));
             item.addItemOption(new ItemOption(3, 150));

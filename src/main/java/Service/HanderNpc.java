@@ -270,7 +270,7 @@ public class HanderNpc {
                         }
                     }
                     int requiredLevel = index1 == 1 ? 15 : index1 == 2 ? 30 : 50;
-                    int requiredLevelMax = index1 == 1 ? 29 : index1 == 2 ? 49 : 60;
+                    int requiredLevelMax = index1 == 1 ? 29 : index1 == 2 ? 49 : 70;
                     int itemrequi = requiredLevel == 15 ? 244 : requiredLevel == 30 ? 245 : 246;
                     if (level >= requiredLevel && level <= requiredLevelMax) {
                         Item key = myChar.FindItemBag(itemrequi);
@@ -573,83 +573,83 @@ public class HanderNpc {
                         break;
                 }
                 break;
-            case 3:
-                switch (index2) {
-                    case 0:
-                        try {
-                            if(myChar.Bag.bacKhoa >= 2000000000) {
-                                myChar.service.alertMessage("Full bạc khóa!");
-                                return;
-                            }
-                            if(myChar.Info.chuyenCan < 3000) {
-                                myChar.service.alertMessage("Không đủ 3000 chuyên cần!");
-                                return;
-                            }
-                            myChar.Info.chuyenCan -= 3000;
-                            myChar.addBacKhoa(200000000);
-
-                        } catch (Exception ex) {
-
-                        }
-                        break;
-                    case 1:
-                        try {
-                            if(myChar.getCountNullItemBag() < 0) {
-                                myChar.service.alertMessage("Túi đầy!");
-                                return;
-                            }
-                            if(myChar.Info.chuyenCan < 2000) {
-                                myChar.service.alertMessage("Không đủ 2000 chuyên cần!");
-                                return;
-                            }
-                            myChar.Info.chuyenCan -= 2000;
-                            Item danhHieuCH = new Item(11);
-                            danhHieuCH.isLock = true;
-                            myChar.addItem(danhHieuCH);
-                            myChar.msgAddItemBag(danhHieuCH);
-                        } catch (Exception ex) {
-
-                        }
-                        break;
-                    case 2:
-                        try {
-                            if(myChar.getCountNullItemBag() < 0) {
-                                myChar.service.alertMessage("Túi đầy!");
-                                return;
-                            }
-                            if(myChar.Info.chuyenCan < 2100) {
-                                myChar.service.alertMessage("Không đủ 2100 chuyên cần!");
-                                return;
-                            }
-                            myChar.Info.chuyenCan -= 2100;
-                            Item danhHieuTK = new Item(11);
-                            danhHieuTK.isLock = true;
-                            myChar.addItem(danhHieuTK);
-                            myChar.msgAddItemBag(danhHieuTK);
-                        } catch (Exception ex) {
-
-                        }
-                        break;
-                    case 3:
-                        try {
-                            if(myChar.getCountNullItemBag() < 0) {
-                                myChar.service.alertMessage("Túi đầy!");
-                                return;
-                            }
-                            if(myChar.Info.chuyenCan < 2200) {
-                                myChar.service.alertMessage("Không đủ 2200 chuyên cần!");
-                                return;
-                            }
-                            myChar.Info.chuyenCan -= 2200;
-                            Item danhHieuUV = new Item(11);
-                            danhHieuUV.isLock = true;
-                            myChar.addItem(danhHieuUV);
-                            myChar.msgAddItemBag(danhHieuUV);
-                        } catch (Exception ex) {
-
-                        }
-                        break;
-                }
+//            case 3:
+//                switch (index2) {
+//                    case 0:
+//                        try {
+//                            if(myChar.Bag.bacKhoa >= 2000000000) {
+//                                myChar.service.alertMessage("Full bạc khóa!");
+//                                return;
+//                            }
+//                            if(myChar.Info.chuyenCan < 3000) {
+//                                myChar.service.alertMessage("Không đủ 3000 chuyên cần!");
+//                                return;
+//                            }
+//                            myChar.Info.chuyenCan -= 3000;
+//                            myChar.addBacKhoa(200000000);
+//
+//                        } catch (Exception ex) {
+//
+//                        }
+//                        break;
+//                    case 1:
+//                        try {
+//                            if(myChar.getCountNullItemBag() < 0) {
+//                                myChar.service.alertMessage("Túi đầy!");
+//                                return;
+//                            }
+//                            if(myChar.Info.chuyenCan < 2000) {
+//                                myChar.service.alertMessage("Không đủ 2000 chuyên cần!");
+//                                return;
+//                            }
+//                            myChar.Info.chuyenCan -= 2000;
+//                            Item danhHieuCH = new Item(11);
+//                            danhHieuCH.isLock = true;
+//                            myChar.addItem(danhHieuCH);
+//                            myChar.msgAddItemBag(danhHieuCH);
+//                        } catch (Exception ex) {
+//
+//                        }
+//                        break;
+//                    case 2:
+//                        try {
+//                            if(myChar.getCountNullItemBag() < 0) {
+//                                myChar.service.alertMessage("Túi đầy!");
+//                                return;
+//                            }
+//                            if(myChar.Info.chuyenCan < 2100) {
+//                                myChar.service.alertMessage("Không đủ 2100 chuyên cần!");
+//                                return;
+//                            }
+//                            myChar.Info.chuyenCan -= 2100;
+//                            Item danhHieuTK = new Item(11);
+//                            danhHieuTK.isLock = true;
+//                            myChar.addItem(danhHieuTK);
+//                            myChar.msgAddItemBag(danhHieuTK);
+//                        } catch (Exception ex) {
+//
+//                        }
+//                        break;
+//                    case 3:
+//                        try {
+//                            if(myChar.getCountNullItemBag() < 0) {
+//                                myChar.service.alertMessage("Túi đầy!");
+//                                return;
+//                            }
+//                            if(myChar.Info.chuyenCan < 2200) {
+//                                myChar.service.alertMessage("Không đủ 2200 chuyên cần!");
+//                                return;
+//                            }
+//                            myChar.Info.chuyenCan -= 2200;
+//                            Item danhHieuUV = new Item(11);
+//                            danhHieuUV.isLock = true;
+//                            myChar.addItem(danhHieuUV);
+//                            myChar.msgAddItemBag(danhHieuUV);
+//                        } catch (Exception ex) {
+//
+//                        }
+//                        break;
+//                }
                 //myChar.service.alertMessage("Xóa hành trang thành công!");
         }
     }
@@ -1358,6 +1358,12 @@ public class HanderNpc {
                 ClickEvent.ShopQuanAn(_myChar, 5);
                 break;
             case 2:
+                if(_myChar.countDeadForest > 30) {//check lượt khu rừng chết
+                    _myChar.service.serverMessage("Đã hết lượt đi khu rừng chết");
+                    return;
+                } else {
+                    _myChar.countDeadForest++;
+                }
                 Calendar calendar = Calendar.getInstance();
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                 int minute = calendar.get(Calendar.MINUTE);

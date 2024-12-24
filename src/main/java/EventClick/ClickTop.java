@@ -145,7 +145,7 @@ public class ClickTop {
             m.writeUTF(mainMessage);
 
             // 3. Số lượng đối tượng trong danh sách (byte)
-            byte objectCount = (byte) DaiHoiVoThuat.gI().vong1_4.size(); // Ví dụ: 3 đối tượng
+            byte objectCount = (byte) DaiHoiVoThuat.gI().vongChungKet.size(); // Ví dụ: 3 đối tượng
             m.writeByte(objectCount);
 
             // 4. Gửi từng đối tượng trong danh sách

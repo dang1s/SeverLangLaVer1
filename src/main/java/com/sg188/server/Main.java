@@ -149,22 +149,23 @@ public class Main {
         threadLuckyDraw.start();
         BossManager.gI().initBoss();
         BossManager.gI().initBossViThu();
-        BossManager.gI().initBossMadara();
+        //BossManager.gI().initBossMadara();
         BossManager.gI().updateBossViThu(8, 0, 0);
         BossManager.gI().updateBossViThu(16, 30, 0);
         BossManager.gI().updateBossViThu(20, 0, 0);
         BossManager.gI().updateBoss(9, 0, 0);
         BossManager.gI().updateBoss(14, 0, 0);
         BossManager.gI().updateBoss(19, 0, 0);
-        BossManager.gI().updateBossMadara(21,0,0);
+        //BossManager.gI().updateBossMadara(21,0,0);
 //        BossManager.gI().updateBossSK(6,0,0);
 //        BossManager.gI().updateBossSK(9,0,0);
 //        BossManager.gI().updateBossSK(12,0,0);
 //        BossManager.gI().updateBossSK(18,0,0);
 //        BossManager.gI().updateBossSK(20,0,0);
-//        BossManager.gI().updateBossSK(22,0,0);
+        //BossManager.gI().updateBossSK(22,0,0);
         Manager.gI().updateDeadForest(6, 50, 0);
         Manager.gI().updateDeadForest(9, 50, 0);
+        Manager.gI().updateDeadForest(10, 50, 0);
         Manager.gI().updateDeadForest(12, 50, 0);
         Manager.gI().updateDeadForest(15, 50, 0);
         Manager.gI().updateDeadForest(18, 50, 0);
@@ -173,7 +174,7 @@ public class Main {
         WorldManager.getInstance().start();
         // MongoDbConnection.connect();
         Clan.getClanDAO().load();
-        AutoMaintenance.maintenance(23, 59, 30);
+        //AutoMaintenance.maintenance(23, 59, 30);
         openServerSocket();
         Log.info("Thread Server: " + Thread.activeCount());
     }
@@ -262,9 +263,9 @@ public class Main {
 
     public static void sendRandomMessage() {
         String[] messages = {
-                "Làng Lá Tối Thượng chính thức khai mở đua top! ",
+                "Thế Giới Ninja chính thức khai mở đua top! ",
                 "Muốn đổi vàng, đổi bạc hãy tới NPC Ginkaku nhé! ",
-                "Tham gia Box Zalo, tương tác với Fanpage Làng Lá Tối Thượng để nhận thêm quà! ",
+                "Tham gia Box Zalo, tương tác với Fanpage Thế Giới Ninja để nhận thêm quà! ",
                 "Chúc các bạn chơi game vui vẻ! "
         };
         Main.HeThongCTG(messages[new java.util.Random().nextInt(messages.length)], 2);

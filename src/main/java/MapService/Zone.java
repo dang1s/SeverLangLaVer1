@@ -247,25 +247,25 @@ public class Zone {
                     if (mob2.getMobTemplate().speedMove != 0)
                         TaskFactory.getInstance().addMobInfoTaskDay(mobInfo);
                 }
+                //spawn cương thi
+                if (i == size - 1 && (map.mapID == 57 || map.mapID == 65 || map.mapID == 87 || map.mapID == 79 || map.mapID == 73) && Event.getEvent() != null && zoneID >= 5 && zoneID <= 10) {
+                    Mob mob = new Mob();
+                    int id = map.mapID == 57 ? 285 : map.mapID == 65 ? 286 : map.mapID == 87 ? 287 : map.mapID == 79 ? 288 : 289;
+                    mob.id = id;
+                    mob.level = map.mapID == 57 ? 59 : map.mapID == 65 ? 59 : map.mapID == 87 ? 59 : map.mapID == 79 ? 59 : 60;
+                    mob.cx = (short) (map.mapID == 57 ? 632 : map.mapID == 65 ? 920 : map.mapID == 87 ? 776 : map.mapID == 79 ? 500 : 1328);
 
-//                if (i == size - 1 && (map.mapID == 57 || map.mapID == 65 || map.mapID == 87 || map.mapID == 79 || map.mapID == 73) && Event.getEvent() != null && zoneID >= 5 && zoneID <= 10) {
-//                    Mob mob = new Mob();
-//                    int id = map.mapID == 57 ? 285 : map.mapID == 65 ? 286 : map.mapID == 87 ? 287 : map.mapID == 79 ? 288 : 289;
-//                    mob.id = id;
-//                    mob.level = map.mapID == 57 ? 20 : map.mapID == 65 ? 30 : map.mapID == 87 ? 40 : map.mapID == 79 ? 50 : 60;
-//                    mob.cx = (short) (map.mapID == 57 ? 632 : map.mapID == 65 ? 920 : map.mapID == 87 ? 776 : map.mapID == 79 ? 500 : 1328);
-//
-//                    mob.levelBoss = 10;
-//                    mob.cy = (short) (map.mapID == 57 ? 190 : map.mapID == 65 ? 148 : map.mapID == 87 ? 155 : map.mapID == 79 ? 297 : 306);
-//
-//                    mob.status = 2;
-//                    mob.hpGoc = mob.hp = mob.hpFull = 1000000000;
-//                    mob.expGoc = 5;
-//                    mob.paintMiniMap = false;
-//                    mob.idEntity = monsters.size();
-//                    mob.reSpawn(this);
-//                    monsters.add(mob);
-//                }
+                    mob.levelBoss = 10;
+                    mob.cy = (short) (map.mapID == 57 ? 190 : map.mapID == 65 ? 148 : map.mapID == 87 ? 155 : map.mapID == 79 ? 297 : 306);
+
+                    mob.status = 2;
+                    mob.hpGoc = mob.hp = mob.hpFull = 1000000000;
+                    mob.expGoc = 5;
+                    mob.paintMiniMap = false;
+                    mob.idEntity = monsters.size();
+                    mob.reSpawn(this);
+                    monsters.add(mob);
+                }
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -294,7 +294,7 @@ public class Zone {
             writer.writeBoolean(false);
     }
 
-    public int MAX_CHAR_INZONE = 24;
+    public int MAX_CHAR_INZONE = 100;
 
     public boolean addChar(Char player) {
         if (players != null) {
@@ -776,16 +776,16 @@ public class Zone {
                         && mob.id != 287 && mob.id != 288 && mob.id != 289) {
                     dame = 1;
                 }
-                if (mob.id == 293) {
-                    if (pl.Bag.arrItemBody[16] == null || pl.Bag.arrItemBody[16].id != 748) {
-                        dame = 1;
-                    }
-                }
-                if (mob.id == 294) {
-                    if (pl.Bag.arrItemBody[16] == null || pl.Bag.arrItemBody[16].id != 747) {
-                        dame = 1;
-                    }
-                }
+//                if (mob.id == 293) {
+//                    if (pl.Bag.arrItemBody[16] == null || pl.Bag.arrItemBody[16].id != 748) {
+//                        dame = 1;
+//                    }
+//                }
+//                if (mob.id == 294) {
+//                    if (pl.Bag.arrItemBody[16] == null || pl.Bag.arrItemBody[16].id != 747) {
+//                        dame = 1;
+//                    }
+//                }
                 sendAttackMobToAllChar(pl, mob, idSkill);
                 if (pl.cloneLive) {
                     pl.user.session.sendMessage(HanderMessage.msgCloneAttack(pl.Info.idEntity, mob.idEntity));
@@ -1237,7 +1237,7 @@ public class Zone {
 
                 }
                 monsters.remove(mob);
-                MAX_CHAR_INZONE = 24;
+                MAX_CHAR_INZONE = 100;
             } else if(mob.getMobTemplate().id >= 251 && mob.getMobTemplate().id <= 259) {
                 if (mob.itemBoss != null && !mob.itemBoss.isEmpty()) {
                     for (Item item : mob.itemBoss) {
@@ -1267,7 +1267,7 @@ public class Zone {
 
                 }
                 monsters.remove(mob);
-                MAX_CHAR_INZONE = 24;
+                MAX_CHAR_INZONE = 100;
             } else if(mob.getMobTemplate().id == 273) {
                 if (mob.itemBoss != null && !mob.itemBoss.isEmpty()) {
                     for (Item item : mob.itemBoss) {
@@ -1297,7 +1297,7 @@ public class Zone {
 
                 }
                 monsters.remove(mob);
-                MAX_CHAR_INZONE = 24;
+                MAX_CHAR_INZONE = 100;//cũ là 24
             } else
                 getRewardMob(player, mob);
 

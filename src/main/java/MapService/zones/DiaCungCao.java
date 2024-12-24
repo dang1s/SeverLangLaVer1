@@ -20,8 +20,8 @@ public class DiaCungCao extends ZWorld {
     private int level;
     private Mob BigBoss;
     private boolean isInit;
-    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // ks giết
-    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // cho nhặt tự do
+    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428}; // ks giết
+    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428}; // cho nhặt tự do
     private boolean isClose;
     private boolean iscreateBoss;
     private World world;

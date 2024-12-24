@@ -42,7 +42,9 @@ public class DeadForest extends World{
         this.listCharId = new ArrayList<>();
         this.countDown = countDown;
         initZone();
-        initFinished = true;}
+        initFinished = true;
+        opened = true;
+    }
 
     public int getNumberPlayer() {
         synchronized (members) {

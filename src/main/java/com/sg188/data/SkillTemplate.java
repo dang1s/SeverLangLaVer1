@@ -39,6 +39,7 @@ public class SkillTemplate {
     public static final int ANH_THU_PHUOC_CHI_THUAT = 32;
     public static int THAO_CU_THIEN_TOA = 33;
     public static int NHA_THONG_NHA = 34;
+
     public static int SUSANO_ITACHI = 35;
     public static int LOA_TOAN_LIEN_THU_LI_KIEM = 36;
     public static int THANH_SAT_CHAKRA = 37;

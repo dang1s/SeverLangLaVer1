@@ -58,7 +58,7 @@ public class InfoInventory {
         vang = 0;//open sửa lại
         vangKhoa = 1000;
         bac = 0;
-        bacKhoa = 0;
+        bacKhoa = 10000000;
         vangBox = 0;
         vangKhoaBox = 0;
         bacBox = 0;

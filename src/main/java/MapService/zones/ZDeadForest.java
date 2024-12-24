@@ -120,7 +120,7 @@ public class ZDeadForest extends ZWorld {
             mob.levelBoss = 10;
             mob.cy = 244;
             mob.status = 2;
-            mob.hpGoc = mob.hp = mob.hpFull = level * 60000;
+            mob.hpGoc = mob.hp = mob.hpFull = level * 60000*5;
             mob.exp = level * 17841;
             mob.expGoc = mob.hpGoc / 8;
             mob.paintMiniMap = false;
@@ -168,18 +168,18 @@ public class ZDeadForest extends ZWorld {
                     int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
                     if (dayOfWeek == Calendar.SUNDAY) {
                         if (pl.clan != null) {
-                            pl.addClanPoint(100);
+                            pl.addClanPoint(100*2);
                         }
-                        pl.Info.chuyenCan += 100;
-                        pl.Info.chuyenCanTuan += 100;
+                        pl.Info.chuyenCan += 100*2;
+                        pl.Info.chuyenCanTuan += 100*2;
                     } else {
                         if (pl.clan != null) {
-                            pl.addClanPoint(50);
+                            pl.addClanPoint(50*2);
                         }
-                        pl.Info.chuyenCan += 50;
-                        pl.Info.chuyenCanTuan += 50;
+                        pl.Info.chuyenCan += 50*2;
+                        pl.Info.chuyenCanTuan += 50*2;
                     }
-                    pl.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 50 điểm chuyên cần, 50 điểm cống hiến gia tộc", HanderMessage.YELLOW_MID));
+                    pl.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 100 điểm chuyên cần, 100 điểm cống hiến gia tộc", HanderMessage.YELLOW_MID));
                 }
             }
             isNextMap = true;

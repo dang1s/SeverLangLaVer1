@@ -57,7 +57,7 @@ public class BossManager {
         Mob bossST = createBoss(293, 2000000000, 37500000, 55, (short) 799, (short) 284);
         addItemMap(itemBossSK, bossST);
         bossSK.add(bossST);
-        Mob bossTT = createBoss(294, 2000000000, 37500000, 55, (short) 578, (short) 186);
+        Mob bossTT = createBoss(294, 200000, 37500000, 55, (short) 578, (short) 186);
         addItemMap(itemBossSK, bossTT);
         bossSK.add(bossTT);
     }
@@ -299,7 +299,7 @@ public class BossManager {
     }
     public void updateBossSK(int hours, int minutes, int seconds) {
         Utlis.schedule(() -> {
-            if(Event.getEvent()!=null) {
+            if(Event.getEvent()!=null || true) {
                 if (hours == 6) {
                     Mob boss = bossSK.get(0).cloneMob();
                     Map.maps[70].addBoss(Utlis.nextInt(0, 8), boss);

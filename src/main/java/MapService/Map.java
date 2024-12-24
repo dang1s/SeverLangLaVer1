@@ -135,14 +135,14 @@ public class Map {
                 _myChar.zone.addToAllChar(_myChar);
                 _myChar.service.sendArrMap(this.mapID);
                 _myChar.service.sendIntoMap();
-//                _myChar.service.alertMessage("Link tải game: https: //langlatoithuong.com.\n" +
-//                        "Gia nhập box zalo để chơi game tốt hơn.\n" +
-//                        "Hãy tham gia like share để nhận code mới nhất.\n" +
-//                        "Chúc bạn chơi game vui vẻ.");
-                _myChar.service.alertMessage("Khuyến mãi 100% đổi từ coin sang vàng.\n" +
-                        "Cùng sự kiện Halloween.\n" +
-                        "Thời gian: 0h 4/11/2024 - 0h 11/11/2024.\n" +
+                _myChar.service.alertMessage("Khai mở đua top từ ngày 17/12 đến 24/12" +
+                        "Gia nhập box zalo để chơi game tốt hơn.\n" +
+                        "Hãy tham gia like share để nhận code mới nhất.\n" +
                         "Chúc bạn chơi game vui vẻ.");
+//                _myChar.service.alertMessage("Khuyến mãi 100% đổi từ coin sang vàng.\n" +
+//                        "Cùng sự kiện Halloween.\n" +
+//                        "Thời gian: 0h 4/11/2024 - 0h 11/11/2024.\n" +
+//                        "Chúc bạn chơi game vui vẻ.");
                 isdone = true;
                 break;
             }

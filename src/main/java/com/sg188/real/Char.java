@@ -174,6 +174,7 @@ public class Char extends Body {
     public int idCuuSat;
     public int isFatal;
     public int pointDaiHoi;
+    public int countDeadForest = 0;//đếm số lần đi krc
 
     public void increasePoints() {
         this.pointDaiHoi++;
@@ -619,17 +620,22 @@ public class Char extends Body {
         Info.countRuong = 0;
         pointDaiHoi = 0;
         pointTranhDoat = 0;
+        countDeadForest = 0;
+//        phucLoi.nap3moc = 0;
+//        phucLoi.napDon = 0;
+//        removeItemsWithIDPhucLoi(8);//nạp 3 mốc
+//        removeItemsWithIDPhucLoi(9);//nạp đơn
         Calendar calendar = Calendar.getInstance();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         if (dayOfWeek == Calendar.MONDAY) {
             removeItemsWithIDPhucLoi(6);
             removeItemsWithIDPhucLoi(4);
-            removeItemsWithIDPhucLoi(7);
+            removeItemsWithIDPhucLoi(7);//nạp liên tục
             removeItemsWithIDPhucLoi(1);
-            //removeItemsWithIDPhucLoi(8);//nạp 3 mốc
-            //removeItemsWithIDPhucLoi(9);//nạp đơn
-            //phucLoi.nap3moc = 0;
-            //phucLoi.napDon = 0;
+            phucLoi.nap3moc = 0;
+            phucLoi.napDon = 0;
+            removeItemsWithIDPhucLoi(8);//nạp 3 mốc
+            removeItemsWithIDPhucLoi(9);//nạp đơn
             phucLoi.tieuTuan = 0;
             phucLoi.napTuan = 0;
             phucLoi.soNgayOnline = 1;
@@ -2353,7 +2359,7 @@ public class Char extends Body {
                         service.serverMessage("Không có vĩ thú");
                         return;
                     }
-                    if (listSkill.size() >= 6) {
+                    if (listSkill.size() > 6) {
                         service.serverMessage("Vui lòng xoá skill trước khi dùng thêm");
                         return;
                     }
@@ -2366,6 +2372,17 @@ public class Char extends Body {
                     skilladd.strOptions = skill.strOptions;
                     skilladd.levelNeed = skill.levelNeed;
                     listSkill.add(skilladd);
+                    for(int i = 0; i < listSkill.size(); i++) {
+                        if(listSkill.get(i).id == 19) {//check cuồng phong
+                            int lastIndex = listSkill.size() - 1;
+                            if (i != lastIndex) { // Nếu không phải phần tử cuối cùng
+                                SkillClan temp = listSkill.get(i);
+                                listSkill.set(i, listSkill.get(lastIndex));
+                                listSkill.set(lastIndex, temp);
+                            }
+                            break;
+                        }
+                    }
                     msgSkillViThu();
                 } catch (Exception e) {
 
@@ -4046,8 +4063,10 @@ public class Char extends Body {
             return;
         }
         if(item.id == 998) {
-
-            //updateItemRenew();
+            if(clan != null) {
+                service.alertMessage("Vui lòng thoát tộc trước khi đổi");
+                return;
+            }
             StringBuilder strBuilder = new StringBuilder();
             strBuilder.append("Lôi;Thổ;Thủy;Hỏa;Phong");
 
@@ -4484,7 +4503,7 @@ public class Char extends Body {
             return;
         }
         if (item.id == 914) {
-//            msgOpenTabSaoCuongHoa(item);
+            msgOpenTabSaoCuongHoa(item);
             return;
         }
         if (item.id == 190) {
@@ -4494,22 +4513,41 @@ public class Char extends Body {
             msgRemoveItemBag(item);
             return;
         }
-        if (item.id == 933) {
-            if (getCountNullItemBag() < 16) {
+        if (item.id == 933) {//rương trải nghiệm
+//            if (getCountNullItemBag() < 16) {
+//                warningBagFull();
+//                return;
+//            }
+//            int[] idItem = {353, 563, 565, 567, 428, 174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 434, 754};
+//            for (int i = 0; i < idItem.length; i++) {
+//                int id = idItem[i];
+//                Item item2 = new Item(id);
+//                item2.amount = 9999;
+//                addItem(item2);
+//                msgAddItemBag(item2);
+//            }
+//            removeItem(item);
+//            msgUpdateItemBag(item);
+//            user.session.sendMessage(HanderMessage.resetScreen());
+            return;
+        }
+        if (item.id == 1002) {// rương lệnh bài
+            if (getCountNullItemBag() < 11) {
                 warningBagFull();
                 return;
             }
-            int[] idItem = {353, 563, 565, 567, 428, 174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 434, 754};
+            int[] idItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
             for (int i = 0; i < idItem.length; i++) {
                 int id = idItem[i];
                 Item item2 = new Item(id);
-                item2.amount = 9999;
+                item2.amount = 1;
+                item2.isLock = true;
                 addItem(item2);
                 msgAddItemBag(item2);
             }
             removeItem(item);
             msgUpdateItemBag(item);
-            user.session.sendMessage(HanderMessage.resetScreen());
+            //user.session.sendMessage(HanderMessage.resetScreen());
             return;
         }
 
@@ -5512,7 +5550,7 @@ public class Char extends Body {
 //        if (getExpBuff() > 0) {
 //            exp += exp * getExpBuff() / 100;
 //        }
-        exp *= 10;//open sửa 2
+        exp *= 5;//open sửa 2
         if (exp < 0) {
             exp = 0;
         }
@@ -6451,10 +6489,10 @@ public class Char extends Body {
                             action.add(new IActionItem() {
                                 @Override
                                 public void action(Char pl) {
-                                    Bag.arrItemBody[index].a(Bag.arrItemBody[index].level + 4);
+                                    Bag.arrItemBody[index].a(Bag.arrItemBody[index].level + 1);
                                 }
                             });
-                            text.add("Nâng cấp cho: " + (Bag.arrItemBody[i].getItemTemplate().name) + "(+" + Bag.arrItemBody[i].level + " lên +" + (Bag.arrItemBody[i].level + 4) + ")");
+                            text.add("Nâng cấp cho: " + (Bag.arrItemBody[i].getItemTemplate().name) + "(+" + Bag.arrItemBody[i].level + " lên +" + (Bag.arrItemBody[i].level + 1) + ")");
                         }
                     }
                 }
@@ -7415,11 +7453,22 @@ public class Char extends Body {
                 }
                 break;
             case 914:
+                if (Bag.arrItemBag[indexItem].arrayAction == null || Bag.arrItemBag[indexItem].arrayAction.length <= index1) {
+                    return;
+                }
+                Bag.arrItemBag[indexItem].arrayAction[index1].action(this);
+                this.removeItem(Bag.arrItemBag[indexItem]);
+                this.msgUpdateItemBody();
+                this.service.resetScreen();
                 break;
             case 998:
 
                 switch (index1) {
                     case 0://lôi
+                        if(this.Bag.arrItemBody[1] != null) {
+                            service.alertMessage("Tháo vũ khí để chuyển hệ");
+                            return;
+                        }
                         int idClassPrev = Info.idClass;
                         Info.idClass = 1;
                         Info.idhe = 1;
@@ -7497,6 +7546,10 @@ public class Char extends Body {
                         service.serverMessage("Chuyển hệ thành công");
                         break;
                     case 1:
+                        if(this.Bag.arrItemBody[1] != null) {
+                            service.alertMessage("Tháo vũ khí để chuyển hệ");
+                            return;
+                        }
                         idClassPrev = Info.idClass;
                         Info.idClass = 2;
                         Info.idhe = 2;
@@ -7576,6 +7629,10 @@ public class Char extends Body {
                         service.serverMessage("Chuyển hệ thành công");
                         break;
                     case 2:
+                        if(this.Bag.arrItemBody[1] != null) {
+                            service.alertMessage("Tháo vũ khí để chuyển hệ");
+                            return;
+                        }
                         idClassPrev = Info.idClass;
                         Info.idClass = 3;
                         Info.idhe = 3;
@@ -7655,6 +7712,10 @@ public class Char extends Body {
                         service.serverMessage("Chuyển hệ thành công");
                         break;
                     case 3:
+                        if(this.Bag.arrItemBody[1] != null) {
+                            service.alertMessage("Tháo vũ khí để chuyển hệ");
+                            return;
+                        }
                         idClassPrev = Info.idClass;
                         Info.idClass = 4;
                         Info.idhe = 4;
@@ -7734,6 +7795,10 @@ public class Char extends Body {
                         service.serverMessage("Chuyển hệ thành công");
                         break;
                     case 4:
+                        if(this.Bag.arrItemBody[1] != null) {
+                            service.alertMessage("Tháo vũ khí để chuyển hệ");
+                            return;
+                        }
                         idClassPrev = Info.idClass;
                         Info.idClass = 5;
                         Info.idhe = 5;
@@ -12019,7 +12084,7 @@ public class Char extends Body {
             user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
             return;
         }
-        if (Bag.arrItemBox.length > 60) {
+        if (Bag.arrItemBox.length > 120) {//sửa giới hạn box cũ là > 60
             user.session.sendMessage(HanderMessage.SendThongBao("Đã đạt giới hạn", HanderMessage.YELLOW_MID));
             return;
         }
@@ -12214,7 +12279,7 @@ public class Char extends Body {
                 return;
             }
             CharDB.logExchange(this.Info.name, coinPlayer, coinPlayer - coin);
-            //hết x2 sửa lại
+
             addVang(vang);
 
             if (Bag.pointNAP == 0) { //quà nạp đầu
@@ -12234,10 +12299,11 @@ public class Char extends Body {
                 thu1.NoiDungThu = "Admin gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
                 thu1.TimeEnd = System.currentTimeMillis() + (7 * 86400000);
                 Item itemthu1 = new Item(558); //dầu cóc x10
-                itemthu1.amount = 10;
+                itemthu1.amount = 5;
                 itemthu1.isLock = true;
                 itemthu1.strOptions = "";
                 thu1.Item = itemthu1;
+                thu1.TimeEnd = System.currentTimeMillis() + (86400000 * 7);
                 this.letters.add(thu1);
 
                 TemplateThu thu2 = new TemplateThu();
@@ -12250,7 +12316,7 @@ public class Char extends Body {
                 thu2.Title = "Quà Nạp Lần Đầu";
                 thu2.NameNguoiGui = "Hệ thống";
                 thu2.NoiDungThu = "Admin gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
-                Item itemthu2 = new Item(521);
+                Item itemthu2 = new Item(464);
                 itemthu2.isLock = true;
                 itemthu2.strOptions = "0,150;1,150;3,150;209,60";
                 thu2.Item = itemthu2;
@@ -12303,10 +12369,11 @@ public class Char extends Body {
 
             if (phucLoi.nap3moc < vang)
                 phucLoi.nap3moc = vang;
-            if (newDay) {
-                newDay = false;
-                phucLoi.napLienTuc++;
-            }
+//            if (newDay) {//sửa
+//                newDay = false;
+//                phucLoi.napLienTuc++;
+//            }
+            phucLoi.napLienTuc++;
             phucLoi.listnap.add(vang);
             service.sendChar();
 
@@ -13394,7 +13461,7 @@ public class Char extends Body {
                 try {
                     for (Char p : charList) {
                         if (i == maxTarget)
-                            return;
+                            break;//lỗi skill 4x krc sửa return thành break
                         if (p != null && p.user != null && p != this && p != charFocus && !p.InfoGame.isDie) {
                             if (Utlis.getRange(p.Info.cx, this.Info.cx) <= skill.rangeNgang && Utlis.getRange(p.Info.cy, this.Info.cy) <= skill.rangeDoc && isMeCanAttackOtherPlayer(p)) {
                                 chars.add(p);
@@ -13500,7 +13567,7 @@ public class Char extends Body {
                         _char.addEffect(new Effect((short) 76, getChiSoFormSkill(270), System.currentTimeMillis(), 10000));
                     }
                 }
-            }
+            }//2 ảnh phong xạ, 8 lôi kiếm, 14 ái bộc bố thuật, 20 hào hỏa cầu thuật, 26 phi lôi thần thuật
         } else if ((skillTemplateId == 2 || skillTemplateId == 8 || skillTemplateId == 14 || skillTemplateId == 20 || skillTemplateId == 26)) {
             damage += damage * option92 / 100;
         }
@@ -13622,12 +13689,18 @@ public class Char extends Body {
                     damage = Math.max(damage - pl.damageReduction, 0);
 
                     int NeTranh2 = pl.miss;
-                    ;
-                    int ChinhXac2 = exactly;
-                    int randMiss = Utlis.NextInt(0, (NeTranh2 + 100));
-                    int randExactly = Utlis.NextInt(0, (ChinhXac2 + 1000));
 
-                    boolean isMiss = randMiss > randExactly; // sửa lại hàm pk chỗ né
+                    int ChinhXac2 = exactly;
+//                    int randMiss = Utlis.NextInt(0, (NeTranh2 + 100));
+//                    int randExactly = Utlis.NextInt(0, (ChinhXac2 + 1000));
+                    //int randMiss = Utlis.NextInt(NeTranh2, (NeTranh2 + 1000));
+                    //int randExactly = Utlis.NextInt(ChinhXac2, (ChinhXac2 + 1000));
+
+                   // boolean isMiss = randMiss > randExactly; // sửa lại hàm pk chỗ né
+                    int total = NeTranh2 + ChinhXac2;//fix né
+                    int missRate = (total > 0) ? (NeTranh2 * 100) / total : 0;
+                    missRate = Math.max(0, Math.min(100, missRate));
+                    boolean isMiss = Utlis.NextInt(0, 100) < missRate;
 
 
 //                    int miss = pl.miss;
@@ -13644,6 +13717,7 @@ public class Char extends Body {
                     } catch (Exception e) {
 
                     }
+                    damage = damage / 2;// giảm dame vào người khi pk
                     pl.addHp(-damage);
                     zone.SendMessageInZone(HanderMessage.SendHpAttack(pl.Info.idEntity, pl.Point.hp, pl.Point.mp, false, pl.Info.cx, pl.Info.cy, Info.name));
                     if (pl.Point.hp <= 0) {
@@ -13656,6 +13730,9 @@ public class Char extends Body {
                                 HanderEff.RemovePointEff(this, bua);
                                 msgRemoveEffect(bua);
                             }
+                        }
+                        if(pl.Info._mapID == 17 || pl.Info._mapID == 31) {//đá khỏi khu rừng chết
+                            Map.maps[Info.mapReSpawm].addChar(pl);
                         }
                         if (pl.idCharPk == id) {
                             service.resuiltTyVo(pl.id, (byte) 2);

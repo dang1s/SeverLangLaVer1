@@ -152,7 +152,7 @@ public class User {
                         _char.Info.countKham = Byte.parseByte(obj.get("countkham").toString());
                         _char.Info.lvPk = Byte.parseByte(obj.get("lvpk").toString());
                         _char.Info.TimeStartHD = Long.parseLong(obj.get("timestart").toString());
-
+                        _char.Info.countBox = Byte.parseByte(obj.get("countbox").toString());//sửa ô rương
 
                         if (obj.containsKey("cx") && obj.containsKey("cy")) {
                             _char.Info.cx = Short.parseShort(obj.get("cx").toString());

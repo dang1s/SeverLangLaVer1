@@ -160,6 +160,9 @@ public class Controller implements IMessageHandler {
                         _char.useItem(msg.readShort());
                     break;
                 case 20:
+                    if(_char.Info._mapID == 49 && _char.Info.cy >= 500 &&_char.Info.cy <= 566) {
+                        break;
+                    }
                     if (_char != null) {
                         _char.attackCharacter(msg);
                     }
@@ -1239,14 +1242,14 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case -117:
-                    if (_char != null && _char.user != null) {
-                        _char.updateThienDao(msg);
-                    }
+//                    if (_char != null && _char.user != null) {
+//                        _char.updateThienDao(msg);
+//                    }
                     break;
                 case -118:
-                    if (_char != null && _char.user != null) {
-                        _char.updateVoCuc(msg);
-                    }
+//                    if (_char != null && _char.user != null) {
+//                        _char.updateVoCuc(msg);
+//                    }
                     break;
                 case -85:
                     if (_char != null && _char.user != null) {
@@ -1273,15 +1276,17 @@ public class Controller implements IMessageHandler {
 //                            _char.addVang(-100);
                             int indexi = Utlis.nextInt(0, Manager.gI().listTVM[_char.idListTVM].length - 1);
                             Item item = new Item(Manager.gI().listTVM[_char.idListTVM][indexi]);
+                            if(item.isItemBody()) {
+                                Main.HeThongCTG("Chúc mừng nhẫn giả " + _char.Info.name + "vừa quay trúng " + item.getItemTemplate().name,2);
+                            }
                             if (item.isItemBody()) {
-                                item.addItemOption(new ItemOption(Utlis.nextInt(63, 65), Utlis.nextInt(70, 100)));
-                                item.addItemOption(new ItemOption(Utlis.nextInt(68, 72), Utlis.nextInt(20, 25)));
-                                item.addItemOption(new ItemOption(66, Utlis.nextInt(5, 10)));
-                                item.addItemOption(new ItemOption(0, Utlis.nextInt(500, 1000)));
-                                item.addItemOption(new ItemOption(2, Utlis.nextInt(100, 120)));
-                                item.addItemOption(new ItemOption(3, Utlis.nextInt(40, 60)));
-                                item.addItemOption(new ItemOption(209, Utlis.nextInt(90, 110)));
-                                item.addItemOption(new ItemOption(306, Utlis.nextInt(20, 25)));
+                                item.addItemOption(new ItemOption(0, 1000));
+                                item.addItemOption(new ItemOption(161, 100));
+                                item.addItemOption(new ItemOption(180,100));
+                                item.addItemOption(new ItemOption(2, 100));
+                                item.addItemOption(new ItemOption(3, 100));
+                                item.addItemOption(new ItemOption(209, 100));
+                                item.addItemOption(new ItemOption(306, 20));
                             }
                             if (item.id == 163) {
                                 _char.addBacKhoa(Manager.gI().amountTVM[_char.idListTVM][indexi]);

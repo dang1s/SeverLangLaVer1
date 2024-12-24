@@ -218,7 +218,7 @@ public class Body {
         int basicHp = 0;
         int basicMp = 0;
         int potentialDame = 0;
-        chakra = (short) (Point.arrayTiemNang[1]+options[209]+options[255]+boostChakra+isSusanoItatchi-reducedChakra);
+        chakra = (short) (Point.arrayTiemNang[1]+options[209]+options[255] + options[381] +boostChakra+isSusanoItatchi-reducedChakra);
         exactly = options[20]+options[65]+options[167]+options[180]+options[205]+options[280]+options[304]+buffCx;
         miss = options[14]+options[64]+options[151]+options[161]+options[204]+options[324]+chakra;
         critical = options[5]+options[15]+options[28]+options[63]+options[144]+options[166]+options[203]+options[362]+chakra;
