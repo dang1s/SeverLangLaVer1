@@ -1,5 +1,6 @@
 package Manager;
 
+import MapService.world.DaiChienNhanGia3;
 import MapService.world.DaiHoiVoThuat;
 import MapService.world.DeadForest;
 import MapService.world.SonCapMyo;
@@ -326,6 +327,12 @@ public class Manager {
         }, hours, minutes, seconds);
     }
 
+    public void updateDaiChienNhanGia3(int hours, int minutes, int seconds) {
+        Utlis.schedule(() -> {
+            createDaiChien3();
+        }, hours, minutes, seconds);
+    }
+
     public void updateDaiHoi(int hours, int minutes, int seconds) {
         Utlis.schedule(() -> {
             createDaiHoi();
@@ -344,6 +351,11 @@ public class Manager {
         DeadForest.DeadForest_5x = new DeadForest(600, Utlis.nextInt(50, 55));
         DeadForest.DeadForest_6x = new DeadForest(600, Utlis.nextInt(60, 65));
         Main.HeThongCTG("Khu rừng chết đã mở báo danh, Các nhân giả hãy nhanh chân tới báo danh nào", 2);
+    }
+    private void createDaiChien3() {
+        //DaiChienNhanGia3.BanDoanhLangLa = new DaiChienNhanGia3(600, Utlis.nextInt(50, 55));
+        DaiChienNhanGia3.BanDoanhLangLa = new DaiChienNhanGia3(300, Utlis.nextInt(50, 55));
+        Main.HeThongCTG("Đại chiến nhẫn giả 3 đã mở báo danh, Các nhân giả hãy nhanh chân tới báo danh nào", 2);
     }
 
     public void updatePhucLoi(int hours, int minutes, int seconds) {

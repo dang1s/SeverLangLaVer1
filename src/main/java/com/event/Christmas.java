@@ -23,18 +23,18 @@ public class Christmas extends Event{
         itemsThrownFromMonsters.add(1, 792);
         itemsThrownFromMonsters.add(1, 793);
         itemsThrownFromMonsters.add(1, 794);
-        itemsThrownFromMonsters.add(70, -1);//ko rơi
+        itemsThrownFromMonsters.add(80, -1);//ko rơi
         keyEventPoint.add(TOP_MAKE_SOCKS);
         keyEventPoint.add(EventPoint.DIEM_TIEU_XAI);
         //keyEventPoint.add(TOP_FISH);
 //        menuKhaTienNu = "Làm hũ kem,1 cái,10 cái,100 cái,Hướng dẫn;Giải cứu Tiên Nhân,Tham gia(500 vàng),Từ chối;BXH Top Làm Kem;BXH Top Câu Cá;Kiểm tra điểm sự kiện;Đổi điểm,Sách nhẫn thuật đặc biệt, Thẻ đổi tên, Cải trang Madara, Cải trang Madara Lục Đạo, Cải trang Kakashi Lục Đạo, Bí kíp Bí Ngô";
-        menuKhaTienNu = "Làm vớ,1 cái,10 cái,100 cái,Hướng dẫn;Làm găng tay,1 cái,10 cái,100 cái,Hướng dẫn;Nhận nhiệm vụ,Giết cương thi(1k vàng),Phong ấn,Hướng dẫn;BXH Top Làm Vớ;Kiểm tra điểm sự kiện;Đổi điểm, Nhẫn thuật sao chép thượng cấp, Thẻ đổi tên, Cải trang Noel, Đá 12, Vé vận may VIP, Bí kíp Bí Ngô";
+        menuKhaTienNu = "Làm vớ,1 cái,10 cái,100 cái,Hướng dẫn;Làm găng tay,1 cái,10 cái,100 cái,Hướng dẫn;Nhận nhiệm vụ,Giết cương thi(1k vàng),Phong ấn,Hủy nhiệm vụ,Hướng dẫn;BXH Top Làm Vớ;Kiểm tra điểm sự kiện;Đổi điểm, Nhẫn thuật sao chép thượng cấp, Thẻ đổi tên, Cải trang Noel, Susano Itachi, Vé vận may VIP, Bí kíp Bí Ngô, Đan chuyển hệ, Tẩy giới đan";
     }
 
     private void makeSocks(Char p, int amount) {
         int[][] itemRequires = new int[][]{{792, 5}, {793, 5}, {794, 5}};
         int itemIdReceive = 795;
-        boolean isDone = makeEventItem(p, amount, itemRequires, 20, 0, 0, itemIdReceive);
+        boolean isDone = makeEventItem(p, amount, itemRequires, 15, 0, 0, itemIdReceive);
         if (isDone) {
             p.getEventPoint().addPoint(TOP_MAKE_SOCKS, amount);
             p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
@@ -44,11 +44,11 @@ public class Christmas extends Event{
     private void makeGloves(Char p, int amount) {
         int[][] itemRequires = new int[][]{{792, 5}, {793, 5}, {794, 5}};
         int itemIdReceive = 796;
-        boolean isDone = makeEventItem(p, amount, itemRequires, 0, 100000, 0, itemIdReceive);
-//        if (isDone) {
-//            p.getEventPoint().addPoint(TOP_MAKE_SOCKS, amount);
-//            p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
-//        }
+        boolean isDone = makeEventItem(p, amount, itemRequires, 0, 80000, 0, itemIdReceive);
+        if (isDone) {
+            p.getEventPoint().addPoint(TOP_MAKE_SOCKS, amount);
+            p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
+        }
     }
 
     @Override
@@ -102,7 +102,7 @@ public class Christmas extends Event{
                         action(p, 0, 100);
                         break;
                     case 3:
-                        p.getService().sendTextNPC("Để làm 1 đôi vớ cần: 5 cuộn len trắng + 5 cuộn len đỏ + 5 chỉ nhung và 200 vàng", "");
+                        p.getService().sendTextNPC("Để làm 1 đôi vớ cần: 5 cuộn len trắng + 5 cuộn len đỏ + 5 chỉ nhung và 15 vàng", "");
                         break;
                 }
                 break;
@@ -118,7 +118,7 @@ public class Christmas extends Event{
                         action(p, 1, 100);
                         break;
                     case 3:
-                        p.getService().sendTextNPC("Để làm 1 đôi găng cần: 5 cuộn len trắng + 5 cuộn len đỏ + 5 chỉ nhung và 100k bạc", "");
+                        p.getService().sendTextNPC("Để làm 1 đôi găng cần: 5 cuộn len trắng + 5 cuộn len đỏ + 5 chỉ nhung và 80k bạc", "");
                         break;
                 }
                 break;
@@ -152,13 +152,13 @@ public class Christmas extends Event{
                         p.stepSeal = 0;
                         p.typeSeal ="";
                         Item thebai = new Item(795);
-                        thebai.amount = 100;
+                        thebai.amount = 70;
                         thebai.isLock=true;
                         p.addItem(thebai);
                         p.msgAddItemBag(thebai);
-                        p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 70);
+                        p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 100);
                         p.getEventPoint().addPoint(TOP_MAKE_SOCKS, 100);
-                        p.getService().serverMessage("Bạn nhận được 70 điểm tiêu xài và 100 điểm làm vớ");
+                        p.getService().serverMessage("Bạn nhận được 100 điểm tiêu xài và 100 điểm làm vớ");
                         break;
                     case 2:
                         if(!p.taskSeal){
@@ -171,7 +171,7 @@ public class Christmas extends Event{
                         p.getService().serverMessage("Đã huỷ nhiệm vụ phong ấn");
                         break;
                     case 3:
-                        p.getService().sendTextNPC("1k vàng làm nv xong sẽ nhận được 70 điểm tiêu xài và 100 điểm làm vớ", "");
+                        p.getService().sendTextNPC("1k vàng làm nv xong sẽ nhận được 100 điểm tiêu xài và 100 điểm làm vớ", "");
                         break;
                 }
                 break;
@@ -186,33 +186,33 @@ public class Christmas extends Event{
                 switch (index2){
                     case 0:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 2000){
-                            p.service.serverMessage("Bạn không có đủ 2000 điểm tiêu xài");
+                        if(point < 2500){
+                            p.service.serverMessage("Bạn không có đủ 2500 điểm tiêu xài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,2000);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,2500);
                         Item ct19 = new Item(940);
                         p.addItem(ct19);
                         p.msgAddItemBag(ct19);
                         break;
                     case 1:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 1000){
-                            p.service.serverMessage("Bạn không có đủ 1000 điểm tiêu sài");
+                        if(point < 500){
+                            p.service.serverMessage("Bạn không có đủ 500 điểm tiêu sài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,1000);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,500);
                         Item changeName = new Item(437);
                         p.addItem(changeName);
                         p.msgAddItemBag(changeName);
                         break;
                     case 2:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 2000){
-                            p.service.serverMessage("Bạn không có đủ 2000 điểm tiêu sài");
+                        if(point < 5000){
+                            p.service.serverMessage("Bạn không có đủ 5000 điểm tiêu sài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,2000);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item ctNoel = new Item(662);
                         ctNoel.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200";
                         p.addItem(ctNoel);
@@ -220,33 +220,24 @@ public class Christmas extends Event{
                         break;
                     case 3:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 500){
-                            p.service.serverMessage("Bạn không có đủ 500 điểm tiêu xài");
+                        if(point < 5000){
+                            p.service.serverMessage("Bạn không có đủ 5000 điểm tiêu xài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,500);
-//                        Item madaralucdao = new Item(702);
-//                        madaralucdao.strOptions = "69,100;71,100;0,1000;2,200;4,200;5,200";
-//                        p.addItem(madaralucdao);
-//                        p.msgAddItemBag(madaralucdao);
-                        Item da12 = new Item(11);
-                        da12.amount = 1;
-                        da12.isLock = true;
-                        p.addItem(da12);
-                        p.msgAddItemBag(da12);
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
+                        Item conMat = new Item(955);
+                        conMat.amount = 1;
+                        conMat.isLock = true;
+                        p.addItem(conMat);
+                        p.msgAddItemBag(conMat);
                         break;
                     case 4:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 2000){
-                            p.service.serverMessage("Bạn không có đủ 2000 điểm tiêu xài");
+                        if(point < 2500){
+                            p.service.serverMessage("Bạn không có đủ 2500 điểm tiêu xài");
                             return;
                         }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,2000);
-//                        Item kakashilucdao = new Item(528);
-//                        kakashilucdao.strOptions = "71,100;72,100;0,1000;2,200;4,200;5,200";
-//                        p.addItem(kakashilucdao);
-//                        p.msgAddItemBag(kakashilucdao);
-
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,2500);
                         Item veVIP = new Item(966);
                         veVIP.amount = 1;
                         veVIP.isLock = true;
@@ -286,6 +277,32 @@ public class Christmas extends Event{
                         biKipBiNgo.createItemOptions();
                         p.addItem(biKipBiNgo);
                         p.msgAddItemBag(biKipBiNgo);
+                        break;
+                    case 6:
+                        point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
+                        if(point < 1000){
+                            p.service.serverMessage("Bạn không có đủ 1000 điểm tiêu xài");
+                            return;
+                        }
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,1000);
+                        Item danChuyenHe = new Item(998);
+                        danChuyenHe.amount = 1;
+                        danChuyenHe.isLock = true;
+                        p.addItem(danChuyenHe);
+                        p.msgAddItemBag(danChuyenHe);
+                        break;
+                    case 7:
+                        point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
+                        if(point < 1000){
+                            p.service.serverMessage("Bạn không có đủ 1000 điểm tiêu xài");
+                            return;
+                        }
+                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,1000);
+                        Item tayGioiDan = new Item(603);
+                        tayGioiDan.amount = 1;
+                        tayGioiDan.isLock = true;
+                        p.addItem(tayGioiDan);
+                        p.msgAddItemBag(tayGioiDan);
                         break;
                 }
                 break;

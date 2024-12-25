@@ -170,6 +170,7 @@ public class Main {
         Manager.gI().updateDeadForest(15, 50, 0);
         Manager.gI().updateDeadForest(18, 50, 0);
         //Manager.gI().updateDaiHoi(20, 20, 0);
+        //Manager.gI().updateDaiChienNhanGia3(23,52,0);
         Manager.gI().updatePhucLoi(0, 0, 0);
         WorldManager.getInstance().start();
         // MongoDbConnection.connect();

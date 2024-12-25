@@ -259,6 +259,9 @@ public class User {
                         if (obj.containsKey("countHu")) {
                             _char.Info.countHu = Byte.parseByte(obj.get("countHu").toString());
                         }
+                        if (obj.containsKey("countSaoCH")) {//số lần dùng sao
+                            _char.Info.countSaoCH = Byte.parseByte(obj.get("countSaoCH").toString());
+                        }
                         if (obj.containsKey("timeOffline")) {
                             _char.timeOffline = Short.parseShort(obj.get("timeOffline").toString());
                         }

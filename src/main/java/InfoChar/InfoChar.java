@@ -75,7 +75,7 @@ public class InfoChar extends Entity{
     public byte KinhNghiemVoHan = 0;
     public byte countTBGT;
     public byte countHu;
-
+    public byte countSaoCH = 0;
 
     public JSONObject toJSONObject() {
         JSONObject obj = new JSONObject();
@@ -122,6 +122,7 @@ public class InfoChar extends Entity{
         obj.put("countDauCoc", this.countDauCoc);
         obj.put("KinhNghiemVoHan", this.KinhNghiemVoHan);
         obj.put("pointDungeon", this.pointDungeon);
+        obj.put("countSaoCH",this.countSaoCH);//dùng sao
         return obj;
     }
 

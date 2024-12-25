@@ -24,6 +24,7 @@ public abstract class World {
     public static final byte TRANH_DOAT_LANH_THO = 7;
     public static final byte EVENT = 8;
     public static final byte TRAINING = 9;
+    public static final byte DAI_CHIEN_NHAN_GIA_3 = 10;
 
     public static int number = 0;
 

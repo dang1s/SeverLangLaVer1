@@ -6493,6 +6493,7 @@ public class Char extends Body {
                                 }
                             });
                             text.add("Nâng cấp cho: " + (Bag.arrItemBody[i].getItemTemplate().name) + "(+" + Bag.arrItemBody[i].level + " lên +" + (Bag.arrItemBody[i].level + 1) + ")");
+                            Main.HeThongCTG("Nhẫn giả " + Info.name + " nâng cấp "+ (Bag.arrItemBody[i].getItemTemplate().name) + " lên " + (Bag.arrItemBody[i].level + 1),2);
                         }
                     }
                 }
@@ -7453,6 +7454,12 @@ public class Char extends Body {
                 }
                 break;
             case 914:
+                if(this.Info.countSaoCH > 5) {
+                    service.alertMessage("Chỉ được dùng tối đa 5 cái");
+                    return;
+                } else {
+                    this.Info.countSaoCH++;
+                }
                 if (Bag.arrItemBag[indexItem].arrayAction == null || Bag.arrItemBag[indexItem].arrayAction.length <= index1) {
                     return;
                 }

@@ -1010,12 +1010,12 @@ public class Controller implements IMessageHandler {
             }
             user.mChar.msgUpdateDataChar();
             ServerManager.addChar(user.mChar);
-            if (user.mChar.id == 3523) //phúc 3523
-                Main.HeThongCTG("Chào mừng Đệ Nhị Cao Thủ >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
-            if (user.mChar.id == 3416) //tứ
+            if (user.mChar.id == 14156) //top 1 ct
+                Main.HeThongCTG("Chào mừng Đệ Nhất Cao Thủ >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
+            if (user.mChar.id == 14440) //top 1 nạp
                 Main.HeThongCTG("Chào mừng Top 1 Đại Gia >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
-            if (user.mChar.id == 3432) //naruto
-                Main.HeThongCTG("Chào mừng Top 2 Tài Phú >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
+            if (user.mChar.id == 14096) //top 1 tp
+                Main.HeThongCTG("Chào mừng Top 1 Tài Phú >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
             if (user.mChar.idDiaCung > -1) {
                 Dungeon dungeon = Dungeon.findDungeonById(user.mChar.idDiaCung);
                 if (dungeon != null) {

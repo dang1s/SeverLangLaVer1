@@ -738,6 +738,9 @@ public class HanderNpc {
                 myChar.isWheelGold = true;
                 HanderClickEvent.thuvanmay(myChar, (byte) 74);
                 break;
+            case 2:
+                SelectCard.getInstance().open(myChar);
+                break;
         }
     }
 
@@ -825,6 +828,66 @@ public class HanderNpc {
     private static void _SelectOnoki(Char myChar, byte index1, byte index2) {
         switch (index1) {
             case 0:
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                DaiChienNhanGia3 daiChienNhanGia3 = null;
+                switch (index2) {
+                    case 0:
+                        if (minute >= 30 && (hour == 23)) {
+                            daiChienNhanGia3 = DaiChienNhanGia3.BanDoanhLangLa;
+                            if (daiChienNhanGia3 != null) {
+                                daiChienNhanGia3.addCharId(myChar.id);
+                                daiChienNhanGia3.addMember(myChar);
+                                myChar.addWorld(daiChienNhanGia3);
+                                daiChienNhanGia3.join(myChar);
+                            } else {
+                                myChar.service.serverMessage("Chưa tới thời gian báo danh");
+                            }
+                        }
+                        else if ((hour == 7 || hour == 10 || hour == 13 || hour == 16 || hour == 19) && minute < 50) {
+                            if (daiChienNhanGia3 != null && daiChienNhanGia3.isOpened() && daiChienNhanGia3.findCharId(myChar.id)) {
+                                daiChienNhanGia3.addMember(myChar);
+                                myChar.addWorld(daiChienNhanGia3);
+                                daiChienNhanGia3.join(myChar);
+                            } else {
+                                myChar.service.serverMessage("Đã hết thời gian báo danh");
+                            }
+
+                        } else {
+                            myChar.service.serverMessage("Chưa tới thời gian báo danh");
+                        }
+                    case 1:
+                        if (minute >= 50 && (hour == 6 || hour == 9 || hour == 12 || hour == 15 || hour == 18)) {
+                            daiChienNhanGia3 = DaiChienNhanGia3.BanDoanhLangLa;
+                            if (daiChienNhanGia3 != null) {
+                                daiChienNhanGia3.addCharId(myChar.id);
+                                daiChienNhanGia3.addMember(myChar);
+                                myChar.addWorld(daiChienNhanGia3);
+                                daiChienNhanGia3.join(myChar);
+                            } else {
+                                myChar.service.serverMessage("Chưa tới thời gian báo danh");
+                            }
+                        }
+                        else if ((hour == 7 || hour == 10 || hour == 13 || hour == 16 || hour == 19) && minute < 50) {
+                            if (daiChienNhanGia3 != null && daiChienNhanGia3.isOpened() && daiChienNhanGia3.findCharId(myChar.id)) {
+                                daiChienNhanGia3.addMember(myChar);
+                                myChar.addWorld(daiChienNhanGia3);
+                                daiChienNhanGia3.join(myChar);
+                            } else {
+                                myChar.service.serverMessage("Đã hết thời gian báo danh");
+                            }
+
+                        } else {
+                            myChar.service.serverMessage("Chưa tới thời gian báo danh");
+                        }
+                }
+
+
+
+
+
+
                 break;
             case 1:
                 if(DaiHoiVoThuat.DAIHOI!=null){
