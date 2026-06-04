@@ -8859,6 +8859,8 @@ public class Char extends Body {
                 writer.writeShort(item.index);
                 writer.writeUTF(s);
                 this.service.openTabItem(writer);
+            } else {
+                this.service.alertMessage("Không có trang bị nào có thể nâng cấp sao (đã đạt +17 hoặc không hỗ trợ).");
             }
 
         } catch (Exception ex) {

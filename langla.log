@@ -126,3 +126,304 @@ java.lang.NullPointerException: Cannot invoke "com.mongodb.client.MongoClient.cl
 	at com.sg188.server.Main.lambda$actionPerformed$2(Main.java:1030)
 	at java.base/java.lang.Thread.run(Thread.java:833)
 [2026-06-04 17:12:28 INFO  (Thread-223)] - All resource pools shutdown complete
+[2026-06-04 17:20:54 INFO  (main)] - ╔═══════════════════════════════════════════════════════════╗
+[2026-06-04 17:20:54 INFO  (main)] - ║              SERVER GAME KHOI DONG THANH CONG              ║
+[2026-06-04 17:20:54 INFO  (main)] - ╚═══════════════════════════════════════════════════════════╝
+[2026-06-04 17:20:55 INFO  (main)] - Config - game.expcoin: 150
+[2026-06-04 17:20:55 INFO  (main)] - Config - db.password: 
+[2026-06-04 17:20:55 INFO  (main)] - Config - mongodb.password: 
+[2026-06-04 17:20:55 INFO  (main)] - Config - server.check.port: 2908
+[2026-06-04 17:20:55 INFO  (main)] - Config - mongodb.user: root
+[2026-06-04 17:20:55 INFO  (main)] - Config - game.event: com.event.SummerEvent2026
+[2026-06-04 17:20:55 INFO  (main)] - Config - server.admin.port: 2909
+[2026-06-04 17:20:55 INFO  (main)] - Config - server.clientKey: xhopeteam2026
+[2026-06-04 17:20:55 INFO  (main)] - Config - server.admin.token: S3cur3Adm1nTok3n2026!
+[2026-06-04 17:20:55 INFO  (main)] - Config - mongodb.host: localhost
+[2026-06-04 17:20:55 INFO  (main)] - Config - db.dbData: langla_data
+[2026-06-04 17:20:55 INFO  (main)] - Config - mongodb.port: 27017
+[2026-06-04 17:20:55 INFO  (main)] - Config - db.user: root
+[2026-06-04 17:20:55 INFO  (main)] - Config - db.dbname: langla_acc
+[2026-06-04 17:20:55 INFO  (main)] - Config - cuonghoatuan.start: 04-04-2026 00:00:00
+[2026-06-04 17:20:55 INFO  (main)] - Config - db.port: 3306
+[2026-06-04 17:20:55 INFO  (main)] - Config - server.port: 2907
+[2026-06-04 17:20:55 INFO  (main)] - Config - game.exp: 4
+[2026-06-04 17:20:55 INFO  (main)] - Config - db.host: localhost
+[2026-06-04 17:20:55 INFO  (main)] - Config - server.debug: false
+[2026-06-04 17:20:55 INFO  (main)] - Config - mongodb.dbname: admin
+[2026-06-04 17:20:55 INFO  (main)] - DBData connection pool verified
+[2026-06-04 17:20:55 INFO  (main)] - Init mob new done: 18
+[2026-06-04 17:20:57 INFO  (main)] - Load itemtempalte: 1067
+[2026-06-04 17:20:57 INFO  (main)] - Load danh hieu new: 10
+[2026-06-04 17:20:57 INFO  (main)] - PhucLoi: Starting loadWelfare()...
+[2026-06-04 17:20:57 INFO  (main)] - PhucLoi: Loaded welfares for 4 types from database.
+[2026-06-04 17:20:57 INFO  (main)] - PhucLoi: Starting load()...
+[2026-06-04 17:20:57 INFO  (main)] - PhucLoi: Loaded 113 phucloi items from database.
+[2026-06-04 17:20:57 INFO  (main)] - Market size: 10
+[2026-06-04 17:20:57 INFO  (MapThreadWatchdog)] - MapThreadWatchdog đã khởi động
+[2026-06-04 17:20:57 INFO  (main)] - Loading clan data
+[2026-06-04 17:20:57 INFO  (main)] - Load clan data successfully
+[2026-06-04 17:20:57 INFO  (main)] - ╔═══════════════════════════════════════════════════════════╗
+[2026-06-04 17:20:57 INFO  (main)] - ║         SERVER DA SAN SANG - CHO CLIENT KET NOI            ║
+[2026-06-04 17:20:57 INFO  (main)] - ╚═══════════════════════════════════════════════════════════╝
+[2026-06-04 17:20:57 INFO  (main)] - Thread Server: 258
+[2026-06-04 17:20:57 INFO  (Server Socket)] - MO SERVER: 2908
+[2026-06-04 17:20:57 INFO  (main)] - Start server Success!
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Da khoi dong tren port 8081
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Token: langla_local_admin_2026
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Cac endpoint:
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/reload-giftcode  - Tai lai giftcode
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/reload-shop      - Tai lai shop
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/reload-discount  - Tai lai giam gia shop
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/reload-phucloi  - Tai lai phuc loi
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/reload-shop-rank - Tai lai shop rank
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/reload-item      - Tai lai item template
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/reload-danhhieu - Tai lai danh hieu
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/reload-event     - Tai lai cau hinh su kien
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/reload-all      - Tai lai TAT CA
+[2026-06-04 17:20:57 INFO  (AdminApiServer-Thread)] -   GET /api/status          - Kiem tra trang thai server
+[2026-06-04 17:21:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:21:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:21:57 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:22:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:22:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:22:57 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:23:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:23:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:23:57 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:24:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:24:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:24:57 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:25:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:25:57 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:25:58 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:26:58 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:26:58 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:26:58 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:27:58 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:27:58 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:27:58 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:29:05 INFO  (main)] - ╔═══════════════════════════════════════════════════════════╗
+[2026-06-04 17:29:05 INFO  (main)] - ║              SERVER GAME KHOI DONG THANH CONG              ║
+[2026-06-04 17:29:05 INFO  (main)] - ╚═══════════════════════════════════════════════════════════╝
+[2026-06-04 17:29:05 INFO  (main)] - Config - game.expcoin: 150
+[2026-06-04 17:29:05 INFO  (main)] - Config - db.password: 
+[2026-06-04 17:29:05 INFO  (main)] - Config - mongodb.password: 
+[2026-06-04 17:29:05 INFO  (main)] - Config - server.check.port: 2908
+[2026-06-04 17:29:05 INFO  (main)] - Config - mongodb.user: root
+[2026-06-04 17:29:05 INFO  (main)] - Config - game.event: com.event.SummerEvent2026
+[2026-06-04 17:29:05 INFO  (main)] - Config - server.admin.port: 2909
+[2026-06-04 17:29:05 INFO  (main)] - Config - server.clientKey: xhopeteam2026
+[2026-06-04 17:29:05 INFO  (main)] - Config - server.admin.token: S3cur3Adm1nTok3n2026!
+[2026-06-04 17:29:05 INFO  (main)] - Config - mongodb.host: localhost
+[2026-06-04 17:29:05 INFO  (main)] - Config - db.dbData: langla_data
+[2026-06-04 17:29:05 INFO  (main)] - Config - mongodb.port: 27017
+[2026-06-04 17:29:05 INFO  (main)] - Config - db.user: root
+[2026-06-04 17:29:05 INFO  (main)] - Config - db.dbname: langla_acc
+[2026-06-04 17:29:05 INFO  (main)] - Config - cuonghoatuan.start: 04-04-2026 00:00:00
+[2026-06-04 17:29:05 INFO  (main)] - Config - db.port: 3306
+[2026-06-04 17:29:05 INFO  (main)] - Config - server.port: 2907
+[2026-06-04 17:29:05 INFO  (main)] - Config - game.exp: 4
+[2026-06-04 17:29:05 INFO  (main)] - Config - db.host: localhost
+[2026-06-04 17:29:05 INFO  (main)] - Config - server.debug: false
+[2026-06-04 17:29:05 INFO  (main)] - Config - mongodb.dbname: admin
+[2026-06-04 17:29:05 INFO  (main)] - DBData connection pool verified
+[2026-06-04 17:29:06 INFO  (main)] - Init mob new done: 18
+[2026-06-04 17:29:07 INFO  (main)] - Load itemtempalte: 1067
+[2026-06-04 17:29:07 INFO  (main)] - Load danh hieu new: 10
+[2026-06-04 17:29:07 INFO  (main)] - PhucLoi: Starting loadWelfare()...
+[2026-06-04 17:29:07 INFO  (main)] - PhucLoi: Loaded welfares for 4 types from database.
+[2026-06-04 17:29:07 INFO  (main)] - PhucLoi: Starting load()...
+[2026-06-04 17:29:07 INFO  (main)] - PhucLoi: Loaded 113 phucloi items from database.
+[2026-06-04 17:29:07 INFO  (main)] - Market size: 10
+[2026-06-04 17:29:07 INFO  (MapThreadWatchdog)] - MapThreadWatchdog đã khởi động
+[2026-06-04 17:29:07 INFO  (main)] - Loading clan data
+[2026-06-04 17:29:07 INFO  (main)] - Load clan data successfully
+[2026-06-04 17:29:07 INFO  (main)] - ╔═══════════════════════════════════════════════════════════╗
+[2026-06-04 17:29:07 INFO  (main)] - ║         SERVER DA SAN SANG - CHO CLIENT KET NOI            ║
+[2026-06-04 17:29:07 INFO  (main)] - ╚═══════════════════════════════════════════════════════════╝
+[2026-06-04 17:29:07 INFO  (main)] - Thread Server: 258
+[2026-06-04 17:29:07 INFO  (Server Socket)] - MO SERVER: 2908
+[2026-06-04 17:29:07 INFO  (main)] - Start server Success!
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Da khoi dong tren port 8081
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Token: langla_local_admin_2026
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Cac endpoint:
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/reload-giftcode  - Tai lai giftcode
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/reload-shop      - Tai lai shop
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/reload-discount  - Tai lai giam gia shop
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/reload-phucloi  - Tai lai phuc loi
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/reload-shop-rank - Tai lai shop rank
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/reload-item      - Tai lai item template
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/reload-danhhieu - Tai lai danh hieu
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/reload-event     - Tai lai cau hinh su kien
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/reload-all      - Tai lai TAT CA
+[2026-06-04 17:29:08 INFO  (AdminApiServer-Thread)] -   GET /api/status          - Kiem tra trang thai server
+[2026-06-04 17:30:07 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:30:07 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:30:07 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 active / 10 idle / 10 total (max 50)
+DBDataPool : 8 active / 10 idle / 18 total (max 50)
+[2026-06-04 17:31:07 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:31:07 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:31:08 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 active / 10 idle / 10 total (max 50)
+DBDataPool : 8 active / 10 idle / 18 total (max 50)
+[2026-06-04 17:32:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:32:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:32:08 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 active / 10 idle / 10 total (max 50)
+DBDataPool : 8 active / 10 idle / 18 total (max 50)
+[2026-06-04 17:33:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:33:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:33:08 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 active / 10 idle / 10 total (max 50)
+DBDataPool : 8 active / 10 idle / 18 total (max 50)
+[2026-06-04 17:34:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:34:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:34:08 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 active / 10 idle / 10 total (max 50)
+DBDataPool : 8 active / 10 idle / 18 total (max 50)
+[2026-06-04 17:35:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:35:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:35:08 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 active / 10 idle / 10 total (max 50)
+DBDataPool : 8 active / 10 idle / 18 total (max 50)
+[2026-06-04 17:36:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:36:08 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:36:08 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 active / 10 idle / 10 total (max 50)
+DBDataPool : 8 active / 10 idle / 18 total (max 50)
+[2026-06-04 17:36:30 INFO  (main)] - ╔═══════════════════════════════════════════════════════════╗
+[2026-06-04 17:36:30 INFO  (main)] - ║              SERVER GAME KHOI DONG THANH CONG              ║
+[2026-06-04 17:36:30 INFO  (main)] - ╚═══════════════════════════════════════════════════════════╝
+[2026-06-04 17:36:30 INFO  (main)] - Config - game.expcoin: 150
+[2026-06-04 17:36:30 INFO  (main)] - Config - db.password: 
+[2026-06-04 17:36:30 INFO  (main)] - Config - mongodb.password: 
+[2026-06-04 17:36:30 INFO  (main)] - Config - server.check.port: 2908
+[2026-06-04 17:36:30 INFO  (main)] - Config - mongodb.user: root
+[2026-06-04 17:36:30 INFO  (main)] - Config - game.event: com.event.SummerEvent2026
+[2026-06-04 17:36:30 INFO  (main)] - Config - server.admin.port: 2909
+[2026-06-04 17:36:30 INFO  (main)] - Config - server.clientKey: xhopeteam2026
+[2026-06-04 17:36:30 INFO  (main)] - Config - server.admin.token: S3cur3Adm1nTok3n2026!
+[2026-06-04 17:36:30 INFO  (main)] - Config - mongodb.host: localhost
+[2026-06-04 17:36:30 INFO  (main)] - Config - db.dbData: langla_data
+[2026-06-04 17:36:30 INFO  (main)] - Config - mongodb.port: 27017
+[2026-06-04 17:36:30 INFO  (main)] - Config - db.user: root
+[2026-06-04 17:36:30 INFO  (main)] - Config - db.dbname: langla_acc
+[2026-06-04 17:36:30 INFO  (main)] - Config - cuonghoatuan.start: 04-04-2026 00:00:00
+[2026-06-04 17:36:30 INFO  (main)] - Config - db.port: 3306
+[2026-06-04 17:36:30 INFO  (main)] - Config - server.port: 2907
+[2026-06-04 17:36:30 INFO  (main)] - Config - game.exp: 4
+[2026-06-04 17:36:30 INFO  (main)] - Config - db.host: localhost
+[2026-06-04 17:36:30 INFO  (main)] - Config - server.debug: false
+[2026-06-04 17:36:30 INFO  (main)] - Config - mongodb.dbname: admin
+[2026-06-04 17:36:31 INFO  (main)] - DBData connection pool verified
+[2026-06-04 17:36:31 INFO  (main)] - Init mob new done: 18
+[2026-06-04 17:36:33 INFO  (main)] - Load itemtempalte: 1067
+[2026-06-04 17:36:33 INFO  (main)] - Load danh hieu new: 10
+[2026-06-04 17:36:33 INFO  (main)] - PhucLoi: Starting loadWelfare()...
+[2026-06-04 17:36:33 INFO  (main)] - PhucLoi: Loaded welfares for 4 types from database.
+[2026-06-04 17:36:33 INFO  (main)] - PhucLoi: Starting load()...
+[2026-06-04 17:36:33 INFO  (main)] - PhucLoi: Loaded 113 phucloi items from database.
+[2026-06-04 17:36:33 INFO  (main)] - Market size: 10
+[2026-06-04 17:36:33 INFO  (MapThreadWatchdog)] - MapThreadWatchdog đã khởi động
+[2026-06-04 17:36:33 INFO  (main)] - Loading clan data
+[2026-06-04 17:36:33 INFO  (main)] - Load clan data successfully
+[2026-06-04 17:36:33 INFO  (main)] - ╔═══════════════════════════════════════════════════════════╗
+[2026-06-04 17:36:33 INFO  (main)] - ║         SERVER DA SAN SANG - CHO CLIENT KET NOI            ║
+[2026-06-04 17:36:33 INFO  (main)] - ╚═══════════════════════════════════════════════════════════╝
+[2026-06-04 17:36:33 INFO  (main)] - Thread Server: 258
+[2026-06-04 17:36:33 INFO  (Server Socket)] - MO SERVER: 2908
+[2026-06-04 17:36:33 INFO  (main)] - Start server Success!
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Da khoi dong tren port 8081
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Token: langla_local_admin_2026
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Cac endpoint:
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/reload-giftcode  - Tai lai giftcode
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/reload-shop      - Tai lai shop
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/reload-discount  - Tai lai giam gia shop
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/reload-phucloi  - Tai lai phuc loi
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/reload-shop-rank - Tai lai shop rank
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/reload-item      - Tai lai item template
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/reload-danhhieu - Tai lai danh hieu
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/reload-event     - Tai lai cau hinh su kien
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/reload-all      - Tai lai TAT CA
+[2026-06-04 17:36:33 INFO  (AdminApiServer-Thread)] -   GET /api/status          - Kiem tra trang thai server
+[2026-06-04 17:37:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:37:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:37:33 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:38:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:38:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:38:33 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:39:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:39:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:39:33 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:40:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:40:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:40:33 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:41:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:41:33 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:41:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:42:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:42:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:42:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:43:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:43:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:43:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:44:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:44:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:44:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:45:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:45:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:45:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:46:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:46:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:46:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:47:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:47:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:47:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:48:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:48:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:48:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:49:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:49:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:49:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:50:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:50:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:50:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:51:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:51:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:51:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:52:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:52:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:52:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:53:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:53:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:53:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:54:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:54:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:54:34 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:55:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:55:34 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:55:35 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)
+[2026-06-04 17:56:35 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:56:35 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:56:35 INFO  (Thread-SaveData)] - === [POOL DEBUG] MainPool   : 0 đang dùng / 10 rảnh / 10 tổng (tối đa 50)
+DBDataPool : 8 đang dùng / 10 rảnh / 18 tổng (tối đa 50)

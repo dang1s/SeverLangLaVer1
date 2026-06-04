@@ -3010,7 +3010,7 @@ public class Item implements Cloneable {
 
                 if (this.getItemTemplate().levelNeed >= 60 && this.level < 36 || this.getItemTemplate().levelNeed >= 50 && this.level < 36 || this.getItemTemplate().levelNeed >= 40 && this.level < 36) {
 
-                    return true;
+                    return this.level < 17;
 
                 }
 
@@ -3018,13 +3018,13 @@ public class Item implements Cloneable {
 
                 if (this.getItemTemplate().levelNeed >= 60 && this.level < 36 || this.getItemTemplate().levelNeed >= 50 && this.level < 36 || this.getItemTemplate().levelNeed >= 40 && this.level < 36) {
 
-                    return true;
+                    return this.level < 17;
 
                 }
 
             } else if (this.getItemTemplate().levelNeed >= 50 && this.level < 36 || this.getItemTemplate().levelNeed >= 40 && this.level < 36 || this.getItemTemplate().levelNeed >= 30 && this.level < 12 || this.getItemTemplate().levelNeed >= 20 && this.level < 8 || this.level < 4) {
 
-                return true;
+                return this.level < 17;
 
             }
 

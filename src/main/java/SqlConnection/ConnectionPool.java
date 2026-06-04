@@ -134,18 +134,17 @@ public class ConnectionPool {
         StringBuilder stats = new StringBuilder();
         if (dataSource != null) {
             HikariPoolMXBean poolBean = dataSource.getHikariPoolMXBean();
-            stats.append("Main Pool - Active: ").append(poolBean.getActiveConnections())
-                 .append(", Idle: ").append(poolBean.getIdleConnections())
-                 .append(", Total: ").append(poolBean.getTotalConnections())
-                 .append(", Threads Awaiting: ").append(poolBean.getThreadsAwaitingConnection())
-                 .append("\n");
+            stats.append("MainPool   : ")
+                 .append(poolBean.getActiveConnections()).append(" đang dùng / ")
+                 .append(poolBean.getIdleConnections()).append(" rảnh / ")
+                 .append(poolBean.getTotalConnections()).append(" tổng (tối đa ").append(dataSource.getMaximumPoolSize()).append(")\n");
         }
         if (dataSourceDBData != null) {
             HikariPoolMXBean poolBean = dataSourceDBData.getHikariPoolMXBean();
-            stats.append("DBData Pool - Active: ").append(poolBean.getActiveConnections())
-                 .append(", Idle: ").append(poolBean.getIdleConnections())
-                 .append(", Total: ").append(poolBean.getTotalConnections())
-                 .append(", Threads Awaiting: ").append(poolBean.getThreadsAwaitingConnection());
+            stats.append("DBDataPool : ")
+                 .append(poolBean.getActiveConnections()).append(" đang dùng / ")
+                 .append(poolBean.getIdleConnections()).append(" rảnh / ")
+                 .append(poolBean.getTotalConnections()).append(" tổng (tối đa ").append(dataSourceDBData.getMaximumPoolSize()).append(")");
         }
         return stats.toString();
     }
