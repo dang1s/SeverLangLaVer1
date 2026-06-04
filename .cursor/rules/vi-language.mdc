@@ -1,0 +1,15 @@
+---
+description: Luôn giao tiếp bằng tiếng Việt
+alwaysApply: true
+---
+
+# Ngôn ngữ giao tiếp - Vietnamese Language
+
+## Mục tiêu
+Luôn luôn giao tiếp với người dùng bằng **tiếng Việt**.
+
+## Quy tắc
+- Trả lời tất cả các câu hỏi, giải thích, và thông báo bằng **tiếng Việt**.
+- Kể cả khi bắt đầu chat mới, tiếp tục dùng tiếng Việt.
+- Code comments chỉ dùng khi cần thiết và phải bằng tiếng Việt nếu được yêu cầu.
+- Không bao giờ tự động chuyển sang tiếng Anh trừ khi người dùng yêu cầu.

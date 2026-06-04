@@ -2867,9 +2867,27 @@ public class Char extends Body {
                 }
 
                 if (Bag.arrItemBody[10] != null && Bag.arrItemBody[10].isSucManh()) {
-                    removeItem(item);
+                    ItemOption tuluyen = null;
+                    for (ItemOption ops : Bag.arrItemBody[10].getItemOption()) {
+                        if (ops.getId() == 305) {
+                            tuluyen = ops;
+                            break;
+                        }
+                    }
+                    if (tuluyen == null) {
+                        return;
+                    }
+                    int hienTai = tuluyen.getvalue();
+                    int maxValue = tuluyen.f();
+                    int conThieu = maxValue - hienTai;
+                    if (conThieu <= 0) {
+                        service.alertMessage("Vĩ thú đã full sức mạnh");
+                        return;
+                    }
+                    int soLuongDung = Math.min(item.amount, conThieu);
+                    removeItemByAmount(item, soLuongDung);
                     msgUseItemBag(item);
-                    Bag.arrItemBody[10].updateViThu(1);
+                    Bag.arrItemBody[10].updateViThu(soLuongDung);
                     msgUpdateItemBody();
                 } else {
                     service.alertMessage("Vui lòng mở sức mạnh vĩ thú");
@@ -13185,32 +13203,28 @@ public class Char extends Body {
                         service.sendMessage(HanderMessage.SendThongBao("Tên nhân vật phải có tối thiểu 5 ký tự", HanderMessage.RED_MID));
                         break;
                     }
-                    try {
-
-                        Connection conn = Connect.getConnection();
+                    try (Connection conn = Connect.getConnection()) {
                         if (conn == null) {
                             Log.error("Cannot get database connection in name change check");
                             return;
                         }
-                        PreparedStatement stmt = conn
+                        try (PreparedStatement stmt = conn
                                 .prepareStatement("SELECT * FROM `player` WHERE `Name` = ? LIMIT 1;", ResultSet.TYPE_SCROLL_SENSITIVE,
-                                        ResultSet.CONCUR_READ_ONLY);
-                        stmt.setString(1, text);
-                        ResultSet data = stmt.executeQuery();
-                        if (data.first()) {
-                            service.alertMessage("Tên đã tồn tại, vui lòng chọn một tên khác.");
-                            return;
+                                        ResultSet.CONCUR_READ_ONLY)) {
+                            stmt.setString(1, text);
+                            try (ResultSet data = stmt.executeQuery()) {
+                                if (data.first()) {
+                                    service.alertMessage("Tên đã tồn tại, vui lòng chọn một tên khác.");
+                                    return;
+                                }
+                            }
                         }
 
-                        PreparedStatement stmt2 = conn
-                                .prepareStatement("UPDATE `player` SET `Name` = ? WHERE `IdChar` = ? LIMIT 1;");
-                        try {
-
+                        try (PreparedStatement stmt2 = conn
+                                .prepareStatement("UPDATE `player` SET `Name` = ? WHERE `IdChar` = ? LIMIT 1;")) {
                             stmt2.setString(1, text);
                             stmt2.setInt(2, this.id);
                             stmt2.executeUpdate();
-                        } finally {
-                            stmt2.close();
                         }
                         Info.name = text;
                         // Item item = ItemFactory.getInstance().newItem(ItemName.THE_DOI_TEN);

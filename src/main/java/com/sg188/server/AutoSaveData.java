@@ -5,6 +5,7 @@ import EventClick.ConfigCuongHoa;
 import EventClick.ConfigLuyenTap;
 import EventClick.ConfigNhiDong;
 import SqlConnection.CharDB;
+import SqlConnection.ConnectionPool;
 import com.sg188.clan.Clan;
 import com.sg188.lib.Log;
 import com.sg188.real.Char;
@@ -53,6 +54,8 @@ public class  AutoSaveData implements Runnable {
                 }catch (Exception e){
                    Log.error("error save data clan "+e);
                 }
+
+                Log.info("=== [POOL DEBUG] " + ConnectionPool.getPoolStats());
                 } catch (InterruptedException ex) {
                 Logger.getLogger(AutoSaveData.class.getName()).log(Level.SEVERE, null, ex);
             }

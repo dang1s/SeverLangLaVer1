@@ -18,8 +18,8 @@ public class ConnectionPool {
     private static HikariDataSource dataSource;
     private static HikariDataSource dataSourceDBData;
     
-    private static final int MAX_POOL_SIZE = 20; // Tối đa 20 connections trong pool
-    private static final int MIN_IDLE = 5; // Giữ tối thiểu 5 connections
+    private static final int MAX_POOL_SIZE = 50; // Tối đa 50 connections trong pool
+    private static final int MIN_IDLE = 10; // Giữ tối thiểu 10 connections
     private static final long CONNECTION_TIMEOUT = 30000; // 30 giây timeout
     private static final long IDLE_TIMEOUT = 600000; // 10 phút idle timeout
     private static final long MAX_LIFETIME = 1800000; // 30 phút max lifetime

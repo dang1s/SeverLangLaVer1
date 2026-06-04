@@ -486,26 +486,29 @@ public class Manager {
             }
             SonCapMyo.listCharIdInSonCap.clear();
             List<Clan> clans = Clan.getClanDAO().getAll();
-            Connection conn = Connect.getConnection();
-            if (conn == null) {
-                Log.error("Cannot get database connection in clan update");
-                return;
-            }
-            java.util.Date now = new java.util.Date();
-            synchronized (clans) {
-                for (Clan clan : clans) {
-                    clan.openDun = 1;
-                    clan.countKick = 5;
-                    clan.countInvite = 20;
-                    PreparedStatement stmt3 = conn.prepareStatement(
-                            "UPDATE `clan` SET `open_dun` = 1,`countinvite` = 20,`countkick` = 5, `updated_at` = ? WHERE `id` = ? LIMIT 1;");
-                    stmt3.setString(1, Utlis.dateToString(now, "yyyy-MM-dd"));
-                    stmt3.setInt(2, clan.id);
-                    stmt3.executeUpdate();
-                    stmt3.close();
+            try (Connection conn = Connect.getConnection()) {
+                if (conn == null) {
+                    Log.error("Cannot get database connection in clan update");
+                    return;
                 }
+                java.util.Date now = new java.util.Date();
+                synchronized (clans) {
+                    for (Clan clan : clans) {
+                        clan.openDun = 1;
+                        clan.countKick = 5;
+                        clan.countInvite = 20;
+                        try (PreparedStatement stmt3 = conn.prepareStatement(
+                                "UPDATE `clan` SET `open_dun` = 1,`countinvite` = 20,`countkick` = 5, `updated_at` = ? WHERE `id` = ? LIMIT 1;")) {
+                            stmt3.setString(1, Utlis.dateToString(now, "yyyy-MM-dd"));
+                            stmt3.setInt(2, clan.id);
+                            stmt3.executeUpdate();
+                        }
+                    }
+                }
+            } catch (SQLException e) {
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            Log.error("Error in updatePhucLoiNewDay", e);
         }
     }
 
@@ -557,58 +560,59 @@ public class Manager {
     }
 
     public void insertItemToStall(ItemMarket item) {
-        try {
-            Connection conn = Connect.getConnection();
+        try (Connection conn = Connect.getConnection()) {
             if (conn == null) {
                 Log.error("Cannot get database connection in insertItemToStall");
                 return;
             }
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO `market`(`id`, `seller`, `item`, `price`, `status`, `time`) VALUES (?,?,?,?,?,?)");
-            stmt.setLong(1, item.getId());
-            stmt.setString(2, item.getName());
-            stmt.setString(3, item.getItem().toJSONObject().toJSONString());
-            stmt.setInt(4, item.getPrice());
-            stmt.setInt(5, item.getStatus());
-            stmt.setInt(6, item.getTime());
-            stmt.executeUpdate();
-            stmt.close();
+            try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO `market`(`id`, `seller`, `item`, `price`, `status`, `time`) VALUES (?,?,?,?,?,?)")) {
+                stmt.setLong(1, item.getId());
+                stmt.setString(2, item.getName());
+                stmt.setString(3, item.getItem().toJSONObject().toJSONString());
+                stmt.setInt(4, item.getPrice());
+                stmt.setInt(5, item.getStatus());
+                stmt.setInt(6, item.getTime());
+                stmt.executeUpdate();
+            }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
     public void deleteItemFromStall(long id) {
-        try {
-            Connection conn = Connect.getConnection();
+        try (Connection conn = Connect.getConnection()) {
             if (conn == null) {
                 Log.error("Cannot get database connection in deleteItemFromStall");
                 return;
             }
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM `market` WHERE `id` = ?");
-            stmt.setLong(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected < 0) {
-                Log.info("No item found with id " + id);
+            try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM `market` WHERE `id` = ?")) {
+                stmt.setLong(1, id);
+                int rowsAffected = stmt.executeUpdate();
+                if (rowsAffected < 0) {
+                    Log.info("No item found with id " + id);
+                }
             }
-            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void logItemSale(String seller, String buyer, long itemId, String itemDetails, int price) {
-        try {
-            PreparedStatement stmt = Connect.getConnection().prepareStatement(
+        try (Connection conn = Connect.getConnection()) {
+            if (conn == null) {
+                Log.error("Cannot get database connection in logItemSale");
+                return;
+            }
+            try (PreparedStatement stmt = conn.prepareStatement(
                     "INSERT INTO market_log (seller, buyer, item_id, item_details, price) VALUES (?, ?, ?, ?, ?)"
-            );
-            stmt.setString(1, seller);
-            stmt.setString(2, buyer);
-            stmt.setLong(3, itemId);
-            stmt.setString(4, itemDetails);
-            stmt.setInt(5, price);
-            stmt.executeUpdate();
-            stmt.close();
+            )) {
+                stmt.setString(1, seller);
+                stmt.setString(2, buyer);
+                stmt.setLong(3, itemId);
+                stmt.setString(4, itemDetails);
+                stmt.setInt(5, price);
+                stmt.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

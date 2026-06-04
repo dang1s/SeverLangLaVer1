@@ -453,6 +453,8 @@ public class Main extends WindowAdapter implements ActionListener {
                         appendText(doc, String.format("%.2f%%\n", systemCpuLoad), getColor((long) systemCpuLoad));
                         appendText(doc, " 🔄 Thread    : ", Color.WHITE);
                         appendText(doc, Thread.activeCount() + " threads\n", Color.CYAN);
+                        appendText(doc, " 🔌 DB Pool   : ", Color.WHITE);
+                        appendText(doc, ConnectionPool.getPoolStats() + "\n", new Color(0, 255, 190));
                         appendText(doc, " ------------------------------------------\n", Color.DARK_GRAY);
                         appendText(doc, " 🆙 Kinh nghiệm : ", Color.WHITE);
                         appendText(doc, "x" + getExpServerRate() + "\n", new Color(0, 255, 190));
@@ -476,6 +478,8 @@ public class Main extends WindowAdapter implements ActionListener {
                 appendText(doc, String.format("%.2f%%\n", systemCpuLoad), getColor((long) systemCpuLoad));
                 appendText(doc, " 🔄 Thread    : ", Color.WHITE);
                 appendText(doc, Thread.activeCount() + " threads\n", Color.CYAN);
+                appendText(doc, " 🔌 DB Pool   : ", Color.WHITE);
+                appendText(doc, ConnectionPool.getPoolStats() + "\n", new Color(0, 255, 190));
                 appendText(doc, " ------------------------------------------\n", Color.DARK_GRAY);
                 appendText(doc, " 🆙 Kinh nghiệm : ", Color.WHITE);
                 appendText(doc, "x" + getExpServerRate() + "\n", new Color(0, 255, 190));
@@ -713,6 +717,9 @@ public class Main extends WindowAdapter implements ActionListener {
                         }
                     }
                     Log.debug("Hoan tat luu data clan");
+                }
+                if (value.equals("pool")) {
+                    System.out.println(ConnectionPool.getPoolStats());
                 }
                 try {
                     Thread.sleep(1000);

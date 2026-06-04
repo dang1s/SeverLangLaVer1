@@ -1,0 +1,128 @@
+[2026-06-04 17:06:26 INFO  (main)] - ╔═══════════════════════════════════════════════════════════╗
+[2026-06-04 17:06:26 INFO  (main)] - ║              SERVER GAME KHOI DONG THANH CONG              ║
+[2026-06-04 17:06:26 INFO  (main)] - ╚═══════════════════════════════════════════════════════════╝
+[2026-06-04 17:06:26 INFO  (main)] - Config - game.expcoin: 150
+[2026-06-04 17:06:26 INFO  (main)] - Config - db.password: 
+[2026-06-04 17:06:26 INFO  (main)] - Config - mongodb.password: 
+[2026-06-04 17:06:26 INFO  (main)] - Config - server.check.port: 2908
+[2026-06-04 17:06:26 INFO  (main)] - Config - mongodb.user: root
+[2026-06-04 17:06:26 INFO  (main)] - Config - game.event: com.event.SummerEvent2026
+[2026-06-04 17:06:26 INFO  (main)] - Config - server.admin.port: 2909
+[2026-06-04 17:06:26 INFO  (main)] - Config - server.clientKey: xhopeteam2026
+[2026-06-04 17:06:26 INFO  (main)] - Config - server.admin.token: S3cur3Adm1nTok3n2026!
+[2026-06-04 17:06:26 INFO  (main)] - Config - mongodb.host: localhost
+[2026-06-04 17:06:26 INFO  (main)] - Config - db.dbData: langladata
+[2026-06-04 17:06:26 INFO  (main)] - Config - mongodb.port: 27017
+[2026-06-04 17:06:26 INFO  (main)] - Config - db.user: root
+[2026-06-04 17:06:26 INFO  (main)] - Config - db.dbname: langla
+[2026-06-04 17:06:26 INFO  (main)] - Config - cuonghoatuan.start: 04-04-2026 00:00:00
+[2026-06-04 17:06:26 INFO  (main)] - Config - db.port: 3306
+[2026-06-04 17:06:26 INFO  (main)] - Config - server.port: 2907
+[2026-06-04 17:06:26 INFO  (main)] - Config - game.exp: 4
+[2026-06-04 17:06:26 INFO  (main)] - Config - db.host: localhost
+[2026-06-04 17:06:26 INFO  (main)] - Config - server.debug: false
+[2026-06-04 17:06:26 INFO  (main)] - Config - mongodb.dbname: admin
+[2026-06-04 17:06:27 ERROR (main)] - Failed to initialize connection pools
+com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Unknown database 'langla'
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:596)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:582)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at SqlConnection.ConnectionPool.initializePools(ConnectionPool.java:62)
+	at SqlConnection.ConnectionPool.<clinit>(ConnectionPool.java:28)
+	at SqlConnection.DBData.openConnection(DBData.java:12)
+	at com.sg188.server.Main.Init(Main.java:733)
+	at com.sg188.server.Main.main(Main.java:643)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown database 'langla'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	... 7 more
+[2026-06-04 17:08:10 INFO  (main)] - ╔═══════════════════════════════════════════════════════════╗
+[2026-06-04 17:08:10 INFO  (main)] - ║              SERVER GAME KHOI DONG THANH CONG              ║
+[2026-06-04 17:08:10 INFO  (main)] - ╚═══════════════════════════════════════════════════════════╝
+[2026-06-04 17:08:10 INFO  (main)] - Config - game.expcoin: 150
+[2026-06-04 17:08:10 INFO  (main)] - Config - db.password: 
+[2026-06-04 17:08:10 INFO  (main)] - Config - mongodb.password: 
+[2026-06-04 17:08:10 INFO  (main)] - Config - server.check.port: 2908
+[2026-06-04 17:08:10 INFO  (main)] - Config - mongodb.user: root
+[2026-06-04 17:08:10 INFO  (main)] - Config - game.event: com.event.SummerEvent2026
+[2026-06-04 17:08:10 INFO  (main)] - Config - server.admin.port: 2909
+[2026-06-04 17:08:10 INFO  (main)] - Config - server.clientKey: xhopeteam2026
+[2026-06-04 17:08:10 INFO  (main)] - Config - server.admin.token: S3cur3Adm1nTok3n2026!
+[2026-06-04 17:08:10 INFO  (main)] - Config - mongodb.host: localhost
+[2026-06-04 17:08:10 INFO  (main)] - Config - db.dbData: langla_data
+[2026-06-04 17:08:10 INFO  (main)] - Config - mongodb.port: 27017
+[2026-06-04 17:08:10 INFO  (main)] - Config - db.user: root
+[2026-06-04 17:08:10 INFO  (main)] - Config - db.dbname: langla_acc
+[2026-06-04 17:08:10 INFO  (main)] - Config - cuonghoatuan.start: 04-04-2026 00:00:00
+[2026-06-04 17:08:10 INFO  (main)] - Config - db.port: 3306
+[2026-06-04 17:08:10 INFO  (main)] - Config - server.port: 2907
+[2026-06-04 17:08:10 INFO  (main)] - Config - game.exp: 4
+[2026-06-04 17:08:10 INFO  (main)] - Config - db.host: localhost
+[2026-06-04 17:08:10 INFO  (main)] - Config - server.debug: false
+[2026-06-04 17:08:10 INFO  (main)] - Config - mongodb.dbname: admin
+[2026-06-04 17:08:10 INFO  (main)] - DBData connection pool verified
+[2026-06-04 17:08:11 INFO  (main)] - Init mob new done: 18
+[2026-06-04 17:08:12 INFO  (main)] - Load itemtempalte: 1067
+[2026-06-04 17:08:12 INFO  (main)] - Load danh hieu new: 10
+[2026-06-04 17:08:12 INFO  (main)] - PhucLoi: Starting loadWelfare()...
+[2026-06-04 17:08:12 INFO  (main)] - PhucLoi: Loaded welfares for 4 types from database.
+[2026-06-04 17:08:12 INFO  (main)] - PhucLoi: Starting load()...
+[2026-06-04 17:08:12 INFO  (main)] - PhucLoi: Loaded 113 phucloi items from database.
+[2026-06-04 17:08:13 INFO  (main)] - Market size: 10
+[2026-06-04 17:08:13 INFO  (MapThreadWatchdog)] - MapThreadWatchdog đã khởi động
+[2026-06-04 17:08:13 INFO  (main)] - Loading clan data
+[2026-06-04 17:08:13 INFO  (main)] - Load clan data successfully
+[2026-06-04 17:08:13 INFO  (main)] - ╔═══════════════════════════════════════════════════════════╗
+[2026-06-04 17:08:13 INFO  (main)] - ║         SERVER DA SAN SANG - CHO CLIENT KET NOI            ║
+[2026-06-04 17:08:13 INFO  (main)] - ╚═══════════════════════════════════════════════════════════╝
+[2026-06-04 17:08:13 INFO  (main)] - Thread Server: 258
+[2026-06-04 17:08:13 INFO  (Server Socket)] - MO SERVER: 2908
+[2026-06-04 17:08:13 INFO  (main)] - Start server Success!
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Da khoi dong tren port 8081
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Token: langla_local_admin_2026
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] - [AdminApiServer] Cac endpoint:
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/reload-giftcode  - Tai lai giftcode
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/reload-shop      - Tai lai shop
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/reload-discount  - Tai lai giam gia shop
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/reload-phucloi  - Tai lai phuc loi
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/reload-shop-rank - Tai lai shop rank
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/reload-item      - Tai lai item template
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/reload-danhhieu - Tai lai danh hieu
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/reload-event     - Tai lai cau hinh su kien
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/reload-all      - Tai lai TAT CA
+[2026-06-04 17:08:13 INFO  (AdminApiServer-Thread)] -   GET /api/status          - Kiem tra trang thai server
+[2026-06-04 17:09:13 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:09:13 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:09:13 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:10:13 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:10:13 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:10:14 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:11:14 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:11:14 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:11:14 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:12:14 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:12:14 INFO  (Thread-SaveData)] - Lưu data tự động
+[2026-06-04 17:12:14 INFO  (Thread-SaveData)] - === [POOL DEBUG] Main Pool - Active: 0, Idle: 10, Total: 10, Threads Awaiting: 0
+DBData Pool - Active: 8, Idle: 10, Total: 18, Threads Awaiting: 0
+[2026-06-04 17:12:28 INFO  (Thread-223)] - Main connection pool closed
+[2026-06-04 17:12:28 INFO  (Thread-223)] - DBData connection pool closed
+[2026-06-04 17:12:28 ERROR (Thread-223)] - Error closing MongoDB connection
+java.lang.NullPointerException: Cannot invoke "com.mongodb.client.MongoClient.close()" because "SqlConnection.MongoDbConnection.mongoClient" is null
+	at SqlConnection.MongoDbConnection.close(MongoDbConnection.java:36)
+	at com.sg188.server.Main.maintance(Main.java:1002)
+	at com.sg188.server.Main.lambda$actionPerformed$2(Main.java:1030)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+[2026-06-04 17:12:28 INFO  (Thread-223)] - All resource pools shutdown complete

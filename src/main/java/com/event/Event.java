@@ -490,33 +490,28 @@ public abstract class Event {
 
     }
     public void loadEventPoint() {
-        try {
+        try (Connection conn = Connect.getConnection()) {
             eventPoints.clear();
-            Connection conn = Connect.getConnection();
-            if (conn == null) {
-                Log.error("Cannot get database connection in Event.loadEventPoint");
-                return;
+            try (PreparedStatement ps = conn.prepareStatement("SELECT `event_points`.*, `player`.`Name` FROM `event_points`, `player` WHERE `event_points`.`event_id` = ? AND `player`.`IdChar` = `event_points`.`player_id`;")) {
+                ps.setInt(1, this.id);
+                try (ResultSet rs = ps.executeQuery()) {
+                    Gson g = new Gson();
+                    while (rs.next()) {
+                        EventPoint eventPoint = createEventPoint();
+                        int id = rs.getInt("id");
+                        int playerID = rs.getInt("player_id");
+                        String name = rs.getString("name");
+                        ArrayList<Point> points = g.fromJson(rs.getString("point"), new TypeToken<ArrayList<Point>>() {
+                        }.getType());
+                        eventPoint.setId(id);
+                        eventPoint.setPlayerID(playerID);
+                        eventPoint.setPlayerName(name);
+                        eventPoint.setPoints(points);
+                        eventPoint.addIfMissing(keyEventPoint);
+                        eventPoints.add(eventPoint);
+                    }
+                }
             }
-            PreparedStatement ps = conn.prepareStatement("SELECT `event_points`.*, `player`.`Name` FROM `event_points`, `player` WHERE `event_points`.`event_id` = ? AND `player`.`IdChar` = `event_points`.`player_id`;");
-            ps.setInt(1, this.id);
-            ResultSet rs = ps.executeQuery();
-            Gson g = new Gson();
-            while (rs.next()) {
-                EventPoint eventPoint = createEventPoint();
-                int id = rs.getInt("id");
-                int playerID = rs.getInt("player_id");
-                String name = rs.getString("name");
-                ArrayList<Point> points = g.fromJson(rs.getString("point"), new TypeToken<ArrayList<Point>>() {
-                }.getType());
-                eventPoint.setId(id);
-                eventPoint.setPlayerID(playerID);
-                eventPoint.setPlayerName(name);
-                eventPoint.setPoints(points);
-                eventPoint.addIfMissing(keyEventPoint);
-                eventPoints.add(eventPoint);
-            }
-            rs.close();
-            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
         }

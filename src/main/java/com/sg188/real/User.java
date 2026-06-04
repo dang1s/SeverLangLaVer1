@@ -781,79 +781,76 @@ public class User {
         }
     }
     public void createCharDB(Char c, int numberC, int _userid) {
-        Connection conn = Connect.getConnection();
-        if (conn == null) {
-            Log.error("Cannot get database connection in createCharDB");
-            return;
-        }
-        try (Connection conn2 = conn) {
-            PreparedStatement ps = conn2.prepareStatement("Insert Into player set idchar = ? ,indexchar = ?,name = ?, info = ? ,inventory = ?,bag = ?,body = ?,body2 = ?,box = ?,bagext = ?,skillvithu = ?, skill = ? , point = ? ,thu = ?,code = ?,effect =?,phucLoi =?,hokage =?,danhhieu = ?,listskill = ?,`enemies` = ?,`friends` = ?,`task` = ?");
-            ps.setInt(1, _userid);
-            ps.setInt(2, numberC + 1);
-            ps.setString(3, c.Info.name);
-            c.Info.idEntity = _userid;
-            c.Info.cx = 259;
-            c.Info.cy=257;
-            ObjectMapper json = new ObjectMapper();
-            JSONArray info = new JSONArray();
-            info.add(c.Info.toJSONObject());
-            JSONArray inventory = new JSONArray();
-            inventory.add(c.Bag.toJSONObject());
-            JSONArray point = new JSONArray();
-            point.add(c.Point.toJSONObject());
-            JSONArray bags = new JSONArray();
-            for (int i = 0; i < c.Bag.arrItemBag.length; i++) {
-                try {
-                    if (c.Bag.arrItemBag[i] != null) {
-                        bags.add(c.Bag.arrItemBag[i].toJSONObject());
-
-                    }
-                } catch (Exception e) {
-                }
+        try (Connection conn = Connect.getConnection()) {
+            if (conn == null) {
+                Log.error("Cannot get database connection in createCharDB");
+                return;
             }
-            String jinfo = info.toJSONString();
-            String jbag = bags.toJSONString();
-            String jinven = inventory.toJSONString();
-            String jpoin = point.toJSONString();
-            String skill = json.writeValueAsString(c.Skill);
-            ps.setString(4, jinfo);
-            ps.setString(5, jinven);
-            ps.setString(6, jbag);
-            ps.setString(7, "[]");
-            ps.setString(8, "[]");
-            ps.setString(9, "[]");
-            ps.setString(10, "[]");
-            ps.setString(11, "[]");
-            ps.setString(12, skill);
-            ps.setString(13, jpoin);
-            ps.setString(14, "[]");
-            ps.setString(15, "[]");
-            ps.setString(16, "[]");
-            ps.setString(17, "[]");
-            ps.setString(18, "[]");
-            ps.setString(19, "[]");
-            ps.setString(20, "[]");
-            ps.setString(21, "[]");
-            ps.setString(22, "[]");
-            ps.setString(23, "[]");
+            ObjectMapper json = new ObjectMapper();
+            try (PreparedStatement ps = conn.prepareStatement("Insert Into player set idchar = ? ,indexchar = ?,name = ?, info = ? ,inventory = ?,bag = ?,body = ?,body2 = ?,box = ?,bagext = ?,skillvithu = ?, skill = ? , point = ? ,thu = ?,code = ?,effect =?,phucLoi =?,hokage =?,danhhieu = ?,listskill = ?,`enemies` = ?,`friends` = ?,`task` = ?")) {
+                ps.setInt(1, _userid);
+                ps.setInt(2, numberC + 1);
+                ps.setString(3, c.Info.name);
+                c.Info.idEntity = _userid;
+                c.Info.cx = 259;
+                c.Info.cy = 257;
+                JSONArray info = new JSONArray();
+                info.add(c.Info.toJSONObject());
+                JSONArray inventory = new JSONArray();
+                inventory.add(c.Bag.toJSONObject());
+                JSONArray point = new JSONArray();
+                point.add(c.Point.toJSONObject());
+                JSONArray bags = new JSONArray();
+                for (int i = 0; i < c.Bag.arrItemBag.length; i++) {
+                    try {
+                        if (c.Bag.arrItemBag[i] != null) {
+                            bags.add(c.Bag.arrItemBag[i].toJSONObject());
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+                String jinfo = info.toJSONString();
+                String jbag = bags.toJSONString();
+                String jinven = inventory.toJSONString();
+                String jpoin = point.toJSONString();
+                String skill = json.writeValueAsString(c.Skill);
+                ps.setString(4, jinfo);
+                ps.setString(5, jinven);
+                ps.setString(6, jbag);
+                ps.setString(7, "[]");
+                ps.setString(8, "[]");
+                ps.setString(9, "[]");
+                ps.setString(10, "[]");
+                ps.setString(11, "[]");
+                ps.setString(12, skill);
+                ps.setString(13, jpoin);
+                ps.setString(14, "[]");
+                ps.setString(15, "[]");
+                ps.setString(16, "[]");
+                ps.setString(17, "[]");
+                ps.setString(18, "[]");
+                ps.setString(19, "[]");
+                ps.setString(20, "[]");
+                ps.setString(21, "[]");
+                ps.setString(22, "[]");
+                ps.setString(23, "[]");
 
-            ps.executeUpdate();
-            ps.close();
+                ps.executeUpdate();
+            }
 
             /**
-             *
              * *********** INSERT TO ARR SUB NAME USERS************
              */
             if (c.user.subNameChar == null) {
                 c.user.subNameChar = new String[3];
             }
             c.user.subNameChar[numberC] = c.Info.name;
-            ps = conn.prepareStatement("UPDATE USERS SET quantitychar = ? , arrsubname = ? where username = ?");
-            ps.setInt(1, numberC + 1);
-            ps.setString(2, json.writeValueAsString(c.user.subNameChar));
-            ps.setString(3, c.user.username);
-            ps.executeUpdate();
-            ps.close();
+            try (PreparedStatement ps = conn.prepareStatement("UPDATE USERS SET quantitychar = ? , arrsubname = ? where username = ?")) {
+                ps.setInt(1, numberC + 1);
+                ps.setString(2, json.writeValueAsString(c.user.subNameChar));
+                ps.setString(3, c.user.username);
+                ps.executeUpdate();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
