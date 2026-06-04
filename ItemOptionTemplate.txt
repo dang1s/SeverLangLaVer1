@@ -1,0 +1,374 @@
+id=0, name=Hp: +#, type=0, level=0, strOption=20;20;20;20;20;20;20;25;25;25;25;30;30;40;40;100;200;200;400;440;484;532;585;643;707;777;854;939;1032;1135
+id=1, name=Mp: +#, type=0, level=0, strOption=20;20;20;20;20;20;20;25;25;25;25;30;30;40;40;100;200;200;400;440;484;532;585;643;707;777;854;939;1032;1135
+id=2, name=Tấn công: +#, type=0, level=0, strOption=50;50;50;50;50;50;50;70;70;70;70;90;90;110;110;150;200;200;400;440;484;532;585;643;707;777;854;939;1032;1135
+id=3, name=Sát thương quái: +#, type=0, level=0, strOption=20;20;20;20;20;20;20;25;25;25;25;30;30;40;40;100;150;150;300;330;363;399;438;481;529;581;639;702;772;849
+id=4, name=Bỏ qua né tránh: +#, type=0, level=0, strOption=20;20;20;20;20;20;20;25;25;25;25;30;30;40;40;100;150;150;300;330;363;399;438;481;529;581;639;702;772;849
+id=5, name=Chí mạng: +#, type=0, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=6, name=Sát thương chuyển thành hồi phục Hp: +#%, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=7, name=Kháng lôi: +#, type=2, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=8, name=Kháng thổ: +#, type=2, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=9, name=Kháng thủy: +#, type=2, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=10, name=Kháng hỏa: +#, type=2, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=11, name=Kháng phong: +#, type=2, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=12, name=Kháng tất cả: +#, type=2, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=13, name=Giảm trừ sát thương: +#, type=2, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=14, name=Né tránh: +#, type=2, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=15, name=Chí mạng: +#, type=2, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=16, name=Phản đòn: +#, type=2, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=17, name=(+4) Tốc độ di chuyển: +#, type=3, level=10, strOption=
+id=18, name=Hp tối đa: +#, type=2, level=0, strOption=20;20;20;20;20;20;20;25;25;25;25;30;30;40;40;100;200;200;400;440;484;532;585;643;707;777;854;939;1032;1135
+id=19, name=Mp tối đa: +#, type=2, level=0, strOption=20;20;20;20;20;20;20;25;25;25;25;30;30;40;40;100;200;200;400;440;484;532;585;643;707;777;854;939;1032;1135
+id=20, name=Chính xác: +#, type=2, level=0, strOption=20;20;20;20;20;20;20;25;25;25;25;30;30;40;40;100;150;150;300;330;363;399;438;481;529;581;639;702;772;849
+id=21, name=Tăng tấn công lên Hệ Lôi: +#, type=2, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=22, name=Tăng tấn công lên Hệ Thổ: +#, type=2, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=23, name=Tăng tấn công lên hệ Thủy: +#, type=2, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=24, name=Tăng tấn công lên hệ Hỏa: +#, type=2, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=25, name=Tăng tấn công lên Hệ Phong: +#, type=2, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=26, name=(+4) Mỗi nữa giây phục hồi Hp: +#, type=3, level=10, strOption=
+id=27, name=(+4) Mỗi nữa giây phục hồi Mp: +#, type=3, level=10, strOption=
+id=28, name=(+8) Chí mạng: +#, type=4, level=20, strOption=
+id=29, name=(+8) Hp tối đa: +#, type=4, level=20, strOption=
+id=30, name=(+8) Mp tối đa: +#, type=4, level=20, strOption=
+id=31, name=(+12) Tấn công cơ bản của vũ khí: +#, type=5, level=30, strOption=
+id=32, name=(+12) Tỉ lệ Hp tối đa: +#%, type=5, level=30, strOption=
+id=33, name=(+12) Tỉ lệ Mp tối đa: +#%, type=5, level=30, strOption=
+id=34, name=(+14) Phát huy lực tấn công cơ bản: +#%, type=6, level=40, strOption=
+id=35, name=(+14) Kháng lôi: +#, type=6, level=40, strOption=
+id=36, name=(+14) Kháng thổ: +#, type=6, level=40, strOption=
+id=37, name=(+14) Kháng thủy: +#, type=6, level=40, strOption=
+id=38, name=(+14) Kháng hỏa: +#, type=6, level=40, strOption=
+id=39, name=(+14) Kháng phong: +#, type=6, level=40, strOption=
+id=40, name=(+14) Kháng tất cả: +#, type=6, level=40, strOption=
+id=41, name=(+14) Tấn công khi có chí mạng: +#%, type=6, level=40, strOption=
+id=42, name=(+16) Giảm tấn công khi bị chí mạng: -#%, type=7, level=50, strOption=
+id=43, name=(+16) Giảm tấn công khi bị chí mạng: -#%, type=7, level=50, strOption=
+id=44, name=(+16) Giảm tấn công khi bị chí mạng: -#%, type=7, level=50, strOption=
+id=45, name=(+16) Giảm tấn công khi bị chí mạng: -#%, type=7, level=50, strOption=
+id=46, name=(+16) Giảm tấn công khi bị chí mạng: -#%, type=7, level=50, strOption=
+id=47, name=(+16) Phát huy lực tấn công cơ bản: +#%, type=7, level=50, strOption=
+id=48, name=(+4) Gây suy yếu: +#, type=3, level=10, strOption=
+id=49, name=(+4) Gây trúng độc: +#, type=3, level=10, strOption=
+id=50, name=(+4) Gây làm chậm: +#, type=3, level=10, strOption=
+id=51, name=(+4) Gây bỏng: +#, type=3, level=10, strOption=
+id=52, name=(+4) Gây choáng: +#, type=3, level=10, strOption=
+id=53, name=Tương khắc lên hệ Lôi: #/@, type=1, level=0, strOption=
+id=54, name=Tương khắc lên hệ Thổ: #/@, type=1, level=0, strOption=
+id=55, name=Tương khắc lên hệ Thủy: #/@, type=1, level=0, strOption=
+id=56, name=Tương khắc lên hệ Hỏa: #/@, type=1, level=0, strOption=
+id=57, name=Tương khắc lên hệ Phong: #/@, type=1, level=0, strOption=
+id=58, name=Giảm tương khắc của hệ Lôi: #/@, type=1, level=0, strOption=
+id=59, name=Giảm tương khắc của hệ Thổ: #/@, type=1, level=0, strOption=
+id=60, name=Giảm tương khắc của hệ Thủy: #/@, type=1, level=0, strOption=
+id=61, name=Giảm tương khắc của hệ Hỏa: #/@, type=1, level=0, strOption=
+id=62, name=Giảm tương khắc của hệ Phong: #/@, type=1, level=0, strOption=
+id=63, name=Chí mạng: +#, type=50, level=0, strOption=10;10;10;10;10;10;10;10;10;10;20;20;22;24;26;28;30;33;36;39;42;46
+id=64, name=Né tránh: +#, type=50, level=0, strOption=10;10;10;10;10;10;10;10;10;10;20;20;22;24;26;28;30;33;36;39;42;46
+id=65, name=Chính xác: +#, type=50, level=0, strOption=10;10;10;10;10;10;10;10;10;10;20;20;22;24;26;28;30;33;36;39;42;46
+id=66, name=Tăng kinh nghiệm đánh quái: +#%, type=50, level=0, strOption=3;3;3;3;3;3;3;3;3;3;5;5;5;5;5;5;5;5;5;5;5;5
+id=67, name=Phản đòn: +#%, type=50, level=0, strOption=1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=68, name=Gây suy yếu: +#, type=51, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
+id=69, name=Gây trúng độc: +#, type=51, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
+id=70, name=Gây làm chậm: +#, type=51, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
+id=71, name=Gây bỏng:+#, type=51, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
+id=72, name=Gây choáng: +#, type=51, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1
+id=73, name=Lôi độn: +#, type=50, level=0, strOption=50;50;50;50;50;50;50;70;70;70;100;100;110;121;133;146;160;176;193;212;233;256
+id=74, name=Thổ độn: +#, type=50, level=0, strOption=50;50;50;50;50;50;50;70;70;70;100;100;110;121;133;146;160;176;193;212;233;256
+id=75, name=Phong độn: +#, type=50, level=0, strOption=50;50;50;50;50;50;50;70;70;70;100;100;110;121;133;146;160;176;193;212;233;256
+id=76, name=Hỏa độn: +#, type=50, level=0, strOption=50;50;50;50;50;50;50;70;70;70;100;100;110;121;133;146;160;176;193;212;233;256
+id=77, name=Thủy độn: +#, type=50, level=0, strOption=50;50;50;50;50;50;50;70;70;70;100;100;110;121;133;146;160;176;193;212;233;256
+id=78, name=Tấn công: +#, type=50, level=0, strOption=50;50;50;50;50;50;50;70;70;70;100;100;110;121;133;146;160;176;193;212;233;256
+id=79, name=Hp tối đa: +#%, type=50, level=0, strOption=5;5;5;5;5;5;5;5;5;5;10;10;11;12;13;14;15;16;17;18;19;20
+id=80, name=Mp tối đa: +#%, type=50, level=0, strOption=5;5;5;5;5;5;5;5;5;5;10;10;11;12;13;14;15;16;17;18;19;20
+id=81, name=Kháng tất cả: +#, type=50, level=0, strOption=5;5;5;5;5;5;5;5;5;5;10;10;11;12;13;14;15;16;17;18;19;20
+id=82, name=Kháng lôi: +#, type=50, level=0, strOption=10;10;10;10;10;10;10;10;10;10;15;15;16;17;18;19;20;22;24;26;28;30
+id=83, name=Kháng thổ:, type=50, level=0, strOption=10;10;10;10;10;10;10;10;10;10;15;15;16;17;18;19;20;22;24;26;28;30
+id=84, name=Kháng thủy: +#, type=50, level=0, strOption=10;10;10;10;10;10;10;10;10;10;15;15;16;17;18;19;20;22;24;26;28;30
+id=85, name=Kháng hỏa: +#, type=50, level=0, strOption=10;10;10;10;10;10;10;10;10;10;15;15;16;17;18;19;20;22;24;26;28;30
+id=86, name=Kháng phong: +#, type=50, level=0, strOption=10;10;10;10;10;10;10;10;10;10;15;15;16;17;18;19;20;22;24;26;28;30
+id=87, name=Di chuyển nhanh đến mục tiêu, type=50, level=0, strOption=
+id=88, name=Làm đối phương không thể di chuyển: duy trì +# giây, type=54, level=0, strOption=500;700;900;1300;1600;1900;2200;2500;2700;3000;3500;4000;4400;4840;5324;5856;6441;7085;7793;8572;9429;10371
+id=89, name=Sát thương quái: +#, type=50, level=0, strOption=20;20;20;20;20;20;20;25;25;25;30;30;33;36;39;42;46;50;55;60;66;72
+id=90, name=Dùng Mp hút: +#% sát thương (Duy trì 90 giây), type=50, level=0, strOption=5;5;5;5;5;5;5;5;5;5;10;10;11;12;13;14;15;16;17;18;19;20
+id=91, name=Tốc độ di chuyển: +#, type=50, level=0, strOption=10;10;10;10;10;10;10;10;10;10;25;25;27;29;31;34;37;40;44;48;52;57
+id=92, name=Cộng thêm: +#% sức tấn công của chiêu @, type=52, level=40, strOption=5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5
+id=93, name=Cộng thêm: +#% sức tấn công của chiêu @, type=52, level=70, strOption=3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3
+id=94, name=Tăng chí mạng: +# (duy trì 10 giây), type=50, level=0, strOption=40;40;40;40;40;40;40;40;40;40;40;40;44;48;52;57;62;68;74;81;89;97
+id=95, name=Tăng tấn công khi đánh chí mạng: +#%, type=50, level=0, strOption=5;5;5;5;5;5;5;5;5;5;10;10;11;12;13;14;15;16;17;18;19;20
+id=96, name=Mỗi nữa giây phục hồi Hp cho mình và đồng đội: +# (duy trì 5 giây), type=50, level=0, strOption=20;20;20;20;20;20;20;20;20;20;25;25;27;29;31;34;37;40;44;48;52;57
+id=97, name=Tăng kháng tất cả cho mình và đồng đội: +# (duy trì 30 giây), type=50, level=0, strOption=5;5;5;5;5;5;5;5;5;5;10;10;11;12;13;14;15;16;17;18;19;20
+id=98, name=Cứ mỗi lần sát thương mục tiêu sẽ chuyển thành Mp cho bản thân: +#%, type=50, level=0, strOption=1;1;1;1;1;1;2;2;2;2;3;3;3;3;3;3;3;3;3;3;3;3
+id=99, name=Giải trừ 5 hiệu ứng cơ bản (suy yếu, trúng độc, làm chậm, bỏng, choáng): duy trì +# giây, type=54, level=0, strOption=500;1000;1500;2000;2500;3000;3500;4000;4500;5000;6000;7000;7700;8470;9317;10248;11272;12399;13638;15001;16501;18151
+id=100, name=Kháng tất cả các loại sát thương: duy trì +# giây, type=54, level=0, strOption=5;5;5;5;5;5;5;5;5;5;10;10;11;12;13;14;15;16;17;18;19;20
+id=101, name=Mỗi lần thọ thương sẽ tự động tăng thêm Hp: +# (duy trì 3 giây), type=50, level=0, strOption=5;5;5;5;5;5;10;10;10;10;15;15;16;17;18;19;20;22;24;26;28;30
+id=102, name=Tăng +#% tấn công cơ bản (duy trì 5 giây), type=50, level=0, strOption=5;5;5;5;5;5;5;10;10;10;20;20;22;24;26;28;30;33;36;39;42;46
+id=103, name=Làm tê liệt đối phương: duy trì # giây, type=54, level=0, strOption=500;600;700;800;900;1000;1100;1200;1400;1600;1800;2000;2200;2420;2662;2928;3220;3542;3896;4285;4713;5184
+id=104, name=Hỗ trợ đồng đội tăng kinh nghiệm khi đánh quái: +#%, type=50, level=0, strOption=1;1;1;1;1;1;1;2;2;2;5;5;5;5;5;5;5;5;5;5;5;5
+id=105, name=Địa điểm kho báu, type=0, level=0, strOption=
+id=106, name=Hp: +#, type=1, level=0, strOption=20;20;20;20;20;20;20;25;25;25;25;30;30;40;40;100;200;200;400;440;484;532;585;643;707;777;854;939;1032;1135
+id=107, name=Mp: +#, type=1, level=0, strOption=20;20;20;20;20;20;20;25;25;25;25;30;30;40;40;100;200;200;400;440;484;532;585;643;707;777;854;939;1032;1135
+id=108, name=Kháng lôi: +#, type=1, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=109, name=Kháng thổ: +#, type=1, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=110, name=Kháng thủy: +#, type=1, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=111, name=Kháng hỏa: +#, type=1, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=112, name=Kháng phong: +#, type=1, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=113, name=Tăng tấn công lên hệ Lôi: +#, type=1, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=114, name=Tăng tấn công lên hệ Thổ: +#, type=1, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=115, name=Tăng tấn công lên hệ Thủy: +#, type=1, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=116, name=Tăng tấn công lên hệ Hỏa: +#, type=1, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=117, name=Tăng tấn công lên hệ Phong: +#, type=1, level=0, strOption=10;10;10;10;10;10;10;15;15;15;15;20;20;25;25;40;60;60;120;132;145;159;174;191;210;231;254;279;306;336
+id=118, name=Tốc độ di chuyển: +#, type=1, level=0, strOption=
+id=119, name=Tỉ lệ Hp tối đa: +#%, type=1, level=0, strOption=
+id=120, name=Tỉ lệ Mp tối đa: +#%, type=1, level=0, strOption=
+id=121, name=Kháng tất cả: +#, type=1, level=0, strOption=5;5;5;5;5;5;5;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=122, name=Phát huy lực tấn công cơ bản: +#%, type=1, level=0, strOption=
+id=123, name=Gây suy yếu: +#, type=1, level=0, strOption=
+id=124, name=Gây trúng độc: +#, type=1, level=0, strOption=
+id=125, name=Gây làm chậm: +#, type=1, level=0, strOption=
+id=126, name=Gây bỏng: +#, type=1, level=0, strOption=
+id=127, name=Gây choáng: +#, type=1, level=0, strOption=
+id=128, name=Độ tu luyện: #/@, type=0, level=0, strOption=
+id=129, name=Cộng thêm: +#% sức tấn công của chiêu @, type=52, level=90, strOption=5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;5
+id=130, name=Cộng thêm: +#% sức tấn công của chiêu @, type=52, level=110, strOption=3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3
+id=131, name=Kích vũ khí hệ Lôi, type=1, level=0, strOption=
+id=132, name=Kích vũ khí hệ Thổ, type=1, level=0, strOption=
+id=133, name=Kích vũ khí hệ Thủy, type=1, level=0, strOption=
+id=134, name=Kích vũ khí hệ Hỏa, type=1, level=0, strOption=
+id=135, name=Kích vũ khí hệ Phong, type=1, level=0, strOption=
+id=136, name=Mỗi nữa giây phục hồi Hp: +#, type=0, level=0, strOption=2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2
+id=137, name=Mỗi nữa giây phục hồi Mp: +#, type=0, level=0, strOption=
+id=138, name=Tương khắc lên hệ Lôi: +#, type=50, level=0, strOption=
+id=139, name=Tương khắc lên hệ Thổ: +#, type=50, level=0, strOption=
+id=140, name=Tương khắc lên hệ Thủy: +#, type=50, level=0, strOption=
+id=141, name=Tương khắc lên hệ Hỏa: +#, type=50, level=0, strOption=
+id=142, name=Tương khắc lên hệ Phong: +#, type=50, level=0, strOption=
+id=143, name=Mỗi nữa giây phục hồi Hp: +#, type=3, level=0, strOption=
+id=144, name=Chí mạng: +#, type=4, level=0, strOption=
+id=145, name=Bỏ qua kháng tính: +#%, type=5, level=0, strOption=
+id=146, name=Tấn công: +#, type=5, level=0, strOption=
+id=147, name=Bỏ qua né tránh: +#, type=50, level=0, strOption=
+id=148, name=Trang bị Hokage, type=9, level=0, strOption=
+id=149, name=Bỏ qua kháng tính: +#%, type=0, level=0, strOption=
+id=150, name=Tốc độ di chuyển: +#, type=0, level=0, strOption=
+id=151, name=Né tránh: +#, type=0, level=0, strOption=
+id=152, name=Kháng tất cả: +#, type=0, level=0, strOption=
+id=153, name=Tăng tấn công lên hệ Lôi: +#, type=0, level=0, strOption=
+id=154, name=Tăng tấn công lên hệ Thổ: +#, type=0, level=0, strOption=
+id=155, name=Tăng tấn công lên hệ Thủy: +#, type=0, level=0, strOption=
+id=156, name=Tăng tấn công lên hệ Hỏa: +#, type=0, level=0, strOption=
+id=157, name=Tăng tấn công lên hệ Phong: +#, type=0, level=0, strOption=
+id=158, name=Sát thương chuyển thành hồi phục Hp: +#%, type=0, level=0, strOption=
+id=159, name=Trang bị Sharingan, type=9, level=0, strOption=
+id=160, name=Bỏ qua né tránh: +#, type=0, level=0, strOption=10;10;10;10;10;10;10;10;10;10;10;14;18;22;26;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=161, name=Né tránh: +#, type=0, level=0, strOption=10;10;10;10;10;10;10;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=162, name=Phản đòn: +#%, type=10, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=163, name=Trang bị Byakugan, type=9, level=0, strOption=
+id=164, name=Trang bị Rinnegan, type=9, level=0, strOption=
+id=165, name=Trang bị Hiền Nhân, type=9, level=0, strOption=
+id=166, name=Chí mạng: +#, type=0, level=0, strOption=10;10;10;10;10;10;10;10;10;10;10;10;10;10;10;10;10;10;20;22;24;26;28;30;33;36;39;42;46;50
+id=167, name=Chính xác: +#, type=0, level=0, strOption=10;10;10;10;10;10;10;10;10;10;10;15;15;20;20;30;40;40;80;88;96;105;115;126;138;151;166;182;200;220
+id=168, name=Gây suy yếu: +#, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=169, name=Gây trúng độc +#, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=170, name=Gây làm chậm: +#, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=171, name=Gây bỏng: +#, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=172, name=Gây choáng: +#, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=173, name=Giảm trừ sát thương: +#, type=0, level=0, strOption=10;10;10;10;10;10;10;10;10;10;10;10;10;10;10;10;10;10;20;22;24;26;28;30;33;36;39;42;46;50
+id=174, name=Giảm tấn công khi bị chí mạng: -#%, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=175, name=Hp:+#, type=50, level=0, strOption=
+id=176, name=Tăng tốc độ di chuyển: +# (duy trì 15 giây), type=50, level=0, strOption=
+id=177, name=Tăng né tránh: +# (duy trì 15 giây), type=50, level=0, strOption=
+id=178, name=Ẩn thân: duy trì +# giây, khi tấn công đối phương hiệu ứng sẽ tự biến mất, type=54, level=0, strOption=
+id=179, name=Gây bỏng: +#, type=50, level=0, strOption=
+id=180, name=Chính xác: +#, type=50, level=0, strOption=
+id=181, name=Giảm kháng tất cả: -# (duy trì 10 giây), type=50, level=0, strOption=
+id=182, name=Triệt tiêu né tránh và giảm trừ sát thương: -# (duy trì 10 giây), type=50, level=0, strOption=
+id=183, name=Triệu hồi chim yêu quái: duy trì # giây, type=54, level=0, strOption=
+id=184, name=Sức tấn công: +#, type=50, level=0, strOption=
+id=185, name=Gây suy yếu: +#, type=50, level=0, strOption=
+id=186, name=Gây trúng độc: +#, type=50, level=0, strOption=
+id=187, name=Gây làm chậm: +#, type=50, level=0, strOption=
+id=188, name=Gây làm chậm: +#, type=50, level=0, strOption=
+id=189, name=Gây bỏng:+#, type=50, level=0, strOption=
+id=190, name=Triệu hồi chim khổng lồ: duy trì # giây, type=54, level=0, strOption=
+id=191, name=Mỗi 2 giây phục hồi +# Hp, type=50, level=0, strOption=
+id=192, name=Hp: +#, type=50, level=0, strOption=
+id=193, name=Tấn công: +# (duy trì 3 giây), type=50, level=0, strOption=
+id=194, name=Triệu hồi dơi hút máu: duy trì # giây, type=54, level=0, strOption=
+id=195, name=Hút Hp: +#, type=50, level=0, strOption=
+id=196, name=Làm tiêu hao Mp: -#, type=50, level=0, strOption=
+id=197, name=Bỏ qua kháng tính: +#%, type=50, level=0, strOption=
+id=198, name=Trạng thái hiền nhân: duy trì # giây, type=54, level=0, strOption=
+id=199, name=Tấn công: +#, type=8, level=0, strOption=10;10;12;12;14;14;14;16;16;16;18;18;18;20;20;20;22;22;24;26;28;30;33;36;39;42;46;50;55
+id=200, name=Mỗi nữa giây phục hồi Hp: +#, type=8, level=0, strOption=1;1;1;1;1;1;1;1;1;1;2;2;2;3;3;3;4;4;5;5;5;5;5;5;5;5;5;5;5
+id=201, name=Kháng tất cả: +#, type=8, level=0, strOption=5;5;6;6;7;7;7;8;8;8;9;9;9;10;10;10;11;11;12;13;14;15;16;17;18;19;20;22;24
+id=202, name=Hp: +#, type=8, level=0, strOption=10;10;15;15;20;20;20;25;25;25;30;30;30;35;35;35;40;40;45;49;53;58;63;69;75;82;90;99;108
+id=203, name=Chí mạng: +#, type=8, level=0, strOption=5;5;6;6;7;7;7;8;8;8;9;9;9;10;10;10;11;11;12;13;14;15;16;17;18;19;20;22;24
+id=204, name=Né tránh: +#, type=8, level=0, strOption=5;5;6;6;7;7;7;8;8;8;9;9;9;10;10;10;11;11;12;13;14;15;16;17;18;19;20;22;24
+id=205, name=Chính xác: +#, type=8, level=0, strOption=5;5;6;6;7;7;7;8;8;8;9;9;9;10;10;10;11;11;12;13;14;15;16;17;18;19;20;22;24
+id=206, name=Giảm trừ sát thương: +#, type=8, level=0, strOption=5;5;6;6;7;7;7;8;8;8;9;9;9;10;10;10;11;11;12;13;14;15;16;17;18;19;20;22;24
+id=207, name=Tấn công quái: +#, type=0, level=0, strOption=150;150;150;150;150;150;150;150;150;150;150;150;150;150;150;150;150;150;300;330;363;399;438;481;529;581;639;702;772;849
+id=208, name=Tấn công: +#, type=0, level=0, strOption=100;100;100;100;100;100;100;100;100;100;100;100;100;100;100;100;100;100;200;220;242;266;292;321;353;388;426;468;514;565
+id=209, name=Tăng Chakra: +#, type=0, level=0, strOption=
+id=210, name=Cải trang Akimichi Choji, type=14, level=10, strOption=
+id=211, name=Cải trang Rock Lee, type=14, level=12, strOption=
+id=212, name=Cải trang Shino, type=14, level=14, strOption=
+id=213, name=Cải trang Temari, type=14, level=16, strOption=
+id=214, name=Cải trang Kankuro, type=14, level=18, strOption=
+id=215, name=Cải trang Gaara, type=14, level=20, strOption=
+id=216, name=Cải trang Hidan, type=14, level=22, strOption=
+id=217, name=Cải trang Kakuzu, type=14, level=24, strOption=
+id=218, name=Cải trang Deidara, type=14, level=26, strOption=
+id=219, name=Cải trang Sasori, type=14, level=28, strOption=
+id=220, name=Cải trang Zetsu, type=14, level=30, strOption=
+id=221, name=Cải trang Hoshigaki Kisame, type=14, level=32, strOption=
+id=222, name=Cải trang Uchiha Itachi, type=14, level=34, strOption=
+id=223, name=Cải trang Konan, type=14, level=36, strOption=
+id=224, name=Cải trang Pain, type=14, level=38, strOption=
+id=225, name=Cải trang Uchiha Obito, type=14, level=40, strOption=
+id=226, name=Cải trang Hokage, type=14, level=50, strOption=
+id=227, name=Thời gian luyện tập: # giờ, type=0, level=0, strOption=
+id=228, name=Cải trang Lục Đạo, type=14, level=55, strOption=
+id=229, name=Cải trang Kakashi, type=14, level=31, strOption=
+id=230, name=Cải trang Minato, type=14, level=45, strOption=
+id=231, name=Cải trang Hashirama, type=14, level=48, strOption=
+id=232, name=Cải trang Anbu, type=14, level=13, strOption=
+id=233, name=Cải trang Anbu Cội Rễ, type=14, level=15, strOption=
+id=234, name=Cải trang Haku, type=14, level=17, strOption=
+id=235, name=Cải trang Zabuza, type=14, level=19, strOption=
+id=236, name=Cải trang Sai, type=14, level=21, strOption=
+id=237, name=Cải trang Iruka, type=14, level=23, strOption=
+id=238, name=Cải trang Kurenai, type=14, level=25, strOption=
+id=239, name=Cải trang Asuma, type=14, level=27, strOption=
+id=240, name=Cải trang Gai, type=14, level=29, strOption=
+id=241, name=Cải trang Karin, type=14, level=33, strOption=
+id=242, name=Cải trang Suigetsu, type=14, level=35, strOption=
+id=243, name=Cải trang Yamato, type=14, level=39, strOption=
+id=244, name=Cải trang Kabuto, type=14, level=41, strOption=
+id=245, name=Cải trang Tsunade, type=14, level=42, strOption=
+id=246, name=Cải trang Orochimaru, type=14, level=43, strOption=
+id=247, name=Cải trang Jiraiya, type=14, level=44, strOption=
+id=248, name=Cải trang Kakashi Lục Đạo, type=14, level=46, strOption=
+id=249, name=Cải trang Tobirama, type=14, level=47, strOption=
+id=250, name=Cải trang Madara, type=14, level=49, strOption=
+id=251, name=Cải trang Juugo, type=14, level=37, strOption=
+id=252, name=(+17) Sát thương chuyển thành hồi phục Hp: +#%, type=10, level=60, strOption=
+id=253, name=(+17) Tăng thêm Hp: +#, type=10, level=60, strOption=
+id=254, name=Tăng tấn công cơ bản: +#%, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;2;2;2;3;3;4;4;4;8;8;8;8;8;8;8;8;8;8;8;8
+id=255, name=Tăng Chakra: +#, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2
+id=256, name=Mỗi nữa giây phục hồi Hp: +#, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;2;2;2;3;3;4;4;4;8;8;8;8;8;8;8;8;8;8;8;8
+id=257, name=Mỗi nữa giây phục hồi Mp: +#, type=0, level=0, strOption=1;1;1;1;1;1;1;1;1;1;2;2;2;3;3;4;4;4;8;8;8;8;8;8;8;8;8;8;8;8
+id=258, name=Kháng tất cả: +#, type=0, level=0, strOption=5;5;5;5;5;5;5;5;5;5;10;10;10;15;15;20;20;20;40;44;48;52;57;62;68;74;81;89;97;106
+id=259, name=(+17) Gây suy yếu: +#, type=10, level=60, strOption=
+id=260, name=(+17) Gây trúng độc: +#, type=10, level=60, strOption=
+id=261, name=(+17) Gây làm chậm: +#, type=10, level=60, strOption=
+id=262, name=(+17) Gây bỏng: +#, type=10, level=60, strOption=
+id=263, name=(+17) Gây choáng: +#, type=10, level=60, strOption=
+id=264, name=Linh hồn: #/10, type=0, level=0, strOption=
+id=265, name=Cải trang Phù Thủy, type=14, level=20, strOption=
+id=266, name=Cải trang Bí Ngô, type=14, level=20, strOption=
+id=267, name=Tăng kinh nghiệm đánh quái: +#%, type=0, level=0, strOption=
+id=268, name=Khóa chặt đối phương: duy trì +# giây, type=54, level=0, strOption=
+id=269, name=Giảm kháng tất cả: -#, type=50, level=0, strOption=
+id=270, name=Giảm Chakra: -#, type=50, level=0, strOption=
+id=271, name=Ảnh thủ phược chi thuật, type=50, level=0, strOption=
+id=272, name=Giữ chặt không cho đối phương di chuyển: duy trì +# giây, type=54, level=0, strOption=
+id=273, name=Tăng Chakra: +# (duy trì 10 giây), type=50, level=0, strOption=
+id=274, name=Tỉ lệ gây choáng nữa giây: +#%, type=50, level=0, strOption=
+id=275, name=Mỗi 1 giây phục hồi tỉ lệ Hp: +#% (duy trì 10 giây), type=50, level=0, strOption=
+id=276, name=Dùng Mp hút: +#% sát thương (duy trì 20 giây), type=50, level=0, strOption=
+id=277, name=Tăng thời gian gây tê liệt khi sử dụng chiêu dịch chuyển chi thuật: +# giây, type=54, level=0, strOption=
+id=278, name=Mỗi lần xuất chiêu sẽ có xác xuất tăng thêm 1 nhát đánh: duy trì +# giây, type=54, level=0, strOption=
+id=279, name=Tăng thêm tấn công theo tỉ lệ Hp của đối phương: +#% (không có tác dụng với quái), type=50, level=0, strOption=
+id=280, name=Chính xác:+#, type=50, level=0, strOption=
+id=281, name=Cải trang Văn Lang, type=14, level=11, strOption=
+id=282, name=Cải trang Seimei, type=14, level=20, strOption=
+id=283, name=Kinh nghiệm: #/200.000.000, type=0, level=0, strOption=
+id=284, name=Cải trang Obito Lục Đạo, type=14, level=10, strOption=
+id=285, name=Có xác xuất tăng thêm tấn công khi đánh chí mạng: +#%, type=50, level=0, strOption=
+id=286, name=(+18) Có xác xuất hút chakra: +# (Duy trì 3 giây), type=11, level=0, strOption=
+id=287, name=Cứ 30 giây sẽ né 1 đòn tấn công, type=0, level=0, strOption=
+id=288, name=Cải trang Bạch Zetsu, type=14, level=30, strOption=
+id=289, name=Giảm gây suy yếu: -#, type=0, level=0, strOption=
+id=290, name=Giảm gây trúng độc: -#, type=0, level=0, strOption=
+id=291, name=Giảm gây làm chậm: -#, type=0, level=0, strOption=
+id=292, name=Giảm gây bỏng: -#, type=0, level=0, strOption=
+id=293, name=Giảm gây choáng: -#, type=0, level=0, strOption=
+id=294, name=Cải trang Anbu Gấu, type=14, level=10, strOption=
+id=295, name=Cải trang Anbu Cọp, type=14, level=10, strOption=
+id=296, name=Cải trang Anbu Chim, type=14, level=10, strOption=
+id=297, name=Cải trang Anbu Gà, type=14, level=10, strOption=
+id=298, name=Cải trang Anbu Dê, type=14, level=10, strOption=
+id=299, name=Cải trang Dracula, type=14, level=10, strOption=
+id=300, name=Cải trang Noel, type=14, level=10, strOption=
+id=301, name=Cải trang Killer B, type=14, level=0, strOption=
+id=302, name=Cải trang cương thi Itachi, type=14, level=0, strOption=
+id=303, name=Cải trang thủ lĩnh Văn Lang, type=14, level=0, strOption=
+id=304, name=(+18) Chính xác: +#, type=11, level=0, strOption=
+id=305, name=Sức mạnh: #/@, type=0, level=0, strOption=
+id=306, name=Tấn công khi đánh chí mạng: +#%, type=0, level=0, strOption=
+id=307, name=Tăng tương khắc: +#, type=0, level=0, strOption=
+id=308, name=Cải trang Madara Lục Đạo, type=14, level=49, strOption=
+id=309, name=(+16) Tấn công khi có chí mạng: +#%, type=7, level=0, strOption=
+id=310, name=(+18) Tăng tương khắc: +#, type=11, level=0, strOption=
+id=311, name=Giảm tương khắc: +#, type=0, level=0, strOption=
+id=312, name=Biến người khác thành quái vật: +#, type=50, level=0, strOption=
+id=313, name=Cải trang Frankenstein, type=14, level=10, strOption=
+id=314, name=Làm suy giảm chính xác của đối phương: -# (duy trì 15 giây), type=50, level=0, strOption=
+id=315, name=Ngăn chặn thi triển nhẫn thuật: duy trì # giây , type=54, level=0, strOption=
+id=316, name=Hút đối phương lại gần, type=50, level=0, strOption=
+id=317, name=Ngăn chặn không cho đối phương sử dụng dược phẩm: duy trì # giây, type=54, level=0, strOption=
+id=318, name=Làm suy giảm né tránh của đổi phương: -# (duy trì 15 giây), type=50, level=0, strOption=
+id=319, name=Cải trang Người Sói, type=14, level=0, strOption=
+id=320, name=Cải trang Tết, type=14, level=0, strOption=
+id=321, name=Cải trang Tử Môn Gai, type=14, level=0, strOption=
+id=322, name=Cứ 1 phút sẽ tạo ra hiệu ứng xuyên giáp #% , type=0, level=0, strOption=
+id=323, name=(+18) Giảm tương khắc: +#, type=11, level=0, strOption=
+id=324, name=(+18) Né tránh: +#, type=11, level=0, strOption=
+id=325, name=Giảm suy yếu: -#, type=6, level=0, strOption=
+id=326, name=Giảm trúng độc: -#, type=6, level=0, strOption=
+id=327, name=Giảm làm chậm: -#, type=6, level=0, strOption=
+id=328, name=Giảm bỏng: -#, type=6, level=0, strOption=
+id=329, name=Giảm choáng: -#, type=6, level=0, strOption=
+id=330, name=Giảm tương khắc: -#, type=7, level=0, strOption=
+id=331, name=Giảm tương khắc: -#, type=0, level=0, strOption=5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;10;10;10;20;22;24;26;28;30;33;36;39;42;46;50
+id=332, name=Giảm 5 loại hiệu ứng: -#, type=0, level=0, strOption=
+id=333, name=Cải trang Shisui, type=14, level=0, strOption=
+id=334, name=Cải trang Mỵ Nương, type=14, level=0, strOption=
+id=335, name=Cải trang Thủ Lĩnh Anbu, type=14, level=0, strOption=
+id=336, name=Kỹ năng phân thân: cấp #/@, type=0, level=0, strOption=
+id=337, name=Kinh nghiệm: #/, type=0, level=0, strOption=
+id=338, name=Cải trang Thần Cọp, type=14, level=0, strOption=
+id=339, name=Cải trang Nagato, type=14, level=0, strOption=
+id=340, name=Có thể ghép với thời trang khác loại, type=0, level=0, strOption=
+id=341, name=Tích lũy kinh nghiệm phân phân: +#, type=0, level=0, strOption=
+id=342, name=Cải trang Sơn Tinh, type=14, level=0, strOption=
+id=343, name=Cải trang Thủy Tinh, type=14, level=0, strOption=
+id=344, name=Giảm trừ chí mạng: +#, type=8, level=0, strOption=6;6;7;7;8;8;8;9;9;9;10;10;10;11;11;11;12;12;13;14;15;16;17;18;19;20;22;24;26
+id=345, name=Giảm tương khắc: +#, type=8, level=0, strOption=4;4;5;5;6;6;6;7;7;7;8;8;8;9;9;9;10;10;11;12;13;14;15;16;17;18;19;20;22
+id=346, name=Giảm trừ chí mạng: +#, type=0, level=0, strOption=
+id=347, name=Cứ 3 phút sẽ kích hoạt toàn chân thể, type=0, level=0, strOption=
+id=348, name=(+2) Giảm trừ chí mạng: +#, type=15, level=0, strOption=
+id=349, name=(+2) Hiệu ứng ngẫu nhiên: +#, type=15, level=0, strOption=
+id=350, name=(+19) Tấn công lên hệ Lôi: #, type=16, level=0, strOption=
+id=351, name=(+19) Tấn công lên hệ Thổ: #, type=16, level=0, strOption=
+id=352, name=(+19) Tấn công lên hệ Thủy: #, type=16, level=0, strOption=
+id=353, name=(+19) Tấn công lên hệ Hỏa: #, type=16, level=0, strOption=
+id=354, name=(+19) Tấn công lên hệ Phong: #, type=16, level=0, strOption=
+id=355, name=(+19) Giảm gây suy yếu: -#, type=16, level=0, strOption=
+id=356, name=(+19) Giảm gây trúng độc: -#, type=16, level=0, strOption=
+id=357, name=(+19) Giảm gây làm chậm: -#, type=16, level=0, strOption=
+id=358, name=(+19) Giảm gây bỏng: -#, type=16, level=0, strOption=
+id=359, name=(+19) Giảm gây choáng: -#, type=16, level=0, strOption=
+id=360, name=(+19) Bỏ qua kháng tính: +#%, type=16, level=0, strOption=
+id=361, name=Trang bị lục đạo (+#% tấn công cơ bản), type=9, level=0, strOption=
+id=362, name=(+18) Chí mạng: +#, type=11, level=0, strOption=
+id=363, name=Cải trang Thỏ Ngọc, type=14, level=0, strOption=
+id=364, name=Cải trang Ma Tốc Độ, type=14, level=0, strOption=
+id=365, name=Cải trang Mèo Hiệp Sĩ, type=14, level=0, strOption=
+id=366, name=Cải trang Thánh Gióng, type=14, level=0, strOption=
+id=367, name=Cải trang Hanzo, type=14, level=0, strOption=
+id=368, name=Cải trang Danzo, type=14, level=0, strOption=
+id=369, name=Susano Itachi: duy trì 30 giây, type=50, level=0, strOption=
+id=370, name=Hút 8% Mp đối phương và chuyển #% sát thương thành hồi phục Hp, type=11, level=0, strOption=
+id=371, name=Phản đòn: +#%, type=0, level=0, strOption=
+id=372, name=Tăng tương khắc: +#, type=0, level=0, strOption=5;5;5;5;5;5;5;5;5;5;5;5;5;5;5;10;10;10;20;22;24;26;28;30;33;36;39;42;46;50
+id=373, name=Phản đòn: +#%, type=0, level=0, strOption=

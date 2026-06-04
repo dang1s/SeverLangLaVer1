@@ -1,0 +1,18 @@
+Item: Ngà voi[815]
+Số Lượng: 2635 
+bạc với số lượng: 0
+TaoLaVua=>LiemDitTaoDi
+Time: 07:19:36 13-05-2026
+-----------------
+Item: Cựa gà[816]
+Số Lượng: 2597 
+bạc với số lượng: 0
+TaoLaVua=>LiemDitTaoDi
+Time: 07:19:44 13-05-2026
+-----------------
+Item: Hồng mao[817]
+Số Lượng: 2672 
+bạc với số lượng: 0
+TaoLaVua=>LiemDitTaoDi
+Time: 07:19:53 13-05-2026
+-----------------
