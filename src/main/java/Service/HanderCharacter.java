@@ -6,6 +6,8 @@
 package Service;
 
 import MapService.Map;
+import MapService.world.DaiChienNhanGia3;
+import MapService.world.World;
 import com.sg188.data.DataCenter;
 import com.sg188.data.Skill;
 import com.sg188.data.SkillTemplate;
@@ -38,7 +40,7 @@ public class HanderCharacter {
     }
 
     public static void SetTypePk(Char _myChar, byte type) {
-        if(_myChar.buaBaoHo&&!_myChar.inLangCo){
+        if(_myChar.buaBaoHo&&!_myChar.inLangCo&&!_myChar.inHangViThu){
             _myChar.user.session.sendMessage(HanderMessage.SendThongBao("Đang trong trạng thái bảo hộ không thể pk",HanderMessage.WHITE));
             return;
         }
@@ -51,7 +53,16 @@ public class HanderCharacter {
     }
 
     public static boolean CanAttackChar(Char _myChar,Char attacker) {
-        if(_myChar.zone.isKRC()||_myChar.inLangCo){
+        try {
+            if (_myChar.zone != null && _myChar.zone.isDaiChienNhanGia3()) {
+                DaiChienNhanGia3 event = (DaiChienNhanGia3) _myChar.findWorld(World.DAI_CHIEN_NHAN_GIA_3);
+                if (event != null) {
+                    return event.canAttackPlayer(attacker, _myChar);
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        if(_myChar.zone.isKRC()||_myChar.inLangCo||_myChar.inHangViThu){
             if(_myChar.InfoGame.isDie){
                 return false;
             }

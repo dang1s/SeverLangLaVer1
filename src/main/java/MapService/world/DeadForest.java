@@ -9,6 +9,7 @@ import com.sg188.lib.Log;
 import com.sg188.real.Char;
 import lombok.Getter;
 import lombok.Setter;
+import InfoChar.InfoChar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,6 +139,8 @@ public class DeadForest extends World{
     }
 
     public void join(Char p) {
+//        InfoChar.solanHSKRC.put(p.id, 5);
+//        p.serverMessage("Bạn đã vào Khu Rừng Chết. Số lần hồi sinh: 5");
         zones.get(0).addChar(p);
         getService().sendMessage(HanderMessage.SendTypePk(p.id, (byte) 2));
         getService().setTypePKALLMap();

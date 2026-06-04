@@ -14,24 +14,27 @@ import com.sg188.server.Main;
 public class Halloween extends Event{
     private static final int DOI_KEO_BI = 0;
     private static final int DOI_KEO_BI_MA = 1;
+    private static final int DOI_AN_BU = 2;
 
-    public static final String TOP_FISH = "topfish";
+    //public static final String TOP_FISH = "topfish";
 
     public static final String TOP_KEO = "lamkeo";
 
     public Halloween() {
         setId(Event.HALLOWEEN);
         endTime.set(2024, 30, 5, 23, 59, 59);
-        itemsThrownFromMonsters.add(1, 721);
-        itemsThrownFromMonsters.add(1, 721);
-        itemsThrownFromMonsters.add(1, 721);
-        itemsThrownFromMonsters.add(2, 2);
-        itemsThrownFromMonsters.add(2, 1);
-        itemsThrownFromMonsters.add(2, 3);
-        itemsThrownFromMonsters.add(94, -1);// ko rơi
+        itemsThrownFromMonsters.add(2, 712);
+        itemsThrownFromMonsters.add(2, 713);
+        itemsThrownFromMonsters.add(2, 714);
+        itemsThrownFromMonsters.add(2, 715);
+        itemsThrownFromMonsters.add(2, 716);
+        itemsThrownFromMonsters.add(2, 717);
+        itemsThrownFromMonsters.add(2, 718);
+//        itemsThrownFromMonsters.add(2, 3);
+//        itemsThrownFromMonsters.add(94, -1);// ko rơi
         keyEventPoint.add(TOP_KEO);
-        keyEventPoint.add(TOP_FISH);
-        menuKhaTienNu = "Nhận nhiệm vụ,Giết cương thi,Phong ấn;Đổi kẹo bí, 1 cái, 10 cái, 100 cái, Hướng dẫn;Đổi kẹo bí ma, 1 cái, 10 cái, 100 cái, Hướng dẫn;Đổi điểm, Xem điểm, Nhẫn thuật sao chép thượng cấp, Con mắt shisui (SUSANO), Cải trang Bí Ngô, Cải trang Dracula, Bí kíp Bí Ngô;BXH làm kẹo;BXH Top Câu Cá";
+//        keyEventPoint.add(TOP_FISH);
+        menuKhaTienNu = "Nhận nhiệm vụ ( Đang Phát Triển ),Giết cương thi,Phong ấn;Đổi Cải Trang Anbu Thủ Linh, 1 cái, 10 cái, 100 cái, Hướng dẫn;Đổi kẹo bí ma, 1 cái, 10 cái, 100 cái, Hướng dẫn;Đổi điểm, Xem điểm, Nhẫn thuật sao chép thượng cấp, Cải Trang Hiền Nhân, Cải trang Bí Ngô, Cải trang Dracula, Bí kíp Bí Ngô;BXH làm kẹo;BXH Top Câu Cá";
         keyEventPoint.add(EventPoint.DIEM_TIEU_XAI);
     }
 
@@ -48,16 +51,18 @@ public class Halloween extends Event{
             case DOI_KEO_BI_MA:
                 doiKeoBiMa(p, amount);
                 break;
+//            case DOI_AN_BU:
+//                doiAnBu(p, amount);
         }
     }
 
     private void doiKeoBi(Char p, int amount) {
-        int[][] itemRequires = new int[][]{{712, 10}, {713, 10}, {714, 10},{715, 10},{716, 10},{717, 10},{718, 10}};
-        int itemIdReceive = 851;
-        boolean isDone = makeEventItem(p, amount, itemRequires, 0, 100000, 0, itemIdReceive);
+        int[][] itemRequires = new int[][]{{495, 1}, {496, 1}, {647, 1},{648, 1},{649, 1},{650, 1},{651, 1}};
+        int itemIdReceive = 721;
+        boolean isDone = makeEventItem(p, amount, itemRequires, 500, 0, 0, itemIdReceive);
         if (isDone) {
-            p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
-            p.getEventPoint().addPoint(TOP_KEO, amount);
+//            p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
+//            p.getEventPoint().addPoint(TOP_KEO, amount);
         }
     }
 
@@ -70,13 +75,41 @@ public class Halloween extends Event{
             p.getEventPoint().addPoint(TOP_KEO, amount);
         }
     }
+//    private void doiAnBu(Char p, int amount) {
+//        int[][] itemRequires = new int[][]{{495, 1}, {496, 1}, {647, 1},{648, 1},{649, 1},{650, 1},{651, 1}};
+//        int itemIdReceive = 721;
+//        boolean isDone = makeEventItem(p, amount, itemRequires, 500, 0, 0, itemIdReceive);
+//        if (isDone) {
+////            p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
+////            p.getEventPoint().addPoint(TOP_KEO, amount);
+//        }
+//    }
     @Override
     public void useItem(Char p, Item item) {
         switch (item.id) {
             case 721:
                 p.removeItem(item);
                 p.msgUseItemBag(item);
-                Item chu = new Item(Utlis.nextInt(712, 718));
+                Item chu = new Item(775);
+                chu.addItemOption(new ItemOption(1, Utlis.nextInt(200, 1000)));
+                chu.addItemOption(new ItemOption(0, Utlis.nextInt(200, 1000)));
+                chu.addItemOption(new ItemOption(174, Utlis.nextInt(20, 50)));
+                chu.addItemOption(new ItemOption(306, Utlis.nextInt(10, 20)));
+                chu.addItemOption(new ItemOption(81,Utlis.nextInt(10, 20)));
+                chu.addItemOption(new ItemOption(332, Utlis.nextInt(5, 8)));
+                chu.addItemOption(new ItemOption(3, Utlis.nextInt(100, 200)));
+                chu.addItemOption(new ItemOption(174, Utlis.nextInt(5, 10)));
+                chu.addItemOption(new ItemOption(209, Utlis.nextInt(100, 500)));
+//                chu.addItemOption(new ItemOption(1, 1000));   // max của (300, 1000)
+//                chu.addItemOption(new ItemOption(0, 1000));   // max của (300, 1000)
+//                chu.addItemOption(new ItemOption(174, 50));   // max của (20, 50)
+//                chu.addItemOption(new ItemOption(306, 20));   // max của (10, 20)
+//                chu.addItemOption(new ItemOption(81, 20));    // max của (10, 20)
+//                chu.addItemOption(new ItemOption(332, 8));    // max của (5, 8)
+//                chu.addItemOption(new ItemOption(3, 200));    // max của (100, 200)
+//                chu.addItemOption(new ItemOption(174, 10));   // max của (5, 10)
+                //chu.addItemOption(new ItemOption(209, 500));  // max của (100, 500)
+
                 chu.isLock = true;
                 p.addItem(chu);
                 p.msgAddItemBag(chu);
@@ -88,13 +121,20 @@ public class Halloween extends Event{
                 }
                 useEventItem(p, item.id, itemsRecFromGoldItem);
                 break;
-            case 851:// bạc
+            case 852:// bạc
                 if (p.getCountNullItemBag() == 0) {
                     p.warningBagFull();
                     return;
                 }
                 useEventItem(p, item.id, itemsRecFromCoinItem);
                 break;
+
+//            case 868:
+//
+//                p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 2000);
+//
+//
+//                break;
             case 920:
             case 921:
             case 922:
@@ -115,8 +155,8 @@ public class Halloween extends Event{
             case 0:
                 switch (index2){
                     case 0:
-                        if(p.Bag.vang < 1000){
-                            p.service.alertMessage("Không đủ 1000 vàng");
+                        if(p.Bag.vang < 10000000){
+                            p.service.alertMessage("chức năng tạm Bảo Trì");
                             return;
                         }
                         if(p.taskSeal){
@@ -130,35 +170,35 @@ public class Halloween extends Event{
                         p.getService().alertMessage("Nhiệm vụ của bạn là giết "+p.typeSeal);
                         break;
                     case 1:
-                        if(!p.taskSeal){
-                            p.getService().serverMessage("Bạn chưa nhận nhiệm vụ phong ấn");
-                            return;
-                        }
-                        if(p.stepSeal == 0){
-                            p.getService().alertMessage("Bạn chưa hoàn thành nhiệm vụ giết "+p.typeSeal);
-                            return;
-                        }
-                        p.taskSeal = false;
-                        p.stepSeal = 0;
-                        p.typeSeal ="";
-                        Item thebai = new Item(711);
-                        thebai.amount = 100;
-                        thebai.isLock=true;
-                        p.addItem(thebai);
-                        p.msgAddItemBag(thebai);
-                        p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 70);
-                        p.getEventPoint().addPoint(TOP_KEO, 100);
-                        p.getService().serverMessage("Bạn nhận được 70 điểm tiêu xài và 100 điểm làm kẹo");
+//                        if(!p.taskSeal){
+//                            p.getService().serverMessage("Bạn chưa nhận nhiệm vụ phong ấn");
+//                            return;
+//                        }
+//                        if(p.stepSeal == 0){
+//                            p.getService().alertMessage("Bạn chưa hoàn thành nhiệm vụ giết "+p.typeSeal);
+//                            return;
+//                        }
+//                        p.taskSeal = false;
+//                        p.stepSeal = 0;
+//                        p.typeSeal ="";
+//                        Item thebai = new Item(711);
+//                        thebai.amount = 100;
+//                        thebai.isLock=true;
+//                        p.addItem(thebai);
+//                        p.msgAddItemBag(thebai);
+//                        p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 70);
+//                        p.getEventPoint().addPoint(TOP_KEO, 100);
+//                        p.getService().serverMessage("Bạn nhận được 70 điểm tiêu xài và 100 điểm làm kẹo");
                         break;
                     case 2:
-                        if(!p.taskSeal){
-                            p.getService().serverMessage("Bạn chưa nhận nhiệm vụ phong ấn");
-                            return;
-                        }
-                        p.taskSeal = false;
-                        p.stepSeal = 0;
-                        p.typeSeal ="";
-                        p.getService().serverMessage("Đã huỷ nhiệm vụ phong ấn");
+//                        if(!p.taskSeal){
+//                            p.getService().serverMessage("Bạn chưa nhận nhiệm vụ phong ấn");
+//                            return;
+//                        }
+//                        p.taskSeal = false;
+//                        p.stepSeal = 0;
+//                        p.typeSeal ="";
+//                        p.getService().serverMessage("Đã huỷ nhiệm vụ phong ấn");
                         break;
                 }
                 break;
@@ -174,7 +214,7 @@ public class Halloween extends Event{
                         action(p,0,100);
                         break;
                     case 3:
-                        p.service.sendTextNPC("10 chữ H A L O W E N +  100.000 Bạc","");
+                        p.service.sendTextNPC("Đủ 6 cải trang anbu","");
                         break;
                 }
                 break;
@@ -198,7 +238,7 @@ public class Halloween extends Event{
                 int point = 0;
                 switch (index2){
                     case 0:
-                        p.getService().sendTextNPC("Bảng điểm SK của bạn: ", "Điểm làm kẹo: " + p.getEventPoint().getPoint(TOP_KEO) + "; Điểm câu cá: " + p.getEventPoint().getPoint(TOP_FISH)+";Điểm tiêu sài: "+p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI));
+                        //p.getService().sendTextNPC("Bảng điểm SK của bạn: ", "Điểm làm kẹo: " + p.getEventPoint().getPoint(TOP_KEO) + "; Điểm câu cá: " + p.getEventPoint().getPoint(TOP_FISH)+";Điểm tiêu sài: "+p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI));
                         break;
                     case 1:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
@@ -218,7 +258,16 @@ public class Halloween extends Event{
                             return;
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
-                        Item conMatShisui = new Item(955);
+                        Item conMatShisui = new Item(463);
+                        conMatShisui.addItemOption(new ItemOption(1, Utlis.nextInt(200, 1000)));
+                        conMatShisui.addItemOption(new ItemOption(0, Utlis.nextInt(200, 1000)));
+                        conMatShisui.addItemOption(new ItemOption(174, Utlis.nextInt(20, 50)));
+                        conMatShisui.addItemOption(new ItemOption(306, Utlis.nextInt(10, 20)));
+                        conMatShisui.addItemOption(new ItemOption(81,Utlis.nextInt(10, 20)));
+                        conMatShisui.addItemOption(new ItemOption(332, Utlis.nextInt(5, 8)));
+                        conMatShisui.addItemOption(new ItemOption(3, Utlis.nextInt(100, 200)));
+                        conMatShisui.addItemOption(new ItemOption(174, Utlis.nextInt(5, 10)));
+                        conMatShisui.addItemOption(new ItemOption(209, Utlis.nextInt(100, 500)));
                         p.addItem(conMatShisui);
                         p.msgAddItemBag(conMatShisui);
                         break;
@@ -230,7 +279,15 @@ public class Halloween extends Event{
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item caiTrangBiNgo = new Item(556);
-                        caiTrangBiNgo.strOptions = "68,100;71,100;0,1000;2,200;4,200;5,200";
+                        caiTrangBiNgo.addItemOption(new ItemOption(1, Utlis.nextInt(200, 1000)));
+                        caiTrangBiNgo.addItemOption(new ItemOption(0, Utlis.nextInt(200, 1000)));
+                        caiTrangBiNgo.addItemOption(new ItemOption(174, Utlis.nextInt(20, 50)));
+                        caiTrangBiNgo.addItemOption(new ItemOption(306, Utlis.nextInt(10, 20)));
+                        caiTrangBiNgo.addItemOption(new ItemOption(81,Utlis.nextInt(10, 20)));
+                        caiTrangBiNgo.addItemOption(new ItemOption(332, Utlis.nextInt(5, 8)));
+                        caiTrangBiNgo.addItemOption(new ItemOption(3, Utlis.nextInt(100, 200)));
+                        caiTrangBiNgo.addItemOption(new ItemOption(174, Utlis.nextInt(5, 10)));
+                        caiTrangBiNgo.addItemOption(new ItemOption(209, Utlis.nextInt(100, 500)));
                         p.addItem(caiTrangBiNgo);
                         p.msgAddItemBag(caiTrangBiNgo);
                         break;
@@ -242,7 +299,15 @@ public class Halloween extends Event{
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item dracula = new Item(653);
-                        dracula.strOptions = "70,100;69,100;0,1000;2,200;4,200;5,200";
+                        dracula.addItemOption(new ItemOption(1, Utlis.nextInt(200, 1000)));
+                        dracula.addItemOption(new ItemOption(0, Utlis.nextInt(200, 1000)));
+                        dracula.addItemOption(new ItemOption(174, Utlis.nextInt(20, 50)));
+                        dracula.addItemOption(new ItemOption(306, Utlis.nextInt(10, 20)));
+                        dracula.addItemOption(new ItemOption(81,Utlis.nextInt(10, 20)));
+                        dracula.addItemOption(new ItemOption(332, Utlis.nextInt(5, 8)));
+                        dracula.addItemOption(new ItemOption(3, Utlis.nextInt(100, 200)));
+                        dracula.addItemOption(new ItemOption(174, Utlis.nextInt(5, 10)));
+                        dracula.addItemOption(new ItemOption(209, Utlis.nextInt(100, 500)));
                         p.addItem(dracula);
                         p.msgAddItemBag(dracula);
                         break;
@@ -286,7 +351,7 @@ public class Halloween extends Event{
                 viewTop(p, TOP_KEO,"Bảng xếp hạng làm kẹo","%d. %s có %s sự kiện");
                 break;
             case 5:
-                viewTop(p, TOP_FISH, "Bảng xếp hạng Top câu cá", "%d. %s có %s điểm câu cá");
+                //viewTop(p, TOP_FISH, "Bảng xếp hạng Top câu cá", "%d. %s có %s điểm câu cá");
         }
     }
 }

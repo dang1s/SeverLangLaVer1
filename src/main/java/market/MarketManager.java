@@ -14,11 +14,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MarketManager implements Runnable {
     public static final byte STATUS_ON_SALE = 0;
@@ -36,59 +41,147 @@ public class MarketManager implements Runnable {
     private boolean saving;
     private long lastUpdate;
     private boolean running;
+    // Set để track các item đang được xử lý (playerName:itemIndex)
+    private Set<String> processingItems;
+    // Map để track cooldown của mỗi player (playerName -> lastSellTime)
+    private ConcurrentHashMap<String, Long> playerCooldowns;
+    // Thread pool để xử lý database insert bất đồng bộ
+    private ExecutorService dbExecutor;
+    private static final long SELL_COOLDOWN_MS = 2000; // 2 giây cooldown giữa các lần bán
+    
     public MarketManager(){
         productList = new ArrayList<>();
         running=true;
+        processingItems = ConcurrentHashMap.newKeySet();
+        playerCooldowns = new ConcurrentHashMap<>();
+        dbExecutor = Executors.newFixedThreadPool(5); // 5 threads để xử lý DB
         load();
     }
     public void load(){
-        PreparedStatement ps = null;
-        try {
-            ps = Connect.getConnection()
-                    .prepareStatement("SELECT * FROM `market` WHERE `status` = ?");
+        // Sử dụng try-with-resources để tự động đóng connection
+        try (Connection conn = Connect.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM `market` WHERE `status` = ?")) {
             ps.setInt(1, STATUS_ON_SALE);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String seller = rs.getString("seller");
-                int price = rs.getInt("price");
-                byte status = rs.getByte("status");
-                int time = rs.getInt("time");
-                JSONObject obj = (JSONObject) JSONValue.parse(rs.getString("item"));
-                ItemMarket item = new ItemMarket();
-                item.setId(id);
-                item.setPrice(price);
-                item.setName(seller);
-                item.setStatus(status);
-                item.setTime(time);
-                item.setItem(new Item(obj));
-                productList.add(item);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String seller = rs.getString("seller");
+                    int price = rs.getInt("price");
+                    byte status = rs.getByte("status");
+                    int time = rs.getInt("time");
+                    JSONObject obj = (JSONObject) JSONValue.parse(rs.getString("item"));
+                    ItemMarket item = new ItemMarket();
+                    item.setId(id);
+                    item.setPrice(price);
+                    item.setName(seller);
+                    item.setStatus(status);
+                    item.setTime(time);
+                    item.setItem(new Item(obj));
+                    productList.add(item);
+                }
+                Log.info("Market size: "+productList.size());
+                if(productList.size() > 0)
+                    id=productList.get(productList.size()-1).getId()+1;
             }
-            Log.info("Market size: "+productList.size());
-            if(productList.size() > 0)
-                id=productList.get(productList.size()-1).getId()+1;
-            rs.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                ps.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-
     }
-    public void themItem(Char p, Item item, int price,int time) {
-        ItemMarket itemMarket = new ItemMarket();
-        itemMarket.setId(id++);
-        itemMarket.setName(p.Info.name);
-        itemMarket.setPrice(price);
-        itemMarket.setTime((int) ((time+System.currentTimeMillis())/1000));
-        itemMarket.setItem(item);
-        itemMarket.setStatus(STATUS_ON_SALE);
-        add(itemMarket);
-        Manager.gI().insertItemToStall(itemMarket);
+    /**
+     * Kiểm tra xem player có đang trong cooldown không
+     */
+    public boolean isPlayerOnCooldown(String playerName) {
+        Long lastSellTime = playerCooldowns.get(playerName);
+        if (lastSellTime == null) {
+            return false;
+        }
+        long timeSinceLastSell = System.currentTimeMillis() - lastSellTime;
+        return timeSinceLastSell < SELL_COOLDOWN_MS;
+    }
+    
+    /**
+     * Kiểm tra xem item có đang được xử lý không
+     */
+    public boolean isItemProcessing(String playerName, short itemIndex) {
+        String key = playerName + ":" + itemIndex;
+        return processingItems.contains(key);
+    }
+    
+    /**
+     * Đánh dấu item đang được xử lý
+     */
+    private void markItemProcessing(String playerName, short itemIndex) {
+        String key = playerName + ":" + itemIndex;
+        processingItems.add(key);
+    }
+    
+    /**
+     * Bỏ đánh dấu item đã xử lý xong
+     */
+    private void unmarkItemProcessing(String playerName, short itemIndex) {
+        String key = playerName + ":" + itemIndex;
+        processingItems.remove(key);
+    }
+    
+    /**
+     * Thêm item vào chợ với cơ chế chống duplicate
+     */
+    public boolean themItem(Char p, Item item, int price, int time, short itemIndex) {
+        String playerName = p.Info.name;
+        
+        // Kiểm tra cooldown
+        if (isPlayerOnCooldown(playerName)) {
+            p.getService().serverMessage("Vui lòng đợi một chút trước khi bán tiếp!");
+            return false;
+        }
+        
+        // Kiểm tra item đang được xử lý
+        if (isItemProcessing(playerName, itemIndex)) {
+            p.getService().serverMessage("Vật phẩm đang được xử lý, vui lòng đợi!");
+            return false;
+        }
+        
+        // Đánh dấu đang xử lý
+        markItemProcessing(playerName, itemIndex);
+        
+        try {
+            // Tạo ItemMarket và thêm vào memory ngay lập tức
+            ItemMarket itemMarket = new ItemMarket();
+            itemMarket.setId(id++);
+            itemMarket.setName(playerName);
+            itemMarket.setPrice(price);
+            itemMarket.setTime((int) ((time+System.currentTimeMillis())/1000));
+            itemMarket.setItem(item);
+            itemMarket.setStatus(STATUS_ON_SALE);
+            add(itemMarket);
+            
+            // Cập nhật cooldown
+            playerCooldowns.put(playerName, System.currentTimeMillis());
+            
+            // Lưu vào database bất đồng bộ
+            final ItemMarket finalItem = itemMarket;
+            final String finalPlayerName = playerName;
+            final short finalItemIndex = itemIndex;
+            
+            dbExecutor.submit(() -> {
+                try {
+                    Manager.gI().insertItemToStall(finalItem);
+                } catch (Exception e) {
+                    Log.error("Lỗi khi lưu item vào database: " + finalItem.getId(), e);
+                    // Nếu lưu DB thất bại, xóa khỏi memory
+                    remove(finalItem);
+                } finally {
+                    // Bỏ đánh dấu sau khi xử lý xong
+                    unmarkItemProcessing(finalPlayerName, finalItemIndex);
+                }
+            });
+            
+            return true;
+        } catch (Exception e) {
+            Log.error("Lỗi khi thêm item vào chợ", e);
+            unmarkItemProcessing(playerName, itemIndex);
+            return false;
+        }
     }
     public void add(ItemMarket item) {
         synchronized (productList) {
@@ -437,6 +530,9 @@ public class MarketManager implements Runnable {
 
     public void stop() {
         this.running = false;
+        if (dbExecutor != null) {
+            dbExecutor.shutdown();
+        }
     }
     private void save() {
 //        if (!saving) {

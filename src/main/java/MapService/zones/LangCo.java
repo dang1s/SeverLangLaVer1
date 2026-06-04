@@ -19,6 +19,7 @@ public class LangCo extends Zone {
 
     public LangCo(Map map, int zone) {
         super(map, zone);
+        Log.info("=== LangCo khoi tao | mapID=" + map.mapID + " | zone=" + zone + " ===");
         isLangCo = true;
         timeReviveMob=5000;
     }
@@ -29,57 +30,57 @@ public class LangCo extends Zone {
         player.Info.cy= 421;
         player.service.setXYChar();
         player.inLangCo = true;
-        if(player.Info.lvPk > 0){
-            Map.maps[player.Info.mapReSpawm].addChar(player);
-            player.getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
-        }
+//        if(player.Info.lvPk < 0){
+//            Map.maps[player.Info.mapReSpawm].addChar(player);
+//            player.getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
+//        }
         return true;
     }
     @Override
     public void createMob(){
         monsters.clear();
-        int[] idmob ={100,103,98,99};
+        int[] idmob ={291,291,291};
         List<XYEntity> entityList = new ArrayList<>();
         int x = 60;
-        if (map.mapID==96) {
-            mobid = 96;
+        if (map.mapID==98) {
+            mobid = 98;
             for (int i = 0; i < 7; i++) {
-                entityList.add(new XYEntity((short) (0 + x), (short) 447));
+                entityList.add(new XYEntity((short) (0 + x), (short) 364));
                 x += 60;
             }
             x = 60;
             for (int i = 0; i < 13; i++) {
-                entityList.add(new XYEntity((short) (200 + x), (short) 186));
+                entityList.add(new XYEntity((short) (200 + x), (short) 364));
                 x += 60;
             }
             x = 60;
             for (int i = 0; i < 22; i++) {
-                entityList.add(new XYEntity((short) (960 + x), (short) 171));
+                entityList.add(new XYEntity((short) (960 + x), (short) 364));
                 x += 60;
             }
             x = 60;
             for (int i = 0; i < 6; i++) {
-                entityList.add(new XYEntity((short) (1800 + x), (short) 313));
+                entityList.add(new XYEntity((short) (1800 + x), (short) 364));
                 x += 60;
             }
             x = 60;
             for (int i = 0; i < 7; i++) {
-                entityList.add(new XYEntity((short) (1700 + x), (short) 496));
+                entityList.add(new XYEntity((short) (2000 + x), (short) 364));
                 x += 60;
             }
             x = 60;
             for (int i = 0; i < 7; i++) {
-                entityList.add(new XYEntity((short) (720 + x), (short) 313));
+                entityList.add(new XYEntity((short) (2500 + x), (short) 364));
                 x += 60;
             }
             x = 60;
             for (int i = 0; i < 7; i++) {
-                entityList.add(new XYEntity((short) (700 + x), (short) 496));
+                entityList.add(new XYEntity((short) (3000 + x), (short) 364));
                 x += 60;
             }
             x = 60;
             for (int i = 0; i < 35; i++) {
-                entityList.add(new XYEntity((short) (0 + x), (short) 590));
+                entityList.add(new XYEntity((short) (0 + x), (short) 364));
                 x += 60;
             }
         }
@@ -91,7 +92,7 @@ public class LangCo extends Zone {
             mob.cx = entityList.get(i).cx;
             mob.cy = entityList.get(i).cy;
             mob.status = 4;
-            mob.hpGoc = mob.hp = mob.hpFull = level * mobid*1500;
+            mob.hpGoc = mob.hp = mob.hpFull = level * mobid*850/8;
             mob.expGoc = mob.hpGoc / 8;
             mob.paintMiniMap = false;
             mob.idEntity = i;
@@ -146,7 +147,7 @@ public class LangCo extends Zone {
     @Override
     public void mobAttackChar(Mob mob, Char player) {
         try {
-            int dameAdjusted = mob.getDame()*50;// sua dame o day
+            int dameAdjusted = mob.getDame()*5;// sua dame o day
             int khang = InfoPoint.getKhangByClass(player, mob.he);
             dameAdjusted -= dameAdjusted * InfoPoint.calculateKhang(khang) / 100;
             dameAdjusted -= player.damageReduction;

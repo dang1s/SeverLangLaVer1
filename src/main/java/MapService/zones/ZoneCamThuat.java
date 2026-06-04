@@ -86,7 +86,7 @@ public class ZoneCamThuat extends ZWorld {
                 synchronized (monsters) {
                     for (int i = 0; i < monsters.size(); i++) {
                         Mob m = monsters.get(i);
-                        m.hpGoc = m.hp = m.hpFull = (int) (hpGoc + ((hpGoc / 2) * CountVonglap) * 10);
+                        m.hpGoc = m.hp = m.hpFull = (int) (hpGoc + ((hpGoc / 2) * CountVonglap) * 100);
                         if (m.hpGoc < 0) {
                             m.hpGoc = m.hp = m.hpFull = Integer.MAX_VALUE;
                         }

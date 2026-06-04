@@ -38,19 +38,28 @@ public class Session {
     private boolean isLogin;
     private boolean isSendArrData;
     public boolean isSetClientType;
-
+    public int clientVer1;
+    public int clientVer2;
+    private boolean sessionCreated = false; // Đánh dấu session đã được tạo thành công
+    private long sessionStartTime; // Thời gian bắt đầu session
+    private static final long SESSION_TIMEOUT = 60 * 1000; // Timeout 60 giây nếu không login
+    private Thread timeoutThread; // Thread kiểm tra timeout
 
     public Session(Socket sc, int id) {
         try {
             this.socket = sc;
+            // Giống srceco: KHÔNG dùng setSoTimeout, chỉ dựa vào exception khi readByte()
+            // Khi client tắt game, readByte() sẽ throw IOException ngay lập tức
+
             indexClient = id;
             this.reader = new Reader(this.socket);
             this.writer = new Writer(this.socket);
             this.connected = true;
+            this.sessionStartTime = System.currentTimeMillis();
+            Main.activeSessions.put(id, this);
             setHandler(new Controller(this));
             setService(new Service(this));
-            threadSend = new Thread(()
-                    -> {
+            threadSend = new Thread(() -> {
                 while (this.isConnected() && isSetClientType) {
                     try {
                         Message message = vecMessage.poll();
@@ -82,11 +91,11 @@ public class Session {
                                     }
                                 } else {
                                     if (cmd == -122) {
-                                        //   Log.debug("data trc khi nen " + data.length);
+                                        // Log.debug("data trc khi nen " + data.length);
                                     }
                                     data = Utlis.deflateByteArray(data);
                                     if (cmd == -122) {
-                                        //   Log.debug("data khi nen " + data.length);
+                                        // Log.debug("data khi nen " + data.length);
                                     }
                                     if (data.length <= Short.MAX_VALUE) {
                                         writer.writeByte(-80);
@@ -97,7 +106,7 @@ public class Session {
                                             this.writer.writeByte(data[i]);
                                         }
                                     } else {
-                                        //       Log.debug("ERR LENGTH TO LONG");
+                                        // Log.debug("ERR LENGTH TO LONG");
                                     }
                                 }
                             }
@@ -106,8 +115,8 @@ public class Session {
                         }
                         Thread.sleep(10);
                     } catch (Exception ex) {
-                        //ex.printStackTrace();
-                        //System.out.println("check "+ ex.getMessage());
+                        // ex.printStackTrace();
+                        // System.out.println("check "+ ex.getMessage());
                         clean();
                         return;
                     }
@@ -118,9 +127,68 @@ public class Session {
             threadSend.setName("Sender: " + socket.getRemoteSocketAddress());
             threadRecv.setName("reader: " + socket.getRemoteSocketAddress());
             threadRecv.start();
+            // Ghi nhận session đã được tạo thành công
+            sessionCreated = true;
+            ConnectionRateLimiter.onSessionCreated();
+
+            // Bắt đầu thread kiểm tra timeout
+            startTimeoutChecker();
         } catch (Exception ex) {
-//            ex.printStackTrace();
+            // ex.printStackTrace();
             clean();
+        }
+    }
+
+    /**
+     * Thread kiểm tra timeout - tự động đóng session nếu:
+     * 1. Chưa login (isLoginSuccess = false)
+     * 2. Đã login nhưng chưa vào game (user == null hoặc user.mChar == null)
+     * Session đã vào game (có character online) sẽ KHÔNG bị timeout
+     */
+    private void startTimeoutChecker() {
+        timeoutThread = new Thread(() -> {
+            try {
+                Thread.sleep(SESSION_TIMEOUT);
+                // Clean session nếu:
+                // - Chưa login HOẶC
+                // - Đã login nhưng chưa vào game (chưa có character online)
+                if (!isClean && isConnected()) {
+                    boolean shouldClean = false;
+                    String reason = "";
+
+                    if (!isLoginSuccess) {
+                        // Chưa login
+                        shouldClean = true;
+                        reason = "chưa login";
+                    } else if (user == null || user.mChar == null) {
+                        // Đã login nhưng chưa vào game (chưa có character online)
+                        shouldClean = true;
+                        reason = "đã login nhưng chưa vào game";
+                    }
+
+                    if (shouldClean) {
+                        Log.debug("Session " + indexClient + " timeout - closing connection (" + reason + ")");
+                        clean();
+                    }
+                }
+            } catch (InterruptedException e) {
+                // Thread bị interrupt khi đã vào game hoặc session đóng
+            }
+        });
+        timeoutThread.setName("SessionTimeout-" + indexClient);
+        timeoutThread.setDaemon(true);
+        timeoutThread.start();
+    }
+
+    /**
+     * Dừng timeout checker khi đã vào game (có character online)
+     * Method này được gọi khi character được chọn và vào game
+     */
+    public void stopTimeoutChecker() {
+        if (timeoutThread != null && timeoutThread.isAlive()) {
+            timeoutThread.interrupt();
+            timeoutThread = null;
+            Log.debug("Session " + indexClient + " timeout checker stopped - character đã vào game");
         }
     }
 
@@ -140,9 +208,7 @@ public class Session {
         return this.service;
     }
 
-
     public boolean isStart;
-
 
     public void sendMessage(Message message) {
         if (isConnected())
@@ -152,7 +218,6 @@ public class Session {
     private boolean CMD_MOVE(byte cmd) {
         return cmd == 123 || cmd == 124 || cmd == 125 || cmd == -82 || cmd == -83 || cmd == -84;
     }
-
 
     public boolean isConnected() {
         return !isClean && socket != null && connected && socket.isConnected();
@@ -168,7 +233,6 @@ public class Session {
         }
     }
 
-
     public void clean() {
         try {
             if (isClean) {
@@ -176,18 +240,52 @@ public class Session {
             }
 
             isClean = true;
+            // Dừng timeout thread nếu còn chạy
+            stopTimeoutChecker();
+
+            Main.activeSessions.remove(this.indexClient);
+            // Giảm số session khi đóng (chỉ nếu session đã được tạo thành công)
+            if (sessionCreated) {
+                ConnectionRateLimiter.onSessionClosed();
+            }
             isStart = false;
             if (user != null) {
+                Char charToClean = null;
                 try {
                     if (user.mChar != null) {
-                        user.mChar.flush();
-                        user.mChar.clean();
+                        charToClean = user.mChar;
+                        charToClean.flush();
+                        charToClean.clean();
                     }
                     user.cleanUp();
                 } catch (Exception e) {
+                    Log.error("Lỗi khi clean user/char trong Session.clean(): "
+                            + (user.username != null ? user.username : "unknown"), e);
+                    // Đảm bảo vẫn remove char khỏi ServerManager ngay cả khi có exception
+                    if (charToClean != null) {
+                        try {
+                            // Force remove khỏi zone nếu chưa được remove
+                            if (charToClean.zone != null) {
+                                try {
+                                    charToClean.zone.removeChar(charToClean);
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            // Force remove khỏi ServerManager
+                            ServerManager.removeChar(charToClean);
+                        } catch (Exception ignored) {
+                        }
+                    }
                 } finally {
+                    // Đảm bảo remove user khỏi ServerManager
                     ServerManager.removeUser(user);
-
+                    // Đảm bảo remove char khỏi ServerManager nếu chưa được remove
+                    if (charToClean != null && !charToClean.isClean) {
+                        try {
+                            ServerManager.removeChar(charToClean);
+                        } catch (Exception ignored) {
+                        }
+                    }
                 }
             }
             vecMessage.clear();
@@ -263,9 +361,9 @@ public class Session {
         try {
             String username = msg.readUTF();
             String password = msg.readUTF();
-//            int ver1 = msg.readInt();
-//            int ver2 = msg.readInt();
-//            msg.readBoolean();
+            // int ver1 = msg.readInt();
+            // int ver2 = msg.readInt();
+            // msg.readBoolean();
             if (!isSendArrData) {
                 isSendArrData = true;
                 service.createData();
@@ -293,7 +391,11 @@ public class Session {
                 this.isLoginSuccess = true;
                 ServerManager.addUser(us);
                 isLogin = false;
-                if(us.mChar!=null){
+                // Ghi nhận kết nối thành công
+                if (IPAddress != null) {
+                    ConnectionRateLimiter.recordSuccessfulConnection(IPAddress);
+                }
+                if (us.mChar != null) {
                     disconnect();
                     return;
                 }
@@ -305,19 +407,25 @@ public class Session {
             } else {
                 this.isLoginSuccess = false;
                 isLogin = false;
+                if (IPAddress != null) {
+                    ConnectionRateLimiter.recordFailedConnection(IPAddress);
+                }
             }
         } catch (IOException ex) {
-//            Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception e) {
-//            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
+
     class MessageCollector implements Runnable {
 
         @Override
         public void run() {
             try {
-                while (connected) {
+                // Giống srceco: dùng isConnected() để check socket state trực tiếp
+                // Khi socket đóng, isConnected() sẽ return false ngay lập tức
+                while (isConnected()) {
                     try {
                         byte cmd = reader.readByte();
                         boolean isDeflate;
@@ -346,7 +454,8 @@ public class Session {
                             continue;
                         } else if (cmd == -128) {
                             cmd = reader.readByte();
-                            length = reader.readByte() << 24 & 255 | reader.readByte() << 16 & 255 | reader.readByte() << 8 & 255 | reader.readByte() << 0 & 255;
+                            length = reader.readByte() << 24 & 255 | reader.readByte() << 16 & 255
+                                    | reader.readByte() << 8 & 255 | reader.readByte() << 0 & 255;
                             isDeflate = true;
                         } else if (cmd == -80) {
                             cmd = reader.readByte();
@@ -387,6 +496,9 @@ public class Session {
                             controller.readMessage(new Message((byte) cmd, data));
                         }
                     } catch (Exception ex) {
+                        // Giống srceco: catch Exception và clean() ngay
+                        // Khi client tắt game, readByte() sẽ throw IOException/Exception
+                        // Socket đóng sẽ được phát hiện ngay lập tức qua exception
                         clean();
                         return;
                     }

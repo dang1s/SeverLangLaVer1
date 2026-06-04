@@ -38,7 +38,7 @@ public class TrainingZone extends ZWorld {
             mob.cx = (short) coordinates[i][0];
             mob.cy = (short) coordinates[i][1];
             mob.status = 2;
-            mob.hpGoc = mob.hp = mob.hpFull = level * 650;
+            mob.hpGoc = mob.hp = mob.hpFull = level * 26500;
             if (mob.hpGoc <= 0) {
                 mob.hpGoc = 1;
             }
@@ -90,25 +90,7 @@ public class TrainingZone extends ZWorld {
                     }
                 }
             }
-            if (player.Bag.arrItemBody[11] != null) {
-                int num = 0;
-                if (mob.levelBoss == 1) {
-                    num = 1;
-                } else if (mob.levelBoss == 2) {
-                    num = 2;
-                } else if (mob.levelBoss == 10) {
-                    num = 5;
-                }
-                if (player.buffKLT > 0 && player.Info._mapID == 84) {
-                    num += num * player.buffKLT / 100;
-                }
-                if (player.buffRuou > 0) {
-                    num += num * player.buffRuou / 100;
-                }
-                if(num > 0){
-                    player.Bag.arrItemBody[11].updateTuLuyen(num);
-                }
-            }
+            updateBiKipTuLuyen(player, mob);
             if (player.Bag.arrItemBody[10] != null && player.Bag.arrItemBody[10].isSucManh()) {
                 int num = 0;
                 if (mob.levelBoss == 1) {
@@ -144,6 +126,7 @@ public class TrainingZone extends ZWorld {
                 exp += exp;
             }
             exp += exp * buff / 100;
+            addLuyenTapReward(player, mob, false);
             player.addExp(exp);
             try {
                 player.findHuPhach();
@@ -161,13 +144,16 @@ public class TrainingZone extends ZWorld {
 
             }
             // tắt exp pt hết nhi đồng mở lại
-            if (player.getGroup() != null) {
+            if
+            (player.getGroup() != null) {
                 List<Char> charList = player.getGroup().getCharsInZone(player.Info._mapID, player.zone.zoneID);
                 if (charList != null) {
-                    exp = exp * 20 / 100;
+                    long expParty = exp * 20 / 100;
                     for (Char plToDoi : charList) {
-                        if (plToDoi != player) {
-                            plToDoi.addExp(exp);
+                        if (plToDoi != player && Math.abs(plToDoi.level() - player.level()) <= 5) {
+                            plToDoi.addExp(expParty);
+                            updateBiKipTuLuyen(plToDoi, mob);
+                            addLuyenTapReward(plToDoi, mob, true);
                         }
                     }
                 }

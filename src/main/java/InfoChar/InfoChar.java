@@ -12,7 +12,9 @@ import com.sg188.real.Entity;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -76,6 +78,8 @@ public class InfoChar extends Entity{
     public byte countTBGT;
     public byte countHu;
     public byte countSaoCH = 0;
+    public boolean doneKienThucNhanGia = false;
+//    public static final Map<Integer, Integer> solanHSKRC = new HashMap<>();
 
     public JSONObject toJSONObject() {
         JSONObject obj = new JSONObject();
@@ -95,6 +99,8 @@ public class InfoChar extends Entity{
         obj.put("chuyencantuan", this.chuyenCanTuan);
         obj.put("cuacai", this.cuaCai);
         obj.put("cuacaituan", this.cuaCaiTuan);
+//        obj.put("napvang", this.cuacai);
+//        obj.put("napvangtuan", this.cuaCaiTuan);
         obj.put("cuonghoa", this.cuongHoa);
         obj.put("cuonghoatuan", this.cuongHoaTuan);
         obj.put("loidai", this.loiDai);
@@ -123,6 +129,7 @@ public class InfoChar extends Entity{
         obj.put("KinhNghiemVoHan", this.KinhNghiemVoHan);
         obj.put("pointDungeon", this.pointDungeon);
         obj.put("countSaoCH",this.countSaoCH);//dùng sao
+        obj.put("doneKienThucNhanGia", this.doneKienThucNhanGia);
         return obj;
     }
 

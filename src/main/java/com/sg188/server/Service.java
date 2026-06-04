@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.util.ArrayList;
 public class Service {
     private Session session;
     private Char player;
@@ -275,10 +275,16 @@ public class Service {
 
     public void sendTabSelectChar(byte numberChar, User user) {
         try {
+            Log.debug("sendTabSelectChar START - user: " + (user != null ? user.username : "null") + ", numberChar: " + numberChar);
             Message msg = Message.d((byte) -128);
             msg.writeByte(numberChar);
-            if(numberChar >0)
+            if(numberChar >0) {
+                Log.debug("sendTabSelectChar - calling initCharacterList");
                 user.initCharacterList();
+                Log.debug("sendTabSelectChar - after initCharacterList, user.chars size: " + (user.chars != null ? user.chars.size() : "null"));
+            } else {
+                Log.error("sendTabSelectChar ERROR - numberChar <= 0, initCharacterList NOT called");
+            }
             if (numberChar > 0) {
                 for (int i = 0; i < numberChar; i++) {
                     msg.writeInt(i);
@@ -452,18 +458,23 @@ public class Service {
     public void updateItemMap(List<ItemMap> item) {
         try {
             Message m = Message.c((byte) -119);
-            m.writeShort(item.size());
+
+            List<ItemMap> copy;
             synchronized (item) {
-                for (ItemMap itemMap : item) {
-                    if (itemMap != null) {
-                        m.writeInt(itemMap.getOwnerID());
-                        m.writeShort(itemMap.getId());
-                        m.writeShort(itemMap.getX());
-                        m.writeShort(itemMap.getY());
-                        itemMap.getItem().write(m.writer);
-                    }
+                copy = new ArrayList<>(item);
+            }
+
+            m.writeShort(copy.size());
+            for (ItemMap itemMap : copy) {
+                if (itemMap != null) {
+                    m.writeInt(itemMap.getOwnerID());
+                    m.writeShort(itemMap.getId());
+                    m.writeShort(itemMap.getX());
+                    m.writeShort(itemMap.getY());
+                    itemMap.getItem().write(m.writer);
                 }
             }
+
             session.sendMessage(m);
         } catch (Exception ex) {
             Log.error("Loi service 124cccc" + ex);
@@ -718,10 +729,24 @@ public class Service {
             Log.error("Loi service " + ex);
         }
     }
+    public void itemPetToBag_Me(Writer writer) {
+        try {
+            session.sendMessage(new Message((byte) -116, writer));
+        } catch (Exception ex) {
+            Log.error("Loi service " + ex);
+        }
+    }
 
     public void updateItemBody_Orther(Writer writer) {
         try {
             session.sendMessage(new Message((byte) -99, writer));
+        } catch (Exception ex) {
+            Log.error("Loi service " + ex);
+        }
+    }
+    public void updateItemPet(Writer writer) {
+        try {
+            session.sendMessage(new Message((byte) -114, writer));
         } catch (Exception ex) {
             Log.error("Loi service " + ex);
         }
@@ -756,6 +781,22 @@ public class Service {
             Message m = new Message((byte) 5);
             m.writeUTF(text);
             m.writeUTF(text2);
+//            m.writeUTF(text3);
+//            m.writeUTF(text4);
+
+            session.sendMessage(m);
+        } catch (Exception ex) {
+            Log.error("Loi service " + ex);
+        }
+    }
+    public void sendTextNPC2(String text, String text2, String text3, String text4) {
+        try {
+            Message m = new Message((byte) 5);
+            m.writeUTF(text);
+            m.writeUTF(text2);
+            m.writeUTF(text3);
+            m.writeUTF(text4);
+
             session.sendMessage(m);
         } catch (Exception ex) {
             Log.error("Loi service " + ex);
@@ -1033,7 +1074,7 @@ public class Service {
                 m.writeShort(Manager.gI().itemTemplates.get(i).idChar);
             }
             m.writer.dos.write(DataCenter.gI().writerArrDataGame2.baos.toByteArray());
-            m.inflate = true;
+            //m.inflate = true;
 //            m.writeByte(DataCenter.gI().af.length);
 //            for (int i = 0; i < DataCenter.gI().af.length; i++) {
 //                m.writeByte(DataCenter.gI().af[i].length);
@@ -1391,6 +1432,107 @@ public class Service {
         }
     }
 
+    /**
+     * Phân phát item từ kho gia tộc cho tất cả thành viên online
+     * @param index Index của item cần phân phát
+     */
+    public void phanPhatItem(short index) {
+        try {
+            if (player.clan == null) {
+                sendMessage(HanderMessage.SendThongBao("Bạn chưa tham gia gia tộc nào", HanderMessage.RED_MID));
+                return;
+            }
+
+            // Kiểm tra quyền - chỉ tộc trưởng và tộc phó mới có quyền phân phát
+            Member member = player.clan.getMemberByName(player.Info.name);
+            if (member == null || (member.getType() != Clan.TYPE_TOCTRUONG && member.getType() != Clan.TYPE_TOCPHO)) {
+                sendMessage(HanderMessage.SendThongBao("Chỉ tộc trưởng và tộc phó mới có quyền phân phát vật phẩm", HanderMessage.RED_MID));
+                return;
+            }
+
+            // Lấy item từ kho gia tộc
+            Item item = player.clan.getItemByDisplayIndex(index);
+            if (item == null) {
+                sendMessage(HanderMessage.SendThongBao("Vật phẩm không tồn tại hoặc đã bị xóa", HanderMessage.RED_MID));
+                return;
+            }
+
+            // Lấy thông tin item
+            int itemId = item.id;
+            int quantity = item.getAmount();
+            String itemName = item.getItemTemplate().name;
+
+            // Tạo log trong gia tộc
+            String roleName = (member.getType() == Clan.TYPE_TOCTRUONG) ? "Tộc trưởng" : "Tộc phó";
+            String logText = roleName + " " + player.Info.name + " đã phân phát " + itemName + " cho toàn bộ thành viên gia tộc";
+            player.clan.writeLog(player.Info.name, "đã phân phát " + itemName + " cho toàn bộ thành viên", quantity);
+
+            // Gửi item cho tất cả thành viên online
+            List<Char> onlineMembers = player.clan.getOnlineMembers();
+            int successCount = 0;
+            for (Char memberChar : onlineMembers) {
+                if (memberChar != null && memberChar.user != null && memberChar.getService() != null) {
+                    try {
+                        // Clone item từ kho gia tộc để giữ nguyên tất cả thuộc tính
+                        Item itemToSend = item.cloneItem();
+                        itemToSend.setAmount(quantity);
+
+                        // Tạo thư
+                        TemplateThu thu = new TemplateThu();
+                        // Tính toán thuId để tránh trùng lặp
+                        int maxId = 0;
+                        for (TemplateThu existingThu : memberChar.letters) {
+                            if (existingThu != null && existingThu.id > maxId) {
+                                maxId = existingThu.id;
+                            }
+                        }
+                        thu.id = (short) (maxId + 1);
+                        thu.Item = itemToSend;
+                        thu.Title = "Hệ thống";
+                        thu.NameNguoiGui = "Vật phẩm gia tộc";
+                        thu.NoiDungThu = "";
+                        thu.Bac = 0;
+                        thu.BacKhoa = 0;
+                        thu.Vang = 0;
+                        thu.VangKhoa = 0;
+                        thu.Exp = 0;
+                        thu.TimeEnd = System.currentTimeMillis() + 90000; // 90 giây
+                        thu.isSucess = false;
+
+                        // Thêm thư vào danh sách
+                        memberChar.letters.add(thu);
+                        memberChar.getService().reloadLetter();
+                        
+                        // Gửi thông báo
+                        memberChar.getService().sendMessage(HanderMessage.SendThongBao(logText, HanderMessage.YELLOW_MID));
+                        successCount++;
+                    } catch (Exception ex) {
+                        Log.error("Lỗi gửi item cho thành viên " + memberChar.Info.name + ": " + ex.getMessage(), ex);
+                    }
+                }
+            }
+            
+            if (successCount == 0) {
+                sendMessage(HanderMessage.SendThongBao("Không có thành viên nào online để nhận vật phẩm", HanderMessage.RED_MID));
+                return;
+            }
+
+            // Xóa item khỏi kho gia tộc
+            player.clan.removeItemByDisplayIndex(index);
+            
+            // Lưu thay đổi vào database
+            Clan.getClanDAO().save(player.clan);
+
+            // Cập nhật giao diện gia tộc
+            showInfoGiaToc();
+
+            sendMessage(HanderMessage.SendThongBao("Phân phát vật phẩm thành công", HanderMessage.WHITE));
+        } catch (Exception e) {
+            Log.error("Lỗi phân phát item gia tộc: " + e);
+            e.printStackTrace();
+            sendMessage(HanderMessage.SendThongBao("Có lỗi xảy ra khi phân phát vật phẩm", HanderMessage.RED_MID));
+        }
+    }
     public void openFindParty(HashMap<String, Group> groups) {
         try {
             Message m = new Message((byte) 45);
@@ -1844,5 +1986,25 @@ public void sendTaskOrder(TaskOrder task) {
         }
     }
 
+    public void birdAttackPlayer(Char charTarget) {
+        try {
+            Message m = new Message((byte) -44);
+            m.writeInt(player.id);
+            m.writeInt(charTarget.id);
+            session.sendMessage(m);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateMobPet(Writer writer) {
+        try {
+            Message m = new Message((byte) -123);
+            m.writer = writer;
+            session.sendMessage(m);
+        } catch (Exception ex) {
+            Log.error("Loi service " + ex);
+        }
+    }
 }
 

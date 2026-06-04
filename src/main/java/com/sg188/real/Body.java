@@ -17,7 +17,7 @@ import com.sg188.lib.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -32,7 +32,7 @@ public class Body {
     public InfoEff Effs;
     public InfoGiftCode GiftCode;
     public InfoPhucLoi phucLoi;
-    public Vector<SkillClan> listSkill = new Vector(7);
+    public CopyOnWriteArrayList<SkillClan> listSkill = new CopyOnWriteArrayList<>();
     public Lock lockViThu = new ReentrantLock();
     public Clan clan;
     public List<Skill> supportSkill = new ArrayList<>();
@@ -89,6 +89,7 @@ public class Body {
     public int buffSpeed;
     public int buffDame;
     public int buffCx;
+    public int buffMiss; //buff né tránh
     public short isSusanoItatchi;
     public int isHienNhan;
     public int boostChakra;
@@ -96,6 +97,8 @@ public class Body {
     public int buffHP;
     public int buffHP_2;
     public short thuyLaoThuat;
+    public int isTruMpDoiThu;
+    public int hutHp;
 
     public int getChiSoFormSkill(int... array) {
         int c = 0;
@@ -144,10 +147,25 @@ public class Body {
                     } else if (option.getItemOptionTemplate().type == 15 && itemBody.level > 18) {
                         options[optionID] += option.getvalue();
                         haveOptions[optionID] = true;
-                    } else if (option.getItemOptionTemplate().type == 16 && itemBody.level > 19) {
+                    } else if (option.getItemOptionTemplate().type == 16 && itemBody.level > 19 && option.getId() < 374) {
                         options[optionID] += option.getvalue();
                         haveOptions[optionID] = true;
-                    } else {
+                    } else if (option.getItemOptionTemplate().type == 16 && itemBody.level >= 20 && option.getId() == 381) {
+                        options[optionID] += option.getvalue();
+                        haveOptions[optionID] = true;
+                    } else if(option.getItemOptionTemplate().type == 16 && itemBody.level >= 22 && (option.getId() == 374 || option.getId() == 382)){
+                        options[optionID] += option.getvalue();
+                        haveOptions[optionID] = true;
+                    }  else if(option.getItemOptionTemplate().type == 16 && itemBody.level >= 24 && (option.getId() == 375 || option.getId() == 383)){
+                        options[optionID] += option.getvalue();
+                        haveOptions[optionID] = true;
+                    } else if(option.getItemOptionTemplate().type == 16 && itemBody.level >= 26 && (option.getId() == 376 || option.getId() == 384)){
+                        options[optionID] += option.getvalue();
+                        haveOptions[optionID] = true;
+                    } else if(option.getItemOptionTemplate().type == 16 && itemBody.level >= 28 && (option.getId() == 377 || option.getId() == 385)){
+                        options[optionID] += option.getvalue();
+                        haveOptions[optionID] = true;
+                    } else if(option.getId() != 382){
                         options[optionID] += option.getvalue();
                         haveOptions[optionID] = true;
                     }
@@ -156,6 +174,15 @@ public class Body {
         }
         for (Item itemBody : this.Bag.arrItemBody2) {
             if (itemBody != null && (itemBody.id >= 908 && itemBody.id <= 911) && itemBody.strOptions.length() > 0) {
+                for (ItemOption option : itemBody.getItemOption()) {
+                    int optionID = option.getId();
+                    options[optionID] += option.getvalue();
+                    haveOptions[optionID] = true;
+                }
+            }
+        }
+        for (Item itemBody : this.Bag.arrItemPet) {
+            if (itemBody != null && itemBody.strOptions.length() > 0) {
                 for (ItemOption option : itemBody.getItemOption()) {
                     int optionID = option.getId();
                     options[optionID] += option.getvalue();
@@ -220,7 +247,7 @@ public class Body {
         int potentialDame = 0;
         chakra = (short) (Point.arrayTiemNang[1]+options[209]+options[255] + options[381] +boostChakra+isSusanoItatchi-reducedChakra);
         exactly = options[20]+options[65]+options[167]+options[180]+options[205]+options[280]+options[304]+buffCx;
-        miss = options[14]+options[64]+options[151]+options[161]+options[204]+options[324]+chakra;
+        miss = options[14]+options[64]+options[151]+options[161]+options[204]+options[324] + chakra + buffMiss;
         critical = options[5]+options[15]+options[28]+options[63]+options[144]+options[166]+options[203]+options[362]+chakra;
         potentialDame = (int) (Point.arrayTiemNang[0]*1.8+chakra*0.8+Point.arrayTiemNang[2]*1.4);
         int amplifyBasicAttack = options[34]+options[47]+options[122];
@@ -252,11 +279,11 @@ public class Body {
         maxMP+=boostHPMP;
         damageReduction = options[13]+options[173]+options[206];
         counterAttack = options[16];
-        counterAttack+= counterAttack*(options[67]+options[162]+options[371]+options[373]);
+        counterAttack += counterAttack > 0 ? counterAttack*(options[67]+options[162]+options[371]+options[373]) : (options[67]+options[162]+options[371]+options[373]);
         criticalAttack = options[41]+options[95]+options[306]+options[309];
         reduceCriticalDamage = options[344]+options[346]+options[348];
         criticalDefense = options[42]+options[43]+options[44]+options[45]+options[46]+options[174];
-        ignoreMiss = options[4]+options[147]+options[160];
+        ignoreMiss = options[4]+options[147]+options[160] + options[382];//+ options[382];//bỏ qua né tránh
         allResistance = (short) (options[12]+options[40]+options[81]+options[121]+options[152]+options[201]+options[258]+boostResistAll-reducedResist);
         lightningResistance = allResistance+options[7]+options[35]+options[82]+options[108];
         earthResistance = allResistance+options[8]+options[36]+options[83]+options[109];
@@ -273,16 +300,16 @@ public class Body {
         slow = options[50]+options[70]+options[125]+options[170]+options[187]+options[261];
         burn = options[51]+options[71]+options[126]+options[171]+options[189]+options[262];
         stun= options[52]+options[72]+options[127]+options[172]+options[263];
-        reduceWeaken = (short) (options[289]+options[325]+options[355]);
-        reducePoison= (short) (options[290]+options[326]+options[356]);
-        reduceSlow= (short) (options[291]+options[327]+options[357]);
-        reduceBurn= (short) (options[292]+options[328]+options[358]);
-        reduceStun= (short) (options[293]+options[329]+options[359]);
-        ignoreResistance = options[145]+options[149]+options[197]+options[360];
-        elementalCounter = options[307]+options[310]+options[372];
+        reduceWeaken = (short) (options[289]+options[325]+options[355] + options[332]);
+        reducePoison= (short) (options[290]+options[326]+options[356] + options[332]);
+        reduceSlow= (short) (options[291]+options[327]+options[357] + options[332]);
+        reduceBurn= (short) (options[292]+options[328]+options[358] + options[332]);
+        reduceStun= (short) (options[293]+options[329]+options[359] + options[332]);
+        ignoreResistance = options[145]+options[149]+options[197]+options[360] + options[384] + isHienNhan;
+        elementalCounter = options[307]+options[310]+options[372] + options[383];
         elementalCounterReduce = options[311]+options[323]+options[330]+options[331]+options[345];
         movementSpeed = options[91]+options[118]+options[150]+options[17]+500+buffSpeed+isSusanoItatchi;
-
+        hutHp = options[158] + options[252] + options[6];
         //vô cực
         chakra = (short) ((double) options[380]/100 * chakra + chakra);
         //thiên đạo

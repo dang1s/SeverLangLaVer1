@@ -26,6 +26,7 @@ public class ItemShop {
     public int amount;
     public int giaCu;
     public int conLai;
+    public int lucdao; // Thêm trường lucdao cho shop lục đạo
     public ItemTemplate template;
     public List<Item>items=new ArrayList<>();
     public ItemShop(int id, int itemID, byte he ,byte typeShop,int TinhThach, int Bac, int BacKhoa, int Vang, int VangKhoa, boolean isLock, long expire,String strOption,int yeucau,int amount,int giaCu, int conLai) {
@@ -47,6 +48,7 @@ public class ItemShop {
         this.amount = amount;
         this.giaCu = giaCu;
         this.conLai = conLai;
+        this.lucdao = lucdao;
     }
     public ItemShop(int id, int itemID, byte he ,byte typeShop,int TinhThach, int Bac, int BacKhoa, int Vang, int VangKhoa, boolean isLock, long expire,String strOption,int yeucau,int amount) {
         this.id = id;
@@ -65,5 +67,6 @@ public class ItemShop {
         this.template = item.getItemTemplate();
         this.yeuCau = yeucau;
         this.amount = amount;
+        this.lucdao = 0; // Giá trị mặc định
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 public class ZoneSonCap extends ZWorld {
     public int level;
     private int[] listitem = {354, // đá myo, ngọc myo
-            174, 175, 179, 216, 217, 218, 248, 278, 302, 315, //lệnh bài Hokage
+            174, 175, 179, 216, 217, 248, 278, 302, 315, //lệnh bài Hokage
             310, 312, 313, 599};  //mảnh bk, mảnh huyết kế, mảnh tns, mảnh kns};
     private boolean createBoss;
     private int mobid;
@@ -250,7 +250,7 @@ public class ZoneSonCap extends ZWorld {
             mob.cx = entityList.get(i).cx;
             mob.cy = entityList.get(i).cy;
             mob.status = 4;
-            mob.hpGoc = mob.hp = mob.hpFull = level * mobid * 100; //gốc *1000
+            mob.hpGoc = mob.hp = mob.hpFull = level * mobid * 1000; //gốc *1000
             mob.expGoc = mob.hpGoc / 8;
 
             mob.levelBoss = 0;
@@ -337,9 +337,9 @@ public class ZoneSonCap extends ZWorld {
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
                     if(it.id == 354) {
-                        it.amount = 5;
+                        it.amount = 20;
                     } else {
-                        it.amount = 1;
+                        it.amount = 10;
                     }
                     player.addItem(it);
                     player.msgAddItemBag(it);
@@ -352,9 +352,9 @@ public class ZoneSonCap extends ZWorld {
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
                     if(it.id == 354) {
-                        it.amount = 5;
+                        it.amount = 20;
                     } else {
-                        it.amount = 1;
+                        it.amount = 10;
                     }
                     player.addItem(it);
                     player.msgAddItemBag(it);
@@ -366,9 +366,9 @@ public class ZoneSonCap extends ZWorld {
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
                     if(it.id == 354) {
-                        it.amount = 5;
+                        it.amount = 20;
                     } else {
-                        it.amount = 1;
+                        it.amount = 10;
                     }
                     player.addItem(it);
                     player.msgAddItemBag(it);
@@ -380,9 +380,9 @@ public class ZoneSonCap extends ZWorld {
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
                     if(it.id == 354) {
-                        it.amount = 5;
+                        it.amount = 20;
                     } else {
-                        it.amount = 1;
+                        it.amount = 10;
                     }
                     player.addItem(it);
                     player.msgAddItemBag(it);
@@ -394,9 +394,9 @@ public class ZoneSonCap extends ZWorld {
                 for (int i = 0; i < listitem.length; i++) {
                     Item it = new Item(listitem[i], false);
                     if(it.id == 354) {
-                        it.amount = 5;
+                        it.amount = 20;
                     } else {
-                        it.amount = 1;
+                        it.amount = 10;
                     }
                     player.addItem(it);
                     player.msgAddItemBag(it);

@@ -218,15 +218,16 @@ public class Mob extends Entity implements Cloneable {
             } else {
                 int num = Utlis.nextInt(0, 10000);
                 if (num < 10) {
-                    hp = hpFull = hpGoc * 100;
+                    hp = hpFull = hpGoc * 500;
                     exp = expGoc * 100;
                     levelBoss = 2;
                 } else if (num < 100) {
                     hp = hpFull = hpGoc * 10;
                     levelBoss = 1;
-                    exp = expGoc * 10;
+                    exp = expGoc * 5;
                 } else {
                     levelBoss = 0;
+                    hp = hpFull = hpGoc;
                 }
             }
         }
@@ -241,7 +242,7 @@ public class Mob extends Entity implements Cloneable {
     }
 
     public int getDame() {
-        this.damageOnPlayer = (int) (this.level + (Math.pow(this.level, 2) / 5));
+        this.damageOnPlayer = (int) (this.level + (Math.pow(this.level, 2) / 5) );
         if (this.levelBoss==10) {
             this.damageOnPlayer *= 20;
         } else if (this.levelBoss == 1) {

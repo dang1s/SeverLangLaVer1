@@ -1,9 +1,11 @@
 package MapService;
 
+import EventClick.ConfigCuaCaiTuan;
 import InfoChar.InfoPoint;
 import Manager.Manager;
 import MapService.world.Arena;
-import MapService.world.DaiHoiVoThuat;
+import MapService.world.DaiHoiNhanGia;
+
 import MapService.world.World;
 import Service.HanderCharacter;
 import Service.HanderMessage;
@@ -38,6 +40,7 @@ public class Zone {
 
     public List<Npc> npcs;
     public List<Mob> monsters;
+    protected ReadWriteLock lockMob;
     public List<Char> players;
     public List<ItemMap> itemMaps;
     public boolean isOpened;
@@ -52,12 +55,14 @@ public class Zone {
     public boolean isFinish;
     public boolean isClosed;
     public boolean isLangCo;
+    public boolean isHangViThu;
     public int timeReviveMob = 2500;
 
     public Zone(Map map, int zone) {
         this.map = map;
         this.zoneID = zone;
         lockChar = new ReentrantReadWriteLock();
+        lockMob = new ReentrantReadWriteLock();
         npcs = new ArrayList<>();
         monsters = new ArrayList<>();
         players = new ArrayList<>();
@@ -198,20 +203,30 @@ public class Zone {
 
     public List<Mob> getLivingMonsters() {
         ArrayList<Mob> mobs = new ArrayList<>();
-        for (Mob mob : monsters) {
-            if (!mob.isDie) {
-                mobs.add(mob);
+        lockMob.readLock().lock();
+        try {
+            for (Mob mob : monsters) {
+                if (!mob.isDie) {
+                    mobs.add(mob);
+                }
             }
+        } finally {
+            lockMob.readLock().unlock();
         }
         return mobs;
     }
 
     public List<Mob> getLivingMonstersClan() {
         ArrayList<Mob> mobs = new ArrayList<>();
-        for (Mob mob : monsters) {
-            if (!mob.isDie && mob.id != 130) {
-                mobs.add(mob);
+        lockMob.readLock().lock();
+        try {
+            for (Mob mob : monsters) {
+                if (!mob.isDie && mob.id != 130) {
+                    mobs.add(mob);
+                }
             }
+        } finally {
+            lockMob.readLock().unlock();
         }
         return mobs;
     }
@@ -231,45 +246,55 @@ public class Zone {
     }
 
     public void createMob() {
-        monsters.clear();
-        int size = map.getMapTemplate().listMob.size();
-        for (int i = 0; i < size; i++) {
-            try {
-                Mob mob1 = map.getMapTemplate().listMob.get(i);
-                Mob mob2 = mob1.cloneMob();
-                mob2.idEntity = monsters.size();
-                mob2.reSpawn(this);
-                monsters.add(mob2);
-                MobInfo mobInfo = MobInfo.builder().mapID(map.mapID).mobID(mob2.id).level(mob2.level).build();
-                if (mob2.id >= 184 && mob2.id <= 198) {
-                    TaskFactory.getInstance().addMobInfoTaskBoss(mobInfo);
-                } else {
-                    if (mob2.getMobTemplate().speedMove != 0)
-                        TaskFactory.getInstance().addMobInfoTaskDay(mobInfo);
+        lockMob.writeLock().lock();
+        try {
+            monsters.clear();
+            int size = map.getMapTemplate().listMob.size();
+            boolean check = false;
+
+            for (int i = 0; i < size; i++) {
+                try {
+                    Mob mob1 = map.getMapTemplate().listMob.get(i);
+                    Mob mob2 = mob1.cloneMob();
+                    mob2.idEntity = monsters.size();
+                    mob2.reSpawn(this);
+                    monsters.add(mob2);
+                    MobInfo mobInfo = MobInfo.builder().mapID(map.mapID).mobID(mob2.id).level(mob2.level).build();
+                    if (mob2.id >= 184 && mob2.id <= 198) {
+                        TaskFactory.getInstance().addMobInfoTaskBoss(mobInfo);
+                    } else {
+                        if (mob2.getMobTemplate().speedMove != 0)
+                            TaskFactory.getInstance().addMobInfoTaskDay(mobInfo);
+                    }
+                    if(mob2.level >= 30 && mob2.level <= 60 && !check&&!map.getMapTemplate().name.contains("Làng")) {
+                        check = true;
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
-                //spawn cương thi
-                if (i == size - 1 && (map.mapID == 57 || map.mapID == 65 || map.mapID == 87 || map.mapID == 79 || map.mapID == 73) && Event.getEvent() != null && zoneID >= 5 && zoneID <= 10) {
+            }
+            try {
+                if (check && monsters.size() > 0) {
+                    Mob demo = monsters.get(Utlis.nextInt(0, monsters.size() - 1));
                     Mob mob = new Mob();
-                    int id = map.mapID == 57 ? 285 : map.mapID == 65 ? 286 : map.mapID == 87 ? 287 : map.mapID == 79 ? 288 : 289;
-                    mob.id = id;
-                    mob.level = map.mapID == 57 ? 59 : map.mapID == 65 ? 59 : map.mapID == 87 ? 59 : map.mapID == 79 ? 59 : 60;
-                    mob.cx = (short) (map.mapID == 57 ? 632 : map.mapID == 65 ? 920 : map.mapID == 87 ? 776 : map.mapID == 79 ? 500 : 1328);
-
-                    mob.levelBoss = 10;
-                    mob.cy = (short) (map.mapID == 57 ? 190 : map.mapID == 65 ? 148 : map.mapID == 87 ? 155 : map.mapID == 79 ? 297 : 306);
-
+                    mob.id = 261;
+                    mob.level = demo.level;
+                    mob.cx = demo.cx;
+                    mob.levelBoss = 0;
+                    mob.cy = demo.cy;
                     mob.status = 2;
-                    mob.hpGoc = mob.hp = mob.hpFull = 1000000000;
-                    mob.expGoc = 5;
+                    mob.hpGoc = mob.hp = mob.hpFull = 5000000;
+                    mob.expGoc = 5000;
                     mob.paintMiniMap = false;
                     mob.idEntity = monsters.size();
                     mob.reSpawn(this);
                     monsters.add(mob);
                 }
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                Log.error("Lỗi tạo mob thi quỷ: " + e.getMessage());
             }
+        } finally {
+            lockMob.writeLock().unlock();
         }
     }
 
@@ -312,9 +337,9 @@ public class Zone {
                     if (arena != null && !this.isLoiDai()) {
                         arena.out(player);
                     }
-                    DaiHoiVoThuat daiHoiVoThuat = (DaiHoiVoThuat) player.findWorld(World.DAI_HOI_VO_THUAT);
-                    if (daiHoiVoThuat != null && !this.isDaiHoiVoThuat()) {
-                        daiHoiVoThuat.out(player);
+                    DaiHoiNhanGia daiHoiNhanGia = (DaiHoiNhanGia) player.findWorld(World.DAI_HOI_VO_THUAT);
+                    if (daiHoiNhanGia != null && !this.isDaiHoiVoThuat()) {
+                        daiHoiNhanGia.playerOut(player);
                     }
                     addPlayer(player);
                     if (player.zone != null) {
@@ -352,23 +377,33 @@ public class Zone {
                     player.service.sendIntoMap();
                     player.Info._mapID = (short) map.mapID;
                     showClanToPlayer(player);
+//                    updateWing(player);
+//                    updateMat(player);
                     SendMessageInZone(HanderMessage.sendGiaToc(player));
                     player.inLangCo = false;
-                    if (player.taskId == TaskName.NV_TU_THIEN_VUONG_LANG_TAKUMI && player.taskMain != null && monsters.size() < 1) {
-                        Mob mob = new Mob();
-                        mob.idEntity = monsters.size();
-                        mob.id = 230 + player.taskMain.index;
-                        mob.nameChar = "";
-                        mob.hpFull = mob.hp = 100000;
-                        mob.exp = 6000;
-                        mob.level = 10;
-                        mob.cy = (short) (player.taskMain.index == 0 ? 269 : player.taskMain.index == 1 ? 187 : player.taskMain.index == 2 ? 536 : 393);
-                        mob.cx = (short) (player.taskMain.index == 0 ? 320 : player.taskMain.index == 1 ? 665 : player.taskMain.index == 2 ? 548 : 760);
-                        mob.status = 0;
-                        mob.isReSpawn = false;
-                        mob.timeRemove = System.currentTimeMillis() + 300000;
-                        monsters.add(mob);
-                        player.getService().sendMessage(HanderMessage.AddMob(mob));
+                    player.inHangViThu = false;
+                    if (player.taskId == TaskName.NV_TU_THIEN_VUONG_LANG_TAKUMI && player.taskMain != null) {
+                        lockMob.writeLock().lock();
+                        try {
+                            if (monsters.size() < 1) {
+                                Mob mob = new Mob();
+                                mob.idEntity = monsters.size();
+                                mob.id = 230 + player.taskMain.index;
+                                mob.nameChar = "";
+                                mob.hpFull = mob.hp = 100000;
+                                mob.exp = 6000;
+                                mob.level = 10;
+                                mob.cy = (short) (player.taskMain.index == 0 ? 269 : player.taskMain.index == 1 ? 187 : player.taskMain.index == 2 ? 536 : 393);
+                                mob.cx = (short) (player.taskMain.index == 0 ? 320 : player.taskMain.index == 1 ? 665 : player.taskMain.index == 2 ? 548 : 760);
+                                mob.status = 0;
+                                mob.isReSpawn = false;
+                                mob.timeRemove = System.currentTimeMillis() + 300000;
+                                monsters.add(mob);
+                                player.getService().sendMessage(HanderMessage.AddMob(mob));
+                            }
+                        } finally {
+                            lockMob.writeLock().unlock();
+                        }
                     }
                     return true;
                 }
@@ -379,7 +414,7 @@ public class Zone {
         return false;
     }
 
-    private boolean isDaiHoiVoThuat() {
+    public boolean isDaiHoiVoThuat() {
         return map.mapID == 49;
     }
 
@@ -387,8 +422,11 @@ public class Zone {
         try {
             List<Char> list = getChars();
             for (Char player : list) {
-                if (player != null && player.user != null && !pl.isClean && player.service != null)
+                if (player != null && player.user != null && !pl.isClean && player.service != null) {
                     pl.getService().sendMessage(HanderMessage.sendGiaToc(player));
+//                    updateWing(player);
+//                    updateMat(player);
+                }
             }
         } catch (Exception E) {
 
@@ -470,19 +508,35 @@ public class Zone {
     }
 
     public void updateMob() {
-        for (int i = monsters.size() - 1; i >= 0; i--) {
+        // Tạo snapshot để duyệt an toàn
+        List<Mob> snapshot;
+        lockMob.readLock().lock();
+        try {
+            snapshot = new ArrayList<>(monsters);
+        } finally {
+            lockMob.readLock().unlock();
+        }
+
+        List<Mob> toRemove = new ArrayList<>();
+        for (int i = snapshot.size() - 1; i >= 0; i--) {
             try {
-                Mob mob = monsters.get(i);
+                Mob mob = snapshot.get(i);
                 if (mob != null) {
                     if (mob.timeRemove > 0 && mob.timeRemove <= System.currentTimeMillis()) {
                         if (!mob.isDie) {
                             removeMobToAllChar(mob);
                         }
-                        monsters.remove(i);
+                        toRemove.add(mob);
+                        continue;
                     }
                     if (mob.isReSpawn) {
                         if (canRespawn(mob)) {
-                            if (System.currentTimeMillis() - mob.timeDie >= timeReviveMob) {
+                            if(mob.id == 261){
+                                if (System.currentTimeMillis() - mob.timeDie >= 3600000) {
+                                    mob.reSpawn(this);
+                                    reSpawnMobToAllChar(mob);
+                                }
+                            } else if (System.currentTimeMillis() - mob.timeDie >= timeReviveMob) {
                                 mob.reSpawn(this);
                                 reSpawnMobToAllChar(mob);
                             }
@@ -510,6 +564,16 @@ public class Zone {
                 }
             } catch (Exception e) {
                 Log.debug("error update mob in map " + e.getMessage());
+            }
+        }
+
+        // Xóa mob bên ngoài vòng lặp với write lock
+        if (!toRemove.isEmpty()) {
+            lockMob.writeLock().lock();
+            try {
+                monsters.removeAll(toRemove);
+            } finally {
+                lockMob.writeLock().unlock();
             }
         }
     }
@@ -552,15 +616,19 @@ public class Zone {
     }
 
     private void writeVecMob(Writer writer) {
+        lockMob.readLock().lock();
         try {
-            writer.writeShort(monsters.size());
-            for (int i = 0; i < monsters.size(); i++) {
-                Mob mob = monsters.get(i);
+            List<Mob> snapshot = new ArrayList<>(monsters);
+            writer.writeShort(snapshot.size());
+            for (int i = 0; i < snapshot.size(); i++) {
+                Mob mob = snapshot.get(i);
                 if (mob != null)
-                    monsters.get(i).write(writer);
+                    mob.write(writer);
             }
         } catch (IOException e) {
             Log.error("loi vec mob map ", e);
+        } finally {
+            lockMob.readLock().unlock();
         }
     }
 
@@ -596,14 +664,20 @@ public class Zone {
     }
 
     public void removeMob(int id) {
-        Mob mob = null;
-        for (int i = 0; i < monsters.size(); i++) {
-            if (monsters.get(i).idEntity == id) {
-                mob = monsters.get(i);
+        lockMob.writeLock().lock();
+        try {
+            Mob mob = null;
+            for (int i = 0; i < monsters.size(); i++) {
+                if (monsters.get(i).idEntity == id) {
+                    mob = monsters.get(i);
+                    break;
+                }
             }
+            if (mob != null)
+                monsters.remove(mob);
+        } finally {
+            lockMob.writeLock().unlock();
         }
-        if (mob != null)
-            monsters.remove(mob);
     }
 
     public void removeToAllChar(Char player) {
@@ -700,10 +774,14 @@ public class Zone {
                 return;
             }
             if (Utlis.getRange(mob.cx, pl.Info.cx) <= skill.rangeNgang + mob.getMobTemplate().speedMove + 5 && Utlis.getRange(mob.cy, pl.Info.cy) <= skill.rangeDoc + mob.getMobTemplate().speedMove + 5) {
-               //  LangLa_iw animationSkill = (LangLa_iw) DataCenter.gI().K.get(new Short((short) idSkill));
+                //  LangLa_iw animationSkill = (LangLa_iw) DataCenter.gI().K.get(new Short((short) idSkill));
                 LangLa_iw animationSkill = (LangLa_iw) DataCenter.gI().K.get((short) idSkill);
                 if (animationSkill == null) {
                     return;
+                }
+                if (skill.idTemplate == 36) {
+                    pl.setXY(mob.cx, mob.cy);
+                    pl.service.setXYChar();
                 }
                 XYEntity xy = getXYBlockMap(pl.Info.cx, pl.Info.cy);
                 int dir;
@@ -750,7 +828,7 @@ public class Zone {
                 boolean choang = Utlis.nextInt(0, 100) < pl.stun / 10;
                 boolean lamcham = Utlis.nextInt(0, 100) < pl.slow / 10;
                 if (doc) {
-                    mob.AddEff(new Effect((short) 9, 0, System.currentTimeMillis(), 2000), this);
+                    mob.AddEff(new Effect((short) 9, Math.max(0, pl.poison), System.currentTimeMillis(), 2000), this);
                 }
                 if (bong) {
                     mob.AddEff(new Effect((short) 11, 0, System.currentTimeMillis(), 2000), this);
@@ -771,7 +849,8 @@ public class Zone {
                     dame += dame / 2;
                 }
                 boolean outLevel = Math.abs(pl.level() - mob.level) <= 10;
-                if (mob.levelBoss == 10 && !outLevel && mob.id != 293
+                boolean ignoreBossLevelPenalty = mob.id == 240 || mob.id == 241;
+                if (mob.levelBoss == 10 && !outLevel && !ignoreBossLevelPenalty && mob.id != 293
                         && mob.id != 294 && mob.id != 285 && mob.id != 286
                         && mob.id != 287 && mob.id != 288 && mob.id != 289) {
                     dame = 1;
@@ -799,15 +878,22 @@ public class Zone {
                 setDameMob(pl, mob, dame, chi_mang);
                 HanderUseSkill.SetEffSkillMob(pl, mob, skill);
                 ArrayList<Mob> list = new ArrayList<Mob>();
-                Set<Integer> selectedIds = new HashSet<Integer>(); // Để lưu trữ các ID của Mob đã được chọn
+                Set<Integer> selectedIds = new HashSet<Integer>();
 
-                // Giả sử `mob` là Mob hiện tại mà bạn đang xử lý
-                selectedIds.add(mob.idEntity); // Thêm ID của Mob hiện tại vào danh sách đã chọn để tránh tự chọn nó
+                selectedIds.add(mob.idEntity);
 
-                for (int i = 0; i < maxTarget - 1; i++) { // Đảm bảo vòng lặp chạy đủ số lần để có thể chọn tối đa 3 Mob
+                // Tạo snapshot monsters để duyệt an toàn
+                List<Mob> monstersSnapshot;
+                lockMob.readLock().lock();
+                try {
+                    monstersSnapshot = new ArrayList<>(monsters);
+                } finally {
+                    lockMob.readLock().unlock();
+                }
+
+                for (int i = 0; i < maxTarget - 1; i++) {
                     Mob selectedMob = null;
-                    for (Mob cmob : monsters) { // Sử dụng vòng lặp for-each cho độ rõ ràng và dễ đọc
-                        // Kiểm tra điều kiện: không phải là Mob hiện tại, HP > 0, và chưa được chọn
+                    for (Mob cmob : monstersSnapshot) {
                         if (cmob.hp > 0 && !selectedIds.contains(cmob.idEntity)) {
                             if (selectedMob == null || cmob.getRe(pl.Info) < selectedMob.getRe(pl.Info) && cmob.getRe(mob) < selectedMob.getRe(mob)) {
                                 selectedMob = cmob;
@@ -863,11 +949,16 @@ public class Zone {
     }
 
     public Mob findMobInMap(int idMob) {
-        for (int i = 0; i < monsters.size(); i++) {
-            Mob mob = monsters.get(i);
-            if (mob.idEntity == idMob) {
-                return mob;
+        lockMob.readLock().lock();
+        try {
+            for (int i = 0; i < monsters.size(); i++) {
+                Mob mob = monsters.get(i);
+                if (mob.idEntity == idMob) {
+                    return mob;
+                }
             }
+        } finally {
+            lockMob.readLock().unlock();
         }
         return null;
     }
@@ -924,6 +1015,9 @@ public class Zone {
             mob.setHp();
             if (mob.hp <= 0) {
                 mob.hp = 0;
+                if(mob.id == 261){
+                    player.addLinhHon(1);
+                }
                 if (player.taskOrders != null) {
                     for (TaskOrder task : player.taskOrders) {
                         if (task.isComplete()) {
@@ -1003,6 +1097,65 @@ public class Zone {
             }
         }
     }
+
+//    public void updateWing(Char pl) { // coppy qua
+//        WingTemplate wing = null;
+//        if (pl.Bag.arrItemBody[18] != null)
+//            wing = WingTemplate.wins.stream().filter(w -> w.itemId == pl.Bag.arrItemBody[18].id).findFirst().orElse(null);
+//        Message m = new Message((byte) -121);
+//        try {
+//            m.writeInt(pl.Info.idEntity);
+//            if (wing == null) {
+//                m.writeInt(-1);
+//                m.writeInt(-1);
+//                m.writeInt(1);
+//                m.writeInt(0);
+//                m.writeInt(0);
+//            } else {
+//                m.writeInt(wing.frameStart);
+//                m.writeInt(wing.frameEnd);
+//                m.writeInt(wing.tick);
+//                m.writeInt(wing.dx);
+//                m.writeInt(wing.dy);
+//            }
+//            SendMessageInZone(m);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        } finally {
+//            if (m != null) {
+//                m.close();
+//            }
+//        }
+    //}
+    //public void updateMat(Char pl) {
+//        MatTemplate wing = null;
+//        if (pl.Bag.arrItemBody[17] != null)
+//            wing = MatTemplate.mats.stream().filter(w -> w.itemId == pl.Bag.arrItemBody[17].id).findFirst().orElse(null);
+//        Message m = new Message((byte) -120);
+//        try {
+//            m.writeInt(pl.Info.idEntity);
+//            if (wing == null) {
+//                m.writeInt(-1);
+//                m.writeInt(-1);
+//                m.writeInt(1);
+//                m.writeInt(0);
+//                m.writeInt(0);
+//            } else {
+//                m.writeInt(wing.frameStart);
+//                m.writeInt(wing.frameEnd);
+//                m.writeInt(wing.tick);
+//                m.writeInt(wing.dx);
+//                m.writeInt(wing.dy);
+//            }
+//            SendMessageInZone(m);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        } finally {
+//            if (m != null) {
+//                m.close();
+//            }
+//        }
+    //}
 
     public void openTabZone(Char player) {
         try {
@@ -1089,12 +1242,12 @@ public class Zone {
             }
             //mob.setItemMap();
             boolean isNhanExp = Math.abs(player.level() - mob.level) <= 5;
-            if (isNhanExp || isLangCo) {
+            if (isNhanExp || isLangCo || isHangViThu) {
                 if (mob.level >= 44) {
-                    if (mob.levelBoss == 1 && Utlis.nextInt(100) < 50) {
+                    if (mob.levelBoss == 1 && Utlis.nextInt(100) < 10) {
                         Item skn = new Item(434);
                         player.addItem(skn);
-                    } else if (mob.levelBoss == 2 && Utlis.nextInt(100) < 50) {
+                    } else if (mob.levelBoss == 2 && Utlis.nextInt(100) < 10) {
                         Item skn = new Item(434);
                         player.addItem(skn);
                     }
@@ -1116,25 +1269,7 @@ public class Zone {
                         }
                     }
                 }
-                if (player.Bag.arrItemBody[11] != null) {
-                    int num = 0;
-                    if (mob.levelBoss == 1) {
-                        num = 1;
-                    } else if (mob.levelBoss == 2) {
-                        num = 2;
-                    } else if (mob.levelBoss == 10) {
-                        num = 5;
-                    }
-                    if (player.buffKLT > 0 && player.Info._mapID == 84) {
-                        num += num * player.buffKLT / 100;
-                    }
-                    if (player.buffRuou > 0) {
-                        num += num * player.buffRuou / 100;
-                    }
-                    if(num > 0) {
-                        player.Bag.arrItemBody[11].updateTuLuyen(num);
-                    }
-                }
+                updateBiKipTuLuyen(player, mob);
                 if (player.Bag.arrItemBody[10] != null && player.Bag.arrItemBody[10].isSucManh()) {
                     int num = 0;
                     if (mob.levelBoss == 1) {
@@ -1169,6 +1304,7 @@ public class Zone {
                 if (player.getEffect(85) != null) {
                     exp += exp;
                 }
+                addLuyenTapReward(player, mob, false);
                 player.addExp(exp);
                 try {
                     player.findHuPhach();
@@ -1190,15 +1326,18 @@ public class Zone {
                 if (player.getGroup() != null) {
                     List<Char> charList = player.getGroup().getCharsInZone(player.Info._mapID, player.zone.zoneID);
                     if (charList != null) {
-                        exp = exp * 20 / 100;
-//                    for (Char plToDoi : charList) {
-//                        if(plToDoi.getChiSoFormSkill(104)>0){
-//                            exp += exp * plToDoi.getChiSoFormSkill(104) / 100;
-//                        }
-//                    }
+                        long expParty = exp * 20 / 100;
                         for (Char plToDoi : charList) {
-                            if (plToDoi != player) {
-                                plToDoi.addExp(exp);
+                            if (plToDoi != player && Math.abs(plToDoi.level() - player.level()) <= 5
+                                    && plToDoi.getChiSoFormSkill(104) > 0) {
+                                expParty += expParty * plToDoi.getChiSoFormSkill(104) / 100;
+                            }
+                        }
+                        for (Char plToDoi : charList) {
+                            if (plToDoi != player && Math.abs(plToDoi.level() - player.level()) <= 5) {
+                                plToDoi.addExp(expParty);
+                                updateBiKipTuLuyen(plToDoi, mob);
+                                addLuyenTapReward(plToDoi, mob, true);
                                 if (plToDoi.taskSeal) {
                                     if (mob.getMobTemplate().name.equals(plToDoi.typeSeal)) {
                                         plToDoi.stepSeal = 1;
@@ -1221,15 +1360,21 @@ public class Zone {
                         }
                         player.addItem(it);
                     }
-                    Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được cao thủ nhẫn giả và giành được phần thưởng",2);
+                    Main.HeThongCTG("Nhẫn giả " + player.Info.name + " đã tiêu diệt được cao thủ nhẫn giả và giành được phần thưởng", 2);
                     player.Info.chuyenCan += 50;
                     player.Info.chuyenCanTuan += 50;
-                    player.addBacKhoa(10000000);
-                    Item da = new Item(9);
+                    player.addBacKhoa(1000000);
+                    Item da = new Item(919);
+
                     da.isLock = true;
                     da.amount = 1;
                     player.addItem(da);
                     player.msgAddItemBag(da);
+                    Item da2 = new Item(295);
+                    da2.isLock = true;
+                    da2.amount = 1;
+                    player.addItem(da2);
+                    player.msgAddItemBag(da2);
                     if (player.clan != null) {
                         player.addClanPoint(50);
                     }
@@ -1238,7 +1383,7 @@ public class Zone {
                 }
                 monsters.remove(mob);
                 MAX_CHAR_INZONE = 100;
-            } else if(mob.getMobTemplate().id >= 251 && mob.getMobTemplate().id <= 259) {
+            } else if (mob.getMobTemplate().id >= 251 && mob.getMobTemplate().id <= 259) {
                 if (mob.itemBoss != null && !mob.itemBoss.isEmpty()) {
                     for (Item item : mob.itemBoss) {
                         Item it = item.cloneItem();
@@ -1250,7 +1395,7 @@ public class Zone {
                         }
                         player.addItem(it);
                     }
-                    Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được vĩ thú và giành được 1 lượt ải gia tộc + phần thưởng",2);
+                    Main.HeThongCTG("Nhẫn giả " + player.Info.name + " đã tiêu diệt được vĩ thú và giành được 1 lượt ải gia tộc + phần thưởng", 2);
                     player.Info.chuyenCan += 50;
                     player.Info.chuyenCanTuan += 50;
                     player.addBacKhoa(10000000);
@@ -1268,7 +1413,7 @@ public class Zone {
                 }
                 monsters.remove(mob);
                 MAX_CHAR_INZONE = 100;
-            } else if(mob.getMobTemplate().id == 273) {
+            } else if (mob.getMobTemplate().id == 273) {
                 if (mob.itemBoss != null && !mob.itemBoss.isEmpty()) {
                     for (Item item : mob.itemBoss) {
                         Item it = item.cloneItem();
@@ -1280,7 +1425,7 @@ public class Zone {
                         }
                         player.addItem(it);
                     }
-                    Main.HeThongCTG("Nhẫn giả "+ player.Info.name +" đã tiêu diệt được Madara và giành được 1 lượt ải gia tộc + 50 vé quay",2);
+                    Main.HeThongCTG("Nhẫn giả " + player.Info.name + " đã tiêu diệt được Madara và giành được 1 lượt ải gia tộc + 50 vé quay", 2);
                     player.Info.chuyenCan += 50;
                     player.Info.chuyenCanTuan += 50;
                     player.addBacKhoa(10000000);
@@ -1306,6 +1451,105 @@ public class Zone {
         }
     }
 
+    protected void updateBiKipTuLuyen(Char player, Mob mob) {
+        if (player == null || mob == null || player.Bag == null || player.Bag.arrItemBody == null
+                || player.Bag.arrItemBody.length <= 11 || player.Bag.arrItemBody[11] == null) {
+            return;
+        }
+        int num = 0;
+        if (mob.levelBoss == 1) {
+            num = 1;
+        } else if (mob.levelBoss == 2) {
+            num = 2;
+        } else if (mob.levelBoss == 10) {
+            num = 5;
+        }
+        if (player.buffKLT > 0 && player.Info._mapID == 84) {
+            num += num * player.buffKLT / 100;
+        }
+        if (player.buffRuou > 0) {
+            num += num * player.buffRuou / 100;
+        }
+        if (num > 0) {
+            player.Bag.arrItemBody[11].updateTuLuyen(num);
+        }
+    }
+
+    protected void addLuyenTapReward(Char player, Mob mob, boolean isPartyShare) {
+        try {
+            int lt = calculateLuyenTapReward(player, mob, isPartyShare);
+            if (lt <= 0) {
+                return;
+            }
+            player.Info.luyenTap += lt;
+            try {
+                player.flush();
+            } catch (Exception ex2) {
+                Log.error("Loi flush luyen tap: " + ex2.getMessage());
+            }
+        } catch (Exception ex) {
+            Log.error("Loi cong diem luyen tap: " + ex.getMessage());
+        }
+    }
+
+    protected int calculateLuyenTapReward(Char player, Mob mob, boolean isPartyShare) {
+        if (player == null || mob == null || player.Info == null) {
+            return 0;
+        }
+        int diff = Math.abs(player.level() - mob.level);
+        if (diff > 5) {
+            return 0;
+        }
+        if (isPartyShare && !isNearMobForPartyLuyenTap(player, mob)) {
+            return 0;
+        }
+
+        int ltBase = 1 + mob.level / 15;
+        double tierMul = getLuyenTapTierMultiplier(mob);
+        double diffMul = diff <= 2 ? 1.0 : 0.7;
+        double mapMul = getLuyenTapMapMultiplier(player);
+        double buffMul = getLuyenTapBuffMultiplier(player);
+        int personalReward = Math.max(1, (int) Math.floor(ltBase * tierMul * diffMul * mapMul * buffMul));
+        if (!isPartyShare) {
+            return personalReward;
+        }
+        return (int) Math.floor(personalReward * 0.7);
+    }
+
+    protected double getLuyenTapTierMultiplier(Mob mob) {
+        if (mob.levelBoss == 10) {
+            return 4.0;
+        }
+        if (mob.levelBoss == 2) {
+            return 2.8;
+        }
+        if (mob.levelBoss == 1) {
+            return 1.8;
+        }
+        return 1.0;
+    }
+
+    protected double getLuyenTapMapMultiplier(Char player) {
+        if (player != null && player.Info != null && player.Info._mapID == 84) {
+            return 1.2;
+        }
+        return 1.0;
+    }
+
+    protected double getLuyenTapBuffMultiplier(Char player) {
+        double buffMul = 1.0;
+        if (player.buffRuou > 0) {
+            buffMul += player.buffRuou / 100.0;
+        }
+        if (player.buffKLT > 0 && player.Info._mapID == 84) {
+            buffMul += player.buffKLT / 100.0;
+        }
+        return buffMul;
+    }
+
+    protected boolean isNearMobForPartyLuyenTap(Char player, Mob mob) {
+        return Utlis.getRange(player.Info.cx, player.Info.cy, mob.cx, mob.cy) <= 300;
+    }
 
     public void getRewardMob(Char player, Mob mob) {
         try {
@@ -1348,42 +1592,51 @@ public class Zone {
                 }
             }
 //
-            if (player.level() - mob.level <= 5) {
-                if (Utlis.nextInt(100) < 2) { // Có 10% cơ hội thực hiện
-                    int bac = 0;
-                    int lowerBound = 0, upperBound = 0;
+            if (Math.abs(player.level() - mob.level) <= 5) {
+                int backhoa = 0;
+                int lowerBound = 0, upperBound = 0;
 
-                    if (mob.level < 10) {
-                        lowerBound = 900;
-                        upperBound = 1200;
-                    } else if (mob.level < 20) {
-                        lowerBound = 1200;
-                        upperBound = 1500;
-                    } else if (mob.level < 30) {
-                        lowerBound = 1500;
-                        upperBound = 1800;
-                    } else if (mob.level < 40) {
-                        lowerBound = 1800;
-                        upperBound = 2400;
-                    } else if (mob.level < 60) {
-                        lowerBound = 3000;
-                        upperBound = 4200;
-                    } else if (mob.level <= 70) {
-                        lowerBound = 6000;
-                        upperBound = 6600;
+                // Xác định khoảng bạc rơi theo level mob
+                if (mob.level < 10) {
+                    lowerBound = 1800;
+                    upperBound = 2400;
+                } else if (mob.level < 20) {
+                    lowerBound = 1800;
+                    upperBound = 2500;
+                } else if (mob.level < 30) {
+                    lowerBound = 1800;
+                    upperBound = 2700;
+                } else if (mob.level < 40) {
+                    lowerBound = 1800;
+                    upperBound = 3000;
+                } else if (mob.level < 60) {
+                    lowerBound = 1800;
+                    upperBound = 3200;
+                } else if (mob.level <= 70) {
+                    lowerBound = 1800;
+                    upperBound = 3500;
+                }
+
+                if (upperBound > 0) {
+                    backhoa = Utlis.nextInt(lowerBound, upperBound);
+
+                    if (player.getEffect(86) != null) {
+                        backhoa *= 2;
                     }
 
-                    if (upperBound > 0) { // Đảm bảo rằng upperBound đã được thiết lập
-                        bac = Utlis.nextInt(lowerBound, upperBound) * 2;
-                        if (player.getEffect(86) != null) {
-                            bac += bac;
+                    player.addBacKhoa(backhoa);
+
+                    long now = System.currentTimeMillis();
+                    if (player.Info != null) {
+                        player.Info.cuaCai += backhoa;
+                        if (now >= ConfigCuaCaiTuan.START && now <= ConfigCuaCaiTuan.END) {
+                            player.Info.cuaCaiTuan += backhoa;
                         }
-                        player.addBacKhoa(bac);
                     }
                 }
                 boolean isReceive = Math.abs(player.level() - mob.level) <= 5;
                 if (isReceive) {
-                    if (player.Info._mapID != 84 && player.Info._mapID != 89 && Utlis.nextInt(0, 1000) < 2) {
+                    if (player.Info._mapID != 84 && player.Info._mapID != 89 && Utlis.nextInt(0, 1000) < 2) {//rơi trang bị
                         Item item = null;
                         if (mob.level < 20 && mob.level > 10) {
                             item = Manager.gI().tb1x.get(Utlis.nextInt(0, Manager.gI().tb1x.size() - 1));
@@ -1452,8 +1705,9 @@ public class Zone {
                             }
                         } catch (IOException e) {
                         }
+                        player.service.serverMessage("Bạn nhận được " + item.getItemTemplate().name);
                     }
-                 //   int itemDrop = ItemDrop.ITEM_MAP.next();
+                    //   int itemDrop = ItemDrop.ITEM_MAP.next();
 
                     int itemDrop = this.randomItemID(player, mob);
 
@@ -1489,7 +1743,7 @@ public class Zone {
                 itemID = 13;
             } else if (mob.level < 40) {
                 itemID = 14;
-            } else if (mob.level < 50) {
+            } else if (mob.level > 50) {
                 itemID = 15;
             } else {
                 itemID = 16;
@@ -1501,7 +1755,7 @@ public class Zone {
                 itemID = 18;
             } else if (mob.level < 40) {
                 itemID = 19;
-            } else if (mob.level < 50) {
+            } else if (mob.level > 48) {
                 itemID = 20;
             } else {
                 itemID = 21;
@@ -1794,6 +2048,18 @@ public class Zone {
         }
     }
 
+    public void updateItemPet_Orther(Char player, Writer writer) {
+        for (Char c : getChars()) {
+            try {
+                if (c != null && c.user != null) {
+                    c.service.updateItemPet(writer);
+                }
+            } catch (Exception ex) {
+                Log.error("Loi update item body toan bo player in map " + ex);
+            }
+        }
+    }
+
 
     public void updateStatusChar(Writer writer) {
         for (Char c : getChars()) {
@@ -1807,10 +2073,10 @@ public class Zone {
 
     public void update() {
         try {
-            if (!isClosed) {
-                this.updateMob();
-                this.updateItemMap();
-            }
+            // if (!isClosed) {
+            this.updateMob();
+            this.updateItemMap();
+            // }
         } catch (Exception var14) {
             Log.error("loi update zone", var14);
         }
@@ -1843,7 +2109,7 @@ public class Zone {
     }
 
     public boolean isWorld() {
-        return isCamThuat() || isKLT() || isDiaCung() || isKRC() || isDungeoClan() || isSonCapMyo() || isDungeonSummer();
+        return isCamThuat() || isKLT() || isDiaCung() || isKRC() || isDaiChienNhanGia3() || isDungeoClan() || isSonCapMyo() || isDungeonSummer() || isHangViThu;
     }
 
     public boolean isDungeonSummer() {
@@ -1862,6 +2128,10 @@ public class Zone {
         return map.mapID == 17 || map.mapID == 31;
     }
 
+    public boolean isDaiChienNhanGia3() {
+        return map.mapID == 41 || map.mapID == 42 || map.mapID == 43;
+    }
+
     public boolean isDiaCung() {
         return map.getMapTemplate().type == 4;
     }
@@ -1869,6 +2139,8 @@ public class Zone {
     public boolean isLoiDai() {
         return map.mapID == 44 || map.mapID == 45;
     }
+
+
 
     public int getNumberGroup() {
         List<Char> chars = getChars();
@@ -1901,6 +2173,16 @@ public class Zone {
         }
         return null;
     }
+
+    public void sendMobPet_Other(Char aChar, Writer writer) {
+        for (Char c : getChars()) {
+            try {
+                if (c != null && c.user != null) {
+                    c.service.updateMobPet(writer);
+                }
+            } catch (Exception ex) {
+                Log.error("Loi update item body toan bo player in map " + ex);
+            }
+        }
+    }
 }
-
-

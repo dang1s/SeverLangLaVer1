@@ -132,7 +132,7 @@ public class HanderCombine {
             it.a(it_2.level);
             it_2.amount = 1;
             it_2.a(level);
-            it.isLock =true;
+            it.isLock = true;
             it_2.isLock = true;
             _myChar.removeItem(itBua);
             _myChar.msgRemoveItemBag(itBua);

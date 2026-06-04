@@ -4,7 +4,6 @@ import MapService.Map;
 import MapService.Zone;
 import MapService.zones.LangCo;
 import com.sg188.lib.Log;
-import com.sg188.server.BossManager;
 import com.sg188.server.Main;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class MapLangCo {
     public List<Map> maps = new ArrayList<>();
 
     public MapLangCo() {
-        Map map = new Map(96);
+        Map map = new Map(98);
         LangCo langCo = new LangCo(map, 0);
         langCo.createMob();
         langCo.createNpc();

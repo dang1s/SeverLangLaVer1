@@ -1,5 +1,6 @@
 package com.sg188.server.lib;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class Writer {
     }
 
     public Writer(Socket socket) throws IOException {
-        this.dos = new DataOutputStream(socket.getOutputStream());
+        this.dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream(), 65536));
     }
 
     public Writer() {

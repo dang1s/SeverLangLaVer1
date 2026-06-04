@@ -18,6 +18,7 @@ public class InfoInventory {
     public Item[] arrItemBag;
     public Item[] arrItemBox;
     public Item[] arrItemBody;
+    public Item[] arrItemPet;
     public Item[] arrItemBody2;
     public Item[] arrItemExtend;
     public Item[] arrItemSkillViThu;
@@ -50,10 +51,11 @@ public class InfoInventory {
         vk.isLock = true;
         Item.setOptionsVuKhiToBag(vk, 1);
         arrItemBag[0] = vk;
-        arrItemBody = new Item[17];
-        arrItemBody2 = new Item[17];
+        arrItemBody = new Item[19];
+        arrItemBody2 = new Item[19];
         arrItemExtend = new Item[3];
         arrItemSkillViThu = new Item[6];
+        arrItemPet = new Item[4];
         arrItemBox = new Item[27];
         vang = 0;//open sửa lại
         vangKhoa = 1000;
@@ -74,7 +76,7 @@ public class InfoInventory {
         obj.put("vangkhoabox", this.vangKhoaBox);
         obj.put("vangbox", this.vangBox);
         obj.put("pointnap", this.pointNAP);
-        obj.put("pointnapnew", this.pointNapNew);
+        obj.put("pointNapNew", this.pointNapNew);
         obj.put("stnso", this.stnSo);
         obj.put("stntrung", this.stnTrung);
         obj.put("stncao", this.stnCao);

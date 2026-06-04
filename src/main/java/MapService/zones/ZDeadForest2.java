@@ -18,7 +18,7 @@ public class ZDeadForest2 extends ZWorld {
     private int level;
     private boolean isCreateMob;
     private boolean isCreateBoss;
-    private int[] listitem = { 566, // đá Rinnegan
+    private int[] listitem = { 566,564,562,566,564,562,566,564,562,566,564,562,566,564,562, // đá Rinnegan
             174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
 
     public ZDeadForest2(Map map, int id, int level, World world) {

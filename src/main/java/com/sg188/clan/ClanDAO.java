@@ -30,10 +30,12 @@ public class ClanDAO implements Dao<Clan> {
         }
         return false;
     }
+
     @Override
     public Optional<Clan> get(long id) {
         return clans.stream().filter(clan -> clan.id == id).findFirst();
     }
+
     public Optional<Clan> get(String name) {
         return clans.stream().filter(clan -> clan.name.contains(name)).findFirst();
     }
@@ -45,88 +47,95 @@ public class ClanDAO implements Dao<Clan> {
 
     @Override
     public void save(Clan clan) {
-        try {
-            Connection conn = Connect.getConnection();
-            PreparedStatement ps = conn.prepareStatement(
-                    "INSERT INTO `clan` (`name`, `main_name`, `log`, `box`, `alert`, `skill`) VALUES (?, ?, ?, ?, ?, '[]')", Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = null;
-            try {
+        try (Connection conn = Connect.getConnection()) {
+            conn.setAutoCommit(false); // Bắt đầu transaction
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "INSERT INTO `clan` (`name`, `main_name`, `log`, `box`, `alert`, `skill`) VALUES (?, ?, ?, ?, ?, '[]')", 
+                    Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, clan.name);
                 ps.setString(2, clan.main_name);
                 ps.setString(3, clan.getLog());
                 ps.setString(4, "[]");
                 ps.setString(5, "");
                 ps.executeUpdate();
-                rs = ps.getGeneratedKeys();
-                if (rs.next()) {
-                    clan.id = rs.getInt(1);
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        clan.id = rs.getInt(1);
+                    }
                 }
-            } finally {
-                ps.close();
-                if (rs != null) {
-                    rs.close();
-                }
+                clans.add(clan);
+                conn.commit(); // Commit transaction
+            } catch (SQLException e) {
+                Log.error("save clan err: " + e.getMessage(), e);
+                // Không rollback
+                throw e;
             }
-            clans.add(clan);
         } catch (SQLException ex) {
             Log.error("save err: " + ex.getMessage(), ex);
         }
     }
 
     public void load() {
-        try {
+        try (Connection conn = Connect.getConnection()) {
             Log.info("Loading clan data");
-            Connection conn = Connect.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM `clan`");
-            java.util.Date now = new java.util.Date();
-            try {
-                ResultSet res = stmt.executeQuery();
-                while (res.next()) {
-                    Clan clan = new Clan();
-                    clan.id = res.getInt("id");
-                    clan.name = res.getString("name");
-                    clan.main_name = res.getString("main_name");
-                    clan.alert = res.getString("alert");
-                    clan.level = res.getByte("level");
-                    clan.coin = res.getInt("coin");
-                    clan.exp = res.getInt("exp");
-                    clan.countInvite=res.getByte("countinvite");
-                    clan.countKick=res.getByte("countkick");
-                    clan.openDun = res.getByte("open_dun");
-                    clan.reg_date = res.getDate("reg_date");
-                    clan.log = res.getString("log");
-                    Date updated_at = res.getDate("updated_at");
-                    clan.loadItem((JSONArray) JSONValue.parse(res.getString("box")));
-                    JSONArray jArr = (JSONArray) JSONValue.parse(res.getString("skill"));
-                    int len = jArr.size();
-                    if(jArr !=null) {
-                        for (int i = 0; i < len; i++) {
-                            JSONObject obj = (JSONObject) jArr.get(i);
-                            SkillClan skillClan = new SkillClan();
-                            skillClan.id = Integer.parseInt(obj.get("id").toString());
-                            skillClan.name = obj.get("name").toString();
-                            skillClan.levelNeed = Integer.parseInt(obj.get("levelNeed").toString());
-                            skillClan.strOptions = obj.get("strOptions").toString();
-                            clan.skillClans.add(skillClan);
+            conn.setAutoCommit(false); // Transaction cho load
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM `clan`")) {
+                Date now = new Date();
+                try (ResultSet res = stmt.executeQuery()) {
+                    while (res.next()) {
+                        Clan clan = new Clan();
+                        clan.id = res.getInt("id");
+                        clan.name = res.getString("name");
+                        clan.main_name = res.getString("main_name");
+                        clan.alert = res.getString("alert");
+                        clan.level = res.getByte("level");
+                        clan.coin = res.getInt("coin");
+                        clan.exp = res.getInt("exp");
+                        clan.countInvite = res.getByte("countinvite");
+                        clan.countKick = res.getByte("countkick");
+                        clan.openDun = res.getByte("open_dun");
+                        clan.reg_date = res.getDate("reg_date");
+                        clan.log = res.getString("log");
+                        Date updated_at = res.getDate("updated_at");
+                        clan.loadItem((JSONArray) JSONValue.parse(res.getString("box")));
+                        JSONArray jArr = (JSONArray) JSONValue.parse(res.getString("skill"));
+                        if (jArr != null) {
+                            for (int i = 0; i < jArr.size(); i++) {
+                                JSONObject obj = (JSONObject) jArr.get(i);
+                                SkillClan skillClan = new SkillClan();
+                                if (obj.containsKey("id")) {
+                                    skillClan.id = Integer.parseInt(obj.get("id").toString());
+                                }
+                                if (obj.containsKey("name")) {
+                                    skillClan.name = obj.get("name").toString();
+                                }
+                                if (obj.containsKey("levelNeed")) {
+                                    skillClan.levelNeed = Integer.parseInt(obj.get("levelNeed").toString());
+                                }
+                                if (obj.containsKey("strOptions")) {
+                                    skillClan.strOptions = obj.get("strOptions").toString();
+                                }
+                                clan.skillClans.add(skillClan);
+                            }
                         }
+                        if (!DateUtils.isSameDay(now, updated_at)) {
+                            clan.openDun = 1;
+                            try (PreparedStatement stmt3 = conn.prepareStatement(
+                                    "UPDATE `clan` SET `open_dun` = 1, `countinvite` = 20, `countkick` = 5, `updated_at` = ? WHERE `id` = ? LIMIT 1")) {
+                                stmt3.setString(1, Utlis.dateToString(now, "yyyy-MM-dd"));
+                                stmt3.setInt(2, clan.id);
+                                stmt3.executeUpdate();
+                            }
+                        }
+                        clan.memberDAO.load();
+                        clans.add(clan);
                     }
-                    jArr.clear();
-
-                    if (!DateUtils.isSameDay(now, updated_at)) {
-                        clan.openDun = 1;
-                        PreparedStatement stmt3 = conn.prepareStatement(
-                                "UPDATE `clan` SET `open_dun` = 1,`countinvite` = 20,`countkick` = 5, `updated_at` = ? WHERE `id` = ? LIMIT 1;");
-                        stmt3.setString(1, Utlis.dateToString(now, "yyyy-MM-dd"));
-                        stmt3.setInt(2, clan.id);
-                        stmt3.executeUpdate();
-                        stmt3.close();
-                    }
-                    clan.memberDAO.load();
-                    clans.add(clan);
+                    conn.commit();
                 }
-                res.close();
-            } finally {
-                stmt.close();
+            } catch (SQLException e) {
+                Log.error("load clan fail", e);
+                // Không rollback
+                throw e;
             }
             Log.info("Load clan data successfully");
         } catch (SQLException ex) {
@@ -138,15 +147,14 @@ public class ClanDAO implements Dao<Clan> {
     public void update(Clan clan) {
         if (!clan.isSaving()) {
             clan.setSaving(true);
-            try {
-                JSONArray skill = new JSONArray();
-                for (SkillClan skillClan: clan.skillClans){
-                    skill.add(skillClan.toJSONObject());
-                }
-                Connection conn = Connect.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(
-                        "UPDATE `clan` SET `coin` = ?, `level` = ?, `exp` = ?, `open_dun` = ?, `box` = ?, `log` = ?, `skill` = ?,`countinvite` = ?,`countkick` = ? WHERE `id` = ? LIMIT 1;");
-                try {
+            try (Connection conn = Connect.getConnection()) {
+                conn.setAutoCommit(false); // Transaction cho update
+                try (PreparedStatement stmt = conn.prepareStatement(
+                        "UPDATE `clan` SET `coin` = ?, `level` = ?, `exp` = ?, `open_dun` = ?, `box` = ?, `log` = ?, `skill` = ?, `countinvite` = ?, `countkick` = ?, `main_name` = ? WHERE `id` = ? LIMIT 1")) {
+                    JSONArray skill = new JSONArray();
+                    for (SkillClan skillClan : clan.skillClans) {
+                        skill.add(skillClan.toJSONObject());
+                    }
                     stmt.setInt(1, clan.coin);
                     stmt.setInt(2, clan.level);
                     stmt.setInt(3, clan.exp);
@@ -163,22 +171,36 @@ public class ClanDAO implements Dao<Clan> {
                     stmt.setString(7, skill.toJSONString());
                     stmt.setInt(8, clan.countInvite);
                     stmt.setInt(9, clan.countKick);
-                    stmt.setInt(10, clan.id);
+                    stmt.setString(10, clan.main_name);
+                    stmt.setInt(11, clan.id);
                     stmt.executeUpdate();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }finally {
-                    stmt.close();
-                }
-                try {
+
+                    // Batch update members
                     List<Member> members = clan.memberDAO.getAll();
                     synchronized (members) {
-                        for (Member member : members) {
-                            clan.memberDAO.update(member);
+                        if (!members.isEmpty()) {
+                            try (PreparedStatement batchStmt = conn.prepareStatement(
+                                    "UPDATE `clan_member` SET `level` = ?, `point_clan` = ?, `point_clan_week` = ? WHERE `id` = ? LIMIT 1")) {
+                                for (Member member : members) {
+                                    if (!member.isSaving()) {
+                                        member.setSaving(true);
+                                        batchStmt.setInt(1, member.getLevel());
+                                        batchStmt.setInt(2, member.getPointClan());
+                                        batchStmt.setInt(3, member.getPointClanWeek());
+                                        batchStmt.setInt(4, member.getId());
+                                        batchStmt.addBatch();
+                                        member.setSaving(false);
+                                    }
+                                }
+                                batchStmt.executeBatch();
+                            }
                         }
                     }
-                }catch (Exception e){
-
+                    conn.commit();
+                } catch (SQLException e) {
+                    Log.error("update clan fail", e);
+                    // Không rollback
+                    throw e;
                 }
             } catch (SQLException ex) {
                 Log.error("update clan fail", ex);
@@ -190,19 +212,20 @@ public class ClanDAO implements Dao<Clan> {
 
     @Override
     public void delete(Clan clan) {
-        try {
-            Connection conn = Connect.getConnection();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM `clan` WHERE `id` = ?;");
-            try {
+        try (Connection conn = Connect.getConnection()) {
+            conn.setAutoCommit(false); // Transaction cho delete
+            try (PreparedStatement ps = conn.prepareStatement("DELETE FROM `clan` WHERE `id` = ?")) {
                 ps.setInt(1, clan.id);
                 ps.executeUpdate();
-            } finally {
-                ps.close();
+                get(clan.id).ifPresent(exist -> clans.remove(exist));
+                conn.commit();
+            } catch (SQLException e) {
+                Log.error("delete clan err", e);
+                // Không rollback
+                throw e;
             }
-            get(clan.id).ifPresent(exist -> clans.remove(exist));
         } catch (SQLException ex) {
             Log.error("delete clan err", ex);
         }
     }
 }
-

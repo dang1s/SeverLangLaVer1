@@ -16,6 +16,7 @@ import com.sg188.server.Main;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,17 +28,14 @@ import java.util.stream.Collectors;
 public abstract class Event {
     public static final int GIO_TO_HUNG_VUONG = 0;
     public static final int SU_KIEN_HE = 1;
-
     public static final int HALLOWEEN = 2;
-
     public static final int CHRISTMAST = 3;
+    public static final int TET_NGUYEN_DAN = 4;
     public static final long EXPIRE_7_DAY = 604800000L;
     public static final long EXPIRE_14_DAY = 1209600000L;
     public static final long EXPIRE_3_DAY = 259200000L;
     public static final long EXPIRE_30_DAY = 2592000000L;
     private static Event instance;
-    @Getter
-    @Setter
     protected int id;
     protected List<EventPoint> eventPoints;
     @Getter
@@ -48,21 +46,44 @@ public abstract class Event {
     protected RandomCollection<Integer> itemsRecFromGoldItem;
     @Getter
     protected RandomCollection<Integer> itemsRecFromGold2Item;
+    @Getter
+    protected RandomCollection<Integer> itemsRecFromGold3Item;
+    @Getter
+    protected RandomCollection<Integer> itemsRecFromGold4Item;
     protected Set<String> keyEventPoint;
     protected Calendar endTime = Calendar.getInstance();
     public String menuKhaTienNu="";
 
     public static void init() {
-        if (Config.getInstance().getEvent() != null) {
-            try {
-                instance = (Event) Class.forName(Config.getInstance().getEvent()).newInstance();
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-                Log.error(ex.getMessage(), ex);
-            }
+        reload(Config.getInstance().getEvent());
+    }
+
+    public static synchronized void reload(String eventClassName) {
+        instance = null;
+        if (eventClassName == null) {
+            return;
+        }
+        String trimmed = eventClassName.trim();
+        if (trimmed.isEmpty() || "com.event.None".equals(trimmed)) {
+            return;
+        }
+        try {
+            instance = (Event) Class.forName(trimmed).getDeclaredConstructor().newInstance();
+        } catch (Exception ex) {
+            Log.error(ex.getMessage(), ex);
         }
     }
+
     public static Event getEvent() {
         return instance;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public static boolean isEvent() {
@@ -73,6 +94,8 @@ public abstract class Event {
         itemsRecFromCoinItem = new RandomCollection<>();
         itemsRecFromGoldItem = new RandomCollection<>();
         itemsRecFromGold2Item = new RandomCollection<>();
+        itemsRecFromGold3Item = new RandomCollection<>();
+        itemsRecFromGold4Item = new RandomCollection<>();
         eventPoints = new ArrayList<>();
         keyEventPoint = new TreeSet<>();
         initRandomItem();
@@ -187,11 +210,14 @@ public abstract class Event {
         if (rc != null) {
             for (int i = 0; i < number; i++) {
                 if (!p.Info.khoaExp){
-                    p.addExp(5000000);
+                    p.addExp(0);
                 }
-                p.addBacKhoa(Utlis.nextInt(20000,30000));
+                p.addBacKhoa(Utlis.nextInt(2000,30000));
                 int itemId = rc.next();
                 Item itm = new Item(itemId);
+                if(itemId == 763 || itemId == 434 || itemId == 294) {
+                    itm.amount = 5;
+                }
                 Item itmUsed = new Item(itemRequire[0][0]); // item used\
                 if(itm.getItemTemplate().type== 14) {
                     itm.createOptionCaiTrang();
@@ -235,36 +261,36 @@ public abstract class Event {
         // item receive from coin item
         itemsRecFromCoinItem.add(20, 5);
         itemsRecFromCoinItem.add(20, 6);
-        itemsRecFromCoinItem.add(20, 7);
-        itemsRecFromCoinItem.add(10, 8);
-        itemsRecFromCoinItem.add(5, 9);
+        itemsRecFromCoinItem.add(30, 7);
+//        itemsRecFromCoinItem.add(10, 8);
+//        itemsRecFromCoinItem.add(5, 9);
         itemsRecFromCoinItem.add(30, 161);
         itemsRecFromCoinItem.add(30, 277);
         itemsRecFromCoinItem.add(40, 428);
-//        itemsRecFromCoinItem.add(2.5, 293);
-//        itemsRecFromCoinItem.add(2.5, 298);
-//        itemsRecFromCoinItem.add(2.5, 326);
-//        itemsRecFromCoinItem.add(2.5, 327);
-//        itemsRecFromCoinItem.add(2.5, 372);
-//        itemsRecFromCoinItem.add(2.5, 373);
-//        itemsRecFromCoinItem.add(2.5, 374);
-//        itemsRecFromCoinItem.add(2.5, 375);
-//        itemsRecFromCoinItem.add(2.5, 376);
-//        itemsRecFromCoinItem.add(2.5, 377);
-//        itemsRecFromCoinItem.add(2.5, 429);
-//        itemsRecFromCoinItem.add(2.5, 430);
-//        itemsRecFromCoinItem.add(2.5, 372);
-//        itemsRecFromCoinItem.add(2.5, 431);
-//        itemsRecFromCoinItem.add(2.5, 458);
-//        itemsRecFromCoinItem.add(2.5, 459);
-//        itemsRecFromCoinItem.add(2.5, 460);
-//        itemsRecFromCoinItem.add(2.5, 461);
-//        itemsRecFromCoinItem.add(2.5, 465);
-//        itemsRecFromCoinItem.add(2.5, 464);
+        itemsRecFromCoinItem.add(2.5, 293);
+        itemsRecFromCoinItem.add(2.5, 298);
+        itemsRecFromCoinItem.add(2.5, 326);
+        itemsRecFromCoinItem.add(2.5, 327);
+        itemsRecFromCoinItem.add(2.5, 372);
+        itemsRecFromCoinItem.add(2.5, 373);
+        itemsRecFromCoinItem.add(2.5, 374);
+        itemsRecFromCoinItem.add(2.5, 375);
+        itemsRecFromCoinItem.add(2.5, 376);
+        itemsRecFromCoinItem.add(2.5, 377);
+        itemsRecFromCoinItem.add(2.5, 429);
+        itemsRecFromCoinItem.add(2.5, 430);
+        itemsRecFromCoinItem.add(2.5, 372);
+        itemsRecFromCoinItem.add(2.5, 431);
+        itemsRecFromCoinItem.add(2.5, 458);
+        itemsRecFromCoinItem.add(2.5, 459);
+        itemsRecFromCoinItem.add(2.5, 460);
+        itemsRecFromCoinItem.add(2.5, 461);
+        itemsRecFromCoinItem.add(2.5, 465);
+        itemsRecFromCoinItem.add(2.5, 464);
 
-        itemsRecFromCoinItem.add(0.2, 295);//ruong bac vang bach kim
-        itemsRecFromCoinItem.add(0.2, 296);
-        itemsRecFromCoinItem.add(0.02, 297);
+//        itemsRecFromCoinItem.add(0.2, 295);//ruong bac vang bach kim
+//        itemsRecFromCoinItem.add(0.2, 296);
+//        itemsRecFromCoinItem.add(0.02, 297);
 
 //        itemsRecFromCoinItem.add(2.5, 461);
 //        itemsRecFromCoinItem.add(2.5, 465);
@@ -274,14 +300,14 @@ public abstract class Event {
         itemsRecFromCoinItem.add(20, 599);// manh huyet ke gioi han
         itemsRecFromCoinItem.add(40, 434);
 
-        itemsRecFromCoinItem.add(2, 562);//da myo,sharin,byo,rinne
-        itemsRecFromCoinItem.add(2, 564);
-        itemsRecFromCoinItem.add(2, 566);
-        itemsRecFromCoinItem.add(1, 354);
+        itemsRecFromCoinItem.add(52, 562);//da myo,sharin,byo,rinne
+        itemsRecFromCoinItem.add(52, 564);
+        itemsRecFromCoinItem.add(52, 566);
+        itemsRecFromCoinItem.add(5, 354);
 
-        itemsRecFromCoinItem.add(0.5, 563);//ngoc myo,sharin,byo,rinne
-        itemsRecFromCoinItem.add(0.5, 565);
-        itemsRecFromCoinItem.add(0.5, 567);
+        itemsRecFromCoinItem.add(0.1, 563);//ngoc myo,sharin,byo,rinne
+        itemsRecFromCoinItem.add(0.1, 565);
+        itemsRecFromCoinItem.add(0.1, 567);
         itemsRecFromCoinItem.add(0.1, 353);
 
         itemsRecFromCoinItem.add(0.1, 368);//banh tiem nang
@@ -295,61 +321,61 @@ public abstract class Event {
         itemsRecFromCoinItem.add(40, 358);//duoc pham cap 3
         itemsRecFromCoinItem.add(40, 359);
         itemsRecFromCoinItem.add(40, 360);
-        itemsRecFromCoinItem.add(8, 462);
-        itemsRecFromCoinItem.add(8, 174);//lb hkg
-        itemsRecFromCoinItem.add(8, 175);
-        itemsRecFromCoinItem.add(8, 179);
-        itemsRecFromCoinItem.add(8, 216);
-        itemsRecFromCoinItem.add(8, 217);
-        itemsRecFromCoinItem.add(8, 218);
-        itemsRecFromCoinItem.add(8, 248);
-        itemsRecFromCoinItem.add(8, 278);
-        itemsRecFromCoinItem.add(8, 302);
-        itemsRecFromCoinItem.add(8, 315);
+        itemsRecFromCoinItem.add(3, 462);
+        itemsRecFromCoinItem.add(3, 174);//lb hkg
+        itemsRecFromCoinItem.add(3, 175);
+        itemsRecFromCoinItem.add(3, 179);
+        itemsRecFromCoinItem.add(3, 216);
+        itemsRecFromCoinItem.add(3, 217);
+        itemsRecFromCoinItem.add(3, 218);
+        itemsRecFromCoinItem.add(3, 248);
+        itemsRecFromCoinItem.add(3, 278);
+        itemsRecFromCoinItem.add(3, 302);
+        itemsRecFromCoinItem.add(3, 315);
         itemsRecFromCoinItem.add(0.5, 917);//the bai gia toc
         itemsRecFromCoinItem.add(0.5, 915);
 
         // item receive from gold item
-        itemsRecFromGoldItem.add(10, 7);
-        itemsRecFromGoldItem.add(5, 8);
-        itemsRecFromGoldItem.add(2, 9);
-        itemsRecFromGoldItem.add(1, 10);
+        itemsRecFromGoldItem.add(15, 7);
+        itemsRecFromGoldItem.add(11, 8);
+        itemsRecFromGoldItem.add(0.5, 9);
+        itemsRecFromGoldItem.add(0.2, 10);
         itemsRecFromGoldItem.add(40, 428);
-        itemsRecFromGoldItem.add(0.02, 11);
-        itemsRecFromGoldItem.add(0.02, 514);//cai trang
-        itemsRecFromGoldItem.add(0.02, 515);
-        itemsRecFromGoldItem.add(0.02, 516);
-        itemsRecFromGoldItem.add(0.02, 517);
-        itemsRecFromGoldItem.add(0.02, 518);
-        itemsRecFromGoldItem.add(0.02, 519);
-        itemsRecFromGoldItem.add(0.02, 520);
-        itemsRecFromGoldItem.add(0.02, 521);
-        itemsRecFromGoldItem.add(0.02, 522);
-        itemsRecFromGoldItem.add(0.02, 523);
-        itemsRecFromGoldItem.add(0.02, 524);
-        itemsRecFromGoldItem.add(0.02, 525);
-        itemsRecFromGoldItem.add(0.02, 526);
-        itemsRecFromGoldItem.add(0.02, 527);
-        itemsRecFromGoldItem.add(0.02, 528);
-        itemsRecFromGoldItem.add(0.02, 529);
-        itemsRecFromGoldItem.add(0.02, 856);
-        itemsRecFromGoldItem.add(0.02, 886);
-        itemsRecFromGoldItem.add(0.02, 887);
-        itemsRecFromGoldItem.add(0.005, 528);//ct hiem
-        itemsRecFromGoldItem.add(0.005, 530);
-        itemsRecFromGoldItem.add(0.005, 702);
+        itemsRecFromGoldItem.add(0.007, 11);
+        itemsRecFromGoldItem.add(0.007, 514);//cai trang
+        itemsRecFromGoldItem.add(0.007, 515);
+        itemsRecFromGoldItem.add(0.007, 516);
+        itemsRecFromGoldItem.add(0.007, 517);
+        itemsRecFromGoldItem.add(0.007, 518);
+        itemsRecFromGoldItem.add(0.007, 519);
+        itemsRecFromGoldItem.add(0.007, 520);
+        itemsRecFromGoldItem.add(0.007, 521);
+        itemsRecFromGoldItem.add(0.007, 522);
+        itemsRecFromGoldItem.add(0.007, 523);
+        itemsRecFromGoldItem.add(0.007, 524);
+        itemsRecFromGoldItem.add(0.007, 525);
+        itemsRecFromGoldItem.add(0.007, 526);
+        itemsRecFromGoldItem.add(0.007, 527);
+        itemsRecFromGoldItem.add(0.007, 528);
+        itemsRecFromGoldItem.add(0.007, 529);
+        itemsRecFromGoldItem.add(0.007, 856);
+        itemsRecFromGoldItem.add(0.007, 886);
+        itemsRecFromGoldItem.add(0.007, 887);
+//        itemsRecFromGoldItem.add(0.007, 528);//ct hiem
+//        itemsRecFromGoldItem.add(0.007, 530);
+//        itemsRecFromGoldItem.add(0.007, 702);
 
-        itemsRecFromGoldItem.add(0.1, 529);//ct new
-        itemsRecFromGoldItem.add(0.1, 555);
-        itemsRecFromGoldItem.add(0.1, 556);
-        itemsRecFromGoldItem.add(0.1, 856);
-        itemsRecFromGoldItem.add(0.1, 521);
+        itemsRecFromGoldItem.add(0.007, 529);//ct new
+        itemsRecFromGoldItem.add(0.007, 555);
+        itemsRecFromGoldItem.add(0.007, 556);
+        itemsRecFromGoldItem.add(0.007, 856);
+        itemsRecFromGoldItem.add(0.007, 521);
 //        itemsRecFromGoldItem.add(0.001, 914);//ngoi sao hiem
         itemsRecFromGoldItem.add(0.1, 871);//tanto doc la binh duong
         itemsRecFromGoldItem.add(0.1, 881);
         itemsRecFromGoldItem.add(0.1, 882);
 //        itemsRecFromGoldItem.add(0.1, 911);
-        itemsRecFromGoldItem.add(1, 688);//ky nang vi thu
+        itemsRecFromGoldItem.add(0.2, 688);//ky nang vi thu
         itemsRecFromGoldItem.add(40, 763);//chakra vi thu
         itemsRecFromGoldItem.add(0.4, 724);//thoi trang
         itemsRecFromGoldItem.add(0.4, 727);
@@ -367,34 +393,73 @@ public abstract class Event {
         itemsRecFromGoldItem.add(5, 564);
         itemsRecFromGoldItem.add(5, 566);
         itemsRecFromGoldItem.add(3, 354);
-        itemsRecFromGoldItem.add(2, 563);//ngoc myo,sharin,byo,rinne
-        itemsRecFromGoldItem.add(2, 565);
-        itemsRecFromGoldItem.add(2, 567);
+//        itemsRecFromGoldItem.add(2, 563);//ngoc myo,sharin,byo,rinne
+//        itemsRecFromGoldItem.add(2, 565);
+//        itemsRecFromGoldItem.add(2, 567);
         itemsRecFromGoldItem.add(2, 353);
         itemsRecFromGoldItem.add(1, 368);//banh tiem nang
         itemsRecFromGoldItem.add(1, 369);// banh ky nang
-        itemsRecFromGoldItem.add(15, 355);//duoc pham cap 2
-        itemsRecFromGoldItem.add(15, 356);
-        itemsRecFromGoldItem.add(15, 357);
-        itemsRecFromGoldItem.add(15, 358);//duoc pham cap 3
-        itemsRecFromGoldItem.add(15, 359);
-        itemsRecFromGoldItem.add(15, 360);
+//        itemsRecFromGoldItem.add(15, 355);//duoc pham cap 2
+//        itemsRecFromGoldItem.add(15, 356);
+//        itemsRecFromGoldItem.add(15, 357);
+//        itemsRecFromGoldItem.add(15, 358);//duoc pham cap 3
+//        itemsRecFromGoldItem.add(15, 359);
+//        itemsRecFromGoldItem.add(15, 360);
         itemsRecFromGoldItem.add(3, 462);
-        itemsRecFromGoldItem.add(10, 174);//lb hkg
-        itemsRecFromGoldItem.add(10, 175);
-        itemsRecFromGoldItem.add(10, 179);
-        itemsRecFromGoldItem.add(10, 216);
-        itemsRecFromGoldItem.add(10, 217);
-        itemsRecFromGoldItem.add(10, 218);
-        itemsRecFromGoldItem.add(10, 248);
-        itemsRecFromGoldItem.add(10, 278);
-        itemsRecFromGoldItem.add(10, 302);
-        itemsRecFromGoldItem.add(10, 315);
+        itemsRecFromGoldItem.add(3, 174);//lb hkg
+        itemsRecFromGoldItem.add(3, 175);
+        itemsRecFromGoldItem.add(3, 179);
+        itemsRecFromGoldItem.add(3, 216);
+        itemsRecFromGoldItem.add(3, 217);
+        itemsRecFromGoldItem.add(3, 218);
+        itemsRecFromGoldItem.add(3, 248);
+        itemsRecFromGoldItem.add(3, 278);
+        itemsRecFromGoldItem.add(3, 302);
+        itemsRecFromGoldItem.add(3, 315);
         itemsRecFromGoldItem.add(1, 917);//the bai gia toc
         itemsRecFromGoldItem.add(1, 915);
 
-        // item receive from gold 2 item
-        itemsRecFromGold2Item.add(0.005, 2);
+
+        // hoa thường //
+        itemsRecFromGold2Item.add(1, 11); // vật phẩm thường bó hoa thường
+        itemsRecFromGold3Item.add(1, 11); // vật phẩm thường bó hoa thường
+        itemsRecFromGold3Item.add(0.5, 357);
+        itemsRecFromGold3Item.add(0.2, 688);//ky nang vi thu
+        itemsRecFromGold3Item.add(40, 763);//chakra vi thu
+        itemsRecFromGold3Item.add(0.005, 527);
+        itemsRecFromGold3Item.add(12, 11);
+        itemsRecFromGold3Item.add(1, 368);//banh tiem nang
+        itemsRecFromGold3Item.add(1, 369);// banh ky nang
+        itemsRecFromGold3Item.add(3, 5);// đá 6
+        itemsRecFromGold3Item.add(1.5, 6);//7
+        itemsRecFromGold3Item.add(2, 7);//8
+        itemsRecFromGold3Item.add(1, 8);//9
+        itemsRecFromGold3Item.add(12, 11);
+        itemsRecFromGold3Item.add(0.0005, 2);
+        itemsRecFromGold3Item.add(0.0005, 174);//lb hkg
+        itemsRecFromGold3Item.add(0.0005, 175);
+        itemsRecFromGold3Item.add(0.0005, 179);
+        itemsRecFromGold3Item.add(0.0005, 216);
+        itemsRecFromGold3Item.add(0.0005, 217);
+        itemsRecFromGold3Item.add(0.0005, 218);
+        itemsRecFromGold3Item.add(0.0005, 248);
+        itemsRecFromGold3Item.add(0.0005, 278);
+        itemsRecFromGold3Item.add(0.0005, 302);
+        itemsRecFromGold3Item.add(0.0005, 315);
+        itemsRecFromGold3Item.add(100, 163);
+        itemsRecFromGold3Item.add(0.001, 563);//ngoc myo,sharin,byo,rinne
+        itemsRecFromGold3Item.add(0.002, 565);
+        itemsRecFromGold3Item.add(0.002, 567);
+        itemsRecFromGold3Item.add(0.002, 353);
+        itemsRecFromGold4Item.add(0.002, 519);
+        itemsRecFromGold4Item.add(0.002, 516);
+        itemsRecFromGold4Item.add(0.002, 932);
+        itemsRecFromGold4Item.add(0.002, 932);
+        itemsRecFromGold4Item.add(0.002, 932);
+        itemsRecFromGold4Item.add(0.002, 932);
+        itemsRecFromGold4Item.add(0.002, 932);
+        itemsRecFromGold4Item.add(0.002, 932);
+        itemsRecFromGold4Item.add(0.002, 932);
     }
 
     public void viewTop(Char p, String key,String title, String format) {
@@ -427,8 +492,12 @@ public abstract class Event {
     public void loadEventPoint() {
         try {
             eventPoints.clear();
-            PreparedStatement ps = Connect.getConnection()
-                    .prepareStatement("SELECT `event_points`.*, `player`.`Name` FROM `event_points`, `player` WHERE `event_points`.`event_id` = ? AND `player`.`IdChar` = `event_points`.`player_id`;");
+            Connection conn = Connect.getConnection();
+            if (conn == null) {
+                Log.error("Cannot get database connection in Event.loadEventPoint");
+                return;
+            }
+            PreparedStatement ps = conn.prepareStatement("SELECT `event_points`.*, `player`.`Name` FROM `event_points`, `player` WHERE `event_points`.`event_id` = ? AND `player`.`IdChar` = `event_points`.`player_id`;");
             ps.setInt(1, this.id);
             ResultSet rs = ps.executeQuery();
             Gson g = new Gson();

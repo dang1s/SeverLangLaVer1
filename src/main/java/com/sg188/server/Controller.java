@@ -2,12 +2,18 @@ package com.sg188.server;
 
 import EventClick.ClickEvent;
 import EventClick.ClickTop;
+import EventClick.InfoTop;
+// VongQuayNap disabled - not used
+// import EventClick.VongQuayNapConfig;
 import Manager.Manager;
 import MapService.Map;
 import MapService.world.CamThuat;
+import MapService.world.DaiChienNhanGia3;
 import MapService.world.Dungeon;
 import MapService.world.MapLangCo;
+import MapService.world.MapHangViThu;
 import MapService.world.Training;
+import MapService.world.World;
 import Service.*;
 import SqlConnection.CharDB;
 import com.event.Event;
@@ -30,6 +36,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Controller implements IMessageHandler {
+
     private final Session client;
     private User user;
     private Char _char;
@@ -58,8 +65,8 @@ public class Controller implements IMessageHandler {
         try {
             Log.debug("Đây là MSG " + msg.cmd);
             if (msg.cmd == -127) {
-//                String keyApp = msg.readUTF();
-//                String path = new String(msg.read(), "UTF-8");
+                String keyApp = msg.readUTF();
+                String path = new String(msg.read(), "UTF-8");
                 return;
             } else if (msg.cmd == -122) {
                 readMessage122(msg);
@@ -74,15 +81,11 @@ public class Controller implements IMessageHandler {
             if (_char == null || client == null || user == null || _char.isClean || user.isCleaned || client.isClean) {
                 return;
             }
-//            if (_char.timemsg > System.currentTimeMillis() && msg.cmd != 116) {
-////                client.sendMessage(HanderMessage.SendThongBao("Thao tác quá nhanh vui lòng đợi",HanderMessage.WHITE));
-//                return;
-//            }
-//            _char.timemsg = System.currentTimeMillis() + 150;
             switch (msg.cmd) {
                 case -22:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         HanderClickEvent.HanderTop(_char, msg);
+                    }
                     break;
                 case -87:
                     break;
@@ -115,11 +118,12 @@ public class Controller implements IMessageHandler {
                     break;
                 case 127:
                     //nextMap
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.zone.nextMap(_char);
+                    }
                     break;
                 case -15:
-                    if(_char.Info._mapID == 49) {
+                    if (_char.Info._mapID == 49) {
                         _char.service.serverMessage("Không thể đổi cờ tại đây");
                         return;
                     }
@@ -132,16 +136,19 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case -6:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.zone.openTabZone(_char);
+                    }
                     break;
                 case -7:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.zone.changeZone(_char, msg.readByte());
+                    }
                     break;
                 case 59:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.zone.pickUpItem(_char, msg.readShort());
+                    }
                     break;
                 case -56:
                     int num = msg.readShort();
@@ -152,15 +159,18 @@ public class Controller implements IMessageHandler {
 
                     break;
                 case 117:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.sortItem(msg.readByte());
+                    }
                     break;
                 case 116:
-                    if (_char != null && _char.user != null)
-                        _char.useItem(msg.readShort());
+                    if (_char != null && _char.user != null) {
+                        short indexBag = msg.readShort();
+                        _char.useItem(indexBag);
+                    }
                     break;
                 case 20:
-                    if(_char.Info._mapID == 49 && _char.Info.cy >= 500 &&_char.Info.cy <= 566) {
+                    if (_char.Info._mapID == 49 && _char.Info.cy >= 500 && _char.Info.cy <= 566) {
                         break;
                     }
                     if (_char != null) {
@@ -173,12 +183,14 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 36:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.useItemBodyDuPhong(msg.readShort());
+                    }
                     break;
                 case 37:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.itemBodyDuPhongToBag(msg.readByte());
+                    }
                     break;
                 case -38:
                     if (System.currentTimeMillis() - long_38 >= 10000L) {
@@ -188,32 +200,36 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 39:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.addPartyAccept(msg);
+                    }
                     break;
                 case 38:
                     // huy vao nhom
                     break;
                 case 26:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         if (_char.getGroup() != null) {
                             _char.getGroup().getGroupService().chat(_char.Info.name, msg.readUTF());
                         }
+                    }
                     break;
                 case 41:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         if (msg.Avali() < 1) {
                             _char.createGroup();
                         } else {
                             _char.addParty(msg);
                         }
+                    }
                     break;
                 case 42:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         if (_char.getGroup() != null) {
                             _char.getGroup().isLock = !_char.getGroup().isLock;
                             _char.getGroup().getGroupService().playerInParty();
                         }
+                    }
                     break;
                 case 25:
                     if (_char != null && _char.user != null) {
@@ -224,56 +240,73 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 43:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         if (_char.getGroup() != null) {
                             _char.getGroup().getGroupService().playerInParty();
                         }
+                    }
                     break;
                 case 44:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.outParty();
+                    }
                     break;
                 case 45:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.openFindParty();
+                    }
                     break;
                 case 46:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.changeTeamLeader(msg);
+                    }
                     break;
                 case 47:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.moveMember(msg);
+                    }
                     break;
                 case 112:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.itemExtendToBag(msg.readByte());
+                    }
                     break;
                 case 113:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.itemBodyToBag(msg.readByte());
+                    }
+                    break;
+                case -116:
+                    if (_char != null && _char.user != null) {
+                        _char.itemPetToBag(msg.readByte());
+                    }
                     break;
                 case 118:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.tachItem(msg.readShort(), msg.readShort());
+                    }
                     break;
                 case 111:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.vutItem(msg.readShort());
+                    }
                     break;
                 case 21:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.chatPublic(msg.readUTF());
+                    }
                     break;
                 case 22:
 //                                Log.debug(msg.readBoolean());
 //                                Log.debug(msg.readUTF());
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.service.ChatGlobal(msg, _char);
+                    }
                     break;
                 case -95:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.msgDataBag();
+                    }
                     break;
                 case 96:
                     break;
@@ -289,7 +322,7 @@ public class Controller implements IMessageHandler {
                         for (int i = 0; i < array.length; i++) {
                             array[i] = msg.readShort();
                         }
-                            array[1] -= (_char.chakra-_char.Point.arrayTiemNang[1]);
+                        array[1] -= (_char.chakra - _char.Point.arrayTiemNang[1]);
                         if (_char.Info.idClass == 1 || _char.Info.idClass == 5) {
 
                         } else {
@@ -337,12 +370,14 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 14:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.nangCapSkill(msg.readShort());
+                    }
                     break;
                 case 126:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.focusSkill(msg.readShort());
+                    }
                     break;
                 case 48:
                     if (_char != null && _char.user != null) {
@@ -350,14 +385,21 @@ public class Controller implements IMessageHandler {
                             service.serverMessage("Không thể hồi sinh tại khu vực này");
                             return;
                         }
+                        if (_char.zone != null && _char.zone.isDaiChienNhanGia3()) {
+                            DaiChienNhanGia3 event = (DaiChienNhanGia3) _char.findWorld(World.DAI_CHIEN_NHAN_GIA_3);
+                            if (event != null && event.reviveToCamp(_char)) {
+                                break;
+                            }
+                        }
                         _char.reSpawn();
                         Map.maps[_char.Info.mapReSpawm].addChar(_char);
                         _char.Info._mapID = _char.Info.mapReSpawm;
                     }
                     break;
                 case 49:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.reSpawnHS();
+                    }
                     break;
                 case 54:
                     if (_char != null && _char.user != null) {
@@ -396,12 +438,12 @@ public class Controller implements IMessageHandler {
                             isRuong = true;
                         }
 //                        SpinSystem.getInstance().rewardSpin(_char, action, isRuong);
-                        _char.rewardTreasure(action,isRuong);
+                        _char.rewardTreasure(action, isRuong);
                     }
                     break;
                 case 72:
                     if (_char != null && _char.user != null) {
-//                        _char.service.alertMessage(" Do vòng quay sò quá bịp nên Đệ Tứ đã đóng để bảo trì");
+//                        _char.service.alertMessage("Do vòng quay sò quá bịp nên Đệ Tứ đã đóng để bảo trì");
                         byte action = msg.readByte();
                         _char.spinTreasure(action);
                     }
@@ -490,7 +532,7 @@ public class Controller implements IMessageHandler {
                 case 95:
                     if (_char != null) {
                         int idLetter = msg.readShort();
-                        Letter.gI().recive(_char,idLetter);
+                        Letter.gI().recive(_char, idLetter);
                     }
                     break;
                 case 107:
@@ -542,8 +584,9 @@ public class Controller implements IMessageHandler {
                             client.sendMessage(HanderMessage.TestMess7(_char.Info.idEntity));
                             Item Cay = new Item(finalIdItemMap);
                             Cay.amount = 1;
-                            if (Cay.id == 308)
+                            if (Cay.id == 308) {
                                 Cay.expiry = System.currentTimeMillis() + 43200000;
+                            }
                             Cay.isLock = true;
                             if (_char.taskId == TaskName.NV_HAI_THUOC_TRI_THUONG) {
                                 if (_char.taskMain != null && _char.taskMain.index == 0) {
@@ -578,8 +621,8 @@ public class Controller implements IMessageHandler {
                         }
                         service.serverMessage("Đã huỷ câu cá");
                     }
-                    if(_char.isCauCa){
-                        _char.isCauCa=false;
+                    if (_char.isCauCa) {
+                        _char.isCauCa = false;
                     }
                     Message m1 = new Message((byte) 7);
                     m1.writer.writeInt(_char.Info.idEntity);
@@ -587,7 +630,7 @@ public class Controller implements IMessageHandler {
                     break;
                 case 9:
                     if (_char != null && _char.user != null) {
-                        if(_char.taskMain != null){
+                        if (_char.taskMain != null) {
                             _char.taskMain = null;
                             service.sendTaskInfo();
                         }
@@ -624,8 +667,9 @@ public class Controller implements IMessageHandler {
                         if (shouldOpenMsg122(_char)) {
                             service.openMsg122((byte) 80);
                         } else {
-                            if (_char.taskMain != null && _char.taskMain.index >= _char.taskMain.vStep.size())
+                            if (_char.taskMain != null && _char.taskMain.index >= _char.taskMain.vStep.size()) {
                                 _char.updateTask();
+                            }
                         }
                     }
                     break;
@@ -656,8 +700,9 @@ public class Controller implements IMessageHandler {
                                 client.sendMessage(HanderMessage.TestMess7(_char.Info.idEntity));
                                 if (_char.taskId == TaskName.NV_BAO_VAT_LANG_LA) {
                                     _char.Bag.arrItemBag[indexItemNV].strOptions += "105,87,3299";
-                                } else
+                                } else {
                                     _char.Bag.arrItemBag[indexItemNV].strOptions += "105,61,3276";
+                                }
                             }, 5, TimeUnit.SECONDS);
                         }
                     }
@@ -677,7 +722,7 @@ public class Controller implements IMessageHandler {
                         _char.CheTao(id);
                     }
                     break;
-                case 87:
+                case 87://gửi thư
                     if (_char != null && _char.user != null) {
 
                         String name = msg.readUTF();
@@ -695,8 +740,9 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 104:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         HanderCombine.DichChuyenTrangBi(_char, msg);
+                    }
                     break;
                 case -35:
                     if (_char != null && _char.user != null) {
@@ -734,9 +780,9 @@ public class Controller implements IMessageHandler {
                         _char.nangBiKip(msg);
                     }
                     break;
-                case 19:
-                    if (_char.buaBaoHo && !_char.inLangCo) {
-                        client.sendMessage(HanderMessage.SendThongBao("Dang trong trạng thái bảo hộ", HanderMessage.WHITE));
+                case 19://cừu sát
+                    if (_char.buaBaoHo && !_char.inLangCo && !_char.inHangViThu) {
+                        client.sendMessage(HanderMessage.SendThongBao("Đang trong trạng thái bảo hộ", HanderMessage.WHITE));
                         return;
                     }
                     if (_char.Info._mapID == 49) {
@@ -744,9 +790,17 @@ public class Controller implements IMessageHandler {
                     }
                     String name = msg.readUTF();
                     Char pl = ServerManager.findCharByName(name);
+                    if (Math.abs(_char.level() - pl.level()) > 10) {
+                        client.sendMessage(HanderMessage.SendThongBao("Chênh lệch cấp độ", HanderMessage.WHITE));
+                        return;
+                    }
                     if (pl != null) {
-                        if (pl.buaBaoHo && !pl.inLangCo) {
+                        if (pl.buaBaoHo && !pl.inLangCo && !pl.inHangViThu) {
                             client.sendMessage(HanderMessage.SendThongBao("Đối phương trong trạng thái bảo hộ", HanderMessage.WHITE));
+                            return;
+                        }
+                        if (Math.abs(_char.level() - pl.level()) > 10) {
+                            client.sendMessage(HanderMessage.SendThongBao("Chênh lệch cấp độ", HanderMessage.WHITE));
                             return;
                         }
                         _char.isCuuSat = true;
@@ -783,11 +837,11 @@ public class Controller implements IMessageHandler {
                 case 100:
 
                     break;
-                case 101:
-                   byte var = msg.readByte();
-                   byte var2=msg.readByte();
-                   short var3= msg.readShort();
-                    MarketManager.gI().show(_char,var,var2,var3);
+                case 101://chợ
+                    byte var = msg.readByte();
+                    byte var2 = msg.readByte();
+                    short var3 = msg.readShort();
+                    MarketManager.gI().show(_char, var, var2, var3);
                     MarketManager.gI().showListSell(_char);
                     break;
                 case -33:
@@ -796,7 +850,7 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 32:
-                    if(_char.Info._mapID == 49) {
+                    if (_char.Info._mapID == 49) {
                         return;
                     }
                     if (_char != null && _char.user != null) {
@@ -860,20 +914,20 @@ public class Controller implements IMessageHandler {
     }
 
     private boolean isSpecialTask(int taskId) {
-        return taskId == TaskName.NV_LAM_NGUOI_TOT_BUNG ||
-                taskId == TaskName.NV_BAT_CUU_VE ||
-                taskId == TaskName.NV_HAI_THUOC_TRI_THUONG ||
-                taskId == TaskName.NV_TRO_GIUP_LANG_SUONG_MU ||
-                taskId == TaskName.NV_BAT_KE_NGHE_LEN ||
-                taskId == TaskName.NV_CAU_CUU_VIEN_BINH ||
-                taskId == TaskName.NV_CHUA_LANH_VET_THUONG ||
-                taskId == TaskName.NV_TIM_LAI_TAM_BAN_DO ||
-                taskId == TaskName.NV_TRUY_TIM_BI_KIP ||
-                taskId == TaskName.NV_NHIEM_VU_CAP_DO_B ||
-                taskId == TaskName.NV_CAN_THEM_NGUYEN_LIEU ||
-                taskId == TaskName.NV_CHUOC_LAI_LOI_LAM ||
-                taskId == TaskName.NV_BAO_VAT_LANG_LA||
-                taskId == TaskName.NV_KE_HOACH_TAC_CHIEN;
+        return taskId == TaskName.NV_LAM_NGUOI_TOT_BUNG
+                || taskId == TaskName.NV_BAT_CUU_VE
+                || taskId == TaskName.NV_HAI_THUOC_TRI_THUONG
+                || taskId == TaskName.NV_TRO_GIUP_LANG_SUONG_MU
+                || taskId == TaskName.NV_BAT_KE_NGHE_LEN
+                || taskId == TaskName.NV_CAU_CUU_VIEN_BINH
+                || taskId == TaskName.NV_CHUA_LANH_VET_THUONG
+                || taskId == TaskName.NV_TIM_LAI_TAM_BAN_DO
+                || taskId == TaskName.NV_TRUY_TIM_BI_KIP
+                || taskId == TaskName.NV_NHIEM_VU_CAP_DO_B
+                || taskId == TaskName.NV_CAN_THEM_NGUYEN_LIEU
+                || taskId == TaskName.NV_CHUOC_LAI_LOI_LAM
+                || taskId == TaskName.NV_BAO_VAT_LANG_LA
+                || taskId == TaskName.NV_KE_HOACH_TAC_CHIEN;
     }
 
     private boolean shouldOpenMsg122(Char _char) {
@@ -914,8 +968,7 @@ public class Controller implements IMessageHandler {
                 return false;
         }
     }
-
-    private void readTypeClient(Message msg) {
+private void readTypeClient(Message msg) {
         try {
             if (!client.isSetClientType) {
                 byte byte_1 = msg.readByte();
@@ -939,6 +992,40 @@ public class Controller implements IMessageHandler {
 
         }
     }
+//    private void readTypeClient(Message msg) {
+//        try {
+//            if (!client.isSetClientType) {
+//                byte byte_1 = msg.readByte();
+//                byte os = msg.readByte();
+//                short widthScreen = msg.readShort();
+//                short heightScreen = msg.readShort();
+//                byte zoomLevelScreen = msg.readByte();
+//                byte type_cfg_image = msg.readByte();
+//                short ver1 = msg.readShort();
+//                short ver2 = msg.readShort();
+//                byte typeArr = msg.readByte();
+//                int int_1 = msg.readInt();
+//                int int_2 = msg.readInt();
+//                int int_3 = msg.readInt();
+//                int int_4 = msg.readInt();
+//                short short_1 = msg.readShort();
+//
+//                // Đọc key bảo mật từ client
+//                String clientKey = msg.readUTF();
+//                if (!Config.getInstance().getClientKey().equals(clientKey)) {
+//                    Log.warn("Client key không hợp lệ từ IP: " + client.IPAddress + " - Key: " + clientKey);
+//                    client.sendMessage(HanderMessage.SendThongBao("Phiên bản game không tương thích!", HanderMessage.RED_MID));
+//                    client.disconnect();
+//                    return;
+//                }
+//
+//                client.threadSend.start();
+//                client.isSetClientType = true;
+//            }
+//        } catch (Exception ex) {
+//            Log.error("Loi readTypeClient", ex);
+//        }
+//    }
 
     private void readMessage122(Message msg) {
         try {
@@ -983,39 +1070,68 @@ public class Controller implements IMessageHandler {
 
     private void selectChar(Message msg) {
         try {
+            Log.debug("selectChar START - user: " + (user != null ? user.username : "null"));
             byte indexClick = msg.readByte();
+            Log.debug("selectChar - indexClick: " + indexClick);
             if (user.chars == null) {
+                Log.error("selectChar ERROR - user.chars is null for user: " + user.username);
                 service.alertMessage("Co loi say ra vui long thu lai sau?");
                 return;
             }
+            Log.debug("selectChar - user.chars size: " + user.chars.size());
             Char cClick = user.chars.get(indexClick);
-            user.chars = null;
-//        Char check = ServerManager.findCharByName(cClick.Info.name); // lop bao ve thu 2
-//        if(check != null){
-//            service.alertMessage("BUG?");
-//            return;
-//        }
+            Log.debug("selectChar - selected char: " + (cClick != null ? cClick.Info.name : "null"));
+            //
+
+            // Char check = ServerManager.findCharByName(cClick.Info.name); // lop bao ve
+            // thu 2 
+            // if(check != null){
+            // service.alertMessage("BUG?");
+            // return;
+            // }
+            Log.debug("selectChar - setting user.mChar");
             user.mChar = cClick;
+            Log.debug("selectChar - calling updateAllChiSo");
             user.mChar.updateAllChiSo();
+            Log.debug("selectChar - calling setChar");
             setChar(user.mChar);
             user.mChar.service = this.service;
             user.mChar.service.setChar(user.mChar);
             user.mChar.user = user;
+            Log.debug("selectChar - calling sendChar");
             user.mChar.service.sendChar();
+            Log.debug("selectChar - calling DoLoginGame");
             user.mChar.DoLoginGame();
+            Log.debug("selectChar - calling checkWorld");
             checkWorld(cClick);
+            Log.debug("selectChar - calling AddLoginGame, mapID: " + user.mChar.Info._mapID);
             Map.maps[user.mChar.Info._mapID].AddLoginGame(user.mChar);
             if (user.mChar.inLangCo) {
                 MapLangCo.gI().maps.get(0).addChar(user.mChar);
             }
+            if (user.mChar.inHangViThu) {
+                MapHangViThu.gI().maps.get(0).addChar(user.mChar);
+            }
             user.mChar.msgUpdateDataChar();
             ServerManager.addChar(user.mChar);
-            if (user.mChar.id == 14156) //top 1 ct
-                Main.HeThongCTG("Chào mừng Đệ Nhất Cao Thủ >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
-            if (user.mChar.id == 14440) //top 1 nạp
-                Main.HeThongCTG("Chào mừng Top 1 Đại Gia >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
-            if (user.mChar.id == 14096) //top 1 tp
-                Main.HeThongCTG("Chào mừng Top 1 Tài Phú >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
+            checkAndAnnounceTop1Login(user.mChar);
+            if (user.isAdmin) {
+                service.serverMessage("Số người đang online: " + ServerManager.getNumberOnline());
+            }
+//            if (user.mChar.id == 1) // admin
+//            {
+//                Main.HeThongCTG("Chúc mừng bố >>" + user.mChar.Info.name + "<< vừa vào game hẹ hẹ", 2);
+//            }
+//            if (user.mChar.id == 53) //top 1 ct
+//                Main.HeThongCTG("Chào mừng Đệ Nhất Cao Thủ >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
+//            if (user.mChar.id == 53) //top 1 nạp
+//                Main.HeThongCTG("Chào mừng Top 1 Đại Gia >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
+//            if (user.mChar.id == 53) //top 1 tp
+//                Main.HeThongCTG("Chào mừng Top 1 Tài Phú >>" + user.mChar.Info.name + "<< vừa đăng nhập vào game", 2);
+//            if (user.mChar.id == 53) //top 1 tp
+//                Main.HeThongCTG("Chúc mừng bố >>" + user.mChar.Info.name + "<< vừa vào game hẹ hẹ", 2);
+//            if (user.mChar.id == 53) //top 1 tp
+//                Main.HeThongCTG("Chúc mừng Top 1 Săn Boss >>" + user.mChar.Info.name + "<< vừa vào game hẹ hẹ", 2);
             if (user.mChar.idDiaCung > -1) {
                 Dungeon dungeon = Dungeon.findDungeonById(user.mChar.idDiaCung);
                 if (dungeon != null) {
@@ -1032,14 +1148,14 @@ public class Controller implements IMessageHandler {
                     user.mChar.idCamThuat = -1;
                 }
             }
-            if(user.mChar.idKhuLuyenTap > -1){
+            if (user.mChar.idKhuLuyenTap > -1) {
                 Training klt = Training.findTrainingById(user.mChar.idKhuLuyenTap);
-                if(klt==null||klt.isClosed())
+                if (klt == null || klt.isClosed()) {
                     user.mChar.idKhuLuyenTap = -1;
+                }
             }
 
-
-
+            user.chars = null;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1058,10 +1174,10 @@ public class Controller implements IMessageHandler {
     private void readMessage123(Message msg) {
         try {
             msg.cmd = msg.readByte();
-            Log.debug("Msg 123 " + msg.cmd);
+//            Log.debug("Msg 123 " + msg.cmd);
 //            if (_char != null) {
 //                if (_char.timemsg > System.currentTimeMillis() && msg.cmd != 116) {
-////                client.sendMessage(HanderMessage.SendThongBao("Thao tác quá nhanh vui lòng đợi",HanderMessage.WHITE));
+//                client.sendMessage(HanderMessage.SendThongBao("Thao tác quá nhanh vui lòng đợi",HanderMessage.WHITE));
 //                    return;
 //                }
 //                _char.timemsg = System.currentTimeMillis() + 150;
@@ -1078,7 +1194,7 @@ public class Controller implements IMessageHandler {
                         break;
                     }
                     if (name.matches(".*\\s+.*")) {
-                        client.sendMessage(HanderMessage.SendThongBao("Tên nhân vật không được chứa ký tự đặc biệt va khoảng trắng", HanderMessage.RED_MID));
+                        client.sendMessage(HanderMessage.SendThongBao("Tên nhân vật không được chứa ký tự đặc biệt và khoảng trắng", HanderMessage.RED_MID));
                         break;
                     }
                     if (!Utlis.CheckString(name)) {
@@ -1112,36 +1228,35 @@ public class Controller implements IMessageHandler {
                     break;
                 case -92:
                     try {
-                        nameClan = msg.readUTF();
-                        if (!Clan.getClanDAO().checkExist(nameClan)) {
-                            client.sendMessage(HanderMessage.ThongBao_106("Gia tộc này không tồn tại"));
-                        } else {
-                            if (_char.clan != null) {
-                                return;
-                            }
-                            Optional<Clan> g = Clan.getClanDAO().get(nameClan);
-                            if (g != null && g.isPresent()) {
-                                Clan clan = g.get();
-                                Char toctruong = ServerManager.findCharByName(clan.getMainName());
-                                if (toctruong == null) {
-                                    client.sendMessage(HanderMessage.ThongBao_106("Tộc trưởng đang offline"));
+                    nameClan = msg.readUTF();
+                    if (!Clan.getClanDAO().checkExist(nameClan)) {
+                        client.sendMessage(HanderMessage.ThongBao_106("Gia tộc này không tồn tại"));
+                    } else {
+                        if (_char.clan != null) {
+                            return;
+                        }
+                        Optional<Clan> g = Clan.getClanDAO().get(nameClan);
+                        if (g != null && g.isPresent()) {
+                            Clan clan = g.get();
+                            Char toctruong = ServerManager.findCharByName(clan.getMainName());
+                            if (toctruong == null) {
+                                client.sendMessage(HanderMessage.ThongBao_106("Tộc trưởng đang offline"));
+                            } else {
+                                List<Member> members = clan.memberDAO.getAll();
+                                if (members.size() < clan.getMemberMax()) {
+                                    toctruong.getService().inviteClan(_char.Info.name);
+                                    toctruong.inviteName = _char.Info.name;
                                 } else {
-                                    List<Member> members = clan.memberDAO.getAll();
-                                    if (members.size() < clan.getMemberMax()) {
-                                        toctruong.getService().inviteClan(_char.Info.name);
-                                        toctruong.inviteName = _char.Info.name;
-                                    } else {
-                                        client.sendMessage(HanderMessage.ThongBao_106("Gia tộc đã đủ thành viên."));
-                                    }
+                                    client.sendMessage(HanderMessage.ThongBao_106("Gia tộc đã đủ thành viên."));
                                 }
                             }
-
-
                         }
-                    } catch (Exception e) {
-                        Log.error(" loi xin vao gia toc ", e);
+
                     }
-                    break;
+                } catch (Exception e) {
+                    Log.error(" loi xin vao gia toc ", e);
+                }
+                break;
                 case -73:
                     HanderCharacter.ShowThongTin(_char, msg);
                     break;
@@ -1159,7 +1274,7 @@ public class Controller implements IMessageHandler {
                     break;
                 case -57:
                     if (_char != null) {
-                        ClickEvent.ThuongBXH(_char);
+                        ClickEvent.ThuongBXHUtf8(_char);
                     }
                     break;
                 case -50:
@@ -1169,7 +1284,7 @@ public class Controller implements IMessageHandler {
                     break;
                 case -60:
                     if (_char != null) {
-                        HanderClickEvent.VongQuayMayMan(_char);
+                        // HanderClickEvent.VongQuayMayMan(_char);
                     }
                     break;
                 case -34:
@@ -1180,8 +1295,9 @@ public class Controller implements IMessageHandler {
                     break;
                 case -19:
                     byte type = msg.readByte();
-                    if (type == 16)
+                    if (type == 16) {
                         _char.addEffect(new Effect((short) 100, 1000, System.currentTimeMillis(), 50000));
+                    }
                     if (type == 14) {
                         _char.addEffect(new Effect((short) 101, Utlis.nextInt(100, 500), System.currentTimeMillis(), 120000));
                     }
@@ -1192,6 +1308,21 @@ public class Controller implements IMessageHandler {
 //                                m1.writer.writeByte(-123);
 //                                m1.writer.writeUTF(DataCenter.gI().Task[_char.Info.idTask].STR3);
 //                                sendMessage(m1);
+                    break;
+                    case -90:
+                    // Phân phát item từ kho gia tộc
+                    if (_char != null && _char.user != null && _char.clan != null) {
+                        Member member = _char.clan.getMemberByName(_char.Info.name);
+                        if (member != null
+                                && (member.getType() == Clan.TYPE_TOCTRUONG || member.getType() == Clan.TYPE_TOCPHO)) {
+                            short index = msg.readShort();
+                            service.phanPhatItem(index);
+                        } else {
+                            service.sendMessage(HanderMessage.SendThongBao(
+                                    "Chỉ tộc trưởng và tộc phó mới có quyền phân phát vật phẩm",
+                                    HanderMessage.RED_MID));
+                        }
+                    }
                     break;
                 case -70:
                     if (_char != null) {
@@ -1228,7 +1359,6 @@ public class Controller implements IMessageHandler {
                         m2.writeByte(select);
                         client.sendMessage(m2);
 
-
                     }
                     break;
                 case -48:
@@ -1242,14 +1372,14 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case -117:
-//                    if (_char != null && _char.user != null) {
-//                        _char.updateThienDao(msg);
-//                    }
+                    if (_char != null && _char.user != null) {
+                        _char.updateThienDao(msg);
+                    }
                     break;
                 case -118:
-//                    if (_char != null && _char.user != null) {
-//                        _char.updateVoCuc(msg);
-//                    }
+                    if (_char != null && _char.user != null) {
+                        _char.updateVoCuc(msg);
+                    }
                     break;
                 case -85:
                     if (_char != null && _char.user != null) {
@@ -1269,24 +1399,69 @@ public class Controller implements IMessageHandler {
                             }
                             _char.removeItemByAmount(veVanMayVip, 1);
                             _char.msgRemoveItemBag(veVanMayVip);
-//                            if (_char.Bag.vang < 100) {
-//                                client.sendMessage(HanderMessage.SendThongBao("Không đủ 100 vàng", HanderMessage.RED_MID));
+//                            if (_char.Bag.vang < 200) {
+//                                client.sendMessage(HanderMessage.SendThongBao("Không đủ 200 vàng", HanderMessage.RED_MID));
 //                                return;
 //                            }
-//                            _char.addVang(-100);
-                            int indexi = Utlis.nextInt(0, Manager.gI().listTVM[_char.idListTVM].length - 1);
-                            Item item = new Item(Manager.gI().listTVM[_char.idListTVM][indexi]);
-                            if(item.isItemBody()) {
-                                Main.HeThongCTG("Chúc mừng nhẫn giả " + _char.Info.name + "vừa quay trúng " + item.getItemTemplate().name,2);
+//                            _char.addVang(-200);
+                            short[] itemList = Manager.gI().listTVM[_char.idListTVM];
+                            int[] rateList = Manager.gI().rateTVM[_char.idListTVM];
+
+// Tính tổng tỉ lệ
+                            int totalRate = 0;
+                            for (int r : rateList) {
+                                totalRate += r;
                             }
+
+// Random theo tổng tỉ lệ
+                            int rand = Utlis.nextInt(1, totalRate);
+                            int cumulative = 0;
+
+                            int indexi = 0; // Khai báo đúng chỗ
+
+                            for (int i = 0; i < rateList.length; i++) {
+                                cumulative += rateList[i];
+                                if (rand <= cumulative) {
+                                    indexi = i;
+                                    break;
+                                }
+                            }
+
+// Lấy item theo indexi
+                            short itemId = itemList[indexi];
+                            Item item = new Item(itemId);
+
+// Nếu là item mặc trên người thì thông báo toàn server
                             if (item.isItemBody()) {
-                                item.addItemOption(new ItemOption(0, 1000));
-                                item.addItemOption(new ItemOption(161, 100));
-                                item.addItemOption(new ItemOption(180,100));
-                                item.addItemOption(new ItemOption(2, 100));
-                                item.addItemOption(new ItemOption(3, 100));
+                                Main.HeThongCTG("Chúc mừng nhẫn giả " + _char.Info.name + " vừa quay trúng " + item.getItemTemplate().name, 2);
+                            }
+
+// (Tuỳ chọn) Lấy số lượng item từ bảng amount
+                            int amount = Manager.gI().amountTVM[_char.idListTVM][indexi];
+// _char.addItemToBag(item, amount); // Nếu có hàm thêm item vào túi
+
+                            if (item.isItemBody()) {
+                                //item.strOptions = "0,5249;2,2461;5,930;256,301;257,288;149,3;151,557;167,996;255,144";
+                                item.addItemOption(new ItemOption(0, 300));
+                                item.addItemOption(new ItemOption(1, 300));
+//                                item.addItemOption(new ItemOption(174, 20));
+                                item.addItemOption(new ItemOption(306, Utlis.nextInt(5, 50)));
+                                item.addItemOption(new ItemOption(81, 10));
+                                item.addItemOption(new ItemOption(332, Utlis.nextInt(5, 6)));
+                                //item.addItemOption(new ItemOption(3, 100));
+                                item.addItemOption(new ItemOption(209, Utlis.nextInt(50, 100)));
+//                                item.addItemOption(new ItemOption(306, Utlis.nextInt(20, 50)));
+                            }
+                            if (item.id == 646) {
+                                item.addItemOption(new ItemOption(0, 300));
+                                item.addItemOption(new ItemOption(1, 300));
+//                                item.addItemOption(new ItemOption(174, 20));
+                                item.addItemOption(new ItemOption(306, 12));
+                                item.addItemOption(new ItemOption(81, 10));
+                                item.addItemOption(new ItemOption(332, 2));
+                                //item.addItemOption(new ItemOption(3, 100));
                                 item.addItemOption(new ItemOption(209, 100));
-                                item.addItemOption(new ItemOption(306, 20));
+                                //item.addItemOption(new ItemOption(306, 20));
                             }
                             if (item.id == 163) {
                                 _char.addBacKhoa(Manager.gI().amountTVM[_char.idListTVM][indexi]);
@@ -1314,13 +1489,56 @@ public class Controller implements IMessageHandler {
                                 service.alertMessage("Hành trang không đủ chỗ trống");
                                 return;
                             }
-                            if (_char.Bag.bac < 400000) {
-                                client.sendMessage(HanderMessage.SendThongBao("Không đủ 400.000 Bạc ", HanderMessage.RED_MID));
+//                            Item veVanMayVip = _char.FindItemBag(932);
+//                            if (veVanMayVip == null) {
+//                                _char.service.alertMessage("Không có vé quay");
+//                                return;
+//                            }
+//                            if (veVanMayVip.amount < 3) {
+//                                _char.service.alertMessage("Làm vé mà quay đi ");
+//                                return;
+//                            }
+//                            _char.removeItemByAmount(veVanMayVip, 3);
+//                            _char.msgRemoveItemBag(veVanMayVip);
+                            if (_char.Bag.bac < 1000000) {
+                                client.sendMessage(HanderMessage.SendThongBao("Không đủ 1.000.000 Bạc", HanderMessage.RED_MID));
                                 return;
                             }
-                            _char.addBac(-400000);
-                            int indexi = Utlis.nextInt(0, Manager.gI().listTVMSilver[_char.idListTVMSilver].length - 1);
-                            Item item = new Item(Manager.gI().listTVMSilver[_char.idListTVMSilver][indexi]);
+                            _char.addBac(-1000000);
+                            short[] itemList = Manager.gI().listTVMSilver[_char.idListTVMSilver];
+                            int[] rateList = Manager.gI().rateTVMSilver[_char.idListTVMSilver];
+
+// Tính tổng tỉ lệ
+                            int totalRate = 0;
+                            for (int r : rateList) {
+                                totalRate += r;
+                            }
+
+// Random theo tổng tỉ lệ
+                            int rand = Utlis.nextInt(1, totalRate);
+                            int cumulative = 0;
+
+                            int indexi = 0; // Khai báo đúng chỗ
+
+                            for (int i = 0; i < rateList.length; i++) {
+                                cumulative += rateList[i];
+                                if (rand <= cumulative) {
+                                    indexi = i;
+                                    break;
+                                }
+                            }
+
+// Lấy item theo indexi
+                            short itemId = itemList[indexi];
+                            Item item = new Item(itemId);
+
+// Nếu là item mặc trên người thì thông báo toàn server
+                            if (item.isItemBody()) {
+                                Main.HeThongCTG("Chúc mừng nhẫn giả " + _char.Info.name + " vừa quay trúng " + item.getItemTemplate().name, 2);
+                            }
+
+// (Tuỳ chọn) Lấy số lượng item từ bảng amount
+                            int amount = Manager.gI().amountTVMSilver[_char.idListTVMSilver][indexi];
                             if (item.isItemBody()) {
                                 if (item.getItemTemplate().type == 15) {
                                     item.level = 14;
@@ -1339,13 +1557,32 @@ public class Controller implements IMessageHandler {
                                     item.addItemOption(new ItemOption(3, Utlis.nextInt(70, 250)));
                                     item.addItemOption(new ItemOption(5, Utlis.nextInt(20, 100)));
                                 } else if (item.getItemTemplate().type == 14) {
-                                    item.addItemOption(new ItemOption(63, Utlis.nextInt(10, 30)));
-                                    item.addItemOption(new ItemOption(4, Utlis.nextInt(10, 35)));
-                                    item.addItemOption(new ItemOption(66, Utlis.nextInt(1, 3)));
-                                    item.addItemOption(new ItemOption(0, Utlis.nextInt(50, 200)));
-                                    item.addItemOption(new ItemOption(2, Utlis.nextInt(30, 100)));
-                                    item.addItemOption(new ItemOption(3, Utlis.nextInt(40, 60)));
-                                    item.addItemOption(new ItemOption(209, Utlis.nextInt(20, 30)));
+                                    // Cải trang 647-651
+                                    if (item.id == 647) {
+                                        item.addItemOption(new ItemOption(209, 50));
+                                        item.addItemOption(new ItemOption(289, 5));
+                                    } else if (item.id == 648) {
+                                        item.addItemOption(new ItemOption(209, 50));
+                                        item.addItemOption(new ItemOption(290, 5));
+                                    } else if (item.id == 649) {
+                                        item.addItemOption(new ItemOption(209, 50));
+                                        item.addItemOption(new ItemOption(291, 5));
+                                    } else if (item.id == 650) {
+                                        item.addItemOption(new ItemOption(209, 50));
+                                        item.addItemOption(new ItemOption(292, 5));
+                                    } else if (item.id == 651) {
+                                        item.addItemOption(new ItemOption(209, 50));
+                                        item.addItemOption(new ItemOption(293, 5));
+                                    } else {
+                                        // Cải trang khác - giữ chỉ số mặc định
+                                        item.addItemOption(new ItemOption(63, 20));
+                                        item.addItemOption(new ItemOption(4, 22));
+                                        item.addItemOption(new ItemOption(66, 2));
+                                        item.addItemOption(new ItemOption(0, 125));
+                                        item.addItemOption(new ItemOption(2, 65));
+                                        item.addItemOption(new ItemOption(3, 50));
+                                        item.addItemOption(new ItemOption(209, 25));
+                                    }
                                 }
                             }
                             if (item.id == 163) {
@@ -1372,6 +1609,7 @@ public class Controller implements IMessageHandler {
                         }
                     }
                     break;
+
                 case -20:
                     Item BuaPhanThan = _char.FindItemBag(782);
                     if (BuaPhanThan == null) {
@@ -1383,16 +1621,15 @@ public class Controller implements IMessageHandler {
                         return;
                     }
 
-                  //  if (!_char.cloneLive){
-                        _char.addEffect(new Effect((short) 99,  _char.Point.diempt==0?2:2 * _char.Point.diempt, System.currentTimeMillis(), 60 * 1000 * 60));
-                  //  }
-                   // if (_char.cloneLive){
-                     //   _char.addEffect(new Effect((short) 99,  _char.Point.diempt==0?2:2 * _char.Point.diempt, System.currentTimeMillis(), 60 * 1000 * 60));
-                  //  }
+                    //  if (!_char.cloneLive){
+                    _char.addEffect(new Effect((short) 99, _char.Point.diempt == 0 ? 2 : 2 * _char.Point.diempt, System.currentTimeMillis(), 60 * 1000 * 60));
+                    //  }
+                    // if (_char.cloneLive){
+                    //   _char.addEffect(new Effect((short) 99,  _char.Point.diempt==0?2:2 * _char.Point.diempt, System.currentTimeMillis(), 60 * 1000 * 60));
+                    //  }
                     _char.removeItemByAmount(BuaPhanThan, 1);
                     _char.msgRemoveItemBag(BuaPhanThan);
                     client.sendMessage(Message.c((byte) -43));
-
 
                     break;
                 case -21:
@@ -1441,8 +1678,9 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case -105:
-                    if (_char != null && _char.user != null)
+                    if (_char != null && _char.user != null) {
                         _char.clanInvite(msg);
+                    }
                     break;
                 case -93:
                     if (_char != null && _char.user != null) {
@@ -1531,9 +1769,88 @@ public class Controller implements IMessageHandler {
                 default:
                     Log.debug("recv(123): " + msg.cmd);
                     break;
+
+//                case 127:
+//                    if (_char != null && _char.user != null) {
+//                        _char.openShopNpc(msg);
+//                    }
+//                    break;
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void checkAndAnnounceTop1Login(Char player) {
+        try {
+            String playerName = player.Info.name;
+
+            // Kiểm tra top Cao thủ (top level)
+            if (ClickTop.cTop == null || ClickTop.cTop.isEmpty()) {
+                ClickTop.cTop = CharDB.getTop((byte) 0);
+            }
+            if (ClickTop.cTop != null && !ClickTop.cTop.isEmpty()) {
+                java.util.Collections.sort(ClickTop.cTop, new java.util.Comparator<InfoTop>() {
+                    @Override
+                    public int compare(InfoTop o1, InfoTop o2) {
+                        Integer level1 = (int) o1.level;
+                        Integer level2 = (int) o2.level;
+                        int sComp = level2.compareTo(level1);
+                        if (sComp != 0) {
+                            return sComp;
+                        }
+                        Long x1 = o1.exp;
+                        Long x2 = o2.exp;
+                        return x2.compareTo(x1);
+                    }
+                });
+                InfoTop top1CaoThu = ClickTop.cTop.get(0);
+                if (top1CaoThu.name.equalsIgnoreCase(playerName)) {
+                    Main.HeThongCTG("Chào mừng Đệ Nhất Cao Thủ >>" + playerName + "<< vừa đăng nhập vào game", 2);
+                }
+            }
+
+            // Kiểm tra top Của cải
+            if (ClickTop.cCuaCai == null || ClickTop.cCuaCai.isEmpty()) {
+                ClickTop.cCuaCai = CharDB.getTopCuaCai();
+            }
+            if (ClickTop.cCuaCai != null && !ClickTop.cCuaCai.isEmpty()) {
+                java.util.Collections.sort(ClickTop.cCuaCai, java.util.Comparator
+                        .comparingLong((EventClick.InfoTop t) -> t.cuaCai).reversed()
+                        .thenComparing(t -> t.name));
+                InfoTop top1CuaCai = ClickTop.cCuaCai.get(0);
+                if (top1CuaCai.name.equalsIgnoreCase(playerName)) {
+                    Main.HeThongCTG("Chào mừng Top 1 Của Cải >>" + playerName + "<< vừa đăng nhập vào game", 2);
+                }
+            }
+
+            // Kiểm tra top Tài phú
+            if (ClickTop.cTaiPhu == null || ClickTop.cTaiPhu.isEmpty()) {
+                ClickTop.cTaiPhu = CharDB.getTopTaiPhu();
+            }
+            if (ClickTop.cTaiPhu != null && !ClickTop.cTaiPhu.isEmpty()) {
+                java.util.Collections.sort(ClickTop.cTaiPhu,
+                        java.util.Comparator.comparing(EventClick.InfoTop::getTaiPhu).reversed());
+                InfoTop top1TaiPhu = ClickTop.cTaiPhu.get(0);
+                if (top1TaiPhu.name.equalsIgnoreCase(playerName)) {
+                    Main.HeThongCTG("Chào mừng Top 1 Tài Phú >>" + playerName + "<< vừa đăng nhập vào game", 2);
+                }
+            }
+
+            // Kiểm tra top Chuyên cần
+            if (ClickTop.cChuyenCan == null || ClickTop.cChuyenCan.isEmpty()) {
+                ClickTop.cChuyenCan = CharDB.getTopChuyenCan();
+            }
+            if (ClickTop.cChuyenCan != null && !ClickTop.cChuyenCan.isEmpty()) {
+                java.util.Collections.sort(ClickTop.cChuyenCan,
+                        java.util.Comparator.comparing(EventClick.InfoTop::getChuyenCan).reversed());
+                InfoTop top1ChuyenCan = ClickTop.cChuyenCan.get(0);
+                if (top1ChuyenCan.name.equalsIgnoreCase(playerName)) {
+                    Main.HeThongCTG("Chào mừng Top 1 Chuyên Cần >>" + playerName + "<< vừa đăng nhập vào game", 2);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -1547,4 +1864,3 @@ public class Controller implements IMessageHandler {
         }
     }
 }
-

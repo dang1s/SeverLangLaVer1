@@ -20,8 +20,11 @@ public class DiaCungSo extends ZWorld {
     private int level;
     private Mob BigBoss;
     private boolean isInit;
-    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // ks giết
-    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // cho nhặt tự do
+//    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // ks giết
+//    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315}; // cho nhặt tự do
+
+    private int[] listItem = {10, 10, 10, 9, 9, 9, 9, 9, 9, 9,566,566,566,566,566,566,566}; // ks giết
+    private int[] itemdrop = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9}; // cho nhặt tự do
 
     private boolean isClose;
     private boolean iscreateBoss;
@@ -107,7 +110,7 @@ public class DiaCungSo extends ZWorld {
                 mob.cx = (short) (200 + l);
             mob.cy = (short) ((i <= 12) ? 250 : (i <= 24 && i > 12) ? 360 : (i <= 34 && i > 24) ? 96 : (i <= 40 && i > 34) ? 260 : (i <= 55 && i > 40) ? 565 : 816);
             mob.status = 2;
-            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 3000;
+            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 30000;
             mob.expGoc = mob.hpGoc / 8;
 
             mob.levelBoss = 0;
@@ -154,7 +157,7 @@ public class DiaCungSo extends ZWorld {
         mob.levelBoss = 10;
         mob.cy = 890;
         mob.status = 2;
-        mob.hpGoc = mob.hp = mob.hpFull = 1000 * LEVEL_PHUBAN * 4800;
+        mob.hpGoc = mob.hp = mob.hpFull = 1000 * LEVEL_PHUBAN * 14800;
         mob.expGoc = mob.hpGoc / 8;
         mob.paintMiniMap = false;
         mob.idEntity = monsters.size();
@@ -168,7 +171,8 @@ public class DiaCungSo extends ZWorld {
         if (mob.id == 79) {
             for (int i = 0; i < listItem.length; i++) {
                 Item it = new Item(listItem[i], false);
-                it.amount = 5;
+                it.amount = 1;
+//                it.isLock = true;//khóa
                 player.addItem(it);
                 player.msgAddItemBag(it);
             }
@@ -178,6 +182,7 @@ public class DiaCungSo extends ZWorld {
             List<Char> charList = getChars();
             for (int i = 0; i < itemdrop.length; i++) {
                 Item item = new Item(itemdrop[i]);
+//                item.isLock = true;
                 ItemMap itemMap = new ItemMap((short) id_ENTITY_ITEM_MAP++);
                 itemMap.setOwnerID(-1);
                 itemMap.setItem(item);

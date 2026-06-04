@@ -26,39 +26,42 @@ public class Store {
 
     public boolean load() {
         try {
-            Connection conn = DBData.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM `store_data`",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
-            ResultSet resultSet = stmt.executeQuery();
-            resultSet.last();
-            resultSet.beforeFirst();
-            while (resultSet.next()) {
-                try {
-                    int id = resultSet.getInt("id");
-                    int itemID = resultSet.getInt("item_id");
-                    int typeShop = resultSet.getInt("store");
-                    boolean lock = resultSet.getBoolean("lock");
-                    int TinhThach = resultSet.getInt("TinhThach");
-                    int Bac = resultSet.getInt("Bac");
-                    int BacKhoa = resultSet.getInt("BacKhoa");
-                    int Vang = resultSet.getInt("Vang");
-                    int VangKhoa = resultSet.getInt("VangKhoa");
-                    byte He = resultSet.getByte("He");
-                    long expire = resultSet.getLong("expire");
-                    String strOption = resultSet.getString("options");
-                    int yeucau = resultSet.getInt("yeucau");
-                    int amount = resultSet.getInt("soluong");
-                    ItemShop item = new ItemShop(id, itemID, He, (byte) typeShop,TinhThach, Bac, BacKhoa, Vang,VangKhoa, lock, expire, strOption,yeucau,amount);
-                    add(item);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
+            synchronized (items) {
+                items.clear();
+                Connection conn = DBData.getConnection();
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM `store_data`",
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);
+                ResultSet resultSet = stmt.executeQuery();
+                resultSet.last();
+                resultSet.beforeFirst();
+                while (resultSet.next()) {
+                    try {
+                        int id = resultSet.getInt("id");
+                        int itemID = resultSet.getInt("item_id");
+                        int typeShop = resultSet.getInt("store");
+                        boolean lock = resultSet.getBoolean("lock");
+                        int TinhThach = resultSet.getInt("TinhThach");
+                        int Bac = resultSet.getInt("Bac");
+                        int BacKhoa = resultSet.getInt("BacKhoa");
+                        int Vang = resultSet.getInt("Vang");
+                        int VangKhoa = resultSet.getInt("VangKhoa");
+                        byte He = resultSet.getByte("He");
+                        long expire = resultSet.getLong("expire");
+                        String strOption = resultSet.getString("options");
+                        int yeucau = resultSet.getInt("yeucau");
+                        int amount = resultSet.getInt("soluong");
+                        ItemShop item = new ItemShop(id, itemID, He, (byte) typeShop,TinhThach, Bac, BacKhoa, Vang,VangKhoa, lock, expire, strOption,yeucau,amount, 0, 0);
+                        items.add(item);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return false;
+                    }
                 }
+                resultSet.close();
+                stmt.close();
+                loadShopGen();
             }
-            resultSet.close();
-            stmt.close();
-            loadShopGen();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,7 +92,9 @@ public class Store {
                             itemShop.expire,
                             itemShop.strOption,
                             itemShop.yeuCau,
-                            itemShop.amount
+                            itemShop.amount,
+                            0, // giaCu
+                            0 // conLai
                     );
                     newItems.add(itemShop1);
                 }

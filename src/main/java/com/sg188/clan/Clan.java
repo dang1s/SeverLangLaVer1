@@ -184,6 +184,40 @@ public class Clan {
 
         }
     }
+
+    /**
+     * Lấy item theo index từ mảng getItems() (chỉ lấy item không null)
+     * @param index index trong mảng getItems()
+     * @return Item hoặc null nếu không tồn tại
+     */
+    public Item getItemByDisplayIndex(int index) {
+        Item[] items = getItems();
+        if (index >= 0 && index < items.length) {
+            return items[index];
+        }
+        return null;
+    }
+
+    /**
+     * Xóa item theo index từ mảng getItems() (chỉ lấy item không null)
+     * @param displayIndex index trong mảng getItems()
+     */
+    public void removeItemByDisplayIndex(int displayIndex) {
+        Item[] items = getItems();
+        if (displayIndex >= 0 && displayIndex < items.length) {
+            Item itemToRemove = items[displayIndex];
+            if (itemToRemove != null) {
+                // Tìm và xóa item trong mảng items gốc
+                for (int i = 0; i < this.items.length; i++) {
+                    if (this.items[i] == itemToRemove) {
+                        this.items[i] = null;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     public void addExp(int exp) {
         this.exp += exp;
         if(this.exp >= getExpNext()){

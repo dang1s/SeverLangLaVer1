@@ -225,11 +225,18 @@ public class ItemOption {
         return this.a[0] == 379;
     }
 
+    public boolean isVoCuc() {
+        return this.a[0] == 380;
+    }
+
     public boolean k() {
         return this.a[0] == 361;
     }
     public boolean sucmanh() {
         return this.a[0] == 305;
+    }
+    public boolean TuLuyen()  {
+        return this.a[0] == 128;
     }
 
     public boolean canCreateItemOption() {

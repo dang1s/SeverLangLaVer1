@@ -21,8 +21,10 @@ public class DiaCungTrung extends ZWorld {
     private int level;
     private Mob BigBoss;
     private boolean isInit;
-    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428}; // ks giết
-    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428}; // cho nhặt tự do
+    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428,566,566,566,566,566,566,566,566,566,566}; // ks giết
+    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428 }; // cho nhặt tự do
+//    private int[] listItem = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 1051, 1052, 1055, 1055}; // ks giết
+//    private int[] itemdrop = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 1055}; // cho nhặt tự do
     private boolean isClose;
     private boolean iscreateBoss;
     private World world;
@@ -110,7 +112,7 @@ public class DiaCungTrung extends ZWorld {
                 Log.debug(i);
             }
             mob.status = 2;
-            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 10800;
+            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 108000;
             mob.expGoc = mob.hpGoc / 8;
 
             mob.levelBoss = 0;
@@ -160,7 +162,7 @@ public class DiaCungTrung extends ZWorld {
             mob.cx = entityList.get(i).cx;
             mob.cy = entityList.get(i).cy;
             mob.status = 2;
-            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 6000;
+            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 60000;
             mob.expGoc = mob.hpGoc / 8;
 
             mob.levelBoss = 0;
@@ -176,7 +178,7 @@ public class DiaCungTrung extends ZWorld {
         mob.levelBoss = 10;
         mob.cy = 371;
         mob.status = 2;
-        mob.hpGoc = mob.hp = mob.hpFull = 1000 * LEVEL_PHUBAN * 480;
+        mob.hpGoc = mob.hp = mob.hpFull = 1000 * LEVEL_PHUBAN * 20080;
         mob.expGoc = mob.hpGoc / 8;
         mob.paintMiniMap = false;
         mob.idEntity = monsters.size();
@@ -190,7 +192,8 @@ public class DiaCungTrung extends ZWorld {
         if (mob.id == 76) {
             for (int i = 0; i < listItem.length; i++) {
                 Item it = new Item(listItem[i], false);
-                it.amount = 8;
+                it.amount = 1;
+//                it.isLock = true;
                 player.addItem(it);
                 player.msgAddItemBag(it);
             }
@@ -201,6 +204,7 @@ public class DiaCungTrung extends ZWorld {
             List<Char> charList = getChars();
             for (int i = 0; i < itemdrop.length; i++) {
                 Item item = new Item(itemdrop[i]);
+                item.isLock = true;
                 ItemMap itemMap = new ItemMap((short) id_ENTITY_ITEM_MAP++);
                 itemMap.setOwnerID(-1);
                 itemMap.setItem(item);

@@ -1,7 +1,7 @@
 package Manager;
 
 import MapService.world.DaiChienNhanGia3;
-import MapService.world.DaiHoiVoThuat;
+import MapService.world.DaiHoiNhanGia;
 import MapService.world.DeadForest;
 import MapService.world.SonCapMyo;
 import SqlConnection.Connect;
@@ -24,48 +24,70 @@ import org.json.simple.JSONValue;
 
 import java.io.*;
 import java.sql.*;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Manager {
+
     private static final Manager instance = new Manager();
+    private final Object daiChienNhanGia3Lock = new Object();
 
     public static Manager gI() {
         return instance;
     }
 
     public List<ItemTemplate> itemTemplates = new ArrayList<>();
+
+    public static final List<String> listQuest = new ArrayList<>(); // list câu hỏi
+
+    public static String[][] listAnswer = new String[112][4]; // list câu trả lời
+
+    public static String[] listAnswerCorrect = new String[30]; // list câu trả lời chính xác
+    // Kien Thuc Nhan Gia
+    public static final List<Item> listItemReward = new ArrayList<>();
+    public static int bac = 0;
+    public static int bacKhoa = 0;
+    public static int vang = 0;
+    public static int vangKhoa = 0;
+    // END
     public short[][] listTVMSilver = {//tvm bac
-            {327, 919, 7, 688, 187, 373, 163, 8, 919, 7, 428, 644, 192, 551, 7, 516, 192, 161, 8, 266, 277, 687, 599, 7},
-            {327, 919, 7, 688, 187, 373, 163, 8, 919, 7, 428, 644, 192, 551, 7, 516, 192, 161, 8, 266, 277, 687, 599, 7},
-            {327, 919, 7, 688, 187, 373, 163, 8, 919, 7, 428, 644, 192, 551, 7, 516, 192, 161, 8, 266, 277, 687, 599, 7}
+        //{1056, 1056, 1056, 1056, 1056, 1056, 966, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056, 1056},
+                    {647, 163, 7, 648, 187, 645, 163, 8, 163, 649, 428, 644, 192, 434, 7, 651, 192, 161, 8, 434, 277, 687, 599, 650},
+//        {327, 435, 884, 688, 468, 373, 163, 884, 435, 9, 428, 644, 530, 529, 884, 516, 192, 10, 9, 763, 277, 687, 599, 9}
 
 //            {163,277,192,599,7,514,163,8,688,567,353,819,9,163,819,428,644,192,563,8,513,192,565,818},
 //            {688,567,8,819,9,163,819,428,644,192,563,8,677,192,565,818,163,277,192,599,7,863,163,353}
     };
     public int[][] amountTVMSilver = {
-            {1, 1, 1, 1, 1, 1, 500000, 1, 1, 1, 2, 10, 200, 1, 1, 1, 50, 3, 1, 20, 3, 25, 20, 1},
-            {1, 1, 1, 1, 1, 1, 500000, 1, 1, 1, 2, 10, 200, 1, 1, 1, 50, 3, 1, 20, 3, 25, 20, 1},
-            {1, 1, 1, 1, 1, 1, 500000, 1, 1, 1, 2, 10, 200, 1, 1, 1, 50, 3, 1, 20, 3, 25, 20, 1}
+        //{200, 6, 1, 5, 1, 7, 100, 1, 10, 1, 1000, 10, 300, 1, 1, 30, 50, 3, 1, 20, 3, 25, 100, 1},
+        //            {1, 1, 1, 1, 1, 1, 500000, 1, 1, 1, 2, 10, 200, 1, 1, 1, 50, 3, 1, 20, 3, 25, 20, 1},
+        {1, 1000000, 1, 1, 1, 1, 5000000, 1, 2000000, 1, 5, 3, 200, 100, 1, 1, 50, 1, 1, 50, 3, 30, 50, 1}
 
 //            {1000000,3,100,20,1,1,300000,1,1,1,1,5,1,500000,2,2,10,200,1,1,1,50,1,10},
 //            {1,1,1,5,1,500000,2,2,10,200,1,1,1,50,1,10,1000000,3,100,20,1,1,300000,1}
     };
+    public int[][] rateTVMSilver = {
+        {1, 45, 15, 1, 5, 1, 25, 3, 1, 1, 20, 5, 4, 5, 0, 5, 10, 1, 5, 10, 10, 10, 10, 10} // sửa 10 thành 0
+    };
 
     public short[][] listTVM = {//tvm VIP
-            {428, 528, 623, 702, 788, 642, 856, 677, 940, 466, 778, 463, 11, 914, 863, 762, 726, 932, 563, 565, 567, 353, 435, 163},
-            {788, 565, 463, 428, 567, 726, 466, 778, 940, 11, 642, 677, 528, 435, 863, 163, 762, 914, 856, 702, 623, 932, 563, 353},
-            {642, 435, 565, 11, 567, 353, 677, 856, 932, 863, 466, 702, 528, 463, 914, 788, 778, 623, 163, 563, 428, 940, 762, 726}
-//            {8, 818, 819, 9, 163, 819, 687, 818, 192, 819, 192, 818, 722, 8, 163, 9, 163, 10, 819, 763, 520, 163, 428, 819},
-//            {163, 562, 687, 563, 192, 566, 192, 567, 524, 8, 163, 9, 163, 10, 353, 763, 459, 163, 428, 564, 8, 354, 565, 9}
+        //            {863, 555, 762, 465, 465, 887, 495, 519, 583, 298, 653, 530, 465, 581, 783, 649, 662, 677, 813, 648, 647, 726, 465, 856}
+        {919, 565, 884, 693, 567, 695, 719, 701, 940, 11, 704, 790, 725, 434, 778, 163, 884, 914, 1005, 887, 697, 932, 563, 353}, //            {376, 434, 565, 11, 567, 353, 429, 377, 932, 326, 430, 375, 1005, 431, 914, 374, 1006, 822, 163, 563, 1007, 940, 327, 1006}
+    //            {8, 818, 819, 9, 163, 819, 687, 818, 192, 819, 192, 818, 722, 8, 163, 9, 163, 10, 819, 763, 520, 163, 428, 819},
+    //            {163, 562, 687, 563, 192, 566, 192, 567, 524, 8, 163, 9, 163, 10, 353, 763, 459, 163, 428, 564, 8, 354, 565, 9}
     };
     public int[][] amountTVM = {
-            {500, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 100, 100, 100, 100, 100, 10, 500000000},
-            {1, 100, 1, 500, 100, 1, 1, 1, 1, 2, 1, 1, 1, 10, 1, 500000000, 1, 1, 1, 1, 1, 100, 100, 100},
-            {1, 10, 100, 2, 100, 100, 1, 1, 100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 500000000, 100, 500, 1, 1, 1}
-//            {1, 50, 20, 10, 5000000, 15, 75, 40, 1000, 40, 500, 100, 1, 1, 5000000, 1, 2000000, 1, 20, 8, 1, 1000000, 6, 15},
-//            {5000000, 5, 75, 2, 1000, 5, 500, 2, 1, 1, 5000000, 1, 2000000, 1, 2, 8, 1, 1000000, 6, 5, 1, 5, 2, 1},
+        //            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+        {1, 100, 5000, 1, 100, 1, 1, 1, 1, 5, 1, 1, 2, 30000, 1, 1000000000, 1000, 1, 1, 1, 1, 500, 75, 50}, //            {1, 30000, 100, 5, 100, 100, 1, 1, 500, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1000000000, 100, 1, 1, 1, 1}
+    //            {1, 50, 20, 10, 5000000, 15, 75, 40, 1000, 40, 500, 100, 1, 1, 5000000, 1, 2000000, 1, 20, 8, 1, 1000000, 6, 15},
+    //            {5000000, 5, 75, 2, 1000, 5, 500, 2, 1, 1, 5000000, 1, 2000000, 1, 2, 8, 1, 1000000, 6, 5, 1, 5, 2, 1},
     };
+    public int[][] rateTVM = {
+        {1, 1, 0, 1, 1, 5, 1, 1, 1, 10, 1, 5, 1, 1, 1, 5, 1, 1, 1, 1, 4, 1, 3, 1}
+    };
+
     public Map<String, List<Integer>> playerPurchases = new HashMap<>();
     public Map<String, Integer> useItem = new HashMap<>();
     public Map<String, Integer> useItem_2 = new HashMap<>();
@@ -80,20 +102,22 @@ public class Manager {
     public int countDauTu;
     public int rankCaoNhat;
     public int countRank;
-    public List<ItemShop>shopRank= new ArrayList<>();
-    public Set<Integer> visitedPlayers=new HashSet<>();
-    public List<DanhHieuNew>danhHieuNews=new ArrayList<>();
+    public List<ItemShop> shopRank = new ArrayList<>();
+    public Set<Integer> visitedPlayers = new HashSet<>();
+    public List<DanhHieuNew> danhHieuNews = new ArrayList<>();
 
     public void addPlayer(int id) {
         synchronized (visitedPlayers) {
             visitedPlayers.add(id);
         }
     }
+
     public boolean checkPlayer(int id) {
         synchronized (visitedPlayers) {
             return visitedPlayers.contains(id);
         }
     }
+
     public void loadListTrangBi() {
         for (ItemTemplate itemTemplateitem : DataCenter.gI().ItemTemplate) {
             Item item = new Item(itemTemplateitem.id);
@@ -101,7 +125,7 @@ public class Manager {
                 if (item.isVuKhi()) {
                     Item.setOptionsVuKhi(item, item.getItemTemplate().levelNeed);
                 } else if (item.isPhuKien() || item.isTrangBi()) {
-               //     Item.setOptionsTrangBiPhuKien( item, item.getItemTemplate().levelNeed);
+                    //     Item.setOptionsTrangBiPhuKien( item, item.getItemTemplate().levelNeed);
                 }
                 if (itemTemplateitem.levelNeed < 20) {
                     tb1x.add(item);
@@ -111,7 +135,7 @@ public class Manager {
                     tb3x.add(item);
                 } else if (itemTemplateitem.levelNeed < 50) {
                     tb4x.add(item);
-                } else if (itemTemplateitem.levelNeed < 60&&itemTemplateitem.id!=314) {
+                } else if (itemTemplateitem.levelNeed < 60 && itemTemplateitem.id != 314) {
                     tb5x.add(item);
                 }
             }
@@ -204,7 +228,6 @@ public class Manager {
         playerPurchases.put(playerName, items);
     }
 
-
     public void saveFilePurchases() {
         try (FileWriter fileWriter = new FileWriter("log/shoprank.txt")) {
             for (Map.Entry<String, List<Integer>> entry : playerPurchases.entrySet()) {
@@ -216,13 +239,9 @@ public class Manager {
         }
     }
 
-
     public void loadItem() {
-        Connection conn = DBData.getConnection();
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement("SELECT * FROM `item_template`;");
-            ResultSet rs = ps.executeQuery();
+        // Sử dụng try-with-resources để tự động đóng connection
+        try (Connection conn = DBData.getConnection(); PreparedStatement ps = conn.prepareStatement("SELECT * FROM `item_template`;"); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 ItemTemplate item = new ItemTemplate(id);
@@ -241,14 +260,13 @@ public class Manager {
             }
             Log.info("Load itemtempalte: " + itemTemplates.size());
         } catch (SQLException e) {
+            Log.error("Error loading items", e);
         }
     }
-    public void loadDanhHieuNew(){
-        Connection conn = DBData.getConnection();
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement("SELECT * FROM `danhhieu`;");
-            ResultSet rs = ps.executeQuery();
+
+    public void loadDanhHieuNew() {
+        // Sử dụng try-with-resources để tự động đóng connection
+        try (Connection conn = DBData.getConnection(); PreparedStatement ps = conn.prepareStatement("SELECT * FROM `danhhieu`;"); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 DanhHieuNew danhHieuNew = new DanhHieuNew();
                 danhHieuNew.idIitem = rs.getInt("idItem");
@@ -272,14 +290,54 @@ public class Manager {
             e.printStackTrace();
         }
     }
+//    public void loadWingTemplate(){
+//        Connection conn = DBData.getConnection();
+//        PreparedStatement ps = null;
+//        try {
+//            ps = conn.prepareStatement("SELECT * FROM `wing`;");
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+////                WingTemplate wing = new WingTemplate();
+////                wing.itemId = rs.getInt("itemid");
+////                wing.frameStart = rs.getInt("frameStart");
+////                wing.frameEnd = rs.getInt("frameEnd");
+////                wing.tick = rs.getInt("tick");
+////                wing.dx = rs.getInt("dx");
+////                wing.dy = rs.getInt("dy");
+////                WingTemplate.wins.add(wing);
+////            }
+////            Log.info("Load wing new: " + WingTemplate.wins.size());
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    public void loadMatTemplate(){
+//        Connection conn = DBData.getConnection();
+//        PreparedStatement ps = null;
+//        try {
+//            ps = conn.prepareStatement("SELECT * FROM `mat`;");
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                MatTemplate wing = new MatTemplate();
+//                wing.itemId = rs.getInt("itemid");
+//                wing.frameStart = rs.getInt("frameStart");
+//                wing.frameEnd = rs.getInt("frameEnd");
+//                wing.tick = rs.getInt("tick");
+//                wing.dx = rs.getInt("dx");
+//                wing.dy = rs.getInt("dy");
+//                MatTemplate.mats.add(wing);
+//            }
+//            Log.info("Load mat new: " + MatTemplate.mats.size());
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void loadRewardTop() {
-        Connection conn = DBData.getConnection();
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement("SELECT * from rewards where type = ?");
+        try (Connection conn = DBData.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * from rewards where type = ?");
+             ResultSet rs = ps.executeQuery()) {
             ps.setInt(1, 0);
-            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 List<Item> items = new ArrayList<>();
                 int id = rs.getInt("player_id");
@@ -335,13 +393,28 @@ public class Manager {
 
     public void updateDaiHoi(int hours, int minutes, int seconds) {
         Utlis.schedule(() -> {
-            createDaiHoi();
+            createDaiHoiDaily0830();
         }, hours, minutes, seconds);
     }
 
-    private void createDaiHoi() {
-        DaiHoiVoThuat.DAIHOI = DaiHoiVoThuat.gI();
-        Main.HeThongCTG("Đại hội nhẫn giả đã mở báo danh hãy nhanh tay đến báo danh nào",2);
+    public void createDaiHoiDaily0830() {
+        try {
+            if (DaiHoiNhanGia.DAI_HOI_NHAN_GIA != null && !DaiHoiNhanGia.DAI_HOI_NHAN_GIA.isClosed()) {
+                Main.HeThongCTG("[Dai hoi Nhan Gia] Su kien dang dien ra.", 2);
+                return;
+            }
+
+            createDaiHoi();
+            Main.HeThongCTG("[Dai hoi Nhan Gia] Da mo bao danh! Hay nhanh tay den bao danh.", 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Main.HeThongCTG("[Dai hoi] Gap loi khi tao su kien: " + e.getMessage(), 2);
+        }
+    }
+
+    public void createDaiHoi() {
+        DaiHoiNhanGia.DAI_HOI_NHAN_GIA = new DaiHoiNhanGia();
+        Main.HeThongCTG("Đại hội nhẫn giả đã mở báo danh hãy nhanh tay đến báo danh nào", 2);
     }
 
     private void createDeadForest() {
@@ -352,10 +425,44 @@ public class Manager {
         DeadForest.DeadForest_6x = new DeadForest(600, Utlis.nextInt(60, 65));
         Main.HeThongCTG("Khu rừng chết đã mở báo danh, Các nhân giả hãy nhanh chân tới báo danh nào", 2);
     }
-    private void createDaiChien3() {
-        //DaiChienNhanGia3.BanDoanhLangLa = new DaiChienNhanGia3(600, Utlis.nextInt(50, 55));
-        DaiChienNhanGia3.BanDoanhLangLa = new DaiChienNhanGia3(300, Utlis.nextInt(50, 55));
-        Main.HeThongCTG("Đại chiến nhẫn giả 3 đã mở báo danh, Các nhân giả hãy nhanh chân tới báo danh nào", 2);
+
+    public DaiChienNhanGia3 getOrCreateDaiChien3(boolean is4x, boolean allowCreate) {
+        synchronized (daiChienNhanGia3Lock) {
+            DaiChienNhanGia3 event = is4x ? DaiChienNhanGia3.BanDoanhLangLa : DaiChienNhanGia3.BanDoanhLangDa;
+            if (event != null && !event.isClosed()) {
+                return event;
+            }
+            if (!allowCreate) {
+                return null;
+            }
+            event = new DaiChienNhanGia3(0, is4x ? Utlis.nextInt(45, 49) : Utlis.nextInt(50, 59), true);
+            if (is4x) {
+                DaiChienNhanGia3.BanDoanhLangLa = event;
+            } else {
+                DaiChienNhanGia3.BanDoanhLangDa = event;
+            }
+            return event;
+        }
+    }
+
+    public void createDaiChien3() {
+        boolean created4x = false;
+        boolean created5x = false;
+        synchronized (daiChienNhanGia3Lock) {
+            if (DaiChienNhanGia3.BanDoanhLangLa == null || DaiChienNhanGia3.BanDoanhLangLa.isClosed()) {
+                DaiChienNhanGia3.BanDoanhLangLa = new DaiChienNhanGia3(0, Utlis.nextInt(45, 49), true);
+                created4x = true;
+            }
+            if (DaiChienNhanGia3.BanDoanhLangDa == null || DaiChienNhanGia3.BanDoanhLangDa.isClosed()) {
+                DaiChienNhanGia3.BanDoanhLangDa = new DaiChienNhanGia3(0, Utlis.nextInt(50, 59), true);
+                created5x = true;
+            }
+        }
+        if (created4x || created5x) {
+            Main.HeThongCTG("Đại chiến nhẫn giả 4x và 5x đã mở, chiến trường bắt đầu ngay!", 2);
+        } else {
+            Main.HeThongCTG("Đại chiến nhẫn giả 4x và 5x đang hoạt động, không tạo thêm trận mới.", 2);
+        }
     }
 
     public void updatePhucLoi(int hours, int minutes, int seconds) {
@@ -380,6 +487,10 @@ public class Manager {
             SonCapMyo.listCharIdInSonCap.clear();
             List<Clan> clans = Clan.getClanDAO().getAll();
             Connection conn = Connect.getConnection();
+            if (conn == null) {
+                Log.error("Cannot get database connection in clan update");
+                return;
+            }
             java.util.Date now = new java.util.Date();
             synchronized (clans) {
                 for (Clan clan : clans) {
@@ -400,11 +511,11 @@ public class Manager {
 
     public void updateProduct(ItemMarket item) {
     }
+
     public void readShopRank() {
         String sql = "SELECT shop_item_id, price, yeucau, items FROM shoprank";
 
-        try (PreparedStatement stmt = DBData.getConnection().prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement stmt = DBData.getConnection().prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 int shopItemId = rs.getShort("shop_item_id");
                 ItemShop itemShop = new ItemShop(
@@ -428,7 +539,7 @@ public class Manager {
                 for (int i = 0; i < len; i++) {
                     JSONObject obj = (JSONObject) jArr.get(i);
                     Item item = new Item(Integer.parseInt(obj.get("id").toString()));
-                    if(item.id == 906 || item.id == 907) {
+                    if (item.id == 906 || item.id == 907) {
                         item.level = 29;
                     }
                     item.isLock = Boolean.parseBoolean(obj.get("locked").toString());
@@ -447,7 +558,12 @@ public class Manager {
 
     public void insertItemToStall(ItemMarket item) {
         try {
-            PreparedStatement stmt = Connect.getConnection().prepareStatement("INSERT INTO `market`(`id`, `seller`, `item`, `price`, `status`, `time`) VALUES (?,?,?,?,?,?)");
+            Connection conn = Connect.getConnection();
+            if (conn == null) {
+                Log.error("Cannot get database connection in insertItemToStall");
+                return;
+            }
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO `market`(`id`, `seller`, `item`, `price`, `status`, `time`) VALUES (?,?,?,?,?,?)");
             stmt.setLong(1, item.getId());
             stmt.setString(2, item.getName());
             stmt.setString(3, item.getItem().toJSONObject().toJSONString());
@@ -464,7 +580,12 @@ public class Manager {
 
     public void deleteItemFromStall(long id) {
         try {
-            PreparedStatement stmt = Connect.getConnection().prepareStatement("DELETE FROM `market` WHERE `id` = ?");
+            Connection conn = Connect.getConnection();
+            if (conn == null) {
+                Log.error("Cannot get database connection in deleteItemFromStall");
+                return;
+            }
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM `market` WHERE `id` = ?");
             stmt.setLong(1, id);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected < 0) {
@@ -475,6 +596,7 @@ public class Manager {
             e.printStackTrace();
         }
     }
+
     public void logItemSale(String seller, String buyer, long itemId, String itemDetails, int price) {
         try {
             PreparedStatement stmt = Connect.getConnection().prepareStatement(
@@ -493,8 +615,8 @@ public class Manager {
     }
 
     public ItemShop findShopRank(short idBuy) {
-        for (ItemShop item: shopRank){
-            if(item.id == idBuy){
+        for (ItemShop item : shopRank) {
+            if (item.id == idBuy) {
                 return item;
             }
         }

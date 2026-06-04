@@ -21,22 +21,22 @@ public class Summer extends Event {
     public Summer() {
         setId(Event.SU_KIEN_HE);
         endTime.set(2024, 30, 5, 23, 59, 59);
-        itemsThrownFromMonsters.add(1, 926);
-        itemsThrownFromMonsters.add(1, 927);
-        itemsThrownFromMonsters.add(1, 928);
-        itemsThrownFromMonsters.add(1, 929);
+        itemsThrownFromMonsters.add(1, 848);
+        itemsThrownFromMonsters.add(1, 850);
+        itemsThrownFromMonsters.add(1, 853);
+//        itemsThrownFromMonsters.add(1, 929);
         itemsThrownFromMonsters.add(70, -1);//ko rơi
         keyEventPoint.add(TOP_LAM_KEM);
         keyEventPoint.add(EventPoint.DIEM_TIEU_XAI);
         keyEventPoint.add(TOP_FISH);
 //        menuKhaTienNu = "Làm hũ kem,1 cái,10 cái,100 cái,Hướng dẫn;Giải cứu Tiên Nhân,Tham gia(500 vàng),Từ chối;BXH Top Làm Kem;BXH Top Câu Cá;Kiểm tra điểm sự kiện;Đổi điểm,Sách nhẫn thuật đặc biệt, Thẻ đổi tên, Cải trang Madara, Cải trang Madara Lục Đạo, Cải trang Kakashi Lục Đạo, Bí kíp Bí Ngô";
-        menuKhaTienNu = "Làm hũ kem,1 cái,10 cái,100 cái,Hướng dẫn;Giải cứu Tiên Nhân,Tham gia(500 vàng),Từ chối;BXH Top Làm Kem;Khóa/mở khóa cấp;Kiểm tra điểm sự kiện;Đổi điểm,Sách nhẫn thuật đặc biệt, Thẻ đổi tên, Cải trang Madara, Cải trang Madara Lục Đạo, Cải trang Kakashi Lục Đạo, Bí kíp Bí Ngô";
+        menuKhaTienNu = "Làm Kẹo Bí Ma,1 cái,10 cái,100 cái,Hướng dẫn;Giải cứu Tiên Nhân,Tham gia( Ngày 1 lần ),Từ chối;BXH Top Làm Kem;Khóa/mở khóa cấp;Kiểm tra điểm sự kiện;Đổi điểm,Sách nhẫn thuật đặc biệt, Thẻ đổi tên, Cải trang Madara, Cải trang Madara Lục Đạo, Cải trang Kakashi Lục Đạo, Bí kíp Bí Ngô";
     }
 
     private void makeIceCream(Char p, int amount) {
-        int[][] itemRequires = new int[][]{{926, 5}, {927, 5}, {928, 5}, {929, 5}};
-        int itemIdReceive = 930;
-        boolean isDone = makeEventItem(p, amount, itemRequires, 20, 0, 0, itemIdReceive);
+        int[][] itemRequires = new int[][]{{848, 5}, {850, 5}, {853, 5}};
+        int itemIdReceive = 852;
+        boolean isDone = makeEventItem(p, amount, itemRequires, 50, 0, 0, itemIdReceive);
         if (isDone) {
             p.getEventPoint().addPoint(TOP_LAM_KEM, amount);
             p.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, amount);
@@ -97,7 +97,7 @@ public class Summer extends Event {
                         action(p, 0, 100);
                         break;
                     case 3:
-                        p.getService().sendTextNPC("Để làm 1 hũ kem cần: 5 Kem ốc quế + 5 Kem sữa + 5 Kem chocolate + 5 Kem dâu và 20 vàng", "");
+                        p.getService().sendTextNPC("Để làm 1 kẹo bí ma cần: 5 giấy gói kẹo + 5 đường + 5 sao  +  20 vàng", "");
                         break;
                 }
                 break;

@@ -1,0 +1,18 @@
+Item: Vé Mua Đồ Vip[548]
+Số Lượng: 500000 
+bạc với số lượng: 0
+Admin=>WaterPower
+Time: 09:47:50 27-03-2026
+-----------------
+Item: Dầu cóc[558]
+Số Lượng: 1000 
+bạc với số lượng: 0
+Admin=>WaterPower
+Time: 10:44:17 27-03-2026
+-----------------
+Item: Ngọc Myoboku[353]
+Số Lượng: 10050 
+bạc với số lượng: 0
+Admin=>WaterPower
+Time: 10:46:05 27-03-2026
+-----------------

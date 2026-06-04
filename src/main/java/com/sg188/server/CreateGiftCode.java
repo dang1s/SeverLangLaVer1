@@ -51,7 +51,7 @@ public class CreateGiftCode extends javax.swing.JFrame {
         public long Exp;
         public byte Day;
         public int count=9999;
-        public Item infoItem ;
+        public Item infoItem;
     }
 
     private List<JTextField> jTextAll = new ArrayList<>();

@@ -1,0 +1,13 @@
+Item: Túi ngọc[1000]
+Số Lượng: 10000
+vithu=>iPhone
+Time: 04:22:06 30-04-2026
+-----------------
+Item: Rương ngọc khảm[428]
+Số Lượng: 10000
+vithu=>iPhone
+Time: 04:22:06 30-04-2026
+-----------------
+vithu Đã gửi 0 cho iPhone
+Time: 04:22:06 30-04-2026
+-----------------

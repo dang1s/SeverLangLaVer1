@@ -124,8 +124,10 @@ public class DiscountStore {
                                 e.printStackTrace();
                                 return false;
                             } finally {
-                                conn.setAutoCommit(true); // Trở về chế độ mặc định
-                                DBData.closeConnection();
+                                if (conn != null) {
+                                    conn.setAutoCommit(true); // Trở về chế độ mặc định
+                                    conn.close(); // Close individual connection, not the pool
+                                }
                             }
                         } catch (SQLException e) {
                             e.printStackTrace();
@@ -144,41 +146,44 @@ public class DiscountStore {
 
     public boolean load() {
         try {
-            Connection conn = DBData.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM `discount_store`",
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
-            ResultSet resultSet = stmt.executeQuery();
-            resultSet.last();
-            resultSet.beforeFirst();
-            while (resultSet.next()) {
-                try {
-                    int id = resultSet.getInt("id");
-                    int itemID = resultSet.getInt("item_id");
-                    int typeShop = resultSet.getInt("store");
-                    boolean lock = resultSet.getBoolean("lock");
-                    int TinhThach = resultSet.getInt("TinhThach");
-                    int Bac = resultSet.getInt("Bac");
-                    int BacKhoa = resultSet.getInt("BacKhoa");
-                    int Vang = resultSet.getInt("Vang");
-                    int VangKhoa = resultSet.getInt("VangKhoa");
-                    byte He = resultSet.getByte("He");
-                    long expire = resultSet.getLong("expire");
-                    String strOption = resultSet.getString("options");
-                    int yeucau = resultSet.getInt("yeucau");
-                    int amount = resultSet.getInt("soluong");
-                    int giacu = resultSet.getInt("giacu");
-                    int conlai = resultSet.getInt("conlai");
-                    ItemShop item = new ItemShop(id, itemID, He, (byte) typeShop,TinhThach, Bac, BacKhoa, Vang,VangKhoa, lock, expire, strOption,yeucau,amount, giacu, conlai);
-                    add(item);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
+            synchronized (items) {
+                items.clear();
+                Connection conn = DBData.getConnection();
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM `discount_store`",
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);
+                ResultSet resultSet = stmt.executeQuery();
+                resultSet.last();
+                resultSet.beforeFirst();
+                while (resultSet.next()) {
+                    try {
+                        int id = resultSet.getInt("id");
+                        int itemID = resultSet.getInt("item_id");
+                        int typeShop = resultSet.getInt("store");
+                        boolean lock = resultSet.getBoolean("lock");
+                        int TinhThach = resultSet.getInt("TinhThach");
+                        int Bac = resultSet.getInt("Bac");
+                        int BacKhoa = resultSet.getInt("BacKhoa");
+                        int Vang = resultSet.getInt("Vang");
+                        int VangKhoa = resultSet.getInt("VangKhoa");
+                        byte He = resultSet.getByte("He");
+                        long expire = resultSet.getLong("expire");
+                        String strOption = resultSet.getString("options");
+                        int yeucau = resultSet.getInt("yeucau");
+                        int amount = resultSet.getInt("soluong");
+                        int giacu = resultSet.getInt("giacu");
+                        int conlai = resultSet.getInt("conlai");
+                        ItemShop item = new ItemShop(id, itemID, He, (byte) typeShop,TinhThach, Bac, BacKhoa, Vang,VangKhoa, lock, expire, strOption,yeucau,amount, giacu, conlai);
+                        items.add(item);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return false;
+                    }
                 }
+                resultSet.close();
+                stmt.close();
+                loadShopGen();
             }
-            resultSet.close();
-            stmt.close();
-            loadShopGen();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

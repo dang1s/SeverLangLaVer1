@@ -63,11 +63,12 @@ public class HanderClickEvent {
                 case 6:
                 case 7:
                 case 18:
-//                case 40:
+                // case 40:
                 case 38:
                 case 30:
                 case 37:
                 case 19:
+                case 41:
                     ClickEvent.Shop(_myChar, idEvent);
                     break;
                 case 39:
@@ -84,7 +85,7 @@ public class HanderClickEvent {
                     break;
                 case 81:
                 case 82:
-                case 83:                // nang cap bua no
+                case 83: // nang cap bua no
                 case 84:
                 case 85:
                 case 87:
@@ -116,12 +117,15 @@ public class HanderClickEvent {
                     } else {
                         _myChar.service.showListGiaToc();
                     }
-                    if(_myChar.taskId== TaskName.NV_GIAI_CUU_INARI &&_myChar.taskMain!=null&&_myChar.taskMain.index==0)
+                    if (_myChar.taskId == TaskName.NV_GIAI_CUU_INARI && _myChar.taskMain != null
+                            && _myChar.taskMain.index == 0) {
                         _myChar.taskNext();
+                    }
                     break;
                 case 92:
-                    if(_myChar.taskId==0&&_myChar.taskMain!=null&&_myChar.taskMain.index==1)
-                    _myChar.taskNext();
+                    if (_myChar.taskId == 0 && _myChar.taskMain != null && _myChar.taskMain.index == 1) {
+                        _myChar.taskNext();
+                    }
                     break;
                 case 93:
                     break;
@@ -153,7 +157,7 @@ public class HanderClickEvent {
                 case 34:
                 case 35:
                 case 36:
-                    if(_myChar.Info.idClass == 0){
+                    if (_myChar.Info.idClass == 0) {
                         _myChar.service.alertMessage("Vui lòng nhập học để mua đồ");
                         return;
                     }
@@ -161,21 +165,21 @@ public class HanderClickEvent {
                     ClickEvent.ShopTrangBi(_myChar, idEvent, he);
                     break;
                 case 64:// trang bi hien nhan
-                case 65: //trang bi sharigan
+                case 65: // trang bi sharigan
                 case 66:// trang bi bayakugan
-                case 67: //trang bi rinegan
-                case 68://doi he
-                case 69://doi he
-                case 70: //doi he
-                case 71://doi he
-                case 75: //doi bi kip
+                case 67: // trang bi rinegan
+                case 68:// doi he
+                case 69:// doi he
+                case 70: // doi he
+                case 71:// doi he
+                case 75: // doi bi kip
                 case 76:// luyen bi kip
                 case 78:// doi tb thanh tinh thach
-                case 79://chuc phuc
-                case 96://dan duoc
+                case 79:// chuc phuc
+                case 96:// dan duoc
                 case 97:// bua no
                     break;
-                case 100: //trang bi luc dao
+                case 100: // trang bi luc dao
                     break;
                 case 74:
                     thuvanmay(_myChar, idEvent);
@@ -188,11 +192,12 @@ public class HanderClickEvent {
                     break;
                 case 101:
                     byte type = msg.readByte();
-                    if(type == 0){
+                    if (type == 0) {
                         int money = msg.readInt();
                         LuckyDraw lucky = LuckyDrawManager.getInstance().find(type);
-                        if(money > 0)
-                        lucky.join(_myChar, money);
+                        if (money > 0) {
+                            lucky.join(_myChar, money);
+                        }
                         lucky.show(_myChar);
                     }
                     break;
@@ -211,7 +216,7 @@ public class HanderClickEvent {
         try {
             Message m = new Message((byte) 122);
             m.writeByte(idEvent);
-            _myChar.idListTVM = (byte) Utlis.nextInt(0, 2);
+            _myChar.idListTVM = 0;
             m.writeShort(Manager.gI().listTVM[_myChar.idListTVM].length);
             for (int i = 0; i < Manager.gI().listTVM[_myChar.idListTVM].length; i++) {
                 Item item = new Item(Manager.gI().listTVM[_myChar.idListTVM][i]);
@@ -238,7 +243,7 @@ public class HanderClickEvent {
         try {
             Message m = new Message((byte) 122);
             m.writeByte(idEvent);
-            _myChar.idListTVMSilver = (byte) Utlis.nextInt(0, 2);
+            _myChar.idListTVMSilver = 0;
             m.writeShort(Manager.gI().listTVMSilver[_myChar.idListTVMSilver].length);
             for (int i = 0; i < Manager.gI().listTVMSilver[_myChar.idListTVMSilver].length; i++) {
                 Item item = new Item(Manager.gI().listTVMSilver[_myChar.idListTVMSilver][i]);
@@ -270,11 +275,10 @@ public class HanderClickEvent {
         }
     }
 
-    public static void VongQuayMayMan(Char _myChar) {
-
-        _myChar.user.session.sendMessage(HanderMessage.SendVongQuay((byte) 1, (byte) new Random().nextInt(1), 33));
-    }
-
+    // public static void VongQuayMayMan(Char _myChar) {
+    // _myChar.vongQuayNap();
+    // }
+    //
     public static void BuyEvent(Char _myChar, byte idCmd) {
         Message m = new Message((byte) -105);
         try {

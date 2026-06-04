@@ -1,6 +1,6 @@
 package com.sg188.data;
 public class LangLa_ju {
-   public short a;
+   public short a; // so index
    public byte b;
    public byte c;
    public byte d;

@@ -13,7 +13,8 @@ import java.io.*;
 
 import com.tgame.model.Caption;
 
-import java.util.Vector;
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import org.json.JSONArray;
@@ -22,7 +23,7 @@ public class DataCenter {
     static {
         DataCenter.bg = null;
         DataCenter.bh = new Object();
-        DataCenter.be = new Vector();
+        DataCenter.be = new ArrayList<>();
         DataCenter.gI().readArrDataGame(true);
     }
     public String ipServer;
@@ -77,16 +78,16 @@ public class DataCenter {
     public ItemOptionTemplate[] ItemOptionTemplate;
     public SkillTemplate[] SkillTemplate;
     public SkillClan[] SkillClan;
-    public Vector vSkillClan;
+    public ArrayList vSkillClan;
     public EffectTemplate[] EffectTemplate;
     public Skill[] Skill;
     public DataTypeItemBody[] DataTypeItemBody;
     public short[][] dataWayPoint;
     public int[][] dataGiftQuaySo;
     public byte[][] af;
-    public Vector ag;
-    public Vector ah;
-    public Vector ai;
+    public ArrayList ag;
+    public ArrayList ah;
+    public ArrayList ai;
     public Hashtable aj;
     public Hashtable ak;
     public Hashtable al;
@@ -132,19 +133,91 @@ public class DataCenter {
     public boolean bb;
     public boolean bc;
     public static int bd;
-    public static Vector be;
+    public static ArrayList be;
     private DataImgEntity[] DataImgEntity;
     public Writer writerArrDataGame2;
     public Writer betaTest;
 
+    public int[] newBacKhoaUpgradeVuKhi = {
+            1498765490, 1594567890, 1698345690, 1745238790, 1791345690, 1847621990,
+            1895748290, 1948271390, 1976543890, 1999876590, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000
+    };
 
-    public int[] newBacKhoaUpgradeVuKhi = {1498765490, 1594567890, 1698345690, 1745238790, 1791345690, 1847621990, 1895748290, 1948271390, 1976543890, 1999876590};
-    public int[] newBacKhoaUpgradeTrangBi = {374000000, 476000000, 587000000, 689000000, 812000000, 935000000, 1068000000, 1195000000, 1342000000, 1489000000};
-    public int[] newBacKhoaUpgradePhuKien = {450000000, 560000000, 670000000, 780000000, 910000000, 1050000000, 1200000000, 1360000000, 1520000000, 1680000000};
-    public long[] newPointUpgradeVuKhi = {134217728L, 171798691L, 234881024L, 318767104L, 429496729L, 576716799L, 773094113L, 1030792150L, 1374389534L, 1838388402L};
-    public long[] newPointUpgradeTrangBi = {48765432L, 73482195L, 112345678L, 176543210L, 276543210L, 432098765L, 678901234L, 987654321L, 1357902468L, 1876543210L};
-    public long[] newPointUpgradePhuKien = {67920456L, 110720758L, 180364215L, 284720610L, 449380975L, 710004584L, 1126757344L, 1781291758L, 2818466800L, 4459650548L};
-    
+    public int[] newBacKhoaUpgradeTrangBi = {
+            374000000, 476000000, 587000000, 689000000, 812000000, 935000000,
+            1068000000, 1195000000, 1342000000, 1489000000, 1600000000, 1700000000,
+            1800000000, 1900000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000
+    };
+
+    public int[] newBacKhoaUpgradePhuKien = {
+            450000000, 560000000, 670000000, 780000000, 910000000, 1050000000,
+            1200000000, 1360000000, 1520000000, 1680000000, 1800000000, 1900000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000,
+            2000000000, 2000000000, 2000000000, 2000000000, 2000000000, 2000000000
+    };
+
+    public long[] newPointUpgradeVuKhi = {
+            134217728L, 171798691L, 234881024L, 318767104L, 429496729L, 576716799L,
+            773094113L, 1030792150L, 1374389534L, 1838388402L, 2450769190L, 3270682890L,
+            4294967300L, 5535062049L, 7205319169L, 9382563520L, 12389693712L, 16253945344L,
+            20576353673L, 25263951253L, 30367121638L, 35921589654L, 42000951817L, 48601727950L,
+            55742232412L, 63487457801L, 71873615421L, 80916342901L, 90682917394L, 101121728543L,
+            112221820531L, 124596142800L, 138467389092L, 154090501990L, 171728874490L,
+            191751765503L, 214540894311L, 240606932531L, 270621075670L, 345047203676L,
+            389925180134L, 440405551071L, 497228787420L, 561380143963L, 633343389334L,
+            713614474381L, 803640545221L, 904771132179L, 1019775036065L, 1141241799780L,
+            1275895726981L, 1424269605976L, 1587168669152L, 1765132704699L, 1917537468620L
+    };
+
+    public long[] newPointUpgradeTrangBi = {
+            48765432L, 73482195L, 112345678L, 176543210L, 276543210L, 432098765L,
+            678901234L, 987654321L, 1357902468L, 1876543210L, 2590876543L, 3541234567L,
+            4812345678L, 6358765432L, 8276543210L, 10456789012L, 12898765432L, 15654321098L,
+            18876543210L, 22654321098L, 27098765432L, 32098765432L, 37654321098L, 43987654321L,
+            51012345678L, 58876543210L, 67890123456L, 78098765432L, 90012345678L, 102345678910L,
+            115678901234L, 130987654321L, 148123456789L, 168765432100L, 192345678910L,
+            218765432101L, 248765432101L, 282345678910L, 320123456789L, 362987654321L,
+            410987654321L, 465678901234L, 527654321098L, 598765432109L, 680123456789L,
+            772345678910L, 876543210987L, 998765432100L, 1134567890123L, 1287654321099L
+    };
+
+    public long[] newPointUpgradePhuKien = {
+            67920456L, 110720758L, 180364215L, 284720610L, 449380975L, 710004584L,
+            1126757344L, 1781291758L, 2818466800L, 4459650548L, 6498750493L, 9280531074L,
+            13046389256L, 18669771687L, 25775584783L, 35071398732L, 47436701599L, 63975116964L,
+            85931768167L, 116228519188L, 156588276865L, 209225674567L, 276009787402L, 361987831556L,
+            472547487766L, 614682112520L, 795812935661L, 1027985481771L, 1312490732611L,
+            1693232077790L, 2184212945305L, 2812325957063L, 3608594610100L, 4624304814542L,
+            5930800241285L, 7604063232190L, 9724762314691L, 12383667098354L, 15971529874615L,
+            20638192572164L, 26672740818223L, 34349008622912L, 44139253569695L, 56574278014212L,
+            72456789805841L, 92809104962839L, 118003983670496L, 151285366218619L, 192144114530053L
+    };
+    public long[] newPointGhepDa = { 16777216, 67108864, 268435456, 1073741824, 4294967296L, 17179869184L, 68719476736L, 274877906944L};
+    public int[] newBacKhoaGhepDa = {135895444, 543581776, 2147327104, 2147327104, 2147327104, 2147327104, 2147327104};
     public DataCenter() {
         this.ipServer = "localhost";
         this.portServer = 6868;
@@ -156,10 +229,10 @@ public class DataCenter {
         this.VER2 = 131;
         this.bf = true;
         this.z = 1.0f;
-        this.vSkillClan = new Vector();
-        this.ag = new Vector();
-        this.ah = new Vector();
-        this.ai = new Vector();
+        this.vSkillClan = new ArrayList<>();
+        this.ag = new ArrayList<>();
+        this.ah = new ArrayList<>();
+        this.ai = new ArrayList<>();
         this.aj = new Hashtable();
         this.ak = new Hashtable();
         this.al = new Hashtable();
@@ -232,7 +305,7 @@ public class DataCenter {
     }
     
     private void read3(Reader reader) throws java.io.IOException {
-        Vector<Short> c = new Vector<Short>();
+        ArrayList<Short> c = new ArrayList<>();
         LangLa_hn[] j = new LangLa_hn[reader.readShort()];
         for (int i = 0; i < j.length; ++i) {
             j[i] = new LangLa_hn();
@@ -383,7 +456,7 @@ public class DataCenter {
             short short2 = reader.readShort();
             DataHashtable1.data[n] = new DataHashtable1[short2];
             for (short n2 = 0; n2 < short2; ++n2) {
-                Short s = new Short(reader.readShort());
+                Short s = Short.valueOf(reader.readShort());
                 LangLa_et et = new LangLa_et(n, reader.readUnsignedByte(), reader.readUnsignedByte(), reader.readShort(), reader.readShort());
                 DataHashtable1.data[n][n2] = new DataHashtable1();
                 DataHashtable1.data[n][n2].id = s;
@@ -410,7 +483,7 @@ public class DataCenter {
         DataHashtable2.data = new DataHashtable2[short1];
         for (short n = 0; n < short1; ++n) {
             DataHashtable2.data[n] = new DataHashtable2();
-            Short s = new Short(reader.readShort());
+            Short s = Short.valueOf(reader.readShort());
             LangLa_et et = new LangLa_et((short) (-1), (short) 0, (short) 0, reader.readShort(), reader.readShort());
             DataHashtable2.data[n].id = s;
             DataHashtable2.data[n].et = et;
@@ -431,7 +504,7 @@ public class DataCenter {
     
     private static void addVec(short n) {
         if (!DataCenter.be.contains(n)) {
-            DataCenter.be.addElement(n);
+            DataCenter.be.add(n);
         }
     }
     
@@ -439,8 +512,8 @@ public class DataCenter {
         
         Reader readerArrDataGame2 = msg.reader;
         try {
-           // Log.debug("readArrDataGame2: " + readerArrDataGame2.dis.available());
-            Vector vec = new Vector();
+//            Log.debug("readArrDataGame2: " + readerArrDataGame2.dis.available());
+            ArrayList vec = new ArrayList();
             ItemOptionTemplate[] ItemOptionTemplate = new ItemOptionTemplate[msg.readShort()];
             for (int index = 0; index < ItemOptionTemplate.length; ++index) {
                 ItemOptionTemplate[index] = new ItemOptionTemplate(index);
@@ -480,7 +553,7 @@ public class DataCenter {
                 }
             }
             // Tạo mảng mới với kích thước lớn hơn 12 phần tử
-            ItemOptionTemplate[] newItemOptionTemplate = new ItemOptionTemplate[ItemOptionTemplate.length + 12];
+            ItemOptionTemplate[] newItemOptionTemplate = new ItemOptionTemplate[ItemOptionTemplate.length + 50];
             System.arraycopy(ItemOptionTemplate, 0, newItemOptionTemplate, 0, ItemOptionTemplate.length);
             for (int index = ItemOptionTemplate.length; index < newItemOptionTemplate.length; ++index) {
                 newItemOptionTemplate[index] = new ItemOptionTemplate(index);
@@ -566,6 +639,118 @@ public class DataCenter {
                 newItemOptionTemplate[385].level = 60;
                 newItemOptionTemplate[385].strOption = "";
 
+                // Cập nhật phần tử thứ 387 (chỉ số 386)
+                newItemOptionTemplate[386].name = "(+30) Hồi MP mỗi giây: +#";
+                newItemOptionTemplate[386].type = 16;
+                newItemOptionTemplate[386].level = 60;
+                newItemOptionTemplate[386].strOption = "";
+
+                // Cập nhật phần tử thứ 388 (chỉ số 387)
+                newItemOptionTemplate[387].name = "(+32) Hồi HP mỗi giây: +#";
+                newItemOptionTemplate[387].type = 16;
+                newItemOptionTemplate[387].level = 60;
+                newItemOptionTemplate[387].strOption = "";
+
+                // Cập nhật phần tử thứ 389 (chỉ số 388)
+                newItemOptionTemplate[388].name = "(+34) Miễn giảm sát thương: +#%";
+                newItemOptionTemplate[388].type = 16;
+                newItemOptionTemplate[388].level = 60;
+                newItemOptionTemplate[388].strOption = "";
+
+                // Cập nhật phần tử thứ 390 (chỉ số 389)
+                newItemOptionTemplate[389].name = "(+36) Đủ bộ Trang Bị Thần Long +#% chỉ số nhân vật";
+                newItemOptionTemplate[389].type = 9;
+                newItemOptionTemplate[389].level = 60;
+                newItemOptionTemplate[389].strOption = "";
+
+                // Cập nhật phần tử thứ 391 (chỉ số 390)
+                newItemOptionTemplate[390].name = "(+38) Đủ bộ Trang Bị Linh Hồn +#% chỉ số nhân vật";
+                newItemOptionTemplate[390].type = 9;
+                newItemOptionTemplate[390].level = 60;
+                newItemOptionTemplate[390].strOption = "";
+
+                // Cập nhật phần tử thứ 392 (chỉ số 391)
+                newItemOptionTemplate[391].name = "(+40) Đủ bộ Trang Bị Thiên Thần +#% chỉ số nhân vật";
+                newItemOptionTemplate[391].type = 9;
+                newItemOptionTemplate[391].level = 60;
+                newItemOptionTemplate[391].strOption = "";
+
+//vũ khí
+                // Cập nhật phần tử thứ 393 (chỉ số 392)
+                newItemOptionTemplate[392].name = "(+30) Giảm +#% thời gian hồi kĩ năng";
+                newItemOptionTemplate[392].type = 16;
+                newItemOptionTemplate[392].level = 60;
+                newItemOptionTemplate[392].strOption = "";
+
+                // Cập nhật phần tử thứ 394 (chỉ số 393)
+                newItemOptionTemplate[393].name = "(+32) Tốc độ đánh của kĩ năng: +#%";
+                newItemOptionTemplate[393].type = 16;
+                newItemOptionTemplate[393].level = 60;
+                newItemOptionTemplate[393].strOption = "";
+
+                // Cập nhật phần tử thứ 395 (chỉ số 394)
+                newItemOptionTemplate[394].name = "(+34) Tăng công kích kĩ năng: +#%";
+                newItemOptionTemplate[394].type = 16;
+                newItemOptionTemplate[394].level = 60;
+                newItemOptionTemplate[394].strOption = "";
+
+                newItemOptionTemplate[395].name = "Cải Trang Naruto lục đạo";
+                newItemOptionTemplate[395].type = 14;
+                newItemOptionTemplate[395].level = 10;
+                newItemOptionTemplate[395].strOption = "";
+
+                newItemOptionTemplate[396].name = "Cải Trang Hashirama lục đạo";
+                newItemOptionTemplate[396].type = 14;
+                newItemOptionTemplate[396].level = 10;
+                newItemOptionTemplate[396].strOption = "";
+
+                newItemOptionTemplate[397].name = "Cải Trang Sasuke";
+                newItemOptionTemplate[397].type = 14;
+                newItemOptionTemplate[397].level = 10;
+                newItemOptionTemplate[397].strOption = "";
+
+                newItemOptionTemplate[398].name = "Thánh Gióng New";
+                newItemOptionTemplate[398].type = 14;
+                newItemOptionTemplate[398].level = 10;
+                newItemOptionTemplate[398].strOption = "";
+
+                newItemOptionTemplate[399].name = "Cải Trang Black Panther";
+                newItemOptionTemplate[399].type = 14;
+                newItemOptionTemplate[399].level = 10;
+                newItemOptionTemplate[399].strOption = "";
+
+                newItemOptionTemplate[400].name = "Cải Trang Naruto Hiền Nhân";
+                newItemOptionTemplate[400].type = 14;
+                newItemOptionTemplate[400].level = 10;
+                newItemOptionTemplate[400].strOption = "";
+
+                newItemOptionTemplate[401].name = "Sakura Tiệc Bãi Biển";
+                newItemOptionTemplate[401].type = 14;
+                newItemOptionTemplate[401].level = 10;
+                newItemOptionTemplate[401].strOption = "";
+
+
+                newItemOptionTemplate[402].name = "IronMan";
+                newItemOptionTemplate[402].type = 14;
+                newItemOptionTemplate[402].level = 10;
+                newItemOptionTemplate[402].strOption = "";
+
+                newItemOptionTemplate[403].name = "Doctor strange"
+                        ;
+                newItemOptionTemplate[403].type = 14;
+                newItemOptionTemplate[403].level = 10;
+                newItemOptionTemplate[403].strOption = "";
+
+                newItemOptionTemplate[404].name = "captain america";
+                newItemOptionTemplate[404].type = 14;
+                newItemOptionTemplate[404].level = 10;
+                newItemOptionTemplate[404].strOption = "";
+
+                newItemOptionTemplate[405].name = "số Hashirama tiêu diệt: #/10000";
+                newItemOptionTemplate[405].type = 0;
+                newItemOptionTemplate[405].level = 0;
+                newItemOptionTemplate[405].strOption = "";
+
             }
             // Gán lại mảng mới cho biến cũ
             this.ItemOptionTemplate = newItemOptionTemplate;
@@ -580,7 +765,78 @@ public class DataCenter {
                 EffectTemplate[index].idIcon = msg.readShort();
                 EffectTemplate[index].idMob = msg.readShort();
             }
-            this.EffectTemplate = EffectTemplate;
+            EffectTemplate[] newEffectTemplate = new EffectTemplate[EffectTemplate.length + 10];
+
+            System.arraycopy(EffectTemplate, 0, newEffectTemplate, 0, EffectTemplate.length);
+
+            for (int index = EffectTemplate.length; index < newEffectTemplate.length; ++index) {
+                newEffectTemplate[index] = new EffectTemplate(index);
+
+                // Cập nhật các thông tin cho phần tử mới
+                newEffectTemplate[index].name = ""; // Cập nhật name
+                newEffectTemplate[index].detail = "";
+                newEffectTemplate[index].type = 0;
+                newEffectTemplate[index].idIcon = 0;
+                newEffectTemplate[index].idMob = 0;
+            }
+
+// Cập nhật các phần tử từ chỉ số > 107
+            if (newEffectTemplate.length >= 108) {
+                // Cập nhật phần tử thứ 375 (chỉ số 374)
+                newEffectTemplate[108].name = "Hút HP đối phương"; // Cập nhật name
+                newEffectTemplate[108].detail = "Tăng #% tỉ lệ hút HP đối phương";
+                newEffectTemplate[108].type = 99;
+                newEffectTemplate[108].idIcon = 30000;
+                newEffectTemplate[108].idMob = 0;
+
+                newEffectTemplate[109].name = "Hút MP đối phương"; // Cập nhật name
+                newEffectTemplate[109].detail = "Tăng #% tỉ lệ hút MP đối phương";
+                newEffectTemplate[109].type = 100;
+                newEffectTemplate[109].idIcon = 30001;
+                newEffectTemplate[109].idMob = 0;
+
+                newEffectTemplate[110].name = "Kháng hiệu ứng cơ bản"; // Cập nhật name
+                newEffectTemplate[110].detail = "Tăng #% tỉ lệ kháng hiệu ứng cơ bản";
+                newEffectTemplate[110].type = 101;
+                newEffectTemplate[110].idIcon = 30002;
+                newEffectTemplate[110].idMob = 0;
+
+
+                newEffectTemplate[111].name = "Tăng tấn công theo phần trăm HP"; // Cập nhật name
+                newEffectTemplate[111].detail = "Tăng #% tỉ lệ tăng tấn công bằng 10% HP của đối phương";
+                newEffectTemplate[111].type = 102;
+                newEffectTemplate[111].idIcon = 30003;
+                newEffectTemplate[111].idMob = 0;
+
+                newEffectTemplate[112].name = "Tăng HP khi đánh chí mạng"; // Cập nhật name
+                newEffectTemplate[112].detail = "Tăng #% tỉ lệ tăng 10% HP của bản thân khi đánh chí mạng";
+                newEffectTemplate[112].type = 103;
+                newEffectTemplate[112].idIcon = 30004;
+                newEffectTemplate[112].idMob = 0;
+
+                newEffectTemplate[113].name = "Giảm hồi kĩ năng"; // Cập nhật name
+                newEffectTemplate[113].detail = "Giảm #% thời gian hồi kĩ năng";
+                newEffectTemplate[113].type = 104;
+                newEffectTemplate[113].idIcon = 30005;
+                newEffectTemplate[113].idMob = 0;
+
+                newEffectTemplate[114].name = "Tăng tốc độ đánh hồi kĩ năng"; // Cập nhật name
+                newEffectTemplate[114].detail = "Tăng #% tốc độ đánh của kĩ năng";
+                newEffectTemplate[114].type = 105;
+                newEffectTemplate[114].idIcon = 30006;
+                newEffectTemplate[114].idMob = 0;
+
+                newEffectTemplate[115].name = "Tăng công kích kĩ năng"; // Cập nhật name
+                newEffectTemplate[115].detail = "Tăng #% công kích của kĩ năng";
+                newEffectTemplate[115].type = 106;
+                newEffectTemplate[115].idIcon = 30007;
+                newEffectTemplate[115].idMob = 0;
+            }
+
+            // Gán lại mảng mới cho biến cũ
+            this.EffectTemplate = newEffectTemplate;
+            //this.EffectTemplate = EffectTemplate;
+
 //            Binary.writeUTF("EffectTemplate.txt", mArrays.toString(EffectTemplate));
             ItemTemplate[] ItemTemplate = new ItemTemplate[msg.readShort()];
             for (int index = 0; index < ItemTemplate.length; ++index) {
@@ -735,7 +991,8 @@ public class DataCenter {
                 o[n2].name = readerArrDataGame.readUTF();
                 o[n2].typeBlockMap = readerArrDataGame.readUnsignedByte();
                 o[n2].type = readerArrDataGame.readByte();
-                o[n2].arrMap = Binary.read("ArrMap\\arr_map_" + n2);
+            //    o[n2].arrMap = Binary.read("ArrMap\\arr_map_" + n2); //win
+                o[n2].arrMap = Binary.read("ArrMap/arr_map_" + n2); // linux
                 o[n2].notBlock = true;
                 if (o[n2].arrMap != null) {
                     try {
@@ -745,8 +1002,10 @@ public class DataCenter {
                         ex.printStackTrace();
                     }
                 }
-                String jsonNpc = Binary.readUTF("Npc\\" + n2 + ".json");
-                String jsonMob = Binary.readUTF("Mob\\" + n2 + ".json");
+//                String jsonNpc = Binary.readUTF("Npc\\" + n2 + ".json"); win
+//                String jsonMob = Binary.readUTF("Mob\\" + n2 + ".json");
+                String jsonNpc = Binary.readUTF("Npc/" + n2 + ".json");
+                String jsonMob = Binary.readUTF("Mob/" + n2 + ".json"); //linux
                 if (jsonNpc != null) {
                     JSONArray jsonArray = new JSONArray(jsonNpc);
                     o[n2].loadNpc(jsonArray);
@@ -1203,6 +1462,10 @@ public class DataCenter {
             pointUpgradeVuKhi = Utlis.addNewValues(pointUpgradeVuKhi, newPointUpgradeVuKhi);
             pointUpgradeTrangBi = Utlis.addNewValues(pointUpgradeTrangBi, newPointUpgradeTrangBi);
             pointUpgradePhuKien = Utlis.addNewValues(pointUpgradePhuKien, newPointUpgradePhuKien);
+            pointGhepDa = Utlis.addNewValues(pointGhepDa, newPointGhepDa);
+            bacKhoaGhepDa = Utlis.addNewValues(bacKhoaGhepDa, newBacKhoaGhepDa);
+
+            //System.out.println("bacKhoaGhepDa: " + Arrays.toString(pointGhepDa));
 
             this.dataGiftQuaySo = new int[readerArrDataGame.readByte()][];
             for (int index = 0; index < this.dataGiftQuaySo.length; ++index) {
@@ -1230,7 +1493,7 @@ public class DataCenter {
                 writerArrDataGame2.writeByte(data[i]);
 
             }
-            this.readArrDataGame2(new Message((byte) 0, data));
+            this.readArrDataGame2(new Message((byte) 0, data)); // ở đây đọc ct
 //            for (int n11 = 0; n11 < this.Skill.length; n11 = (short) (n11 + 1)) {
 //                
 //                Skill[n11].getItemOption();
@@ -1283,8 +1546,8 @@ public class DataCenter {
         return array;
     }
     
-    public static Vector h() {
-        Vector<short[]> vector = new Vector<short[]>();
+    public static ArrayList h() {
+        ArrayList<short[]> vector = new ArrayList<>();
         for (int i = 0; i < gI().dataWayPoint.length; ++i) {
             vector.add(gI().dataWayPoint[i]);
         }

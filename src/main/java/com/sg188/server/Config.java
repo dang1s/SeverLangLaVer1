@@ -34,6 +34,13 @@ public class Config {
     private String mongodbUser;
     private String mongodbPassword;
     private String event;
+    private int gameExpRate = 4;
+    private int gameServerPort = 2907;
+    private int healthCheckPort = 2908;
+    private String clientKey = "default_key_12345";
+    // Admin Web API
+    private int adminWebPort = 8081;
+    private String adminWebToken = "langla_local_admin_2026";
     public final Semaphore loginSemaphore = new Semaphore(300);
     public boolean load() {
         try {
@@ -55,9 +62,19 @@ public class Config {
             mongodbUser = props.getProperty("mongodb.user");
             mongodbPassword = props.getProperty("mongodb.password");
             mongodbName = props.getProperty("mongodb.dbname");
+            gameServerPort = Integer.parseInt(props.getProperty("server.port", String.valueOf(gameServerPort)));
+            healthCheckPort = Integer.parseInt(props.getProperty("server.check.port", String.valueOf(healthCheckPort)));
+            if (props.containsKey("game.exp")) {
+                gameExpRate = Integer.parseInt(props.getProperty("game.exp"));
+            }
             if (props.containsKey("game.event")) {
                 event = props.getProperty("game.event");
             }
+            if (props.containsKey("server.clientKey")) {
+                clientKey = props.getProperty("server.clientKey");
+            }
+            adminWebPort = Integer.parseInt(props.getProperty("admin.web.port", String.valueOf(adminWebPort)));
+            adminWebToken = props.getProperty("admin.web.token", adminWebToken);
         } catch (IOException | NumberFormatException ex) {
             Log.error("load config err: " + ex.getMessage(), ex);
             return false;
@@ -68,10 +85,39 @@ public class Config {
     public String getJdbcUrl() {
         return "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
     }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public int getGameExpRate() {
+        return gameExpRate;
+    }
+
     public String getMongodbUrl() {
         if (!StringUtils.isNullOrEmpty(mongodbUser) && !StringUtils.isNullOrEmpty(mongodbPassword)) {
             return String.format("mongodb://%s:%s@%s:%d/%s", mongodbUser, mongodbPassword, mongodbHost, mongodbPort, mongodbName);
         }
         return String.format("mongodb://%s:%d", mongodbHost, mongodbPort);
+    }
+
+    public synchronized void setRuntimeEvent(String event) {
+        this.event = event;
+    }
+
+    public synchronized void setRuntimeGameExpRate(int gameExpRate) {
+        this.gameExpRate = Math.max(1, gameExpRate);
+    }
+
+    public String getClientKey() {
+        return clientKey;
+    }
+
+    public int getAdminWebPort() {
+        return adminWebPort;
+    }
+
+    public String getAdminWebToken() {
+        return adminWebToken;
     }
 }

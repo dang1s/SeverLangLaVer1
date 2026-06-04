@@ -20,8 +20,10 @@ public class DiaCungCao extends ZWorld {
     private int level;
     private Mob BigBoss;
     private boolean isInit;
-    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428}; // ks giết
-    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428}; // cho nhặt tự do
+//    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428}; // ks giết
+//    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428}; // cho nhặt tự do
+    private int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428 ,566,566,566,566,566,566,566,566,566}; // ks giết
+    private int[] itemdrop = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 428 , 1051, 1052, 1051, 1052, 1051, 1052}; // cho nhặt tự do
     private boolean isClose;
     private boolean iscreateBoss;
     private World world;
@@ -63,7 +65,7 @@ public class DiaCungCao extends ZWorld {
                 mob.levelBoss = 10;
                 mob.cy = 849;
                 mob.status = 2;
-                mob.hpGoc = mob.hp = mob.hpFull = 1000 * LEVEL_PHUBAN * 480;
+                mob.hpGoc = mob.hp = mob.hpFull = 1000 * LEVEL_PHUBAN * 20800 ;
                 mob.expGoc = mob.hpGoc / 8;
                 mob.paintMiniMap = false;
                 mob.idEntity = monsters.size();
@@ -119,7 +121,7 @@ public class DiaCungCao extends ZWorld {
                 mob.cx = (short) (150 + l);
             mob.cy = (short) ((i <= 29) ? 178 : (i <= 52 && i > 29) ? 373 : 654);
             mob.status = 2;
-            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 10800;
+            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 108000;
             mob.expGoc = mob.hpGoc / 8;
 
             mob.levelBoss = 0;
@@ -154,7 +156,7 @@ public class DiaCungCao extends ZWorld {
             mob.cx = entityList.get(i).cx;
             mob.cy = entityList.get(i).cy;
             mob.status = 2;
-            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 10800;
+            mob.hpGoc = mob.hp = mob.hpFull = LEVEL_PHUBAN * 108000;
             mob.expGoc = mob.hpGoc / 8;
 
             mob.levelBoss = 0;
@@ -171,7 +173,7 @@ public class DiaCungCao extends ZWorld {
         if (mob.id == 77) {
             for (int i = 0; i < listItem.length; i++) {
                 Item it = new Item(listItem[i], false);
-                it.amount = 10;
+                it.amount = 1;
 //                it.isLock = true;
                 player.addItem(it);
                 player.msgAddItemBag(it);
@@ -179,6 +181,7 @@ public class DiaCungCao extends ZWorld {
             List<Char> charList = getChars();
             for (int i = 0; i < itemdrop.length; i++) {
                 Item item = new Item(itemdrop[i]);
+//                item.isLock = true;
                 ItemMap itemMap = new ItemMap((short) id_ENTITY_ITEM_MAP++);
                 itemMap.setOwnerID(-1);
                 itemMap.setItem(item);

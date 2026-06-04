@@ -118,18 +118,21 @@ public class HanderMessage {
         return m;
     }
 
-    public static Message SendVongQuay(byte b1, byte b2, int i1) {
+    // VongQuayNap disabled - not used
+    /*
+    public static Message SendVongQuay(byte status, byte result, int reward, int luotQuayConLai, int daQuayVongXoay) {
         Message m = null;
         try {
             m = Message.c((byte) -60);
-            m.writeByte(b1);
-            m.writeByte(b2);
-            m.writeInt(i1);
+            m.writeByte(Math.min(daQuayVongXoay, 127));
+            m.writeByte(result);
+            m.writeInt(reward);
         } catch (IOException ex) {
             Logger.getLogger(HanderMessage.class.getName()).log(Level.SEVERE, null, ex);
         }
         return m;
     }
+    */
 
     public static Message Open_URL(String url) {
         Message m = null;

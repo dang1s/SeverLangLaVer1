@@ -12,21 +12,24 @@ package SqlConnection;
 import com.sg188.server.Config;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Wrapper class sử dụng Connection Pool để tối ưu hiệu suất
+ */
 public class Connect {
 
-    private static final String URL = "jdbc:mysql://"+ Config.getInstance().dbHost+":"+Config.getInstance().dbPort+"/"+Config.getInstance().dbName;
-    private static final String USERNAME = Config.getInstance().dbUser;
-    private static final String PASSWORD = Config.getInstance().dbPassword;
-
+    /**
+     * Lấy connection từ connection pool
+     * @return Connection từ pool hoặc null nếu có lỗi
+     */
     public static Connection getConnection() {
         try {
-            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            return ConnectionPool.getConnection();
         } catch (SQLException ex) {
+            com.sg188.lib.Log.error("Failed to get connection from pool", ex);
             return null;
         }
     }

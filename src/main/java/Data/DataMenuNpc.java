@@ -39,7 +39,7 @@ public class DataMenuNpc {
     public static void loadDataText() {
         try {
             Connection conn = DBData.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT npc_id, menu_text FROM npc_menu");
+            PreparedStatement stmt = conn.prepareStatement("SELECT npc_id, menu_text FROM npc_menu ORDER BY id ASC");
             ResultSet resultSet = stmt.executeQuery();
 
             // Đọc dữ liệu từ ResultSet và lưu vào mảng textAll

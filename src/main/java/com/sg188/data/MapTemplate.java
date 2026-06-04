@@ -209,7 +209,7 @@ public class MapTemplate {
         int var31;
         for (var31 = 0; var31 < var43; ++var31) {
             if (var46 == 0) {
-                var44 = new Short(var27.dis.readShort());
+                var44 = Short.valueOf(var27.dis.readShort());
                 this.c.addElement(var44);
                 var46 = var27.dis.readShort();
             }

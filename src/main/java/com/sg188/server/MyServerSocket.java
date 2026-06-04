@@ -5,8 +5,6 @@ import com.sg188.server.handler.ServerSocketHandler;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MyServerSocket {
 
@@ -38,6 +36,7 @@ public class MyServerSocket {
                 while (server != null && !server.isClosed() && RUN) {
                     try {
                         Socket socket = server.accept();
+                        optimizeSocket(socket);
                         if (handler != null) {
                             handler.socketConnet(socket);
                         }
@@ -49,13 +48,21 @@ public class MyServerSocket {
                 }
             } catch (IOException ex) {
                 Log.info("KHONG THE MO PORT: " + PORT);
-                //  ex.printStackTrace();
                 close();
                 return;
             }
         });
         thread.setName("Server Socket");
         thread.start();
+    }
+
+    private void optimizeSocket(Socket socket) throws IOException {
+        socket.setTcpNoDelay(true);
+        socket.setSoTimeout(30000);
+        socket.setSendBufferSize(65536);
+        socket.setReceiveBufferSize(65536);
+        socket.setKeepAlive(true);
+        socket.setPerformancePreferences(0, 1, 2);
     }
 
     private void close() {

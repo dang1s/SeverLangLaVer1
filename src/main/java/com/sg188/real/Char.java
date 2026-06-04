@@ -3,6 +3,8 @@ package com.sg188.real;
 import Data.DataSkill;
 import Data.TYPEMENU;
 import EventClick.ClickEvent;
+// VongQuayNap disabled - not used
+// import EventClick.VongQuayNapConfig;
 import InfoChar.InfoChar;
 import InfoChar.InfoEff;
 import InfoChar.InfoGame;
@@ -15,6 +17,8 @@ import InfoChar.InfoPhucLoi;
 import Manager.Manager;
 import MapService.Map;
 import MapService.world.*;
+import MapService.zones.ZDeadForest;
+import MapService.zones.ZDeadForest2;
 import Service.HanderEff;
 import Service.HanderMessage;
 import Service.ScheduledExecutor;
@@ -62,6 +66,7 @@ import java.util.stream.Collectors;
 import MapService.*;
 import Service.*;
 import Data.DataCmd;
+import com.event.KienThucNhanGia;
 
 import com.sg188.task.Task;
 import com.sg188.task.TaskFactory;
@@ -73,12 +78,29 @@ import market.MarketManager;
 import org.apache.commons.lang3.time.DateUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import com.sg188.data.ItemOption;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Char extends Body {
+    // VongQuayNap disabled - not used
+    // private static final int[] VONG_QUAY_NAP_MOC_DIEM = {0, 80, 480, 880, 1880, 3280};
+    // private static final int VONG_QUAY_NAP_MAX_LUOT = 5;
     public User user;
-    @Getter
     public Service service;
+
+    public Service getService() {
+        return service;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setEventPoint(EventPoint eventPoint) {
+        this.eventPoint = eventPoint;
+    }
+
+    private Char _char;
     public long timeCTG = 0;
     public byte id_he = -1;
     public long eff5buff = 0;
@@ -114,8 +136,16 @@ public class Char extends Body {
     public boolean canRevive = true;
     private List<World> worlds;// danh sách world đang tham gia
     public HashMap<String, Friend> friends, enemies;
+    /// KTNG
+    public List<Integer> listQuestionUsed = new ArrayList<>();
+    public int indexQuestion = -1;
+    public long timeWaitKTND;
+    public int pointCorrectQuestionKTND;
+    public boolean doneKienThucNhanGia;
+    public String[] currentQuestionOptionsKTNG;
+    public String currentCorrectAnswerKTNG;
 
-
+    //
 
     public int idCamThuat = -1;
     public int idKhuLuyenTap = -1;
@@ -133,14 +163,12 @@ public class Char extends Body {
     private boolean saving;
     public String nameInvite = "";
     public String inviteName = "";
-    @Getter
     private Group group;
     public String captcha;
     public boolean isCatchItem;
     public ScheduledFuture<?> future;
     public boolean isWheelGold;
     public boolean isWheelSilver;
-    @Setter
     private EventPoint eventPoint;
     public boolean taskSeal;
     public String typeSeal = "";
@@ -167,6 +195,7 @@ public class Char extends Body {
     public boolean tuLuyenChau;
     public short timeOffline;
     public boolean inLangCo;
+    public boolean inHangViThu;
     public long delayHp;
     public long delayMp;
     public boolean isTyVo;
@@ -175,6 +204,7 @@ public class Char extends Body {
     public int isFatal;
     public int pointDaiHoi;
     public int countDeadForest = 0;//đếm số lần đi krc
+    private int countDieDeadForest;
 
     public void increasePoints() {
         this.pointDaiHoi++;
@@ -183,6 +213,7 @@ public class Char extends Body {
     public int getPointsDaiHoi() {
         return pointDaiHoi;
     }
+
     public int pointTranhDoat;
     public List<Item> huphach = new ArrayList<>();
     public boolean isDatTre;
@@ -192,8 +223,11 @@ public class Char extends Body {
     public List<Integer> shoprank = new ArrayList<>();
     public long theGiuTien;
     public int bagAdd;
-
-
+    public boolean isBietThienThan = false;
+    public boolean camHoiMau = false;
+    public boolean isStun36 = false;
+    public boolean canMoreSkill = false;
+    public int plusTimeTeLiet;
 //    public boolean updateHp;
 //    public boolean updateMp;
 //    public long delayMS;
@@ -321,7 +355,7 @@ public class Char extends Body {
                         Bag.arrItemBody[item.index] = null;
                     }
                 }
-                if (item.getItemTemplate().type == 14 && item.level > 19) {
+                if (item.getItemTemplate().type == 14 && item.level > 99) {
                     Bag.arrItemBody[item.index] = null;
                 }
             }
@@ -333,7 +367,7 @@ public class Char extends Body {
                         Bag.arrItemBody2[item.index] = null;
                     }
                 }
-                if (item.getItemTemplate().type == 14 && item.level > 19) {
+                if (item.getItemTemplate().type == 14 && item.level > 99) {
                     Bag.arrItemBody2[item.index] = null;
                 }
             }
@@ -345,7 +379,7 @@ public class Char extends Body {
                         Bag.arrItemBox[item.index] = null;
                     }
                 }
-                if (item.getItemTemplate().type == 14 && item.level > 19) {
+                if (item.getItemTemplate().type == 14 && item.level > 99) {
                     Bag.arrItemBox[item.index] = null;
                 }
             }
@@ -357,7 +391,7 @@ public class Char extends Body {
                         removeItem(item, true);
                     }
                 }
-                if (item.getItemTemplate().type == 14 && item.level > 19) {
+                if (item.getItemTemplate().type == 14 && item.level > 99) {
                     Bag.arrItemBag[item.index] = null;
                 }
             }
@@ -514,7 +548,8 @@ public class Char extends Body {
             m.writeShort(Info.loiDai); // Điểm lôi đài tháng
             m.writeLong(Info.luyenTap); // Điểm luyện tập
             m.writeInt(Bag.pointNAP); // Điểm nạp nhiều
-            m.writeShort(Info.pointHokage.Dai); // Điểm hokage đai trán
+          //  m.writeInt(phucLoi.napTuan); // Điểm nạp tuần
+            m.writeInt(Info.pointHokage.Dai); // Điểm hokage đai trán
             m.writeShort(Info.pointHokage.Ao); // Điểm hokage áo
             m.writeShort(Info.pointHokage.BaoTay);// Điểm hokage bao tay
             m.writeShort(Info.pointHokage.Quan);// Điểm hokage quần
@@ -561,7 +596,8 @@ public class Char extends Body {
             m.writeShort(pl.Info.loiDai); // Điểm lôi đài tháng
             m.writeLong(pl.Info.luyenTap); // Điểm luyện tập
             m.writeInt(pl.Bag.pointNAP); // Điểm nạp nhiều
-            m.writeShort(pl.Info.pointHokage.Dai); // Điểm hokage đai trán
+          //  m.writeInt(pl.phucLoi.napTuan); // Điểm nạp tuần
+            m.writeInt(pl.Info.pointHokage.Dai); // Điểm hokage đai trán
             m.writeShort(pl.Info.pointHokage.Ao); // Điểm hokage áo
             m.writeShort(pl.Info.pointHokage.BaoTay);// Điểm hokage bao tay
             m.writeShort(pl.Info.pointHokage.Quan);// Điểm hokage quần
@@ -607,6 +643,17 @@ public class Char extends Body {
         } else {
             phucLoi.theThang = -1;
         }
+        if (phucLoi.theVinhVien > System.currentTimeMillis()) {
+            addVangKhoa(20);
+        } else {
+            phucLoi.theVinhVien = -1;
+        }
+        if (phucLoi.goiHaoHoa) {
+            addVangKhoa(200); // Tương tự thẻ tháng
+        }
+        if (phucLoi.goiChiTon) {
+            addVangKhoa(200); // Tương tự thẻ tháng
+        }
         countFinishDay = 10;
         countLoopBoss = 3;
         Info.countTBGT = 50;
@@ -621,10 +668,10 @@ public class Char extends Body {
         pointDaiHoi = 0;
         pointTranhDoat = 0;
         countDeadForest = 0;
-//        phucLoi.nap3moc = 0;
-//        phucLoi.napDon = 0;
-//        removeItemsWithIDPhucLoi(8);//nạp 3 mốc
-//        removeItemsWithIDPhucLoi(9);//nạp đơn
+        phucLoi.nap3moc = 0;
+        phucLoi.napDon = 0;
+        removeItemsWithIDPhucLoi(8);//nạp 3 mốc
+        removeItemsWithIDPhucLoi(9);//nạp đơn
         Calendar calendar = Calendar.getInstance();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         if (dayOfWeek == Calendar.MONDAY) {
@@ -639,6 +686,7 @@ public class Char extends Body {
             phucLoi.tieuTuan = 0;
             phucLoi.napTuan = 0;
             phucLoi.soNgayOnline = 1;
+            phucLoi.napLienTuc = 0;
             //Info.chuyenCan = 0;
         }
         Info.countCamThuat = 1;
@@ -804,6 +852,17 @@ public class Char extends Body {
                         Log.error("error save item body2", e);
                     }
                 }
+                JSONArray pet = new JSONArray();
+                for (int i = 0; i < this.Bag.arrItemPet.length; i++) {
+                    try {
+                        if (Bag.arrItemPet[i] != null) {
+                            pet.add(Bag.arrItemPet[i].toJSONObject());
+
+                        }
+                    } catch (Exception e) {
+                        Log.error("error save item pet", e);
+                    }
+                }
                 JSONArray box = new JSONArray();
                 for (int i = 0; i < this.Bag.arrItemBox.length; i++) {
                     try {
@@ -860,6 +919,7 @@ public class Char extends Body {
                 obj.put("timeOutClan", this.timeOutClan);
                 obj.put("timeOffline", this.timeOffline);
                 obj.put("inLangCo", this.inLangCo);
+                obj.put("inHangViThu", this.inHangViThu);
                 obj.put("pointDaiHoi", this.pointDaiHoi);
                 obj.put("pointTranhDoat", this.pointTranhDoat);
                 obj.put("taskId", taskId);
@@ -970,6 +1030,7 @@ public class Char extends Body {
                 String jFriends = friends.toJSONString();
                 String jEnemies = enemies.toJSONString();
                 String jTaskOder = taskOrders.toJSONString();
+                String jpet = pet.toJSONString();
 //                try {
 //                    boolean flag = false;
 //                    Long last = ServerManager.HASH_MAP.get(this.id);
@@ -1008,8 +1069,8 @@ public class Char extends Body {
 //                    e.printStackTrace();
 //                }
                 try (Connection conn = Connect.getConnection();) {
-                    try (PreparedStatement ps = conn.prepareStatement("UPDATE player set info = ? ,inventory = ?,bag = ?,body = ?,body2 = ?,box = ?,bagext = ?,skillvithu = ?, skill = ? , point = ? ,thu = ?,code = ?,effect =?,phucLoi =?,hokage =?,danhhieu = ?,listskill = ?,level =?,topnap =?,toptaiphu =?,friends=?,enemies=?,task=?,taskMain=?,bac=?,vang=?,topchuyencan=? where Name = ?");) {
-                        ps.setString(1, jinfo);
+                    try (PreparedStatement ps = conn.prepareStatement("UPDATE player set info = ? ,inventory = ?,bag = ?,body = ?,body2 = ?,box = ?,bagext = ?,skillvithu = ?, skill = ? , point = ? ,thu = ?,code = ?,effect =?,phucLoi =?,hokage =?,danhhieu = ?,listskill = ?,level =?,topnap =?,toptaiphu =?,friends=?,enemies=?,task=?,taskMain=?,bac=?,vang=?,topchuyencan=?,pet=? where Name = ?");) {
+                          ps.setString(1, jinfo);
                         ps.setString(2, jiventory);
                         ps.setString(3, jbag);
                         ps.setString(4, jBody);
@@ -1036,7 +1097,8 @@ public class Char extends Body {
                         ps.setLong(25, Bag.bac);
                         ps.setLong(26, Bag.vang);
                         ps.setInt(27, Info.chuyenCan);
-                        ps.setString(28, this.Info.name);
+                        ps.setString(28, jpet);
+                        ps.setString(29, this.Info.name);
 
                         ps.executeUpdate();
                     } catch (Exception e) {
@@ -1369,6 +1431,22 @@ public class Char extends Body {
         }
     }
 
+    public void writeItemPet(Writer writer, Item[] arrItem) throws IOException {
+        ArrayList<Item> listItem = new ArrayList<Item>();
+        Utlis.getArrayListNotNull(arrItem, listItem);
+        writer.writeByte(listItem.size());
+        for (int i = 0; i < listItem.size(); i++) {
+            Item item = listItem.get(i);
+            writer.writeShort(item.id);
+            writer.writeBoolean(item.isLock);
+            writer.writeLong(item.expiry);
+            writer.writeByte(item.he);
+            writer.writeByte(item.level);
+            writer.writeByte(item.index);
+            writer.writeUTF(item.strOptions);
+        }
+    }
+
 
     public void writeEffect(Writer writer) throws IOException {
         writer.writeByte(listEffect.size());
@@ -1637,7 +1715,7 @@ public class Char extends Body {
                 this.Point.hp = maxHP;
             }
             if (Point.hp < 0) {
-                if (inLangCo)
+                if (inLangCo || inHangViThu)
                     Map.maps[Info.mapReSpawm].addChar(this);
                 InfoGame.isDie = true;
                 Point.hp = 0;
@@ -1743,6 +1821,13 @@ public class Char extends Body {
             return;
         }
         Item item = Bag.arrItemBag[index];
+        try {
+            if (item != null && item.id == 601 && zone != null && zone.isDaiHoiVoThuat()) {
+                service.serverMessage("Dai hoi khong cho dung vat pham nay.");
+                return;
+            }
+        } catch (Exception ignored) {
+        }
         if (item.amount < 0) {
             return;
         }
@@ -1872,6 +1957,24 @@ public class Char extends Body {
             }
             if (item.id == idItemTask)
                 updateTaskCount(1);
+        }        // Vật phẩm 998: Bỏ qua nhiệm vụ Nhận Gia Học Viên
+        if (item.id == 671) {
+            // Chỉ cho dùng khi taskId < 8  (chưa tới NV_NHAN_GIA_HOC_VIEN)
+            if (taskId < TaskName.NV_NHAN_GIA_HOC_VIEN) { // TaskName.NV_NHAN_GIA_HOC_VIEN = 8
+                // Bỏ nhiệm vụ hiện tại (nếu có) và nhảy taskId tới NV_NHAN_GIA_HOC_VIEN
+                taskMain = null;
+                taskId = TaskName.NV_NHAN_GIA_HOC_VIEN;
+
+                getService().sendTaskInfo();   // cập nhật nhiệm vụ mới cho client
+
+                removeItem(item);              // trừ vật phẩm
+                msgUseItemBag(item);
+                service.serverMessage("Đã dùng vật phẩm để bỏ qua đến nhiệm vụ Nhận Gia Học Viên.");
+            } else {
+                // taskId >= 8 thì không cho dùng
+                service.serverMessage("Vật phẩm này chỉ dùng cho nhiệm vụ trước Nhận Gia Học Viên.");
+            }
+            return;
         }
 
 
@@ -1895,12 +1998,12 @@ public class Char extends Body {
         if (item.id == 594) {
 
 
-//            if (Info.idTask > 7 && Info.idTask < 9) {
+//            if (taskId > TaskName.NV_XUA_DUOI_HAU_TU && taskId < TaskName.NV_NHIEM_VU_DAU_TIEN) { // 7 và 9
 //                service.alertMessage("Làm nhiệm vụ nhập học đi đã ông");
 //                return;
 //            }
 //
-//            if (Info.idStep - readSTRformTask().length() > 8) {
+//            if (taskMain.vStep - readSTRformTask().length() > 8) {
 //                service.alertMessage("Nhận thưởng rồi skip tiếp!");
 //                return;
 //            }
@@ -1908,13 +2011,17 @@ public class Char extends Body {
 //            removeItem(item);
 //            msgUseItemBag(item);
         }
+//        if (item.id == 167){
+//
+//        };
 
         if (item.id == 168 || item.id == 167) {
             if (item.id == 167) {
                 removeItem(item);
                 msgUseItemBag(item);
             }
-            String[] size = {"Trường Konoha Gakuen", "Làng,Làng Sương Mù", "Khu rừng chết", "Đại chiến nhẫn giả lần 3", "Đại hội nhẫn giả"};
+            String[] size = {"Trường Konoha Gakuen", "Làng, Làng Sương Mù", "Khu rừng chết", "Đại hội nhẫn giả", "Đại hội nhẫn giả III", "Liên Server"};
+            size = new String[]{"Trường Konoha Gakuen", "Làng, Làng Sương Mù", "Khu rừng chết", "Đại hội nhẫn giả", "Đại hội nhẫn giả III", "Liên Server"};
             StringBuilder str2 = new StringBuilder();
             for (int i = 0; i < size.length; i++) {
                 if (i > 0) {
@@ -1964,7 +2071,7 @@ public class Char extends Body {
         //UseItem: 116
         //UpdateItem: -4
         //Remove: 110
-        if (item.isTypeTrangBi()) {
+        if (item.isTypeTrangBi() && !item.isTypePet()) {
             if (taskId == 0 && taskMain != null && taskMain.index == 0) {
                 taskNext();
             }
@@ -1987,6 +2094,29 @@ public class Char extends Body {
             msgGetInfo();
             msgUpdateStatusChar();
             updateTiemNang();
+            if (zone != null) {
+//                zone.updateWing(this);
+//                zone.updateMat(this);
+            }
+        } else if (item.isTypePet()) {
+            item.isLock = true;
+            removeItem(item);
+            msgUseItemBag(item);
+            int indexUI = item.getItemTemplate().type - 40;
+            Item body = Bag.arrItemPet[indexUI];
+            if (body != null) {
+//                Bag.arrItemBag[item.index] = Bag.arrItemBody[item.getItemTemplate().type];
+                addItem(body);
+                msgGetInfo();
+                msgSendArrItemBag();
+            }
+            item.index = indexUI;
+            Bag.arrItemPet[item.index] = item;
+            msgUpdateItemPet();
+            msgGetInfo();
+            msgUpdateStatusChar();
+            updateTiemNang();
+            sendMobPet_Other();
         } else if (item.getItemTemplate().type == 34) {
             if (Info.danhHieus.size() > 126) {
                 service.alertMessage("Qua nhieu danh hieu roi");
@@ -2020,16 +2150,18 @@ public class Char extends Body {
                     return;
                 }
             }
-        } else if (item.getItemTemplate().type == 22 || item.getItemTemplate().type == 23) {
+        } else if (item.getItemTemplate().type == 22 || item.getItemTemplate().type == 23) {//bình hồi hp hồi mp
             removeItem(item);
             msgUseItemBag(item);
             int value = Effect.getValueEffectFormIdItem(item.id);
             if (item.getItemTemplate().type == 22 && delayHp < System.currentTimeMillis()) {
                 delayHp = System.currentTimeMillis() + 3000;
                 addHp(value * 6);
+                msgUpdateHp();
             } else if (item.getItemTemplate().type == 23 && delayMp < System.currentTimeMillis()) {
                 delayMp = System.currentTimeMillis() + 3000;
                 addMp(value * 6);
+                msgUpdateMp();
             }
         } else if (item.getItemTemplate().type == 29) {
             if (item.id == 159) {
@@ -2119,10 +2251,37 @@ public class Char extends Body {
             default:
                 service.serverMessage("Item chưa thể sử dụng");
                 break;
+            case 547: { // Đá Linh Hồn
+                ItemOption op = item.getOption(264); // lấy option linh hồn
+                //service.serverMessage("DEBUG: op=" + (op != null ? "not null, value=" + op.getvalue() : "null") + ", strOptions=" + item.strOptions);
+                if (op != null && op.getvalue() >= 10) {
+                    Item TheLucDao = new Item(884);
+                    removeItem(item);
+                    msgUseItemBag(item);
+                    addItem(TheLucDao);
+                    msgAddItemBag(TheLucDao);
+                } else {
+                    service.alertMessage("Cần 10 linh hồn mới có thể dung hợp!");
+                }
+                break;
+            }
         }
     }
 
+
     private void UseItemType100(Item item) {
+        // Xử lý cần câu cuối tuần (luôn hoạt động, không cần bật sự kiện)
+        if (item.id == 499 || item.id == 500) {
+            HanderNpc.handleFishingRod(this, item);
+            return;
+        }
+        
+        // Xử lý sử dụng cá (501-510)
+        if (item.id >= 501 && item.id <= 510) {
+            HanderNpc.handleUseFish(this, item);
+            return;
+        }
+        
         if (Event.getEvent() != null) {
             Event.getEvent().useItem(this, item);
         }
@@ -2156,7 +2315,7 @@ public class Char extends Body {
                 }
                 removeItem(item);
                 msgUseItemBag(item);
-                addExp(expdefaut * 5);
+                addExp(expdefaut * 10);
                 break;
             case 707:
                 removeItem(item);
@@ -2164,17 +2323,17 @@ public class Char extends Body {
                 addEffect(new Effect((short) 91, 100, System.currentTimeMillis(), (int) TimeUnit.DAYS.toMillis(7)));
                 break;
             case 919:
-                if(this.Info.lvPk > 0){
-                    this.getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
-                    return;
-                }
-                if(this.level() < 50){
+//                if (this.Info.lvPk > 0) {
+//                    this.getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
+//                    return;
+//                }
+                if (this.level() < 50) {
                     this.getService().serverMessage("Cấp quá thấp không thể vào khu vực này");
                     return;
                 }
                 removeItem(item);
                 msgUseItemBag(item);
-                MapLangCo.gI().maps.get(0).addChar(this);
+                MapHangViThu.gI().maps.get(0).addChar(this);
                 break;
             case 164:
                 if (getCountNullItemBag() < 1) {
@@ -2352,6 +2511,82 @@ public class Char extends Body {
                     service.alertMessage("Mỗi nhân vật chỉ có thể sử dụng một lần");
                 }
                 break;
+            case 540:
+                if (Info.numct < 20) {
+                    service.alertMessage("Vui lòng sử dụng nhẫn thuật cao cấp trước");
+                    return;
+                }
+                if (Info.numct < 21) {
+                    Info.numct = 21;
+                    removeItem(item);
+                    msgUseItemBag(item);
+                    service.sendNumCt();
+                    user.session.sendMessage(HanderMessage.resetScreen());
+                } else {
+                    service.alertMessage("Mỗi nhân vật chỉ có thể sử dụng một lần");
+                }
+                break;
+            case 541:
+                if (Info.numct < 21) {
+                    service.alertMessage("Vui lòng sử dụng nhẫn thuật cao cấp trước");
+                    return;
+                }
+                if (Info.numct < 22) {
+                    Info.numct = 22;
+                    removeItem(item);
+                    msgUseItemBag(item);
+                    service.sendNumCt();
+                    user.session.sendMessage(HanderMessage.resetScreen());
+                } else {
+                    service.alertMessage("Mỗi nhân vật chỉ có thể sử dụng một lần");
+                }
+                break;
+            case 542:
+                if (Info.numct < 22) {
+                    service.alertMessage("Vui lòng sử dụng nhẫn thuật cao cấp trước");
+                    return;
+                }
+                if (Info.numct < 23) {
+                    Info.numct = 23;
+                    removeItem(item);
+                    msgUseItemBag(item);
+                    service.sendNumCt();
+                    user.session.sendMessage(HanderMessage.resetScreen());
+                } else {
+                    service.alertMessage("Mỗi nhân vật chỉ có thể sử dụng một lần");
+                }
+                break;
+            case 543:
+                if (Info.numct < 23) {
+                    service.alertMessage("Vui lòng sử dụng nhẫn thuật cao cấp trước");
+                    return;
+                }
+                if (Info.numct < 24) {
+                    Info.numct = 24;
+                    removeItem(item);
+                    msgUseItemBag(item);
+                    service.sendNumCt();
+                    user.session.sendMessage(HanderMessage.resetScreen());
+                } else {
+                    service.alertMessage("Mỗi nhân vật chỉ có thể sử dụng một lần");
+                }
+                break;
+            case 544:
+                if (Info.numct < 24) {
+                    service.alertMessage("Vui lòng sử dụng nhẫn thuật cao cấp trước");
+                    return;
+                }
+                if (Info.numct < 25) {
+                    Info.numct = 25;
+                    removeItem(item);
+                    msgUseItemBag(item);
+                    service.sendNumCt();
+                    user.session.sendMessage(HanderMessage.resetScreen());
+                } else {
+                    service.alertMessage("Mỗi nhân vật chỉ có thể sử dụng một lần");
+                }
+                break;
+
             case 688:
                 lockViThu.lock();
                 try {
@@ -2372,8 +2607,8 @@ public class Char extends Body {
                     skilladd.strOptions = skill.strOptions;
                     skilladd.levelNeed = skill.levelNeed;
                     listSkill.add(skilladd);
-                    for(int i = 0; i < listSkill.size(); i++) {
-                        if(listSkill.get(i).id == 19) {//check cuồng phong
+                    for (int i = 0; i < listSkill.size(); i++) {
+                        if (listSkill.get(i).id == 19) {//check cuồng phong
                             int lastIndex = listSkill.size() - 1;
                             if (i != lastIndex) { // Nếu không phải phần tử cuối cùng
                                 SkillClan temp = listSkill.get(i);
@@ -2604,7 +2839,7 @@ public class Char extends Body {
                 updateTiemNang();
                 break;
             case 404:
-                if(this.Info._mapID == 49) {
+                if (this.Info._mapID == 49) {
                     return;
                 }
                 removeItem(item);
@@ -2612,7 +2847,7 @@ public class Char extends Body {
                 addEffect(new Effect((short) 66, 1, System.currentTimeMillis(), 60 * 1000 * 60));
                 break;
             case 617:
-                if(this.Info._mapID == 49) {
+                if (this.Info._mapID == 49) {
                     return;
                 }
                 if (buaUeTho) {
@@ -2631,17 +2866,166 @@ public class Char extends Body {
                     return;
                 }
 
-                int quantity = item.amount;
-
-
                 if (Bag.arrItemBody[10] != null && Bag.arrItemBody[10].isSucManh()) {
-
-                    removeItemByAmount(item, quantity);
+                    removeItem(item);
                     msgUseItemBag(item);
-                    Bag.arrItemBody[10].updateViThu(quantity * 10);
+                    Bag.arrItemBody[10].updateViThu(1);
                     msgUpdateItemBody();
                 } else {
                     service.alertMessage("Vui lòng mở sức mạnh vĩ thú");
+                }
+                break;
+            case 1051:
+                if (Bag.arrItemBody[17] == null) {
+                    return;
+                }
+                if (Bag.arrItemBody[17].checkFullTuLuyenmat()) {
+                    service.alertMessage(" Nói chung là hêt nâng rồi ");
+                    return;
+                }
+
+                int soluong = item.amount;
+
+
+                if (Bag.arrItemBody[17] != null && Bag.arrItemBody[17].isTuLuyen()) {
+
+                    removeItemByAmount(item, soluong);
+                    msgUseItemBag(item);
+                    Bag.arrItemBody[17].updateCanh(soluong * 1);
+                    msgUpdateItemBody();
+                } else {
+                    service.alertMessage("Vui lòng mở sức mạnh vĩ thú");
+                }
+                break;
+            case 1052:
+                if (Bag.arrItemBody[18] == null) {
+                    return;
+                }
+                if (Bag.arrItemBody[18].checkFullTuLuyencanh()) {
+                    service.alertMessage(" Nói chung là hêt nâng rồi ");
+                    return;
+                }
+
+                int soluong2 = item.amount;
+
+
+                if (Bag.arrItemBody[18] != null && Bag.arrItemBody[18].isTuLuyen()) {
+
+                    removeItemByAmount(item, soluong2);
+                    msgUseItemBag(item);
+                    Bag.arrItemBody[18].updateMat(soluong2 * 10);
+                    msgUpdateItemBody();
+                } else {
+                    service.alertMessage("Vui lòng mở sức mạnh vĩ thú");
+                }
+                break;
+            case 1053: // nâng cấp cánh
+                if (Bag.arrItemBody[18] != null && Bag.arrItemBody[18].isTuLuyen()) {
+                    Item canh = Bag.arrItemBody[18];
+                    if (canh.id >= 1048) { // id cuối cùng của cánh, bạn sửa theo config
+                        service.alertMessage("Cánh đã đạt tới giới hạn");
+                        return;
+                    }
+                    if (canh.checkFullTuLuyencanh()) {
+                        Item nguyenLieu = FindItemBag(1053); // item nguyên liệu nâng cấp
+                        if (nguyenLieu == null) {
+                            service.alertMessage("Không tìm thấy nguyên liệu nâng cấp cánh trong hành trang");
+                            return;
+                        }
+                        if (nguyenLieu.amount < 1) { // số lượng yêu cầu, tùy bạn muốn bao nhiêu
+                            service.alertMessage("Không đủ nguyên liệu nâng cấp cánh");
+                            return;
+                        }
+                        // trừ nguyên liệu
+                        removeItemByAmount(nguyenLieu, 1);
+                        msgRemoveItemBag(nguyenLieu);
+
+                        int idNext = canh.id + 1; // nâng id
+                        Item canhOld = Bag.arrItemBody[18].cloneItem();
+                        Bag.arrItemBody[18] = null;
+
+                        Item canhMoi = new Item(idNext);
+                        canhOld.a(0);
+                        canhMoi.strOptions = canhOld.strOptions;
+
+                        int endIndex = canhMoi.strOptions.indexOf(";") + 1;
+                        canhMoi.strOptions = canhMoi.strOptions.substring(endIndex);
+
+                        int sucManhCu = canh.checkTuLuyen();
+                        int sucManhMoi = (int) (sucManhCu * 2);
+
+                        Item.getOptionBijuu(canhMoi, idNext - 1053 + 25); // % tăng option
+                        canhMoi.strOptions = "128,0," + sucManhMoi + ";" + canhMoi.strOptions;
+
+
+                        canhMoi.isLock = true;
+                        canhMoi.amount = 1;
+
+                        addItem(canhMoi);
+                        msgAddItemBag(canhMoi);
+                        msgUpdateItemBody();
+                        msgUpdateItemBody_Orther();
+
+                    } else {
+                        service.alertMessage("Vui lòng nâng max sức mạnh để nâng cấp cánh");
+                    }
+                } else {
+                    service.alertMessage("Vui lòng đeo cánh để nâng cấp");
+                }
+                break;
+            case 1054:
+                if (Bag.arrItemBody[17] != null && Bag.arrItemBody[17].isTuLuyen()) {
+                    Item mat = Bag.arrItemBody[17];
+                    if (mat.id >= 1064) { // id cuối cùng của cánh, bạn sửa theo config
+                        service.alertMessage("Cánh đã đạt tới giới hạn");
+                        return;
+                    }
+                    if (mat.checkFullTuLuyenmat()) {
+                        Item nguyenLieu = FindItemBag(1054); // item nguyên liệu nâng cấp
+                        if (nguyenLieu == null) {
+                            service.alertMessage("Không tìm thấy nguyên liệu nâng cấp mắt trong hành trang");
+                            return;
+                        }
+                        if (nguyenLieu.amount < 1) { // số lượng yêu cầu, tùy bạn muốn bao nhiêu
+                            service.alertMessage("Không đủ nguyên liệu nâng cấp mắt");
+                            return;
+                        }
+                        // trừ nguyên liệu
+                        removeItemByAmount(nguyenLieu, 1);
+                        msgRemoveItemBag(nguyenLieu);
+
+                        int idNext = mat.id + 1; // nâng id
+                        Item matOld = Bag.arrItemBody[17].cloneItem();
+                        Bag.arrItemBody[17] = null;
+
+                        Item matMoi = new Item(idNext);
+                        matOld.a(0);
+                        matMoi.strOptions = matOld.strOptions;
+
+
+                        int endIndex = matMoi.strOptions.indexOf(";") + 1;
+                        matMoi.strOptions = matMoi.strOptions.substring(endIndex);
+
+
+                        int sucManhCu = mat.checkTuLuyen();
+                        int sucManhMoi = (int) (sucManhCu * 2);
+
+                        Item.getOptionBijuu(matMoi, idNext - 1053 + 25); // % tăng option
+                        matMoi.strOptions = "128,0," + sucManhMoi + ";" + matMoi.strOptions;
+
+                        matMoi.isLock = true;
+                        matMoi.amount = 1;
+
+                        addItem(matMoi);
+                        msgAddItemBag(matMoi);
+                        msgUpdateItemBody();
+                        msgUpdateItemBody_Orther();
+
+                    } else {
+                        service.alertMessage("Vui lòng nâng max sức mạnh để nâng cấp mắt");
+                    }
+                } else {
+                    service.alertMessage("Vui lòng đeo mắt để nâng cấp");
                 }
                 break;
             case 428:
@@ -2695,776 +3079,324 @@ public class Char extends Body {
                 break;
 
 
-            case 559: // vật phẩm phiên bản test
-                if (getCountNullItemBag() >= 13) {
+//            case 559: // vật phẩm phiên bản test
+//                if (getCountNullItemBag() >= 13) {
+//                    removeItem(item);
+//                    msgUseItemBag(item);
+//                    int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 919, 969, 1007, 353, 567, 565, 563};
+//
+//                    for (int i = 0; i < listItem.length; i++) {
+//                        Item it = new Item(listItem[i], true);
+//                        it.amount = 999999;
+//                        addItem(it);
+//                        msgAddItemBag(it);
+//                    }
+//                    for (int i = 934; i <= 938; i++) {
+//                        Item itemthuoc1z = new Item(i, true);
+//                        addItem(itemthuoc1z);
+//                        msgAddItemBag(itemthuoc1z);
+//                    }
+//                    Point.hoatLuc += 500;
+//                    user.session.sendMessage(HanderMessage.UpdateHoatLuc(Point.hoatLuc));
+//                } else {
+//                    service.serverMessage("Hành trang không đủ 13 ô trống");
+//                }
+//                break;
+            case 956:// tui cai trang
+                if (getCountNullItemBag() >= 2) {
                     removeItem(item);
                     msgUseItemBag(item);
-                    int[] listItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
 
-                    for (int i = 0; i < listItem.length; i++) {
-                        Item it = new Item(listItem[i], true);
-                        it.amount = 1;
-                        addItem(it);
-                        msgAddItemBag(it);
+                    int[] list = {582, 583, 585, 611, 618, 623, 642, 647, 648, 649};
+
+                    int randIndex = Utlis.nextInt(0, list.length - 1);
+                    int itemID = list[randIndex];
+
+                    Item randomItem = new Item(itemID);
+                    randomItem.amount = 1;
+                    randomItem.strOptions = "0,2000;1,2000;2,2000;3,2000;4,2000;209,500;174,100;306,200";
+                    randomItem.isLock = true;
+
+                    addItem(randomItem);
+                    msgAddItemBag(randomItem);
+
+//                    Item ngocMyo = new Item(623); // cải trang obito lục đạo
+//                    ngocMyo.amount = 1;
+//                    ngocMyo.isLock = true;
+//                    ngocMyo.strOptions = "0,2000;1,2000;2,2000;3,2000;4,2000;209,500;174,100;306,200";
+//                    addItem(ngocMyo);
+//                    msgAddItemBag(ngocMyo);
+//
+//                    Item ngocRinne = new Item(353);
+//                    ngocRinne.amount = 200;
+////                    ngocRinne.isLock = true;
+//                    addItem(ngocRinne);
+//                    msgAddItemBag(ngocRinne);
+//
+//                    Item ngocBya = new Item(1007);
+//                    ngocBya.amount = 4;
+//                    ngocBya.isLock = true;
+//                    addItem(ngocBya);
+//                    msgAddItemBag(ngocBya);
+//
+//                    Item ngocSha = new Item(565); // danh hiệu
+//                    ngocSha.amount = 300;
+//                    ngocSha.isLock = true;
+//                    addItem(ngocSha);
+//                    msgAddItemBag(ngocSha);
+//
+//                    Item da12 = new Item(435);
+//                    da12.amount = 20;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+//
+//                    addVang(20000);
+                }
+                break;
+
+            case 957:// mốc 2
+                if (getCountNullItemBag() >= 2) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ngocMyo = new Item(1053);
+                    ngocMyo.amount = Utlis.nextInt(1, 3); // Số ngẫu nhiên từ 1 đến 150
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocMyo2 = new Item(932);
+                    ngocMyo2.amount = Utlis.nextInt(1, 3); // Số ngẫu nhiên từ 1 đến 150
+                    ngocMyo2.isLock = true;
+                    addItem(ngocMyo2);
+                    msgAddItemBag(ngocMyo2);
+
+                    addBacKhoa(Utlis.nextInt(300000, 1000000));
+
+//                    Item ngocRinne = new Item(567);
+//                    ngocRinne.amount = 200;
+//                    ngocRinne.isLock = true;
+//                    addItem(ngocRinne);
+//                    msgAddItemBag(ngocRinne);
+//
+//                    Item ngocBya = new Item(563);
+//                    ngocBya.amount = 200;
+//                    ngocBya.isLock = true;
+//                    addItem(ngocBya);
+//                    msgAddItemBag(ngocBya);
+//
+//                    Item ngocSha = new Item(565);
+//                    ngocSha.amount = 200;
+//                    ngocSha.isLock = true;
+//                    addItem(ngocSha);
+//                    msgAddItemBag(ngocSha);
+//
+//                    Item da12 = new Item(11);
+//                    da12.amount = 5;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+//
+//                    addVang(7000);
+                }
+                break;
+            case 958://hôp ngọc quỷ
+                if (getCountNullItemBag() >= 9) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ngocMyo = new Item(353);
+                    ngocMyo.amount = Utlis.nextInt(5, 15);
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+                    Item ngocRinne = new Item(567);
+                    ngocRinne.amount = Utlis.nextInt(10, 20);
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item ngocBya = new Item(563);
+                    ngocBya.amount = Utlis.nextInt(10, 20);
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+                    Item ngocSha = new Item(565);
+                    ngocSha.amount = Utlis.nextInt(10, 20);
+                    ngocSha.isLock = true;
+                    addItem(ngocSha);
+                    msgAddItemBag(ngocSha);
+
+//                    Item da12 = new Item(11);
+//                    da12.amount = 4;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+//
+//                    addVang(5000);
+                }
+                break;
+            case 578:
+                if (getCountNullItemBag() >= 1) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ngocMyo = new Item(966);
+                    ngocMyo.amount = Utlis.nextInt(1,2);
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+                }
+                break;
+            case 959:// rương tanto
+                if (getCountNullItemBag() >= 1) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+//                    Item ngocMyo = new Item(881);
+//                    ngocMyo.amount = 1;
+//                    ngocMyo.strOptions = "0,4000;1,4000;2,200;209,600;332,20;94,100;151,20;152,20;122,20;117,10;110,20";
+//                    ngocMyo.isLock = true;
+//                    ngocMyo.level = 36;
+//                    addItem(ngocMyo);
+//                    msgAddItemBag(ngocMyo);
+                    this.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 10000);
+//                    Item ngocRinne = new Item(435);
+//                    ngocRinne.amount = 15;
+//                    ngocRinne.isLock = true;
+//                    addItem(ngocRinne);
+//                    msgAddItemBag(ngocRinne);
+//
+//                    Item ngocBya = new Item(1007);
+//                    ngocBya.amount = 3;
+//                    ngocBya.isLock = true;
+//                    addItem(ngocBya);
+//                    msgAddItemBag(ngocBya);
+//
+//                    Item ngocSha = new Item(592);
+//                    ngocSha.amount = 2;
+//                    ngocSha.isLock = true;
+//                    addItem(ngocSha);
+//                    msgAddItemBag(ngocSha);
+
+//                    Item da12 = new Item(11);
+//                    da12.amount = 2;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+
+//                    addVang(15000);
+                }
+                break;
+            case 960: // mốc 2
+                if (getCountNullItemBag() >= 1) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ngocMyo = new Item(880);
+                    ngocMyo.amount = 1;
+                    ngocMyo.strOptions = "0,1000;1,1000;2,1000;3,1000;4,1000;209,500;174,100;306,200";
+                    ngocMyo.isLock = true;
+                    ngocMyo.level = 30;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+//
+//                    Item da12 = new Item(11);
+//                    da12.amount = 1;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+
+//                    addVang(10000);
+                }
+                break;
+            case 961:// rương lenh bai
+                if (getCountNullItemBag() >= 5) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    int[] idItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
+                    for (int i = 0; i < idItem.length; i++) {
+                        int id = idItem[i];
+                        Item item2 = new Item(id);
+//                        item2.strOptions = "1,1000;0,1000;174,50;306,20;81,20;332,8;3,200;209,500;306,50";
+                        item2.amount = 1;
+                        addItem(item2);
+                        msgAddItemBag(item2);
                     }
-                    for (int i = 934; i <= 938; i++) {
-                        Item itemthuoc1z = new Item(i, true);
-                        addItem(itemthuoc1z);
-                        msgAddItemBag(itemthuoc1z);
-                    }
-                    Point.hoatLuc += 500;
-                    user.session.sendMessage(HanderMessage.UpdateHoatLuc(Point.hoatLuc));
-                } else {
-                    service.serverMessage("Hành trang không đủ 13 ô trống");
-                }
-                break;
-            case 956://top 1 nhi đồng
-                if (getCountNullItemBag() >= 9) {
                     removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 200;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 300;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item ngocBya = new Item(563);
-                    ngocBya.amount = 300;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocSha = new Item(565);
-                    ngocSha.amount = 300;
-                    ngocSha.isLock = true;
-                    addItem(ngocSha);
-                    msgAddItemBag(ngocSha);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 7;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
-
-                    addVang(10000);
+                    msgUpdateItemBag(item);
+                    user.session.sendMessage(HanderMessage.resetScreen());
+                    return;
                 }
                 break;
-            case 957://top 2 nhi đồng
-                if (getCountNullItemBag() >= 9) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 150;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 200;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item ngocBya = new Item(563);
-                    ngocBya.amount = 200;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocSha = new Item(565);
-                    ngocSha.amount = 200;
-                    ngocSha.isLock = true;
-                    addItem(ngocSha);
-                    msgAddItemBag(ngocSha);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 5;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
-
-                    addVang(7000);
-                }
-                break;
-            case 958://top 3 nhi đồng
-                if (getCountNullItemBag() >= 9) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 100;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 150;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item ngocBya = new Item(563);
-                    ngocBya.amount = 150;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocSha = new Item(565);
-                    ngocSha.amount = 150;
-                    ngocSha.isLock = true;
-                    addItem(ngocSha);
-                    msgAddItemBag(ngocSha);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 4;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
-
-                    addVang(5000);
-                }
-                break;
-            case 959://top 4 - 6 nhi đồng
-                if (getCountNullItemBag() >= 9) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 70;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 100;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item ngocBya = new Item(563);
-                    ngocBya.amount = 100;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocSha = new Item(565);
-                    ngocSha.amount = 100;
-                    ngocSha.isLock = true;
-                    addItem(ngocSha);
-                    msgAddItemBag(ngocSha);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 2;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
-
-                    addVang(3000);
-                }
-                break;
-            case 960:
-                if (getCountNullItemBag() >= 9) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 40;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 70;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item ngocBya = new Item(563);
-                    ngocBya.amount = 70;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocSha = new Item(565);
-                    ngocSha.amount = 70;
-                    ngocSha.isLock = true;
-                    addItem(ngocSha);
-                    msgAddItemBag(ngocSha);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 1;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
-
-                    addVang(2000);
-                }
-                break;
-            case 961://top 1 nạp tuần
+            case 962:// moc 3
                 if (getCountNullItemBag() >= 5) {
                     removeItem(item);
                     msgUseItemBag(item);
 
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 700;
-                    ruongKham.isLock = true;
-                    addItem(ruongKham);
-                    msgAddItemBag(ruongKham);
+                    Item ngocMyo = new Item(881);
+                    ngocMyo.amount = 1;
+                    ngocMyo.strOptions = "0,1000;1,1000;2,1000;3,1000;4,1000;209,500;174,100;306,200";
+                    ngocMyo.isLock = true;
+                    ngocMyo.level = 30;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
 
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 700;
-                    tuLuyenDan.isLock = true;
-                    addItem(tuLuyenDan);
-                    msgAddItemBag(tuLuyenDan);
-
-                    Item manhBiKip = new Item(754);
-                    manhBiKip.amount = 70000;
-                    manhBiKip.isLock = true;
-                    addItem(manhBiKip);
-                    msgAddItemBag(manhBiKip);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 5;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
+//                    Item manhBiKip = new Item(754);
+//                    manhBiKip.amount = 50000;
+//                    manhBiKip.isLock = true;
+//                    addItem(manhBiKip);
+//                    msgAddItemBag(manhBiKip);
+//
+//                    Item da12 = new Item(11);
+//                    da12.amount = 4;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
                 }
                 break;
-            case 962:// top 2 nạp tuần
+            case 963:// mốc 4 phuong hoang
                 if (getCountNullItemBag() >= 5) {
                     removeItem(item);
                     msgUseItemBag(item);
 
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 500;
+                    Item ruongKham = new Item(812);
+                    ruongKham.amount = 20;
                     ruongKham.isLock = true;
+                    ruongKham.strOptions = "128,0,360000;0,2000;1,2000;131,5;151,540;151,540;114,1350;109,500;158,13;2,500;167,500;123,50;148,5;209,1000";
                     addItem(ruongKham);
                     msgAddItemBag(ruongKham);
 
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 500;
-                    tuLuyenDan.isLock = true;
-                    addItem(tuLuyenDan);
-                    msgAddItemBag(tuLuyenDan);
+//                    Item tuLuyenDan = new Item(11);
+//                    tuLuyenDan.amount = 100;
+//                    tuLuyenDan.isLock = true;
+//                    addItem(tuLuyenDan);
+//                    msgAddItemBag(tuLuyenDan);
+//
+//                    Item manhBiKip = new Item(435);
+//                    manhBiKip.amount = 20;
+//                    manhBiKip.isLock = true;
+//                    addItem(manhBiKip);
+//                    msgAddItemBag(manhBiKip);
 
-                    Item manhBiKip = new Item(754);
-                    manhBiKip.amount = 50000;
-                    manhBiKip.isLock = true;
-                    addItem(manhBiKip);
-                    msgAddItemBag(manhBiKip);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 4;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
+//                    Item da12 = new Item(11);
+//                    da12.amount = 3;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
                 }
                 break;
-            case 963://top 3 nạp tuần
+            case 964://bí kíp bí ngô mốc 9
                 if (getCountNullItemBag() >= 5) {
                     removeItem(item);
                     msgUseItemBag(item);
-
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 400;
-                    ruongKham.isLock = true;
-                    addItem(ruongKham);
-                    msgAddItemBag(ruongKham);
-
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 400;
-                    tuLuyenDan.isLock = true;
-                    addItem(tuLuyenDan);
-                    msgAddItemBag(tuLuyenDan);
-
-                    Item manhBiKip = new Item(754);
-                    manhBiKip.amount = 40000;
-                    manhBiKip.isLock = true;
-                    addItem(manhBiKip);
-                    msgAddItemBag(manhBiKip);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 3;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
-                }
-                break;
-            case 964://top 4 - 6 nạp tuần
-                if (getCountNullItemBag() >= 5) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 200;
-                    ruongKham.isLock = true;
-                    addItem(ruongKham);
-                    msgAddItemBag(ruongKham);
-
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 200;
-                    tuLuyenDan.isLock = true;
-                    addItem(tuLuyenDan);
-                    msgAddItemBag(tuLuyenDan);
-
-                    Item manhBiKip = new Item(754);
-                    manhBiKip.amount = 20000;
-                    manhBiKip.isLock = true;
-                    addItem(manhBiKip);
-                    msgAddItemBag(manhBiKip);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 2;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
-                }
-                break;
-            case 965://top 7 - 10 nạp tuần
-                if (getCountNullItemBag() >= 5) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 100;
-                    ruongKham.isLock = true;
-                    addItem(ruongKham);
-                    msgAddItemBag(ruongKham);
-
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 100;
-                    tuLuyenDan.isLock = true;
-                    addItem(tuLuyenDan);
-                    msgAddItemBag(tuLuyenDan);
-
-                    Item manhBiKip = new Item(754);
-                    manhBiKip.amount = 10000;
-                    manhBiKip.isLock = true;
-                    addItem(manhBiKip);
-                    msgAddItemBag(manhBiKip);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 1;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
-                }
-                //skin mới
-//                addEffect(new Effect((short) 74, 50, System.currentTimeMillis(), 100000*10));
-//                addEffect(new Effect((short) 77, 50, System.currentTimeMillis(), 100000*10));
-                break;
-            case 967://top1 CT
-                if (getCountNullItemBag() >= 8) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item danhHieu = new Item(948);
-                    danhHieu.amount = 1;
-                    danhHieu.isLock = true;
-                    addItem(danhHieu);
-                    msgAddItemBag(danhHieu);
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 200;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocSharin = new Item(563);
-                    ngocSharin.amount = 500;
-                    ngocSharin.isLock = true;
-                    addItem(ngocSharin);
-                    msgAddItemBag(ngocSharin);
-
-                    Item ngocBya = new Item(565);
-                    ngocBya.amount = 500;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 500;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item sach = new Item(435);
-                    sach.amount = 20;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(20000);
-                }
-
-                break;
-            case 968://top2 CT
-                if (getCountNullItemBag() >= 7) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 150;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocSharin = new Item(563);
-                    ngocSharin.amount = 300;
-                    ngocSharin.isLock = true;
-                    addItem(ngocSharin);
-                    msgAddItemBag(ngocSharin);
-
-                    Item ngocBya = new Item(565);
-                    ngocBya.amount = 300;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 300;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item sach = new Item(435);
-                    sach.amount = 16;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(15000);
-                }
-                break;
-            case 969://top 3 CT
-                if (getCountNullItemBag() >= 7) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 100;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocSharin = new Item(563);
-                    ngocSharin.amount = 200;
-                    ngocSharin.isLock = true;
-                    addItem(ngocSharin);
-                    msgAddItemBag(ngocSharin);
-
-                    Item ngocBya = new Item(565);
-                    ngocBya.amount = 200;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 200;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item sach = new Item(435);
-                    sach.amount = 12;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(10000);
-                }
-                break;
-            case 970://top 4-6 CT
-                if (getCountNullItemBag() >= 7) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 50;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocSharin = new Item(563);
-                    ngocSharin.amount = 100;
-                    ngocSharin.isLock = true;
-                    addItem(ngocSharin);
-                    msgAddItemBag(ngocSharin);
-
-                    Item ngocBya = new Item(565);
-                    ngocBya.amount = 100;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 100;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item sach = new Item(435);
-                    sach.amount = 8;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(5000);
-                }
-                break;
-            case 971://top 7-10 CT
-                if (getCountNullItemBag() >= 7) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-
-                    Item ngocMyo = new Item(353);
-                    ngocMyo.amount = 50;
-                    ngocMyo.isLock = true;
-                    addItem(ngocMyo);
-                    msgAddItemBag(ngocMyo);
-
-                    Item ngocSharin = new Item(563);
-                    ngocSharin.amount = 100;
-                    ngocSharin.isLock = true;
-                    addItem(ngocSharin);
-                    msgAddItemBag(ngocSharin);
-
-                    Item ngocBya = new Item(565);
-                    ngocBya.amount = 100;
-                    ngocBya.isLock = true;
-                    addItem(ngocBya);
-                    msgAddItemBag(ngocBya);
-
-                    Item ngocRinne = new Item(567);
-                    ngocRinne.amount = 100;
-                    ngocRinne.isLock = true;
-                    addItem(ngocRinne);
-                    msgAddItemBag(ngocRinne);
-
-                    Item sach = new Item(435);
-                    sach.amount = 4;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(3000);
-                }
-                break;
-            case 972://top 1 TP
-                if (getCountNullItemBag() >= 8) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-
-                    Item danhHieu = new Item(946);
-                    danhHieu.amount = 1;
-                    danhHieu.isLock = true;
-                    addItem(danhHieu);
-                    msgAddItemBag(danhHieu);
-
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 1000;
-                    ruongKham.isLock = true;
-                    addItem(ruongKham);
-                    msgAddItemBag(ruongKham);
-
-                    Item longViThu = new Item(687);
-                    longViThu.amount = 1000;
-                    longViThu.isLock = true;
-                    addItem(longViThu);
-                    msgAddItemBag(longViThu);
-
-                    Item chakra = new Item(763);
-                    chakra.amount = 18000;
-                    chakra.isLock = true;
-                    addItem(chakra);
-                    msgAddItemBag(chakra);
-
-                    Item sach = new Item(435);
-                    sach.amount = 30;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(20000);
-                }
-                break;
-            case 973://top 2 TP
-                if (getCountNullItemBag() >= 8) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 800;
-                    ruongKham.isLock = true;
-                    addItem(ruongKham);
-                    msgAddItemBag(ruongKham);
-
-                    Item longViThu = new Item(687);
-                    longViThu.amount = 800;
-                    longViThu.isLock = true;
-                    addItem(longViThu);
-                    msgAddItemBag(longViThu);
-
-                    Item chakra = new Item(763);
-                    chakra.amount = 15000;
-                    chakra.isLock = true;
-                    addItem(chakra);
-                    msgAddItemBag(chakra);
-
-                    Item sach = new Item(435);
-                    sach.amount = 20;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(15000);
-                }
-                break;
-            case 974://top 3 TP
-                if (getCountNullItemBag() >= 8) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 600;
-                    ruongKham.isLock = true;
-                    addItem(ruongKham);
-                    msgAddItemBag(ruongKham);
-
-                    Item longViThu = new Item(687);
-                    longViThu.amount = 600;
-                    longViThu.isLock = true;
-                    addItem(longViThu);
-                    msgAddItemBag(longViThu);
-
-                    Item chakra = new Item(763);
-                    chakra.amount = 15000;
-                    chakra.isLock = true;
-                    addItem(chakra);
-                    msgAddItemBag(chakra);
-
-                    Item sach = new Item(435);
-                    sach.amount = 15;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(10000);
-                }
-                break;
-            case 975://top 4-6 TP
-                if (getCountNullItemBag() >= 8) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 400;
-                    ruongKham.isLock = true;
-                    addItem(ruongKham);
-                    msgAddItemBag(ruongKham);
-
-                    Item longViThu = new Item(687);
-                    longViThu.amount = 400;
-                    longViThu.isLock = true;
-                    addItem(longViThu);
-                    msgAddItemBag(longViThu);
-
-                    Item chakra = new Item(763);
-                    chakra.amount = 12000;
-                    chakra.isLock = true;
-                    addItem(chakra);
-                    msgAddItemBag(chakra);
-
-                    Item sach = new Item(435);
-                    sach.amount = 10;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(5000);
-                }
-                break;
-            case 976://top 7-10 TP
-                if (getCountNullItemBag() >= 8) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item ruongKham = new Item(428);
-                    ruongKham.amount = 200;
-                    ruongKham.isLock = true;
-                    addItem(ruongKham);
-                    msgAddItemBag(ruongKham);
-
-                    Item longViThu = new Item(687);
-                    longViThu.amount = 200;
-                    longViThu.isLock = true;
-                    addItem(longViThu);
-                    msgAddItemBag(longViThu);
-
-                    Item chakra = new Item(763);
-                    chakra.amount = 10000;
-                    chakra.isLock = true;
-                    addItem(chakra);
-                    msgAddItemBag(chakra);
-
-                    Item sach = new Item(435);
-                    sach.amount = 7;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
-
-                    addVang(3000);
-                }
-                break;
-            case 977://top 1 Nạp
-                if (getCountNullItemBag() >= 8) {
-                    removeItem(item);
-                    msgUseItemBag(item);
-
-                    Item danhHieu = new Item(948);
-                    danhHieu.amount = 1;
-                    danhHieu.isLock = true;
-                    addItem(danhHieu);
-                    msgAddItemBag(danhHieu);
-
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 2000;
-                    tuLuyenDan.isLock = true;
-                    addItem(tuLuyenDan);
-                    msgAddItemBag(tuLuyenDan);
-
-                    Item myo = new Item(353);
-                    myo.amount = 300;
-                    myo.isLock = true;
-                    addItem(myo);
-                    msgAddItemBag(myo);
-
-                    Item da12 = new Item(11);
-                    da12.amount = 15;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
-
-                    Item sach = new Item(435);
-                    sach.amount = 20;
-                    sach.isLock = true;
-                    addItem(sach);
-                    msgAddItemBag(sach);
 
                     Item biKipBiNgo = new Item(947);
+//                    Item biKipBiNgo = new Item(947);
                     biKipBiNgo.isLock = true;
                     biKipBiNgo.he = this.Info.idhe;
                     biKipBiNgo.addItemOption(new ItemOption(128, 0, 16000));
@@ -3491,60 +3423,665 @@ public class Char extends Body {
                     this.addItem(biKipBiNgo);
                     this.msgAddItemBag(biKipBiNgo);
 
-                    addVang(20000);
+
+                    Item tuLuyenDan = new Item(947);
+                    tuLuyenDan.amount = 1;
+//                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+//
+//                    Item manhBiKip = new Item(11);
+//                    manhBiKip.amount = 70;
+////                    manhBiKip.isLock = true;
+//                    addItem(manhBiKip);
+//                    msgAddItemBag(manhBiKip);
+
+//                    Item da12 = new Item(11);
+//                    da12.amount = 2;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
                 }
                 break;
-            case 978://top 2 Nạp
+            case 965:// bùa nổ thần long mốc 10
+                if (getCountNullItemBag() >= 2) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+                    Item buano = this.Bag.arrItemBody[13];
+                    ItemOption[] options = buano.getItemOption();
+                    Item ruongKham = new Item(1034);
+                    ruongKham.amount = 1;
+//                    ruongKham.isLock = true;
+                    //ruongKham.strOptions = "0,1000;1,1000;2,1000;3,1000;4,1000;209,500;174,100;306,200";
+                    String stropt = "";
+                    stropt += options[0].getId() + "," + "0" + "," + "3500" + ";";
+                    stropt += options[1].getId() + "," + "0" + "," + "3500" + ";";
+                    stropt += "0,10000;";
+                    stropt += "1,10000;";
+                    stropt += "3,5000;";
+                    stropt += "2,3000;";
+                    stropt += "5,1000;";
+                    stropt += "180,4000;";
+                    stropt += "161,4000;";
+                    stropt += "197," + Utlis.nextInt(10, 15) + ";";
+                    stropt += "122," + Utlis.nextInt(30, 35);
+                    ruongKham.strOptions = stropt;
+                    this.addItem(ruongKham);
+                    this.msgAddItemBag(ruongKham);
+//                    break;
+//                    addItem(ruongKham);
+//                    msgAddItemBag(ruongKham);
+
+                    Item tuLuyenDan = new Item(939);
+                    tuLuyenDan.amount = 1;
+//                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+//
+//                    Item manhBiKip = new Item(11);
+//                    manhBiKip.amount = 70;
+////                    manhBiKip.isLock = true;
+//                    addItem(manhBiKip);
+//                    msgAddItemBag(manhBiKip);
+
+//                    Item da12 = new Item(11);
+//                    da12.amount = 1;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+                }
+                //skin mới
+//                addEffect(new Effect((short) 74, 50, System.currentTimeMillis(), 100000*10));
+//                addEffect(new Effect((short) 77, 50, System.currentTimeMillis(), 100000*10));
+                break;
+            case 967:// hạo thiên chùy
+                if (getCountNullItemBag() >= 9) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ngocMyo = new Item(284); // cải trang obito lục đạo
+                    ngocMyo.amount = 1;
+                    ngocMyo.strOptions = "128,0,360000;0,2000;1,2000;131,5;151,540;151,540;114,1350;109,500;158,13;2,500;167,500;123,50;148,5;209,1000";
+
+                    ngocMyo.isLock = true;
+
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+//                    Item ngocRinne = new Item(1053);
+//                    ngocRinne.amount = 1;
+////                    ngocRinne.isLock = true;
+//                    addItem(ngocRinne);
+//                    msgAddItemBag(ngocRinne);
+//
+//                    Item ngocBya = new Item(1054);
+//                    ngocBya.amount = 1;
+//                    ngocBya.isLock = true;
+//                    addItem(ngocBya);
+//                    msgAddItemBag(ngocBya);
+//
+//                    Item ngocSha = new Item(966); // danh hiệu
+//                    ngocSha.amount = 15;
+//                    ngocSha.isLock = true;
+//                    addItem(ngocSha);
+//                    msgAddItemBag(ngocSha);
+//
+//                    Item da12 = new Item(435);
+//                    da12.amount = 10;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+//                    Item da122 = new Item(538);
+//                    da122.amount = 1;
+//                    da122.isLock = true;
+//                    da122.strOptions = "1,2000;0,2000;174,100;306,40;81,40;332,16;3,400;209,1000";
+//                    addItem(da122);
+//                    msgAddItemBag(da122);
+
+//                    addBacKhoa(2000000000);
+                }
+                break;
+            case 290: // hộp quà share
+                if (getCountNullItemBag() >= 5) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item itemQua = new Item(537);
+                    itemQua.amount = 1;
+                    itemQua.strOptions = "0,150;1,150;2,50;209,50;3,100";
+                    itemQua.isLock = true;
+                    addItem(itemQua);
+                    msgAddItemBag(itemQua);
+
+                    Item itemQua1 = new Item(269);
+                    itemQua1.amount = 1;
+                    itemQua1.isLock = true;
+                    addItem(itemQua1);
+                    msgAddItemBag(itemQua1);
+
+                    Item itemQua2 = new Item(9);
+                    itemQua2.amount = 5;
+                    itemQua2.isLock = true;
+                    addItem(itemQua2);
+                    msgAddItemBag(itemQua2);
+
+                    Item itemQua3 = new Item(435);
+                    itemQua3.amount = 1;
+                    itemQua3.isLock = true;
+                    addItem(itemQua3);
+                    msgAddItemBag(itemQua3);
+
+                    addBacKhoa(100000000);
+                    addVangKhoa(5000);
+                }
+                break;
+            case 968:// mốc 12
+                if (getCountNullItemBag() >= 9) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item ngocMyo = new Item(966); // cải trang obito lục đạo
+                    ngocMyo.amount = 10;
+                    ngocMyo.isLock = true;
+//                    ngocMyo.strOptions = "0,8000;1,8000;2,400;209,1200;332,40;94,200;151,40;152,40;122,40;117,20;110,40";
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+
+                    Item ngocRinne = new Item(914);
+                    ngocRinne.amount = 2;
+//                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+
+                    Item ngocBya = new Item(435);
+                    ngocBya.amount = 8;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+
+                    Item ngocSha = new Item(1053); // danh hiệu
+                    ngocSha.amount = 1;
+                    ngocSha.isLock = true;
+                    addItem(ngocSha);
+                    msgAddItemBag(ngocSha);
+
+
+                    Item da12 = new Item(702);
+                    da12.amount = 1;
+                    da12.isLock = true;
+                    da12.strOptions = "1,1500;0,1500;174,100;306,40;81,40;332,16;3,400;209,800";
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    addBacKhoa(1500000000);
+                }
+                break;
+            case 969:// mốc 13
                 if (getCountNullItemBag() >= 8) {
                     removeItem(item);
                     msgUseItemBag(item);
 
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 1500;
-                    tuLuyenDan.isLock = true;
-                    addItem(tuLuyenDan);
-                    msgAddItemBag(tuLuyenDan);
 
-                    Item myo = new Item(353);
-                    myo.amount = 200;
-                    myo.isLock = true;
-                    addItem(myo);
-                    msgAddItemBag(myo);
+                    Item danhHieu = new Item(702);
+                    danhHieu.amount = 1;
+                    danhHieu.strOptions = "";
+                    danhHieu.isLock = true;
+                    addItem(danhHieu);
+                    msgAddItemBag(danhHieu);
 
-                    Item da12 = new Item(11);
-                    da12.amount = 10;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
+
+                    Item ngocMyo = new Item(996);
+                    ngocMyo.amount = 10;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+
+                    Item ngocSharin = new Item(914); // itachi cương thi
+                    ngocSharin.amount = 1;
+                    ngocSharin.isLock = true;
+//                    ngocSharin.strOptions = "0,2000;1,2000;2,2000;3,2000;4,2000;209,500";
+                    addItem(ngocSharin);
+                    msgAddItemBag(ngocSharin);
+//
+                    Item ngocBya = new Item(435);
+                    ngocBya.amount = 8;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+//
+                    Item ngocRinne = new Item(1054);
+                    ngocRinne.amount = 1;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+
+//                    Item sach = new Item(435);
+//                    sach.amount = 50;
+//                    sach.isLock = true;
+//                    addItem(sach);
+//                    msgAddItemBag(sach);
+//
+//                    addVang(20000);
+                    addBacKhoa(1500000000);
+                }
+
+
+                break;
+            case 970:// mốc nạp 14
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item danhHieu = new Item(529);
+                    danhHieu.amount = 1;
+                    danhHieu.strOptions = "1,2000;0,2000;174,100;306,40;81,40;332,16;3,400;209,1000";
+                    danhHieu.isLock = true;
+                    addItem(danhHieu);
+                    msgAddItemBag(danhHieu);
+
+
+                    Item ngocMyo = new Item(996);
+                    ngocMyo.amount = 7;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+
+                    Item ngocSharin = new Item(11); // itachi cương thi
+                    ngocSharin.amount = 4;
+                    ngocSharin.isLock = true;
+//                    ngocSharin.strOptions = "0,2000;1,2000;2,2000;3,2000;4,2000;209,500";
+                    addItem(ngocSharin);
+                    msgAddItemBag(ngocSharin);
+//
+                    Item ngocBya = new Item(435);
+                    ngocBya.amount = 5;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+//
+//                    Item ngocRinne = new Item(1054);
+//                    ngocRinne.amount = 1;
+//                    ngocRinne.isLock = true;
+//                    addItem(ngocRinne);
+//                    msgAddItemBag(ngocRinne);
+
+
+//                    Item sach = new Item(435);
+//                    sach.amount = 50;
+//                    sach.isLock = true;
+//                    addItem(sach);
+//                    msgAddItemBag(sach);
+//
+//                    addVang(20000);
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1070:// mốc nạp 14
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item danhHieu = new Item(529);
+                    danhHieu.amount = 1;
+                    danhHieu.strOptions = "1,2000;0,2000;174,100;306,40;81,40;332,16;3,400;209,1000";
+                    danhHieu.isLock = true;
+                    addItem(danhHieu);
+                    msgAddItemBag(danhHieu);
+
+
+                    Item ngocMyo = new Item(996);
+                    ngocMyo.amount = 5;
+                    ngocMyo.isLock = true;
+                    addItem(ngocMyo);
+                    msgAddItemBag(ngocMyo);
+
+
+                    Item ngocSharin = new Item(11); // itachi cương thi
+                    ngocSharin.amount = 3;
+                    ngocSharin.isLock = true;
+//                    ngocSharin.strOptions = "0,2000;1,2000;2,2000;3,2000;4,2000;209,500";
+                    addItem(ngocSharin);
+                    msgAddItemBag(ngocSharin);
+//
+                    Item ngocBya = new Item(435);
+                    ngocBya.amount = 3;
+                    ngocBya.isLock = true;
+                    addItem(ngocBya);
+                    msgAddItemBag(ngocBya);
+
+//                    this.getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 2000);
+//
+//                    Item ngocRinne = new Item(1054);
+//                    ngocRinne.amount = 1;
+//                    ngocRinne.isLock = true;
+//                    addItem(ngocRinne);
+//                    msgAddItemBag(ngocRinne);
+
+
+//                    Item sach = new Item(435);
+//                    sach.amount = 50;
+//                    sach.isLock = true;
+//                    addItem(sach);
+//                    msgAddItemBag(sach);
+//
+//                    addVang(20000);
+                    addBacKhoa(250000000);
+                }
+                break;
+
+
+            case 971://top 7-10 CT
+                if (getCountNullItemBag() >= 7) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+//                    Item ngocMyo = new Item(353);
+//                    ngocMyo.amount = 50;
+//                    ngocMyo.isLock = true;
+//                    addItem(ngocMyo);
+//                    msgAddItemBag(ngocMyo);
+//
+//                    Item ngocSharin = new Item(563);
+//                    ngocSharin.amount = 100;
+//                    ngocSharin.isLock = true;
+//                    addItem(ngocSharin);
+//                    msgAddItemBag(ngocSharin);
+//
+//                    Item ngocBya = new Item(565);
+//                    ngocBya.amount = 100;
+//                    ngocBya.isLock = true;
+//                    addItem(ngocBya);
+//                    msgAddItemBag(ngocBya);
+
+                    Item ngocRinne = new Item(277);
+                    ngocRinne.amount = 100;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
 
                     Item sach = new Item(435);
-                    sach.amount = 15;
+                    sach.amount = 1;
                     sach.isLock = true;
                     addItem(sach);
                     msgAddItemBag(sach);
 
-                    addVang(15000);
+                    addVang(10000);
                 }
                 break;
-            case 979://top 3 Nạp
+            case 972://top 1 TP
                 if (getCountNullItemBag() >= 8) {
                     removeItem(item);
                     msgUseItemBag(item);
 
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 1000;
+
+                    Item ngocRinne = new Item(277);
+                    ngocRinne.amount = 50;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item sach = new Item(435);
+                    sach.amount = 1;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(7000);
+                }
+                break;
+            case 1071://top 1 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item danhHieu = new Item(1053);
+                    danhHieu.amount = 2;
+                    danhHieu.isLock = true;
+                    addItem(danhHieu);
+                    msgAddItemBag(danhHieu);
+
+                    Item ruongKham = new Item(966);
+                    ruongKham.amount = 15;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item longViThu = new Item(435);
+                    longViThu.amount = 10;
+                    longViThu.isLock = true;
+                    addItem(longViThu);
+                    msgAddItemBag(longViThu);
+
+                    Item chakra = new Item(539);
+                    chakra.amount = 1;
+                    chakra.isLock = true;
+                    chakra.strOptions = "";
+                    addItem(chakra);
+                    msgAddItemBag(chakra);
+
+//                    Item sach = new Item(435);
+//                    sach.amount = 30;
+//                    sach.isLock = true;
+//                    addItem(sach);
+//                    msgAddItemBag(sach);
+
+                    addBacKhoa(3000000000L);
+                }
+                break;
+
+            case 344:
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item ngocRinne = new Item(693);
+                    ngocRinne.amount = 1;
+                    ngocRinne.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200;209,100;380,20";
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+
+                }
+                break;
+            case 973://top 1 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item ngocRinne = new Item(277);
+                    ngocRinne.amount = 50;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item sach = new Item(435);
+                    sach.amount = 1;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(5000);
+                }
+                break;
+
+            case 974://top 1 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item ngocRinne = new Item(277);
+                    ngocRinne.amount = 50;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item sach = new Item(435);
+                    sach.amount = 1;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(3500);
+                }
+                break;
+            case 1072://top 1 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+
+                    Item ngocRinne = new Item(277);
+                    ngocRinne.amount = 50;
+                    ngocRinne.isLock = true;
+                    addItem(ngocRinne);
+                    msgAddItemBag(ngocRinne);
+
+                    Item sach = new Item(435);
+                    sach.amount = 1;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    addVang(2000);
+                }
+                break;
+            case 592://top 2 TP
+                if (getCountNullItemBag() >= 1) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+                    Item ruongKham = new Item(Utlis.nextInt(516, 520));
+                    ruongKham.amount = 1;
+                    ruongKham.isLock = true;
+                    ruongKham.strOptions = "0,200;1,200;2,200;3,200;4,20;209,200";
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+
+//                    addVang(15000);
+                }
+                break;
+            case 329://top 3 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    int[] itemIds = {292, 298, 326, 372, 373, 374, 375, 376, 377, 429, 430, 431, 458, 459, 537, 538, 539, 726, 762, 763};
+                    int randomIndex = Utlis.nextInt(itemIds.length); // chọn ngẫu nhiên 1 ID
+                    Item randomItem = new Item(itemIds[randomIndex]);
+                    randomItem.amount = 1;
+                    randomItem.isLock = true;
+                    randomItem.strOptions = "0,500;1,500;2,500;3,500;4,20;209,200";
+                    addItem(randomItem);
+                    msgAddItemBag(randomItem);
+
+                }
+                break;
+            case 975://top 4-6 TP
+                if (getCountNullItemBag() >= 5) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item itemQua = new Item(585);
+                    itemQua.amount = 1;
+                    itemQua.strOptions = "0,150;1,150;2,50;209,50;3,100";
+                    itemQua.isLock = true;
+                    addItem(itemQua);
+                    msgAddItemBag(itemQua);
+
+                    Item itemQua1 = new Item(269);
+                    itemQua1.amount = 1;
+                    itemQua1.isLock = true;
+                    addItem(itemQua1);
+                    msgAddItemBag(itemQua1);
+
+                    Item itemQua2 = new Item(9);
+                    itemQua2.amount = 5;
+                    itemQua2.isLock = true;
+                    addItem(itemQua2);
+                    msgAddItemBag(itemQua2);
+
+                    Item itemQua3 = new Item(435);
+                    itemQua3.amount = 1;
+                    itemQua3.isLock = true;
+                    addItem(itemQua3);
+                    msgAddItemBag(itemQua3);
+
+                    addBacKhoa(100000000);
+                    addVangKhoa(5000);
+                }
+                break;
+            case 976://top 7-10 TP
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item ruongKham = new Item(966);
+                    ruongKham.amount = 5;
+                    ruongKham.isLock = true;
+                    addItem(ruongKham);
+                    msgAddItemBag(ruongKham);
+
+                    Item longViThu = new Item(435);
+                    longViThu.amount = 3;
+                    longViThu.isLock = true;
+                    addItem(longViThu);
+                    msgAddItemBag(longViThu);
+
+                    Item chakra = new Item(11);
+                    chakra.amount = 3;
+                    chakra.isLock = true;
+                    addItem(chakra);
+                    msgAddItemBag(chakra);
+
+//                    Item sach = new Item(435);
+//                    sach.amount = 7;
+//                    sach.isLock = true;
+//                    addItem(sach);
+//                    msgAddItemBag(sach);
+
+                    addBacKhoa(250000000);
+                }
+                break;
+            case 977://top 1 Nạp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item danhHieu = new Item(966);
+                    danhHieu.amount = 15;
+                    danhHieu.isLock = true;
+                    addItem(danhHieu);
+                    msgAddItemBag(danhHieu);
+
+                    Item tuLuyenDan = new Item(1053);
+                    tuLuyenDan.amount = 1;
                     tuLuyenDan.isLock = true;
                     addItem(tuLuyenDan);
                     msgAddItemBag(tuLuyenDan);
 
-                    Item myo = new Item(353);
-                    myo.amount = 150;
+                    Item myo = new Item(1054);
+                    myo.amount = 1;
                     myo.isLock = true;
                     addItem(myo);
                     msgAddItemBag(myo);
 
-                    Item da12 = new Item(11);
-                    da12.amount = 8;
+                    Item da12 = new Item(914);
+                    da12.amount = 3;
                     da12.isLock = true;
                     addItem(da12);
                     msgAddItemBag(da12);
@@ -3555,7 +4092,959 @@ public class Char extends Body {
                     addItem(sach);
                     msgAddItemBag(sach);
 
-                    addVang(10000);
+
+                    addBacKhoa(2000000000);
+                }
+                break;
+            case 978://top 2 Nạp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(583);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 7;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 7;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(528);
+                    tuLuyenDan1.amount = 1;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(1500000000);
+                }
+                break;
+            case 1081 : // top 1 ct
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(679);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200;209,100;380,50";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 10;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 5;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 1000;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 10;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(1500000000);
+                }
+                break;
+            case 1082 : // top 2 ct
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(583);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.isLock = true;
+                    tuLuyenDan.strOptions = "68,90;70,90;0,900;2,180;4,180;5,180;209,90;380,45";
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 7;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 3;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 700;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 5;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(1000000000);
+                }
+                break;
+            case 1083:
+                // top 3 ct
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(582);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,80;70,80;0,800;2,160;4,160;5,160;209,80;380,40";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 3;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1084: // 4 -6 ct
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(702);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 2;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 1;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1085 : // 7-10 ct
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(623);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 1;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 1;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1086 : // top 1 nap
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(5);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200;209,100;380,50";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1087 : // top 2 nap
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(537);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,90;70,90;0,900;2,180;4,180;5,180;209,90;380,45";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1088 : // top 3 nap
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(573);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,80;70,80;0,800;2,160;4,160;5,160;209,80;380,40";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1089 : // top 4-6 nap
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(702);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,70;70,70;0,700;2,140;4,140;5,140;209,70";
+                    tuLuyenDan.isLock = true;
+
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1090: // top 7-10 nap
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(623);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,60;70,60;0,600;2,120;4,120;5,120;209,60";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1091 : // top 1 tp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(699);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200;209,100;380,50";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1092 : // top 2 tp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(583);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,90;70,90;0,900;2,180;4,180;5,180;209,90;380,45";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1093 : // top 3 tp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(582);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,80;70,80;0,800;2,160;4,160;5,160;209,80;380,40";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1094: // top 4-6 tp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(702);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,70;70,70;0,700;2,140;4,140;5,140;209,70";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1095: // top 7-10 tp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(623);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,60;70,60;0,600;2,120;4,120;5,120;209,60";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1096 :
+                // top 1 cc
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(574);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200;209,100;380,50";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1097 :
+                // top 2 cc
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(863);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,90;70,90;0,900;2,180;4,180;5,180;209,90;380,45";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1098 :
+                // top 3 cc
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(813);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,80;70,80;0,800;2,160;4,160;5,160;209,80;380,40";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1099:
+                // top 4-6 cc
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(592);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,70;70,70;0,700;2,140;4,140;5,140;209,70";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1100:
+                // top 7-10 cc
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(592);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.strOptions = "68,60;70,60;0,600;2,120;4,120;5,120;209,60";
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(11);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(763);
+                    sach.amount = 500;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(845);
+                    tuLuyenDan1.amount = 3;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1101 :
+                // top 6- 10
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+//                    Item tuLuyenDan = new Item(699);
+//                    tuLuyenDan.amount = 1;
+//                    tuLuyenDan.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200;209,100;380,50";
+//                    tuLuyenDan.isLock = true;
+//                    addItem(tuLuyenDan);
+//                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 2;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(592);
+                    da12.amount = 2;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(329);
+                    sach.amount = 2;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+//                    Item tuLuyenDan1 = new Item(845);
+//                    tuLuyenDan1.amount = 3;
+//                    tuLuyenDan1.isLock = true;
+//                    tuLuyenDan1.strOptions = "";
+//                    addItem(tuLuyenDan1);
+//                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
+                }
+                break;
+            case 1102 :
+                // top kk
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item myo = new Item(966);
+                    myo.amount = 1;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(592);
+                    da12.amount = 1;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(329);
+                    sach.amount = 1;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+                }
+                break;
+
+
+            case 979://top 3 Nạp
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(1054);
+                    tuLuyenDan.amount = 1;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 7;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+                    Item da12 = new Item(914);
+                    da12.amount = 1;
+                    da12.isLock = true;
+                    addItem(da12);
+                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 5;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(702);
+                    tuLuyenDan1.amount = 1;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "1,2000;0,2000;174,100;306,40;81,40;332,16;3,400;209,1000";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(1000000000);
                 }
                 break;
             case 980://top 4-6 Nạp
@@ -3563,31 +5052,38 @@ public class Char extends Body {
                     removeItem(item);
                     msgUseItemBag(item);
 
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 1000;
+                    Item tuLuyenDan = new Item(11);
+                    tuLuyenDan.amount = 4;
                     tuLuyenDan.isLock = true;
                     addItem(tuLuyenDan);
                     msgAddItemBag(tuLuyenDan);
 
-                    Item myo = new Item(353);
-                    myo.amount = 150;
+                    Item myo = new Item(966);
+                    myo.amount = 7;
                     myo.isLock = true;
                     addItem(myo);
                     msgAddItemBag(myo);
 
-                    Item da12 = new Item(11);
-                    da12.amount = 8;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
+//                    Item da12 = new Item(914);
+//                    da12.amount = 2;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
 
                     Item sach = new Item(435);
-                    sach.amount = 8;
+                    sach.amount = 5;
                     sach.isLock = true;
                     addItem(sach);
                     msgAddItemBag(sach);
 
-                    addVang(7000);
+                    Item tuLuyenDan1 = new Item(529);
+                    tuLuyenDan1.amount = 1;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "1,2000;0,2000;174,100;306,40;81,40;332,16;3,400;209,1000";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000);
                 }
                 break;
             case 981://top 7-10 Nạp
@@ -3595,31 +5091,233 @@ public class Char extends Body {
                     removeItem(item);
                     msgUseItemBag(item);
 
-                    Item tuLuyenDan = new Item(294);
-                    tuLuyenDan.amount = 600;
+                    Item tuLuyenDan = new Item(11);
+                    tuLuyenDan.amount = 3;
                     tuLuyenDan.isLock = true;
                     addItem(tuLuyenDan);
                     msgAddItemBag(tuLuyenDan);
 
-                    Item myo = new Item(353);
-                    myo.amount = 100;
+                    Item myo = new Item(966);
+                    myo.amount = 3;
                     myo.isLock = true;
                     addItem(myo);
                     msgAddItemBag(myo);
 
-                    Item da12 = new Item(11);
-                    da12.amount = 6;
-                    da12.isLock = true;
-                    addItem(da12);
-                    msgAddItemBag(da12);
+//                    Item da12 = new Item(914);
+//                    da12.amount = 2;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
 
                     Item sach = new Item(435);
-                    sach.amount = 6;
+                    sach.amount = 5;
                     sach.isLock = true;
                     addItem(sach);
                     msgAddItemBag(sach);
 
-                    addVang(3000);
+//                    Item tuLuyenDan1 = new Item(529);
+//                    tuLuyenDan1.amount = 1;
+//                    tuLuyenDan1.isLock = true;
+//                    tuLuyenDan1.strOptions = "";
+//                    addItem(tuLuyenDan1);
+//                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(250000000);
+                }
+                break;
+            case 1073:
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+//                Item tuLuyenDan = new Item(11);
+//                tuLuyenDan.amount = 4;
+//                tuLuyenDan.isLock = true;
+//                addItem(tuLuyenDan);
+//                msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 15;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+//                    Item da12 = new Item(914);
+//                    da12.amount = 2;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 10;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(528);
+                    tuLuyenDan1.amount = 1;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "1,2000;0,2000;174,100;306,40;81,40;332,16;3,400;209,1000";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(2000000000L);
+                }
+                break;
+            case 1074:
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+//                Item tuLuyenDan = new Item(11);
+//                tuLuyenDan.amount = 4;
+//                tuLuyenDan.isLock = true;
+//                addItem(tuLuyenDan);
+//                msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 10;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+//                    Item da12 = new Item(914);
+//                    da12.amount = 2;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 7;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(702);
+                    tuLuyenDan1.amount = 1;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(1500000000L);
+                }
+                break;
+            case 1075:
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+//                Item tuLuyenDan = new Item(11);
+//                tuLuyenDan.amount = 4;
+//                tuLuyenDan.isLock = true;
+//                addItem(tuLuyenDan);
+//                msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 7;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+//                    Item da12 = new Item(914);
+//                    da12.amount = 2;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 5;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(623);
+                    tuLuyenDan1.amount = 1;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "1,2000;0,2000;174,100;306,40;81,40;332,16;3,400;209,1000";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(1000000000L);
+                }
+                break;
+            case 1076:
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(11);
+                    tuLuyenDan.amount = 4;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 7;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+//                    Item da12 = new Item(914);
+//                    da12.amount = 2;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 5;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+                    Item tuLuyenDan1 = new Item(529);
+                    tuLuyenDan1.amount = 1;
+                    tuLuyenDan1.isLock = true;
+                    tuLuyenDan1.strOptions = "1,2000;0,2000;174,100;306,40;81,40;332,16;3,400;209,1000";
+                    addItem(tuLuyenDan1);
+                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(500000000L);
+                }
+                break;
+            case 1077:
+                if (getCountNullItemBag() >= 8) {
+                    removeItem(item);
+                    msgUseItemBag(item);
+
+                    Item tuLuyenDan = new Item(11);
+                    tuLuyenDan.amount = 3;
+                    tuLuyenDan.isLock = true;
+                    addItem(tuLuyenDan);
+                    msgAddItemBag(tuLuyenDan);
+
+                    Item myo = new Item(966);
+                    myo.amount = 5;
+                    myo.isLock = true;
+                    addItem(myo);
+                    msgAddItemBag(myo);
+
+//                    Item da12 = new Item(914);
+//                    da12.amount = 2;
+//                    da12.isLock = true;
+//                    addItem(da12);
+//                    msgAddItemBag(da12);
+
+                    Item sach = new Item(435);
+                    sach.amount = 3;
+                    sach.isLock = true;
+                    addItem(sach);
+                    msgAddItemBag(sach);
+
+//                    Item tuLuyenDan1 = new Item(702);
+//                    tuLuyenDan1.amount = 1;
+//                    tuLuyenDan1.isLock = true;
+//                    tuLuyenDan1.strOptions = "";
+//                    addItem(tuLuyenDan1);
+//                    msgAddItemBag(tuLuyenDan1);
+
+                    addBacKhoa(250000000);
                 }
                 break;
             case 982://top 1 CC
@@ -3692,14 +5390,22 @@ public class Char extends Body {
                     addVang(3000);
                 }
                 break;
-            case 1000://túi 3 loại ngọc
-                if (getCountNullItemBag() >= 4) {
+//            case 999:
+//                if (getCountNullItemBag() >= 1) {
+//                    removeItem(item);
+//                    msgUseItemBag(item);
+//                    int randBac = Utlis.nextInt(5000000, 20000000);
+//                    addBacKhoa(randBac);
+//                }
+//                break;
+            case 1000://túi 4 loại ngọc
+                if (getCountNullItemBag() >= 5) {
                     removeItem(item);
                     msgUseItemBag(item);
 
-                    int[] idNgoc = {563, 565, 567};
+                    int[] idNgoc = {563, 565, 567, 353};
                     for (int j : idNgoc) {
-                        Item itemAdd = new Item(j,true);
+                        Item itemAdd = new Item(j, true);
                         itemAdd.amount = 1;
                         addItem(itemAdd);
                         msgAddItemBag(itemAdd);
@@ -3713,11 +5419,28 @@ public class Char extends Body {
 
                     int[] idNgoc = {826, 827};
                     for (int j : idNgoc) {
-                        Item itemAdd = new Item(j,true);
+                        Item itemAdd = new Item(j, true);
                         itemAdd.amount = 1;
                         addItem(itemAdd);
                         msgAddItemBag(itemAdd);
                     }
+                }
+                break;
+            case 1035:
+                if (getCountNullItemBag() < 1) {
+                    service.alertMessage("TÚI ĐẦY MẸ RỒI");
+                    return;
+                }
+                removeItem(item);
+                msgUseItemBag(item);
+                int itemId = ItemDrop.ITEM_TUI_MAY_MAN3.next();
+                if (itemId == 163) {
+                    addBacKhoa(Utlis.nextInt(50000000, 300000000));
+
+                } else {
+                    Item newitem = new Item(itemId);
+                    addItem(newitem);
+                    msgAddItemBag(newitem);
                 }
                 break;
             case 361:
@@ -3752,7 +5475,7 @@ public class Char extends Body {
             case 645:
                 removeItem(item);
                 msgUseItemBag(item);
-                this.addEffect(new Effect((short) 87, 100, System.currentTimeMillis(), 18 * 60 * 1000 * 60));
+                this.addEffect(new Effect((short) 87, 150, System.currentTimeMillis(), 18 * 60 * 1000 * 60));
                 break;
             case 434:
                 if (item.amount >= 1000) {
@@ -3899,20 +5622,46 @@ public class Char extends Body {
                 msgAddItemBag(svc);
                 break;
             case 603:
-                if(Info.idClass == 5 || Info.idhe == 5){
+                if (Info.idClass == 5 || Info.idhe == 5) {
                     service.alertMessage("Class của bạn không được đổi giới");
                     return;
                 }
                 if (Info.gioiTinh == 0 || Info.gioiTinh == 1) {
                     Info.gioiTinh = (byte) ((Info.gioiTinh == 1) ? 0 : 1);
                 }
+
+                // Sao chép lại kỹ năng theo lớp nhân vật
+                Skill[][] _arraySkill = new Skill[][]{
+                        DataSkill.skills_0.clone(),
+                        DataSkill.skills_1.clone(),
+                        DataSkill.skills_2.clone(),
+                        DataSkill.skills_3.clone(),
+                        DataSkill.skills_4.clone(),
+                        DataSkill.skills_5.clone(),
+                };
+                Skill.arraySkill = _arraySkill[Info.idClass];
+
+                // Thiết lập kỹ năng chiến đấu mặc định là kỹ năng đầu tiên
+                if (Skill.arraySkill.length > 0) {
+                    Skill.skillFight = Skill.arraySkill[0];
+                }
+
+                // Tính toán điểm kỹ năng dựa trên cấp độ và các yếu tố khác
+                int so = Bag.sknSo;       // Số điểm từ loại thấp
+                int trung = 2 * Bag.sknTrung; // Số điểm từ loại trung
+                int cao = 3 * Bag.sknCao;     // Số điểm từ loại cao
+                Point.diemKyNang = (this.level() - 1) + so + trung + cao + Bag.banhUBao;
+
+                // Gửi dữ liệu cập nhật cho nhân vật và kỹ năng
+                msgUpdateDataChar();
+                msgUpdateSkill();
                 service.serverMessage("Chúc mừng bạn đã đổi giới thành công");
                 service.resetScreen();
                 removeItem(item);
                 msgUseItemBag(item);
                 break;
             case 600:
-                if (Skill.arraySkill.length > 7) {//gốc 7
+                if (Skill.arraySkill.length > 9) {//gốc 7
                     return;
                 }
                 removeItem(item);
@@ -3920,12 +5669,12 @@ public class Char extends Body {
                 Skill[] arraySkill_2 = new Skill[Skill.arraySkill.length + 1];
                 for (int i = 0; i < Skill.arraySkill.length; i++) {
                     arraySkill_2[i] = Skill.arraySkill[i];
-                    if(Skill.arraySkill[i].levelNeed == 57) {//check nếu đã có skill 57 k cho học nữa
+                    if (Skill.arraySkill[i].levelNeed == 57) {//check nếu đã có skill 57 k cho học nữa
                         service.alertMessage("Bạn đã có huyết kế giới hạn rồi");
                         return;
                     }
                 }
-                if(Info.gioiTinh == 0) {//nữ
+                if (Info.gioiTinh == 0) {//nữ
                     arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
                 } else {//nam
                     arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
@@ -4009,34 +5758,37 @@ public class Char extends Body {
 
 
             case 931:
-//                if (Info._mapID != 85 || Info.cy != 692) {
-//                    service.serverMessage("Ở đây làm gì có cá,Muốn câu cá hãy đến làng đá");
-//                    return;
-//                }
-//                if (Info._mapID == 85 && Info.cy == 692) {
-//                    removeItem(item);
-//                    msgUseItemBag(item);
-//                    int[] idItem = {920, 921, 922, 923, 924, 925};
-//                    int[] percent = {25, 25, 20, 20, 5, 5};
-//                    int index = Utlis.randomWithRate(percent, 100);
-//                    int id = idItem[index];
-//
-//                    Item item2 = new Item(id);
-//                    addItem(item2);
-//                    msgAddItemBag(item2);
-//                    if (!Info.khoaExp) {
-//                        addExp(50000);
-//                    }
-//
-//                    if (percent[index] <= 10) {
-//                        chatPublic("Haha! Được một con "
-//                                + item2.getItemTemplate().name + " rồi nè!");
-//                    }
-//                    service.sendMessage(HanderMessage.TestMess7(Info.idEntity));
-//                    isCatchItem = false;
-//                    getEventPoint().addPoint(Halloween.TOP_FISH, 1);
-//                    getEventPoint().addPoint(EventPoint.DIEM_TIEU_XAI, 1);
-//                }
+                if (Info._mapID != 85) {
+                    service.serverMessage("Ở đây làm gì có cá,Muốn câu cá hãy đến làng đá");
+                    return;
+                }
+                if (Info.cy != 692) {
+                    service.serverMessage("Bạn cần đứng gần mặt nước để câu cá");
+                    return;
+                }
+                if (getCountNullItemBag() == 0) {
+                    warningBagFull();
+                    return;
+                }
+                removeItem(item);
+                msgUseItemBag(item);
+                // Cá, sao biển, cua
+                int[] idItem = {920, 921, 922, 923, 924, 925};
+                int[] percent = {20, 20, 18, 18, 12, 12};
+                int index = Utlis.randomWithRate(percent, 100);
+                int id = idItem[index];
+
+                Item item2 = new Item(id);
+                addItem(item2);
+                msgAddItemBag(item2);
+                if (!Info.khoaExp) {
+                    addExp(50000);
+                }
+
+                if (percent[index] <= 12) {
+                    chatPublic("Haha! Được một "
+                            + item2.getItemTemplate().name + " rồi nè!");
+                }
                 break;
         }
         if (item.id == 169) {
@@ -4062,8 +5814,8 @@ public class Char extends Body {
             updateTiemNang();
             return;
         }
-        if(item.id == 998) {
-            if(clan != null) {
+        if (item.id == 998) {
+            if (clan != null) {
                 service.alertMessage("Vui lòng thoát tộc trước khi đổi");
                 return;
             }
@@ -4387,7 +6139,7 @@ public class Char extends Body {
                 Bag.itemSach = new Item(992);
                 Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,1500,-1;306,260,-1;68,272,-1;69,272,-1;70,272,-1;71,272,-1;72,272,-1;149,65,-1;371,15,-1;0,14000,-1;1,14000,-1;14,1400,-1;20,1400,-1;81,1400,-1";
                 Point.maxpt = 5;
-                Bag.itemSach.a(Info.sachChienDau);
+                //Bag.itemSach.a(Info.sachChienDau);
                 msgUpdateSachChienDau();
                 msgDataBag();
             }
@@ -4401,7 +6153,7 @@ public class Char extends Body {
                 Bag.itemSach = new Item(993);
                 Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,1700,-1;306,302,-1;68,302,-1;69,302,-1;70,302,-1;71,302,-1;72,302,-1;149,65,-1;371,15,-1;0,16000,-1;1,16000,-1;14,1600,-1;20,1600,-1;81,1600,-1";
                 Point.maxpt = 5;
-                Bag.itemSach.a(Info.sachChienDau);
+                //Bag.itemSach.a(Info.sachChienDau);
                 msgUpdateSachChienDau();
                 msgDataBag();
             }
@@ -4415,7 +6167,7 @@ public class Char extends Body {
                 Bag.itemSach = new Item(994);
                 Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,1900,-1;306,280,-1;68,332,-1;69,332,-1;70,332,-1;71,332,-1;72,332,-1;149,85,-1;371,19,-1;0,18000,-1;1,18000,-1;14,1800,-1;20,1800,-1;81,1800,-1";
                 Point.maxpt = 5;
-                Bag.itemSach.a(Info.sachChienDau);
+                //Bag.itemSach.a(Info.sachChienDau);
                 msgUpdateSachChienDau();
                 msgDataBag();
             }
@@ -4429,7 +6181,7 @@ public class Char extends Body {
                 Bag.itemSach = new Item(995);
                 Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,2100,-1;306,290,-1;68,362,-1;69,362,-1;70,362,-1;71,362,-1;72,362,-1;149,95,-1;371,21,-1;0,20000,-1;1,20000,-1;14,2000,-1;20,2000,-1;81,2000,-1";
                 Point.maxpt = 5;
-                Bag.itemSach.a(Info.sachChienDau);
+                //Bag.itemSach.a(Info.sachChienDau);
                 msgUpdateSachChienDau();
                 msgDataBag();
             }
@@ -4443,7 +6195,7 @@ public class Char extends Body {
                 Bag.itemSach = new Item(996);
                 Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,2300,-1;306,300,-1;68,392,-1;69,392,-1;70,392,-1;71,392,-1;72,392,-1;149,105,-1;371,23,-1;0,22000,-1;1,22000,-1;14,2200,-1;20,2200,-1;81,2200,-1";
                 Point.maxpt = 5;
-                Bag.itemSach.a(Info.sachChienDau);
+                //Bag.itemSach.a(Info.sachChienDau);
                 msgUpdateSachChienDau();
                 msgDataBag();
             }
@@ -4457,12 +6209,153 @@ public class Char extends Body {
                 Bag.itemSach = new Item(997);
                 Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,2500,-1;306,310,-1;68,442,-1;69,442,-1;70,442,-1;71,442,-1;72,442,-1;149,115,-1;371,25,-1;0,24000,-1;1,24000,-1;14,2400,-1;20,2400,-1;81,2400,-1";
                 Point.maxpt = 5;
-                Bag.itemSach.a(Info.sachChienDau);
+                //Bag.itemSach.a(Info.sachChienDau);
                 msgUpdateSachChienDau();
                 msgDataBag();
             }
             return;
         }
+        if (item.id == 1014) {// sách 31
+            if (Info.sachChienDau == 30) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 31;
+                Bag.itemSach = new Item(1014);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,2700,-1;306,320,-1;68,482,-1;69,482,-1;70,482,-1;71,482,-1;72,482,-1;149,125,-1;371,27,-1;0,26000,-1;1,26000,-1;14,2600,-1;20,2600,-1;81,2600,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 1015) {// sách 32
+            if (Info.sachChienDau == 31) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 32;
+                Bag.itemSach = new Item(1015);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,2900,-1;306,330,-1;68,522,-1;69,522,-1;70,522,-1;71,522,-1;72,522,-1;149,135,-1;371,29,-1;0,28000,-1;1,28000,-1;14,2800,-1;20,2800,-1;81,2800,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 1016) {// sách 33
+            if (Info.sachChienDau == 32) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 33;
+                Bag.itemSach = new Item(1016);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,3100,-1;306,340,-1;68,562,-1;69,562,-1;70,562,-1;71,562,-1;72,562,-1;149,145,-1;371,31,-1;0,30000,-1;1,30000,-1;14,3000,-1;20,3000,-1;81,3000,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 1017) {// sách 34
+            if (Info.sachChienDau == 33) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 34;
+                Bag.itemSach = new Item(1017);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,3300,-1;306,350,-1;68,602,-1;69,602,-1;70,602,-1;71,602,-1;72,602,-1;149,155,-1;371,33,-1;0,32000,-1;1,32000,-1;14,3200,-1;20,3200,-1;81,3200,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 1018) {// sách 35
+            if (Info.sachChienDau == 34) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 35;
+                Bag.itemSach = new Item(1018);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,3500,-1;306,360,-1;68,642,-1;69,642,-1;70,642,-1;71,642,-1;72,642,-1;149,165,-1;371,35,-1;0,34000,-1;1,34000,-1;14,3400,-1;20,3400,-1;81,3400,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 1019) {// sách 36
+            if (Info.sachChienDau == 35) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 36;
+                Bag.itemSach = new Item(1019);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,3700,-1;306,370,-1;68,682,-1;69,682,-1;70,682,-1;71,682,-1;72,682,-1;149,175,-1;371,37,-1;0,36000,-1;1,36000,-1;14,3600,-1;20,3600,-1;81,3600,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 1020) {// sách 37
+            if (Info.sachChienDau == 36) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 37;
+                Bag.itemSach = new Item(1020);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,3900,-1;306,380,-1;68,722,-1;69,722,-1;70,722,-1;71,722,-1;72,722,-1;149,185,-1;371,39,-1;0,38000,-1;1,38000,-1;14,3800,-1;20,3800,-1;81,3800,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 1021) {// sách 38
+            if (Info.sachChienDau == 37) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 38;
+                Bag.itemSach = new Item(1021);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,4100,-1;306,390,-1;68,762,-1;69,762,-1;70,762,-1;71,762,-1;72,762,-1;149,195,-1;371,41,-1;0,40000,-1;1,40000,-1;14,4000,-1;20,4000,-1;81,4000,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 1022) {// sách 39
+            if (Info.sachChienDau == 38) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 39;
+                Bag.itemSach = new Item(1022);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,4300,-1;306,400,-1;68,802,-1;69,802,-1;70,802,-1;71,802,-1;72,802,-1;149,205,-1;371,43,-1;0,42000,-1;1,42000,-1;14,4200,-1;20,4200,-1;81,4200,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+        if (item.id == 1023) {// sách 40
+            if (Info.sachChienDau == 39) {
+                removeItem(item);
+                msgUseItemBag(item);
+                Info.sachChienDau = 40;
+                Bag.itemSach = new Item(1023);
+                Bag.itemSach.strOptions = "207,2700,-1;208,1800,-1;311,4500,-1;306,410,-1;68,842,-1;69,842,-1;70,842,-1;71,842,-1;72,842,-1;149,215,-1;371,45,-1;0,44000,-1;1,44000,-1;14,4400,-1;20,4400,-1;81,4400,-1";
+                Point.maxpt = 5;
+                //Bag.itemSach.a(Info.sachChienDau);
+                msgUpdateSachChienDau();
+                msgDataBag();
+            }
+            return;
+        }
+
         if (item.id == 277) {
             if (getCountNullItemBag() >= 3) {
                 removeItem(item);
@@ -4514,33 +6407,36 @@ public class Char extends Body {
             return;
         }
         if (item.id == 933) {//rương trải nghiệm
-//            if (getCountNullItemBag() < 16) {
-//                warningBagFull();
-//                return;
-//            }
-//            int[] idItem = {353, 563, 565, 567, 428, 174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 434, 754};
-//            for (int i = 0; i < idItem.length; i++) {
-//                int id = idItem[i];
-//                Item item2 = new Item(id);
-//                item2.amount = 9999;
-//                addItem(item2);
-//                msgAddItemBag(item2);
-//            }
-//            removeItem(item);
-//            msgUpdateItemBag(item);
-//            user.session.sendMessage(HanderMessage.resetScreen());
+            if (getCountNullItemBag() < 16) {
+                warningBagFull();
+                return;
+            }
+            //int[] idItem = {353, 563, 565, 567, 428, 174, 175, 179, 216, 217, 218, 248, 278, 302, 315, 434, 754};
+            int[] idItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315, // lệnh bài Hokage
+                    428};
+            for (int i = 0; i < idItem.length; i++) {
+                int id = idItem[i];
+                Item item2 = new Item(id);
+                item2.amount = 1;
+                addItem(item2);
+                msgAddItemBag(item2);
+            }
+            removeItem(item);
+            msgUpdateItemBag(item);
+            user.session.sendMessage(HanderMessage.resetScreen());
             return;
         }
-        if (item.id == 1002) {// rương lệnh bài
+        if (item.id == 1002) {// rương sách
             if (getCountNullItemBag() < 11) {
                 warningBagFull();
                 return;
             }
             int[] idItem = {174, 175, 179, 216, 217, 218, 248, 278, 302, 315};
+            //int[] idItem = {1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 987, 988, 989, 990, 991, 992, 993, 994, 995, 996, 997};
             for (int i = 0; i < idItem.length; i++) {
                 int id = idItem[i];
                 Item item2 = new Item(id);
-                item2.amount = 1;
+                item2.amount = 5;
                 item2.isLock = true;
                 addItem(item2);
                 msgAddItemBag(item2);
@@ -4850,9 +6746,9 @@ public class Char extends Body {
             }
 
             if (item != null) {
-               // user.session.sendMessage(HanderMessage.MsgLoadPhanTram(this, 500, "Đang chế tạo"));
-               // Thread.sleep(500L);
-              //  user.session.sendMessage(HanderMessage.xoaTab(this));
+                // user.session.sendMessage(HanderMessage.MsgLoadPhanTram(this, 500, "Đang chế tạo"));
+                // Thread.sleep(500L);
+                //  user.session.sendMessage(HanderMessage.xoaTab(this));
                 addItem(item);
                 msgAddItemBag(item);
                 if (type == 0) {
@@ -4868,6 +6764,7 @@ public class Char extends Body {
         }
 
     }
+
     public void BiKipHienNhan() {
         if (Info.pointDungeon < 50000) {
 
@@ -4914,15 +6811,25 @@ public class Char extends Body {
                 return;
             }
 
-            for (TemplatePL temp : phucLoi.listPl) {
-                if (temp.Id == index) {
+            // Xử lý nhận quà
+            TemplatePL temp = getItemPl(index);
+            if (temp == null) {
+                service.alertMessage("Phúc lợi không tồn tại");
+                return;
+            }
+
+            // Kiểm tra đã nhận chưa (check theo IDPhucLoi + Id để tránh trùng giữa các gói)
+            for (TemplatePL pl : phucLoi.listPl) {
+                if (pl.Id == temp.Id && pl.IDPhucLoi == temp.IDPhucLoi) {
                     service.alertMessage("Nhận 1 lần thôi cụ");
                     return;
                 }
             }
 
-            // Xử lý nhận quà
-            TemplatePL temp = getItemPl(index);
+            if (!checkItemPl(temp)) {
+                service.alertMessage("Chưa mua gói này nên không thể nhận quà");
+                return;
+            }
             phucLoi.listPl.add(temp);
             switch (temp.IDPhucLoi) {
                 case 0:
@@ -5231,8 +7138,221 @@ public class Char extends Body {
                             service.updateRank();
                             Manager.gI().countRank++;
                             return;
+                        case 1024://rank16
+                            if (Info.rank < 16)
+                                Info.rank = 16;
+                            if (Info.BuffEXP < 360)
+                                Info.BuffEXP = 360;
+                            if (Manager.gI().rankCaoNhat < 16) {
+                                Manager.gI().rankCaoNhat = 16;
+                            }
+
+                            Item manhsach = new Item(855);
+                            manhsach.isLock = true;
+                            manhsach.amount = 1;
+                            manhsach.strOptions = "0,4000;1,4000;2,1100;3,1000;4,200;209,1200;123,60;124,59;125,59;126,60;127,59";
+                            addItem(manhsach);
+                            msgAddItemBag(manhsach);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+                        case 1025://rank17
+                            if (Info.rank < 17)
+                                Info.rank = 17;
+                            if (Info.BuffEXP < 370)
+                                Info.BuffEXP = 370;
+                            if (Manager.gI().rankCaoNhat < 17) {
+                                Manager.gI().rankCaoNhat = 17;
+                            }
+
+                            Item manhsach17 = new Item(1002);
+                            manhsach17.isLock = true;
+                            manhsach17.amount = 100;
+                            addItem(manhsach17);
+                            msgAddItemBag(manhsach17);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+                        case 1026://rank18
+                            if (Info.rank < 18)
+                                Info.rank = 18;
+                            if (Info.BuffEXP < 380)
+                                Info.BuffEXP = 380;
+                            if (Manager.gI().rankCaoNhat < 18) {
+                                Manager.gI().rankCaoNhat = 18;
+                            }
+
+                            Item manhsach18 = new Item(127);
+                            manhsach18.isLock = true;
+                            manhsach18.amount = 1;
+                            manhsach18.strOptions = "204,200;258,700;6,10;0,5000;1,5000;209,250;81,10;119,350;120,350;121,681;122,350;123,60;124,59;125,59;126,60;127,59";
+                            addItem(manhsach18);
+                            msgAddItemBag(manhsach18);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+                        case 1027://rank19
+                            if (Info.rank < 19)
+                                Info.rank = 19;
+                            if (Info.BuffEXP < 390)
+                                Info.BuffEXP = 390;
+                            if (Manager.gI().rankCaoNhat < 19) {
+                                Manager.gI().rankCaoNhat = 19;
+                            }
+
+                            Item manhsach19 = new Item(11);
+                            manhsach19.isLock = true;
+                            manhsach19.amount = 10;
+                            addItem(manhsach19);
+                            msgAddItemBag(manhsach19);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+                        case 1028:
+                            if (Info.rank < 20)
+                                Info.rank = 20;
+                            if (Info.BuffEXP < 400)
+                                Info.BuffEXP = 400;
+                            if (Manager.gI().rankCaoNhat < 20) {
+                                Manager.gI().rankCaoNhat = 20;
+                            }
+
+                            Item manhsach20 = new Item(987);
+                            manhsach20.isLock = true;
+                            manhsach20.amount = 1;
+                            addItem(manhsach20);
+                            msgAddItemBag(manhsach20);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+                        case 1029:
+                            if (Info.rank < 21)
+                                Info.rank = 21;
+                            if (Info.BuffEXP < 410)
+                                Info.BuffEXP = 410;
+                            if (Manager.gI().rankCaoNhat < 21) {
+                                Manager.gI().rankCaoNhat = 21;
+                            }
+
+                            Item manhsach21 = new Item(693);
+                            manhsach21.isLock = true;
+                            manhsach21.amount = 1;
+                            manhsach21.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200;209,200";
+                            addItem(manhsach21);
+                            msgAddItemBag(manhsach21);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+                        case 1030:
+                            if (Info.rank < 22)
+                                Info.rank = 22;
+                            if (Info.BuffEXP < 420)
+                                Info.BuffEXP = 420;
+                            if (Manager.gI().rankCaoNhat < 22) {
+                                Manager.gI().rankCaoNhat = 22;
+                            }
+
+                            Item manhsach22 = new Item(966);
+                            manhsach22.isLock = true;
+                            manhsach22.amount = 50;
+                            addItem(manhsach22);
+                            msgAddItemBag(manhsach22);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+                        case 1031:
+                            if (Info.rank < 23)
+                                Info.rank = 23;
+                            if (Info.BuffEXP < 430)
+                                Info.BuffEXP = 430;
+                            if (Manager.gI().rankCaoNhat < 23) {
+                                Manager.gI().rankCaoNhat = 23;
+                            }
+
+                            Item manhsach23 = new Item(986);
+                            manhsach23.isLock = true;
+                            manhsach23.amount = 1;
+                            addItem(manhsach23);
+                            msgAddItemBag(manhsach23);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+                        case 1032:
+                            if (Info.rank < 24)
+                                Info.rank = 24;
+                            if (Info.BuffEXP < 440)
+                                Info.BuffEXP = 440;
+                            if (Manager.gI().rankCaoNhat < 24) {
+                                Manager.gI().rankCaoNhat = 24;
+                            }
+
+                            Item manhsach24 = new Item(434);
+                            manhsach24.isLock = true;
+                            manhsach24.amount = 600000;
+                            addItem(manhsach24);
+                            msgAddItemBag(manhsach24);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+                        case 1033:
+                            if (Info.rank < 25)
+                                Info.rank = 25;
+                            if (Info.BuffEXP < 450)
+                                Info.BuffEXP = 450;
+                            if (Manager.gI().rankCaoNhat < 25) {
+                                Manager.gI().rankCaoNhat = 25;
+                            }
+
+                            Item manhsach25 = new Item(434);
+                            manhsach25.isLock = true;
+                            manhsach25.amount = 650000;
+                            addItem(manhsach25);
+                            msgAddItemBag(manhsach25);
+
+                            msgGetInfo();
+                            service.sendChar();
+                            service.updateRank();
+                            Manager.gI().countRank++;
+                            return;
+
                     }
                     break;
+                case 13: // Gói hào hoa - tạo item từ template
+                case 14: // Gói chí tôn - tạo item từ template
+                    Item welfareItem = new Item(temp.IdItem);
+                    welfareItem.isLock = temp.isLock;
+                    welfareItem.amount = temp.Amount;
+                    welfareItem.strOptions = temp.strOption;
+                    addItem(welfareItem);
+                    msgAddItemBag(welfareItem);
+                    return;
             }
             if (temp.IdItem == 163) {
                 this.addBacKhoa(temp.Amount);
@@ -5280,12 +7400,128 @@ public class Char extends Body {
         return null;
     }
 
-    public boolean checkItemPl(TemplatePL templatePL) {
-        if (templatePL.IDPhucLoi == 13 && !phucLoi.goiHaoHoa) {
-            return false;
+    // VongQuayNap disabled - not used
+    /*
+    private void resetVongQuayNapSeasonIfNeeded() {
+        if (phucLoi == null) {
+            phucLoi = new InfoPhucLoi();
         }
-        if (templatePL.IDPhucLoi == 14 && !phucLoi.goiChiTon) {
-            return false;
+        if (phucLoi.vongQuayNapSeasonId != VongQuayNapConfig.SeasonId) {
+            phucLoi.vongQuayNapSeasonId = VongQuayNapConfig.SeasonId;
+            phucLoi.vongQuayNapTichLuy = 0L;
+            phucLoi.luotQuayVongXoay = 0L;
+            phucLoi.daQuayVongXoay = 0;
+        }
+    }
+
+    private int tinhTongLuotQuayVongNap(long diemTichLuy) {
+        int tongLuot = 0;
+        for (int i = VONG_QUAY_NAP_MOC_DIEM.length - 1; i >= 1; i--) {
+            if (diemTichLuy >= VONG_QUAY_NAP_MOC_DIEM[i]) {
+                tongLuot = i;
+                break;
+            }
+        }
+        return Math.min(tongLuot, VONG_QUAY_NAP_MAX_LUOT);
+    }
+
+    public void addVongQuayNapPoint(int coinNap) {
+        if (coinNap <= 0 || phucLoi == null) {
+            return;
+        }
+        if (!VongQuayNapConfig.isValid()) {
+            return;
+        }
+
+        long now = System.currentTimeMillis();
+        if (now < VongQuayNapConfig.StartTimeMillis || now > VongQuayNapConfig.EndTimeMillis) {
+            return;
+        }
+
+        resetVongQuayNapSeasonIfNeeded();
+        phucLoi.vongQuayNapTichLuy = Math.max(0L, phucLoi.vongQuayNapTichLuy + coinNap);
+
+        if (phucLoi.daQuayVongXoay >= VONG_QUAY_NAP_MAX_LUOT) {
+            phucLoi.luotQuayVongXoay = 0L;
+            return;
+        }
+
+        int tongLuotQuay = tinhTongLuotQuayVongNap(phucLoi.vongQuayNapTichLuy);
+        long luotConLai = Math.max(0, tongLuotQuay - phucLoi.daQuayVongXoay);
+        if (luotConLai > phucLoi.luotQuayVongXoay) {
+            phucLoi.luotQuayVongXoay = luotConLai;
+        }
+    }
+
+    public void vongQuayNap() {
+        if (phucLoi == null) {
+            phucLoi = new InfoPhucLoi();
+        }
+        if (!VongQuayNapConfig.isValid()) {
+            user.session.sendMessage(HanderMessage.SendThongBao("Sự kiện Vòng quay nạp hiện không diễn ra.", HanderMessage.RED_MID));
+            user.session.sendMessage(HanderMessage.SendVongQuay((byte) 0, (byte) 0, 0, 0, phucLoi.daQuayVongXoay));
+            return;
+        }
+
+        long now = System.currentTimeMillis();
+        if (now < VongQuayNapConfig.StartTimeMillis || now > VongQuayNapConfig.EndTimeMillis) {
+            user.session.sendMessage(HanderMessage.SendThongBao("Sự kiện Vòng quay nạp hiện không diễn ra.", HanderMessage.RED_MID));
+            user.session.sendMessage(HanderMessage.SendVongQuay((byte) 0, (byte) 0, 0, 0, phucLoi.daQuayVongXoay));
+            return;
+        }
+
+        resetVongQuayNapSeasonIfNeeded();
+        if (phucLoi.daQuayVongXoay >= VONG_QUAY_NAP_MAX_LUOT || phucLoi.luotQuayVongXoay <= 0) {
+            phucLoi.luotQuayVongXoay = Math.max(0L, phucLoi.luotQuayVongXoay);
+            user.session.sendMessage(HanderMessage.SendThongBao("Bạn không còn lượt quay nào!", HanderMessage.RED_MID));
+            user.session.sendMessage(HanderMessage.SendVongQuay((byte) 0, (byte) 0, 0, (int) phucLoi.luotQuayVongXoay, phucLoi.daQuayVongXoay));
+            return;
+        }
+
+        int[] baseRewards = {0, 80, 480, 880, 1880, 3280};
+        int soLanQuayTiepTheo = Math.min(phucLoi.daQuayVongXoay + 1, 5);
+        int baseReward = baseRewards[soLanQuayTiepTheo];
+        // Client beatdz chỉ có 6 cung quay, nên result phải nằm trong [0..5].
+        byte result = (byte) Utlis.nextInt(0, 5);
+        int reward = baseReward * (result + 1);
+
+        phucLoi.daQuayVongXoay++;
+        phucLoi.luotQuayVongXoay = Math.max(0L, phucLoi.luotQuayVongXoay - 1);
+
+        if (reward > 0) {
+            addVangKhoa(reward);
+        }
+
+        user.session.sendMessage(HanderMessage.SendVongQuay((byte) 1, result, reward, (int) phucLoi.luotQuayVongXoay, phucLoi.daQuayVongXoay));
+        ClickEvent.PhucLoi(this);
+    }
+    */
+
+    public boolean checkItemPl(TemplatePL templatePL) {
+        if (templatePL.IDPhucLoi == 1999) {
+            return true;
+        }
+        if (templatePL.IDPhucLoi == 13) {
+            for (TemplatePL temp : phucLoi.listPl) {
+                if (temp.Id == templatePL.Id) {
+                    return false;
+                }
+            }
+            return phucLoi.goiHaoHoa && level() >= templatePL.yeucau;
+        }
+        if (templatePL.IDPhucLoi == 14) {
+            for (TemplatePL temp : phucLoi.listPl) {
+                if (temp.Id == templatePL.Id) {
+                    return false;
+                }
+            }
+            return phucLoi.goiChiTon && level() >= templatePL.yeucau;
+        }
+        if (templatePL.IDPhucLoi == 15) {
+            return phucLoi.theThang > System.currentTimeMillis();
+        }
+        if (templatePL.IDPhucLoi == 16) {
+            return phucLoi.theVinhVien > System.currentTimeMillis();
         }
         for (TemplatePL temp : phucLoi.listPl) {
             if (temp.Id == templatePL.Id) {
@@ -5550,7 +7786,7 @@ public class Char extends Body {
 //        if (getExpBuff() > 0) {
 //            exp += exp * getExpBuff() / 100;
 //        }
-        exp *= 5;//open sửa 2
+        exp *= Math.max(1, Config.getInstance().getGameExpRate());
         if (exp < 0) {
             exp = 0;
         }
@@ -5855,6 +8091,29 @@ public class Char extends Body {
 
     private void chatAdmin(String str) {
         if (user.isAdmin) {
+            if (str.equalsIgnoreCase("dhng")) {
+                Manager.gI().createDaiHoi();
+                service.serverMessage("Đã kích hoạt Đại Hội Nhẫn Giả.");
+                Main.HeThongCTG("Admin " + Info.name + " đã kích hoạt Đại Hội Nhẫn Giả.", 2);
+                return;
+            }
+            if (str.equals("ktng")) {
+                KienThucNhanGia.startEvent();
+                service.serverMessage("Đã bật sự kiện Kiến Thức Nhẫn Giả.");
+                return;
+            }
+            if (str.equalsIgnoreCase("dcng3")) {
+                Manager.gI().createDaiChien3();
+                service.serverMessage("Đã kích hoạt Đại chiến nhẫn giả 3.");
+                return;
+            }
+            if (str.equals("ccct")) {
+                // Kích hoạt sự kiện câu cá cuối tuần
+                HanderNpc.activateWeekendFishing();
+                service.serverMessage("Đã kích hoạt sự kiện câu cá cuối tuần!");
+                Main.HeThongCTG("🎣 Hoạt động câu cá cuối tuần đã bắt đầu! Hãy đến Làng Đá để tham gia!", 2);
+                return;
+            }
             if (str.startsWith("map")) {
                 String[] arr = Utlis.split(str, " ");
                 try {
@@ -5902,10 +8161,9 @@ public class Char extends Body {
                 SummerEvent summerEvent = new SummerEvent(level());
                 summerEvent.addMember(this);
                 summerEvent.join(this);
-            } else if (str.equals("daihoi")) {
-                DaiHoiVoThuat.DAIHOI = DaiHoiVoThuat.gI();
-                Main.HeThongCTG("Đại hội võ thuật đã mở, hãy nhanh chóng tham gia",2);
-                DaiHoiVoThuat.DAIHOI.join(1, this);
+            } else if (str.equals("daihoi") || str.equals("dhng")) {
+                Manager.gI().createDaiHoi();
+                service.serverMessage("Đã mở Đại Hội Nhẫn Giả.");
             } else if (str.startsWith(
                     "clan")) {
                 Territory territory = new Territory(clan.id);
@@ -5919,19 +8177,19 @@ public class Char extends Body {
             } else if (str.startsWith(
                     "getmob")) {
                 service.serverMessage("moblive:: " + zone.getLivingMonsters().size());
-            } else if(str.contains("thiendao")){
+            } else if (str.contains("thiendao")) {
 
                 this.service.openMsg122((byte) 103);
 
-            } else if(str.contains("vocuc")){
+            } else if (str.contains("vocuc")) {
 
                 this.service.openMsg122((byte) 104);
 
-            } else if (str.contains("backhoa")){
+            } else if (str.contains("backhoa")) {
                 this.addBacKhoa(100000000000L);
             } else if (str.contains("spawm")) {
                 try {
-                    BossManager.gI().spawnBoss();
+                   
                 } catch (Exception e) {
 
                 }
@@ -5953,7 +8211,7 @@ public class Char extends Body {
             } else if (str.contains(
                     "bosssk")) {
                 try {
-                    BossManager.gI().createBossTest();
+                 
                 } catch (Exception e) {
 
                 }
@@ -5998,6 +8256,78 @@ public class Char extends Body {
                 String[] arr = Utlis.split(str, " ");
                 int mapid = Integer.parseInt(arr[1]);
                 Map.maps[mapid].resetThreadUpdate();
+                } else if (str.startsWith("ic")) {
+                // Lệnh add item vào rương gia tộc: ic [id] [số lượng]
+                if (this.clan == null) {
+                    this.service.serverMessage("Bạn chưa có gia tộc.");
+                    return;
+                }
+                
+                // Kiểm tra quyền (chỉ tộc trưởng/tộc phó)
+                Member member = this.clan.getMemberByName(this.Info.name);
+                if (member == null) {
+                    this.service.serverMessage("Bạn không phải thành viên của gia tộc này.");
+                    return;
+                }
+                
+                int typeClan = member.getType();
+                boolean isClanLeader = typeClan == Clan.TYPE_TOCTRUONG || typeClan == Clan.TYPE_TOCPHO;
+                
+                if (!isClanLeader) {
+                    this.service.serverMessage("Chỉ Tộc Trưởng và Tộc Phó mới có thể sử dụng lệnh này.");
+                    return;
+                }
+                
+                String[] arr = Utlis.split(str, " ");
+                try {
+                    int id = Integer.parseInt(arr[1]);
+                    int amount = arr.length >= 3 ? Integer.parseInt(arr[2]) : 1;
+                    
+                    Item itADD = new Item(id, true, amount);
+                    if (itADD.getItemTemplate().isXepChong) {
+                        itADD.amount = amount;
+                    } else {
+                        itADD.amount = 1;
+                        for (int i = 1; i < amount; i++) {
+                            Item itA = new Item(id, true, 1);
+                            this.clan.themItem(itA);
+                        }
+                    }
+                    
+                    this.clan.themItem(itADD);
+                    this.service.serverMessage("Đã thêm " + amount + "x " + itADD.getItemTemplate().name + " (ID: " + id + ") vào rương gia tộc.");
+                    Log.debug("addITEM to clan box success");
+
+                } catch (Exception x) {
+                    this.service.serverMessage("Lỗi: " + x.getMessage());
+                    this.service.serverMessage("Cú pháp: ic [id_item] [số_lượng]");
+                    x.printStackTrace();
+                }
+            } else if (str.startsWith("i")) {
+                
+                String[] arr = Utlis.split(str, " ");
+                try {
+                    int id = Integer.parseInt(arr[1]);
+                    int amount = Integer.parseInt(arr[2]);
+                    Item itADD = new Item(id);
+                    if (itADD.getItemTemplate().isXepChong) {
+                        itADD.amount = amount;
+                    } else {
+                        itADD.amount = 1;
+                        for (int i = 1; i < amount; i++) {
+                            Item itA = new Item(id);
+                            addItem(itA);
+                            msgAddItemBag(itA);
+                        }
+                    }
+                    if (this.addItem(itADD)) {
+                        this.msgAddItemBag(itADD);
+                        Log.debug("addITEM sucsees");
+                    }
+
+                } catch (Exception x) {
+                    x.printStackTrace();
+                }
             } else if (str.startsWith(
                     "uplv")) {
                 String[] arr = Utlis.split(str, " ");
@@ -6136,7 +8466,7 @@ public class Char extends Body {
                 String[] arr = Utlis.split(str, " ");
                 try {
                     byte id = Byte.parseByte(arr[1]);
-                    ClickEvent.ShopTrangBi(this, id, Info.idhe);
+                    ClickEvent.Shop(this, id);
                 } catch (Exception x) {
                     x.printStackTrace();
                 }
@@ -6199,6 +8529,7 @@ public class Char extends Body {
             } else if (str.equals(
                     "phu")) {
                 String[] size = {"Trường Konoha Gakuen", "Làng", "Khu rừng chết", "Đại chiến nhẫn giả lần 3", "Đại hội nhẫn giả"};
+                size = new String[]{"Trường Konoha Gakuen", "Làng", "Khu rừng chết", "Đại chiến nhẫn giả lần 3", "Đại hội nhẫn giả"};
                 StringBuilder str2 = new StringBuilder();
                 for (int i = 0; i < size.length; i++) {
                     if (i > 0) {
@@ -6252,7 +8583,7 @@ public class Char extends Body {
 //                        if(_char2!= null && _char2.user!=null && _char2.service!=null)
 //                        _char2.user.service.alertMessage("Chuẩn bị bảo trì sau 30s");
 //                    }
-                    service.alertMessage("Bắt đầu bảo trì sau 30s");
+                    service.alertMessage("vui lòng out game để bảo trì");
                     Main.maintance();
                     System.exit(1);
                 }).start();
@@ -6493,7 +8824,6 @@ public class Char extends Body {
                                 }
                             });
                             text.add("Nâng cấp cho: " + (Bag.arrItemBody[i].getItemTemplate().name) + "(+" + Bag.arrItemBody[i].level + " lên +" + (Bag.arrItemBody[i].level + 1) + ")");
-                            Main.HeThongCTG("Nhẫn giả " + Info.name + " nâng cấp "+ (Bag.arrItemBody[i].getItemTemplate().name) + " lên " + (Bag.arrItemBody[i].level + 1),2);
                         }
                     }
                 }
@@ -6526,7 +8856,67 @@ public class Char extends Body {
         }
         Point.diemTiemNang += (levelUp * 10);
         Point.diemKyNang += (levelUp * 1);
+
+        // Nhận quà theo cấp cho gói đầu tư
+        kiemTraNhanQuaTheoCap(levelNew);
+
         msgUpdateDataChar();
+    }
+
+    // Các cấp nhận quà: 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65
+    private static final int[] CAP_NHAN_QUA = {10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65};
+
+    private void kiemTraNhanQuaTheoCap(int level) {
+        // Kiểm tra gói hào hoa
+        if (phucLoi.goiHaoHoa && phucLoi.capNhanHaoHoa < 65) {
+            for (int cap : CAP_NHAN_QUA) {
+                if (level >= cap && phucLoi.capNhanHaoHoa < cap) {
+                    nhanQuaDauTu(13, cap);
+                    phucLoi.capNhanHaoHoa = cap;
+                    getService().serverMessage("Bạn nhận được quà gói hào hoa cấp " + cap + "!");
+                }
+            }
+        }
+        // Kiểm tra gói chí tôn
+        if (phucLoi.goiChiTon && phucLoi.capNhanChiTon < 65) {
+            for (int cap : CAP_NHAN_QUA) {
+                if (level >= cap && phucLoi.capNhanChiTon < cap) {
+                    nhanQuaDauTu(14, cap);
+                    phucLoi.capNhanChiTon = cap;
+                    getService().serverMessage("Bạn nhận được quà gói chí tôn cấp " + cap + "!");
+                }
+            }
+        }
+    }
+
+    // Nhận quà bù cho các cấp đã đạt khi mua gói
+    private void nhanQuaBuCacCapDaDat(int welfareId, int currentLevel, boolean isHaoHoa) {
+        String tenGoi = isHaoHoa ? "hào hoa" : "chí tôn";
+        int capDaNhan = isHaoHoa ? phucLoi.capNhanHaoHoa : phucLoi.capNhanChiTon;
+
+        for (int cap : CAP_NHAN_QUA) {
+            if (currentLevel >= cap && capDaNhan < cap) {
+                nhanQuaDauTu(welfareId, cap);
+                if (isHaoHoa) {
+                    phucLoi.capNhanHaoHoa = cap;
+                } else {
+                    phucLoi.capNhanChiTon = cap;
+                }
+                getService().serverMessage("Nhận quà gói " + tenGoi + " cấp " + cap + "!");
+            }
+        }
+    }
+
+    private void nhanQuaDauTu(int welfareId, int cap) {
+        TemplatePL temp = PhucLoi.getInstance().findByWelfareIdAndLevel(welfareId, cap);
+        if (temp != null) {
+            Item welfareItem = new Item(temp.IdItem);
+            welfareItem.isLock = temp.isLock;
+            welfareItem.amount = temp.Amount;
+            welfareItem.strOptions = temp.strOption;
+            addItem(welfareItem);
+            msgAddItemBag(welfareItem);
+        }
     }
 
     public void msgDataBag() {
@@ -6767,67 +9157,100 @@ public class Char extends Body {
     }
 
     public void reSpawn() {
-        if (!canRevive) {
-            service.serverMessage("Bạn không thể hồi sinh do dính bùa uế thổ , vui lòng nhập captchat để giải hiệu ứng");
-            service.resendCaptcha();
-            return;
-        }
-        InfoGame.isDie = false;
-        Point.hp = maxHP;
-        Point.mp = maxMP;
         try {
-            Writer writer = new Writer();
-            writer.writeInt(Info.idEntity);
-            writer.writeInt(Point.hp);
-            writer.writeInt(Point.mp);
-            if (zone != null)
-                zone.reSpawn(writer);
-            //this.user.session.serivce.setXYChar();
-        } catch (Exception ex) {
-            Log.error("Loi hoi sinh " + ex);
+            if (!canRevive) {
+                service.serverMessage("Bạn không thể hồi sinh do dính bùa uế thổ , vui lòng nhập captchat để giải hiệu ứng");
+                service.resendCaptcha();
+                return;
+            }
+            // DeadForest: chết quá 5 lần sẽ bị đưa về map hồi sinh
+            if (zone instanceof ZDeadForest || zone instanceof ZDeadForest2) {
+                countDieDeadForest++;
+                if (countDieDeadForest >= 5) {
+                    countDieDeadForest = 0;
+                    service.serverMessage("Bạn đã chết quá 5 lần, sẽ được đưa về điểm hồi sinh.");
+                    Map.maps[Info.mapReSpawm].addChar(this);
+                    return;
+                }
+            }
+            if (zone != null && zone.isDaiChienNhanGia3()) {
+                DaiChienNhanGia3 event = (DaiChienNhanGia3) findWorld(World.DAI_CHIEN_NHAN_GIA_3);
+                if (event != null && event.reviveToCamp(this)) {
+                    return;
+                }
+            }
+            InfoGame.isDie = false;
+            Point.hp = maxHP;
+            Point.mp = maxMP;
+            try {
+                Writer writer = new Writer();
+                writer.writeInt(Info.idEntity);
+                writer.writeInt(Point.hp);
+                writer.writeInt(Point.mp);
+                if (zone != null)
+                    zone.reSpawn(writer);
+                //this.user.session.serivce.setXYChar();
+            } catch (Exception ex) {
+                Log.error("Loi hoi sinh " + ex);
+            }
+            try {
+                Writer writer = new Writer();
+                writer.writeInt(Info.idEntity);
+                Info.writeXY(writer);
+                if (zone != null)
+                    zone.setXYChar(writer);
+                //this.user.session.serivce.setXYChar();
+            } catch (Exception ex) {
+                Log.error("Loi hoi hoi sinh " + ex);
+            }
+        } catch (Exception e) {
+
         }
-        try {
-            Writer writer = new Writer();
-            writer.writeInt(Info.idEntity);
-            Info.writeXY(writer);
-            if (zone != null)
-                zone.setXYChar(writer);
-            //this.user.session.serivce.setXYChar();
-        } catch (Exception ex) {
-            Log.error("Loi hoi hoi sinh " + ex);
-        }
+
 
     }
 
     public void reSpawnHS() {
-        if (!canRevive) {
-            service.serverMessage("Bạn không thể hồi sinh do dính bùa uế thổ , vui lòng nhập captchat để giải hiệu ứng");
-            service.resendCaptcha();
-            return;
-        }
-        if (zone.isLoiDai()) {
-            service.serverMessage("Không thể hồi sinh tại khu vực này");
-            return;
-        }
-        if (Bag.vangKhoa > 0) {
-            addVangKhoa(-1);
-        } else {
-            this.user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng khoá", HanderMessage.RED_MID));
-        }
-        InfoGame.isDie = false;
-        Point.hp = maxHP;
-        Point.mp = maxMP;
         try {
-            Writer writer = new Writer();
-            writer.writeInt(Info.idEntity);
-            writer.writeInt(Point.hp);
-            writer.writeInt(Point.mp);
-            if (zone != null)
-                zone.reSpawn(writer);
-            //this.user.session.serivce.setXYChar();
-        } catch (Exception ex) {
-            Log.error("Loi hoi hoi sinh " + ex);
-        }
+            if (!canRevive) {
+                service.serverMessage("Bạn không thể hồi sinh do dính bùa uế thổ , vui lòng nhập captchat để giải hiệu ứng");
+                service.resendCaptcha();
+                return;
+            }
+            // DeadForest: chết quá 5 lần sẽ bị đưa về map hồi sinh
+            if (zone instanceof ZDeadForest || zone instanceof ZDeadForest2) {
+                countDieDeadForest++;
+                if (countDieDeadForest >= 5) {
+                    countDieDeadForest = 0;
+                    service.serverMessage("Bạn đã chết quá 5 lần, sẽ được đưa về điểm hồi sinh.");
+                    Map.maps[Info.mapReSpawm].addChar(this);
+                    return;
+                }
+            }
+            if (zone.isLoiDai()) {
+                service.serverMessage("Không thể hồi sinh tại khu vực này");
+                return;
+            }
+            if (Bag.vangKhoa > 0) {
+                addVangKhoa(-1);
+            } else {
+                this.user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng khoá", HanderMessage.RED_MID));
+                return;
+            }
+            InfoGame.isDie = false;
+            Point.hp = maxHP;
+            Point.mp = maxMP;
+            try {
+                Writer writer = new Writer();
+                writer.writeInt(Info.idEntity);
+                writer.writeInt(Point.hp);
+                writer.writeInt(Point.mp);
+                if (zone != null)
+                    zone.reSpawn(writer);
+                //this.user.session.serivce.setXYChar();
+            } catch (Exception ex) {
+                Log.error("Loi hoi hoi sinh " + ex);
+            }
 //        try {
 //            Writer writer = new Writer();
 //            writer.writeInt(Info.idEntity);
@@ -6837,6 +9260,9 @@ public class Char extends Body {
 //        } catch (Exception ex) {
 //
 //        }
+        } catch (Exception e) {
+
+        }
     }
 
     public void writeDie(Writer writer, String string) throws IOException {
@@ -6944,6 +9370,10 @@ public class Char extends Body {
         this.msgGetInfo();
         this.sortItem((byte) 0);
         this.updateTiemNang();
+        if (zone != null) {
+//            zone.updateWing(this);
+//            zone.updateMat(this);
+        }
     }
 
     public void msgItemBodyToBag(byte indexBody, int indexBag) {
@@ -6956,6 +9386,18 @@ public class Char extends Body {
 
         }
         msgUpdateItemBody_Orther();
+
+    }
+
+    public void msgItemPetToBag(byte indexBody, int indexBag) {
+        try {
+            Writer writer = new Writer();
+            writer.writeByte(indexBody);
+            writer.writeShort(indexBag);
+            this.service.itemPetToBag_Me(writer);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 
@@ -6979,6 +9421,71 @@ public class Char extends Body {
                 zone.updateItemBody_Orther(this, writer);
         } catch (Exception ex) {
             Log.error("loi update body " + ex);
+        }
+    }
+
+    public void msgUpdateItemPet() {
+        try {
+            Writer writer = new Writer();
+            writer.writeInt(Info.idEntity);
+            int dx = 0;
+            int dy = 0;
+            if (Bag.arrItemPet[0] != null && Bag.arrItemPet[0].getOption(128) != null) {
+                ItemOption option = Bag.arrItemPet[0].getOption(128);
+                writer.writeInt(option.getvalue());
+                writer.writeInt(option.f());
+                Mount mount = MountManager.getInstance().getMount(Bag.arrItemPet[0].id);
+                writer.writeInt(mount.frameStart);
+                writer.writeInt(mount.frameEnd);
+                writer.writeInt(mount.tick);
+                dx = mount.dx;
+                dy = mount.dy;
+            } else {
+                writer.writeInt(1);
+                writer.writeInt(100);
+                writer.writeInt(0);
+                writer.writeInt(1);
+                writer.writeInt(1);
+            }
+            this.writeItemPet(writer, Bag.arrItemPet);
+            writer.writeByte(0);
+//            writer.writeShort(0);
+            writer.writeShort(dx);
+            writer.writeShort(dy);
+            if (zone != null)
+                zone.updateItemPet_Orther(this, writer);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void sendMobPet_Other() {
+        try {
+            Writer writer = new Writer();
+            writer.writeByte(-127);
+            writer.writeInt(Info.idEntity);
+            if (Bag.arrItemPet[0] != null) {
+                MobNew mob = MobManager.getInstance().getMobNew(Bag.arrItemPet[0].id);
+                if (mob != null) {
+                    writer.writeBoolean(true);
+                    writer.writeInt(mob.dxMove);
+                    writer.writeInt(mob.dyMove);
+                    writer.writeInt(mob.dxStand);
+                    writer.writeInt(mob.dyStand);
+                    writer.writeInt(mob.frameStartMove);
+                    writer.writeInt(mob.frameEndMove);
+                    writer.writeInt(mob.frameStartStand);
+                    writer.writeInt(mob.frameEndStand);
+                    writer.writeBoolean(mob.isBong);
+                } else {
+                    writer.writeBoolean(false);
+                }
+            } else
+                writer.writeBoolean(false);
+            if (zone != null)
+                zone.sendMobPet_Other(this, writer);
+        } catch (Exception ex) {
+            Log.error("loi send mob pet " + ex);
         }
     }
 
@@ -7020,6 +9527,7 @@ public class Char extends Body {
         msgUpdateItemBody_Orther();
         msgUpdateHpFull();
         msgUpdateMpFull();
+        msgUpdateItemPet();
     }
 
     public void useItemBodyDuPhong(short index) {
@@ -7031,16 +9539,25 @@ public class Char extends Body {
             return;
         }
         Item item = Bag.arrItemBag[index];
+        int itemType = item.getItemTemplate().type;
+        if (itemType == 17) {
+            service.serverMessage("Mắt không thể sử dụng ở hành trang phụ.");
+            return;
+        }
+        if (itemType == 18) {
+            service.serverMessage("Cánh không thể sử dụng ở hành trang phụ.");
+            return;
+        }
         item.isLock = true;
         removeItem(item);
         msgRemoveItemBag(item);
-        Item body = Bag.arrItemBody2[item.getItemTemplate().type];
+        Item body = Bag.arrItemBody2[itemType];
         if (body != null) {
             addItem(body);
             msgGetInfo();
             msgSendArrItemBag();
         }
-        item.index = item.getItemTemplate().type;
+        item.index = itemType;
         Bag.arrItemBody2[item.index] = item;
         msgSendArrItemBag();
         msgItemBodyDuPhong(index);
@@ -7098,10 +9615,12 @@ public class Char extends Body {
                 if (!list[indexItem]) {
                     list[indexItem] = true;
                     if (Bag.arrItemBag[indexItem] != null && Bag.arrItemBag[indexItem].id <= 11) {
-                        if (Bag.arrItemBag[indexItem].id == 11) {
+                        if (Bag.arrItemBag[indexItem].id == 10012) {
                             service.alertMessage("Da dat toi gioi han");
                             return;
                         }
+                        crystals.add(Bag.arrItemBag[indexItem]);
+                    } else if (Bag.arrItemBag[indexItem] != null && Bag.arrItemBag[indexItem].id >= 1005 && Bag.arrItemBag[indexItem].id <= 1013) {
                         crystals.add(Bag.arrItemBag[indexItem]);
                     }
                 }
@@ -7111,10 +9630,14 @@ public class Char extends Body {
                 service.warningMessage("Cần 2 viên đá mới có thể ghép");
                 return;
             }
-            int percent = 0;
+            long percent = 0;
             int i = 0;
             for (Item item : crystals) {
-                percent += DataCenter.gI().pointGhepDa[item.id];
+                if (item.id >= 1005 && item.id <= 1013) {
+                    percent += DataCenter.gI().pointGhepDa[item.id - 1005 + 12];
+                } else {
+                    percent += DataCenter.gI().pointGhepDa[item.id];
+                }
             }
             if (percent > 0) {
                 for (i = DataCenter.gI().pointGhepDa.length - 1; i >= 0; i--) {
@@ -7123,7 +9646,9 @@ public class Char extends Body {
                     }
                 }
             }
-            percent = (int) (percent * 100 / DataCenter.gI().pointGhepDa[i + 1]);
+
+            percent = (int) ((double) percent / DataCenter.gI().pointGhepDa[i + 1] * 100);
+
             if (i >= DataCenter.gI().pointGhepDa.length - 1) {
                 i = DataCenter.gI().pointGhepDa.length - 2;
             }
@@ -7131,7 +9656,7 @@ public class Char extends Body {
                 return;
             }
             boolean isDaKhoa = false;
-            boolean ghep = Utlis.randomBoolean(100, percent);
+            boolean ghep = Utlis.randomBoolean(100, percent);//sửa lại
             if (!isDaKhoa) {
                 isDaKhoa = !isBac;
             }
@@ -7145,15 +9670,23 @@ public class Char extends Body {
             }
             Item daGhep = null;
             if (ghep) {
-                daGhep = (new Item(i + 1, true));
-                if(i>=9){
-                    Main.HeThongCTG("Quá đỏ, nhẫn giả "+ this.Info.name +" vừa ghép thành công đá " + (i+2),2);
+                if (i >= 11) {
+                    daGhep = (new Item(i + 1 + 1005 - 12, true));
+                } else {
+                    daGhep = (new Item(i + 1, true));
+                }
+                if (i >= 9) {
+//                    Main.HeThongCTG("Bạn Quá Hên " + this.Info.name + " vừa ghép thành công đá " + (i + 2), 2);
                 }
             } else {
-                if(i>=9){
-                    Main.HeThongCTG("Quá non, nhẫn giả "+ this.Info.name +" vừa ghép xịt đá " + (i+2),2);
+                if (i >= 9) {
+//                    Main.HeThongCTG("Tối Nay Đi Chùa ĐI vì " + this.Info.name + " hết nhân phẩm " + (i + 2), 2);
                 }
-                daGhep = (new Item(i, true));
+                if (i >= 12) {
+                    daGhep = (new Item(i + 1005 - 12, true));
+                } else {
+                    daGhep = (new Item(i, true));
+                }
             }
             addItem(daGhep);
             msgGhepDa(crystals, daGhep);
@@ -7244,19 +9777,22 @@ public class Char extends Body {
             long coin = 0;
             for (int i = 0; i < crystals.size(); i++) {
                 Item itm = crystals.get(i);
-                if (itm != null && (int) itm.getItemTemplate().type == 21) {
+                if (itm != null && (int) itm.getItemTemplate().type == 21 && itm.id <= 11) {
                     temp += DataCenter.gI().pointGhepDa[itm.id];
                 }
+                if (itm != null && (int) itm.getItemTemplate().type == 21 && itm.id > 11) {
+                    temp += DataCenter.gI().pointGhepDa[itm.id - 1005 + 12];
+                }
             }
-            if (itemch.isVuKhi() && itemch.level + 1 < 30) {
+            if (itemch.isVuKhi() && itemch.level + 1 < 20) {
                 percent = (int) (temp * 100 / DataCenter.gI().pointUpgradeVuKhi[itemch.level + 1]);
                 coin = DataCenter.gI().bacKhoaUpgradeVuKhi[itemch.level + 1];
             }
-            if (itemch.isTrangBi() && itemch.level + 1 < 30) {
+            if (itemch.isTrangBi() && itemch.level + 1 < 20) {
                 percent = (int) (temp * 100 / DataCenter.gI().pointUpgradeTrangBi[itemch.level + 1]);
                 coin = DataCenter.gI().bacKhoaUpgradeTrangBi[itemch.level + 1];
             }
-            if (itemch.isPhuKien() && itemch.level + 1 < 30) {
+            if (itemch.isPhuKien() && itemch.level + 1 < 20) {
                 percent = (int) (temp * 100 / DataCenter.gI().pointUpgradePhuKien[itemch.level + 1]);
                 coin = DataCenter.gI().bacKhoaUpgradePhuKien[itemch.level + 1];
             }
@@ -7289,14 +9825,49 @@ public class Char extends Body {
             if (bua != null) {
                 removeItem(bua);
             }
-//            if (percent < 100) {
-//                percent = percent / 3;
-//            }
+
             boolean CuongHoa = Utlis.randomBoolean(100, percent);
             if (CuongHoa) {
                 itemch.a(itemch.level + 1);
+
+                // Cường hóa thành công sẽ cộng điểm top cường hóa.
+                double basePoints = coin / 3.5;
+
+                double typeMultiplier = 1.0;
+                if (itemch.isVuKhi()) {
+                    typeMultiplier = 1.15;
+                } else if (itemch.isPhuKien()) {
+                    typeMultiplier = 1.05;
+                } else if (itemch.isTrangBi()) {
+                    typeMultiplier = 1.0;
+                }
+
+                double levelMultiplier = 1.0;
+                int currentLevel = itemch.level;
+                if (currentLevel <= 5) {
+                    levelMultiplier = 1.0;
+                } else if (currentLevel <= 10) {
+                    levelMultiplier = 1.1;
+                } else if (currentLevel <= 15) {
+                    levelMultiplier = 1.2;
+                } else if (currentLevel <= 20) {
+                    levelMultiplier = 1.4;
+                }
+
+                int points = (int) Math.round(basePoints * typeMultiplier * levelMultiplier);
+                if (points < 1) {
+                    points = 1;
+                }
+
+                Info.cuongHoa += points;
+                Info.cuongHoaTuan += points;
+                SqlConnection.CharDB.updateDBCuongHoa(Info.name, Info.cuongHoa, Info.cuongHoaTuan);
+                EventClick.ClickTop.cCuongHoa = null;
+
                 if (itemch.level >= 16) {
-                    Utlis.logText("log/cuonghoa.txt", Info.name + " đã đập đồ " + itemch.getItemTemplate().levelNeed + " lên cấp " + itemch.level);
+                    Utlis.logText("log/cuonghoa.txt", Info.name + " đã đập đồ "
+                            + itemch.getItemTemplate().levelNeed + " lên cấp " + itemch.level
+                            + " (+" + points + " điểm cường hóa)");
                     Main.HeThongCTG("Bất ngờ chưa , nhẫn giả " + Info.name + " vừa đập thành công " + itemch.getItemTemplate().name + " cấp " + itemch.level, 2);
                 }
                 itemch.isLock = true;
@@ -7382,7 +9953,7 @@ public class Char extends Body {
                         if (item == null) {
                             return;
                         }
-                        if (item.renew >= 4) {
+                        if (item.renew >= 10) {
                             service.serverMessage("Item đã hết lượt gia hạn");
                             return;
                         }
@@ -7410,7 +9981,7 @@ public class Char extends Body {
                         if (item == null) {
                             return;
                         }
-                        if (item.renew >= 4) {
+                        if (item.renew >= 10) {
                             service.serverMessage("Item đã hết lượt gia hạn");
                             return;
                         }
@@ -7438,7 +10009,7 @@ public class Char extends Body {
                         if (item == null) {
                             return;
                         }
-                        if (item.renew >= 4) {
+                        if (item.renew >= 10) {
                             service.serverMessage("Item đã hết lượt gia hạn");
                             return;
                         }
@@ -7454,7 +10025,7 @@ public class Char extends Body {
                 }
                 break;
             case 914:
-                if(this.Info.countSaoCH > 5) {
+                if (this.Info.countSaoCH > 5) {
                     service.alertMessage("Chỉ được dùng tối đa 5 cái");
                     return;
                 } else {
@@ -7472,20 +10043,23 @@ public class Char extends Body {
 
                 switch (index1) {
                     case 0://lôi
-                        if(this.Bag.arrItemBody[1] != null) {
+                        if (this.Bag.arrItemBody[1] != null) {
                             service.alertMessage("Tháo vũ khí để chuyển hệ");
                             return;
                         }
                         int idClassPrev = Info.idClass;
                         Info.idClass = 1;
                         Info.idhe = 1;
+                        Info.idChar = 1;
+//                        int idcharPrev = Info.idChar;
                         Item item = FindItemBag(998);
-                        if(item == null) {
+                        if (item == null) {
                             return;
                         }
 
                         boolean isHuyetKe = false;
                         boolean isDacBiet = false;
+//                        boolean isChar = false;
 
                         // Kiểm tra kỹ năng hiện tại để xác định kỹ năng Huyết Kế và Đặc Biệt
                         if (Skill.arraySkill.length > 0) {
@@ -7518,14 +10092,20 @@ public class Char extends Body {
                         // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
                         if (isHuyetKe) {
                             Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
-                            if(Info.gioiTinh == 0) {
+                            if (Info.gioiTinh == 0) {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
                             } else {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
                             }
                             Skill.arraySkill = arraySkill_2;
                         }
-
+                        // đổi char theo giới tính
+//                        if (isChar){
+//                            if (Info.gioiTinh == 0) {
+//
+//                            }
+//
+//                        };
                         // Nếu có kỹ năng Đặc Biệt, thêm vào danh sách kỹ năng
                         if (isDacBiet) {
                             Skill[] arraySkill_22 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
@@ -7553,15 +10133,17 @@ public class Char extends Body {
                         service.serverMessage("Chuyển hệ thành công");
                         break;
                     case 1:
-                        if(this.Bag.arrItemBody[1] != null) {
+                        if (this.Bag.arrItemBody[1] != null) {
                             service.alertMessage("Tháo vũ khí để chuyển hệ");
                             return;
                         }
                         idClassPrev = Info.idClass;
                         Info.idClass = 2;
                         Info.idhe = 2;
+                        Info.idChar = 2;
+//                        idcharPrev = Info.idChar;
                         item = FindItemBag(998);
-                        if(item == null) {
+                        if (item == null) {
                             return;
                         }
 
@@ -7601,14 +10183,15 @@ public class Char extends Body {
                         // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
                         if (isHuyetKe) {
                             Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
-                            if(Info.gioiTinh == 0) {
+                            if (Info.gioiTinh == 0) {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
                             } else {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
                             }
                             Skill.arraySkill = arraySkill_2;
                         }
-
+                        // dựa vào giới tính đổi idchar
+//                        if (is)
                         // Nếu có kỹ năng Đặc Biệt, thêm vào danh sách kỹ năng
                         if (isDacBiet) {
                             Skill[] arraySkill_22 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
@@ -7636,15 +10219,16 @@ public class Char extends Body {
                         service.serverMessage("Chuyển hệ thành công");
                         break;
                     case 2:
-                        if(this.Bag.arrItemBody[1] != null) {
+                        if (this.Bag.arrItemBody[1] != null) {
                             service.alertMessage("Tháo vũ khí để chuyển hệ");
                             return;
                         }
                         idClassPrev = Info.idClass;
                         Info.idClass = 3;
                         Info.idhe = 3;
+                        Info.idChar = 3;
                         item = FindItemBag(998);
-                        if(item == null) {
+                        if (item == null) {
                             return;
                         }
 
@@ -7684,7 +10268,7 @@ public class Char extends Body {
                         // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
                         if (isHuyetKe) {
                             Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
-                            if(Info.gioiTinh == 0) {
+                            if (Info.gioiTinh == 0) {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
                             } else {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
@@ -7719,15 +10303,18 @@ public class Char extends Body {
                         service.serverMessage("Chuyển hệ thành công");
                         break;
                     case 3:
-                        if(this.Bag.arrItemBody[1] != null) {
+                        if (this.Bag.arrItemBody[1] != null) {
                             service.alertMessage("Tháo vũ khí để chuyển hệ");
                             return;
                         }
                         idClassPrev = Info.idClass;
                         Info.idClass = 4;
                         Info.idhe = 4;
+                        Info.idChar = 4;
+//                        idcharPrev = Info.idChar;
+
                         item = FindItemBag(998);
-                        if(item == null) {
+                        if (item == null) {
                             return;
                         }
 
@@ -7767,7 +10354,7 @@ public class Char extends Body {
                         // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
                         if (isHuyetKe) {
                             Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
-                            if(Info.gioiTinh == 0) {
+                            if (Info.gioiTinh == 0) {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
                             } else {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
@@ -7801,16 +10388,18 @@ public class Char extends Body {
                         service.resetScreen();
                         service.serverMessage("Chuyển hệ thành công");
                         break;
-                    case 4:
-                        if(this.Bag.arrItemBody[1] != null) {
+                    case 4://phong
+                        if (this.Bag.arrItemBody[1] != null) {
                             service.alertMessage("Tháo vũ khí để chuyển hệ");
                             return;
                         }
                         idClassPrev = Info.idClass;
+                        Info.gioiTinh = 1;
                         Info.idClass = 5;
                         Info.idhe = 5;
+                        Info.idChar = 5;
                         item = FindItemBag(998);
-                        if(item == null) {
+                        if (item == null) {
                             return;
                         }
 
@@ -7850,7 +10439,7 @@ public class Char extends Body {
                         // Nếu có kỹ năng Huyết Kế, thêm vào danh sách kỹ năng
                         if (isHuyetKe) {
                             Skill[] arraySkill_2 = Arrays.copyOf(Skill.arraySkill, Skill.arraySkill.length + 1);
-                            if(Info.gioiTinh == 0) {
+                            if (Info.gioiTinh == 0) {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nu[Info.idClass - 1].cloneSkill();
                             } else {
                                 arraySkill_2[arraySkill_2.length - 1] = DataSkill.skills_57_nam[Info.idClass - 1].cloneSkill();
@@ -8136,7 +10725,176 @@ public class Char extends Body {
                         msgAddItemBag(sach30);
                         msgUseItemBag(sach435_30);
                         break;
-
+                    case 14://31
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 200)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach31 = new Item(1014);
+                        Item sach435_31 = FindItemBag(435);
+                        sach31.isLock = true;
+                        addItem(sach31);
+                        msgAddItemBag(sach31);
+                        msgUseItemBag(sach435_31);
+                        break;
+                    case 15://32
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 250)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach32 = new Item(1015);
+                        Item sach435_32 = FindItemBag(435);
+                        sach32.isLock = true;
+                        addItem(sach32);
+                        msgAddItemBag(sach32);
+                        msgUseItemBag(sach435_32);
+                        break;
+                    case 16://33
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 300)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach33 = new Item(1016);
+                        Item sach435_33 = FindItemBag(435);
+                        sach33.isLock = true;
+                        addItem(sach33);
+                        msgAddItemBag(sach33);
+                        msgUseItemBag(sach435_33);
+                        break;
+                    case 17://34
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 350)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach34 = new Item(1017);
+                        Item sach435_34 = FindItemBag(435);
+                        sach34.isLock = true;
+                        addItem(sach34);
+                        msgAddItemBag(sach34);
+                        msgUseItemBag(sach435_34);
+                        break;
+                    case 18://35
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 400)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach35 = new Item(1018);
+                        Item sach435_35 = FindItemBag(435);
+                        sach35.isLock = true;
+                        addItem(sach35);
+                        msgAddItemBag(sach35);
+                        msgUseItemBag(sach435_35);
+                        break;
+                    case 19://36
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 450)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach36 = new Item(1019);
+                        Item sach435_36 = FindItemBag(435);
+                        sach36.isLock = true;
+                        addItem(sach36);
+                        msgAddItemBag(sach36);
+                        msgUseItemBag(sach435_36);
+                        break;
+                    case 20://37
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 500)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach37 = new Item(1020);
+                        Item sach435_37 = FindItemBag(435);
+                        sach37.isLock = true;
+                        addItem(sach37);
+                        msgAddItemBag(sach37);
+                        msgUseItemBag(sach435_37);
+                        break;
+                    case 21://38
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 550)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach38 = new Item(1021);
+                        Item sach435_38 = FindItemBag(435);
+                        sach38.isLock = true;
+                        addItem(sach38);
+                        msgAddItemBag(sach38);
+                        msgUseItemBag(sach435_38);
+                        break;
+                    case 22://39
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 600)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach39 = new Item(1022);
+                        Item sach435_39 = FindItemBag(435);
+                        sach39.isLock = true;
+                        addItem(sach39);
+                        msgAddItemBag(sach39);
+                        msgUseItemBag(sach435_39);
+                        break;
+                    case 23://40
+                        if (Bag.vang < 20000) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ vàng", HanderMessage.RED_MID));
+                            return;
+                        }
+                        if (!removeItems(435, 650)) {
+                            user.session.sendMessage(HanderMessage.SendThongBao("Không đủ sách để đổi", HanderMessage.RED_MID));
+                            return;
+                        }
+                        addVang(-20000);
+                        Item sach40 = new Item(1023);
+                        Item sach435_40 = FindItemBag(435);
+                        sach40.isLock = true;
+                        addItem(sach40);
+                        msgAddItemBag(sach40);
+                        msgUseItemBag(sach435_40);
+                        break;
                 }
                 break;
         }
@@ -8321,6 +11079,7 @@ public class Char extends Body {
         } catch (Exception ex) {
         }
     }
+
     public synchronized void addVangToBox(long vang) {
         long l = ((long) Bag.vang) + ((long) vang);
         if (l > Integer.MAX_VALUE) {
@@ -8833,6 +11592,12 @@ public class Char extends Body {
                     if (item.X()) {
                         var9 *= 2;
                     }
+                    if (item.WVC()) {//là thiên đạo
+                        var9 += 1500;
+                    }
+                    if (item.VC()) {//là vô cực
+                        var9 += 2500;
+                    }
 
                     if (item.isVuKhi()) {
                         numNgocMyo += var9;
@@ -8917,15 +11682,14 @@ public class Char extends Body {
             if (item1 == null || item2 == null) {
                 return;
             }
-            if((item2.id == 947 && item1.id == 888) || (item1.id == 947 && item2.id == 888)){
+            if ((item2.id == 947 && item1.id == 888) || (item1.id == 947 && item2.id == 888)) {
                 return;
             }
             Item bikip;
 
             if (item1.getItemTemplate().id == 888 || item1.getItemTemplate().id == 947) {
                 bikip = item1;
-            }
-            else if (item2.getItemTemplate().id == 888 || item1.getItemTemplate().id == 947) {
+            } else if (item2.getItemTemplate().id == 888 || item1.getItemTemplate().id == 947) {
                 bikip = item2;
             } else {
                 bikip = item1.getItemTemplate().levelNeed > item2.getItemTemplate().levelNeed ? item1 : item2;
@@ -8960,7 +11724,7 @@ public class Char extends Body {
             }
             int maxTuLuyen = getMaxTuLuyen(bikip.getItemTemplate().levelNeed);
 
-            if (bikip.id == 888 || bikip.id == 947){
+            if (bikip.id == 888 || bikip.id == 947) {
                 maxTuLuyen = 19000;
             }
             if (tuluyen.f() >= maxTuLuyen) {
@@ -9051,7 +11815,7 @@ public class Char extends Body {
                 return;
             }
             int vangThem = 0;
-            if(index == 6) {
+            if (index == 6) {
                 vangThem = 500;
                 isVang = true;
             }
@@ -9408,15 +12172,10 @@ public class Char extends Body {
                             }
 
                             mem.setType(type);
-                            Connection conn = Connect.getConnection();
-                            PreparedStatement stmt = conn
-                                    .prepareStatement("UPDATE `clan_member` SET `type` = ? WHERE `id` = ? LIMIT 1;");
-                            try {
+                            try (Connection conn = Connect.getConnection(); PreparedStatement stmt = conn.prepareStatement("UPDATE `clan_member` SET `type` = ? WHERE `id` = ? LIMIT 1;")) {
                                 stmt.setInt(1, mem.getType());
                                 stmt.setInt(2, mem.getId());
                                 stmt.executeUpdate();
-                            } finally {
-                                stmt.close();
                             }
                             Char _char = ServerManager.findCharByName(name);
                             if (_char != null) {
@@ -9434,30 +12193,26 @@ public class Char extends Body {
                                 }
                                 clan.addCoin(-1000000);
                                 clan.writeLog(Info.name, "Đã nhường chức tộc trưởng cho " + mem.getName() + " ngân quỹ trừ", 1000000);
-                                Connection conn = Connect.getConnection();
-                                Member old = this.clan.getMemberByName(Info.name);
-                                old.setType(Clan.TYPE_NORMAl);
-                                PreparedStatement stmt1 = conn
-                                        .prepareStatement("UPDATE `clan_member` SET `type` = ? WHERE `id` = ? LIMIT 1;");
-                                try {
-                                    stmt1.setInt(1, old.getType());
-                                    stmt1.setInt(2, old.getId());
-                                    stmt1.executeUpdate();
-                                } finally {
-                                    stmt1.close();
+                                try (Connection conn = Connect.getConnection()) {
+                                    Member old = this.clan.getMemberByName(Info.name);
+                                    old.setType(Clan.TYPE_NORMAl);
+                                    try (PreparedStatement stmt1 = conn.prepareStatement("UPDATE `clan_member` SET `type` = ? WHERE `id` = ? LIMIT 1;")) {
+                                        stmt1.setInt(1, old.getType());
+                                        stmt1.setInt(2, old.getId());
+                                        stmt1.executeUpdate();
+                                    }
+                                    // Cập nhật trưởng tộc mới trong object Clan
+                                    clan.setMainName(mem.getName());
+                                    service.showGiaToc();
+                                    mem.setType(Clan.TYPE_TOCTRUONG);
+                                    try (PreparedStatement stmt = conn.prepareStatement("UPDATE `clan_member` SET `type` = ? WHERE `id` = ? LIMIT 1;")) {
+                                        stmt.setInt(1, mem.getType());
+                                        stmt.setInt(2, mem.getId());
+                                        stmt.executeUpdate();
+                                    }
                                 }
-                                clan.setMainName(mem.getName());
-                                service.showGiaToc();
-                                mem.setType(Clan.TYPE_TOCTRUONG);
-                                PreparedStatement stmt = conn
-                                        .prepareStatement("UPDATE `clan_member` SET `type` = ? WHERE `id` = ? LIMIT 1;");
-                                try {
-                                    stmt.setInt(1, mem.getType());
-                                    stmt.setInt(2, mem.getId());
-                                    stmt.executeUpdate();
-                                } finally {
-                                    stmt.close();
-                                }
+                                // Lưu lại tên tộc trưởng mới xuống DB để các lần xin vào sau đều gửi đúng người
+                                Clan.getClanDAO().update(clan);
                                 Char _char = ServerManager.findCharByName(name);
                                 if (_char != null) {
                                     _char.service.showGiaToc();
@@ -9466,16 +12221,11 @@ public class Char extends Body {
                                 service.serverMessage("Nhường chức tộc trưởng thành công");
                                 return;
                             }
-                            Connection conn = Connect.getConnection();
-                            mem.setType(Clan.TYPE_NORMAl);
-                            PreparedStatement stmt = conn
-                                    .prepareStatement("UPDATE `clan_member` SET `type` = ? WHERE `id` = ? LIMIT 1;");
-                            try {
+                            try (Connection conn = Connect.getConnection(); PreparedStatement stmt = conn.prepareStatement("UPDATE `clan_member` SET `type` = ? WHERE `id` = ? LIMIT 1;")) {
+                                mem.setType(Clan.TYPE_NORMAl);
                                 stmt.setInt(1, mem.getType());
                                 stmt.setInt(2, mem.getId());
                                 stmt.executeUpdate();
-                            } finally {
-                                stmt.close();
                             }
                             Char _char = ServerManager.findCharByName(name);
                             if (_char != null) {
@@ -10108,9 +12858,19 @@ public class Char extends Body {
                     getService().npcChat(idEntity, "Tốt lắm! Ta có phần thưởng dành cho con.");
                     this.Info.chuyenCan += 5;
                     this.Info.chuyenCanTuan += 5;
-                    addBacKhoa(500000);
+                    addBacKhoa(200000);
+                    Item ThoiBac = new Item(687);
+                    ThoiBac.amount = 10;
+                    ThoiBac.isLock = true;
+                    this.addItem(ThoiBac);
+                    msgAddItemBag(ThoiBac);
+                    Item Thoibac2 = new Item(248);
+                    Thoibac2.amount = 1;
+
+                    this.addItem(Thoibac2);
+                    msgAddItemBag(Thoibac2);
                     if (this.clan != null) {
-                        this.addClanPoint(10);
+                        this.addClanPoint(5);
                     }
                     addExp(5000000);
                     this.user.session.sendMessage(HanderMessage.SendThongBao("Bạn nhận được 5.000.000 Exp, 5 điểm chuyên cần, 10 điểm cống hiến gia tộc", HanderMessage.YELLOW_MID));
@@ -10208,6 +12968,11 @@ public class Char extends Body {
             service.serverMessage("Không thể dịch chuyển đến chính mình.");
             return;
         }
+        Item dongHanhPhu = FindItemBag(569);
+        if (dongHanhPhu == null) {
+            service.serverMessage("Cần có đồng hành phù item 569 để dịch chuyển");
+            return;
+        }
         if (zone.isWorld()) {
             service.serverMessage("Không thể sử dụng tính năng này.");
             return;
@@ -10216,6 +12981,10 @@ public class Char extends Body {
             service.serverMessage("Không thể sử dụng tính năng này.");
             return;
         }
+//        if (zone.inHangViThu) {
+//            service.serverMessage("Không thể sử dụng tính năng này.");
+//            return;
+//        }
         long now = System.currentTimeMillis();
         int second = (int) ((now - lastTimeTeleport) / 1000);
         if (second < 20) {
@@ -10232,6 +13001,11 @@ public class Char extends Body {
                 service.serverMessage("Không thể sử dụng tính năng này.");
                 return;
             }
+            if (_char.inHangViThu) {
+                service.serverMessage("Không thể dịch chuyển đến người chơi đang ở Hàng Vĩ Thú.");
+                return;
+            }
+
             try {
                 if (this.zone != _char.zone) {
                     _char.zone.addChar(this);
@@ -10413,7 +13187,12 @@ public class Char extends Body {
                     }
                     try {
 
-                        PreparedStatement stmt = Connect.getConnection()
+                        Connection conn = Connect.getConnection();
+                        if (conn == null) {
+                            Log.error("Cannot get database connection in name change check");
+                            return;
+                        }
+                        PreparedStatement stmt = conn
                                 .prepareStatement("SELECT * FROM `player` WHERE `Name` = ? LIMIT 1;", ResultSet.TYPE_SCROLL_SENSITIVE,
                                         ResultSet.CONCUR_READ_ONLY);
                         stmt.setString(1, text);
@@ -10423,7 +13202,7 @@ public class Char extends Body {
                             return;
                         }
 
-                        PreparedStatement stmt2 = Connect.getConnection()
+                        PreparedStatement stmt2 = conn
                                 .prepareStatement("UPDATE `player` SET `Name` = ? WHERE `IdChar` = ? LIMIT 1;");
                         try {
 
@@ -11457,9 +14236,9 @@ public class Char extends Body {
         SpinTreasure.getInstance().spinReward(this, action, isRuong);
     }
 
-    public void sellMarket(Message msg) {
+     public void sellMarket(Message msg) {
         try {
-            if (!user.actived) {
+            if (this.level() < 30 && !user.actived) {
                 getService().serverMessage("Vui lòng kích hoạt tài khoản để sử dụng tính năng này");
                 return;
             }
@@ -11497,7 +14276,15 @@ public class Char extends Body {
                 service.serverMessage(String.format("Phí bán vật phẩm là %,d bạc.", fee));
                 return;
             }
-            MarketManager.gI().themItem(this, item, price, (int) TimeUnit.HOURS.toMillis(time));
+
+            // Kiểm tra và thêm item vào chợ (với cơ chế chống duplicate)
+            boolean success = MarketManager.gI().themItem(this, item, price, (int) TimeUnit.HOURS.toMillis(time), index);
+            if (!success) {
+                // Nếu thất bại (do cooldown hoặc đang xử lý), không làm gì cả
+                return;
+            }
+
+            // Xóa item khỏi túi và trừ phí ngay lập tức (feedback tức thì)
             addBac(-fee);
             Bag.arrItemBag[index] = null;
             getService().sellMarket(fee, index);
@@ -11544,13 +14331,13 @@ public class Char extends Body {
     public boolean checkBuyWekfare(int id) {
         switch (id) {
             case 13:
-                if (phucLoi.theThang > System.currentTimeMillis())
-                    return true;
-                break;
+                return phucLoi.goiHaoHoa;
             case 14:
-                if (phucLoi.theVinhVien > System.currentTimeMillis())
-                    return true;
-                break;
+                return phucLoi.goiChiTon;
+            case 15:
+                return phucLoi.theThang > System.currentTimeMillis();
+            case 16:
+                return phucLoi.theVinhVien > System.currentTimeMillis();
         }
         return false;
     }
@@ -11558,6 +14345,43 @@ public class Char extends Body {
     public void subscribeBenefitPackage(int idBenefit) {
         switch (idBenefit) {
             case 13:
+                if (phucLoi.goiHaoHoa) {
+                    getService().warningMessage("Bạn đã mua gói hào hoa rồi");
+                    return;
+                }
+                if (Bag.vang < 100) {
+                    getService().warningMessage("Bạn không đủ 100 vàng");
+                    return;
+                }
+                addVang(-100);
+                addVangKhoa(100);
+                phucLoi.goiHaoHoa = true;
+                // KHÔNG nhận bù - player phải tự click nhận quà khi đủ cấp
+                getService().serverMessage("Mua thành công gói hào hoa");
+                ClickEvent.PhucLoi(this);
+                break;
+            case 14:
+                if (phucLoi.goiChiTon) {
+                    getService().warningMessage("Bạn đã mua gói chí tôn rồi");
+                    return;
+                }
+                if (Bag.vang < 100) {
+                    getService().warningMessage("Bạn không đủ 100 vàng");
+                    return;
+                }
+                addVang(-100);
+                addVangKhoa(100);
+                phucLoi.goiChiTon = true;
+                // KHÔNG nhận bù - player phải tự click nhận quà khi đủ cấp
+                getService().serverMessage("Mua thành công gói chí tôn");
+                ClickEvent.PhucLoi(this);
+                break;
+            case 15:
+            case 19:
+                if (phucLoi.theThang > System.currentTimeMillis()) {
+                    getService().warningMessage("Bạn đã mua thẻ tháng rồi");
+                    return;
+                }
                 if (Bag.vang < 100) {
                     getService().warningMessage("Bạn không đủ 100 vàng");
                     return;
@@ -11568,7 +14392,12 @@ public class Char extends Body {
                 getService().serverMessage("Mua thành công thẻ tháng");
                 ClickEvent.PhucLoi(this);
                 break;
-            case 14:
+            case 16:
+            case 20:
+                if (phucLoi.theVinhVien > System.currentTimeMillis()) {
+                    getService().warningMessage("Bạn đã mua thẻ vĩnh viễn rồi");
+                    return;
+                }
                 if (Bag.vang < 300) {
                     getService().warningMessage("Bạn không đủ 300 vàng");
                     return;
@@ -11811,6 +14640,56 @@ public class Char extends Body {
             }
         } catch (Exception e) {
             Log.error("Error money to bag " + e);
+        }
+    }
+
+    public void itemPetToBag(byte index) {
+        try {
+            if (index < 0 || index >= Bag.arrItemPet.length || Bag.arrItemPet[index] == null || !this.checkAddItem(Bag.arrItemPet[index])) {
+                System.out.println("Không thể chuyển vật phẩm");
+                return;
+            }
+            if (isSecurity && !isUnlockSecurity) {
+                service.warningMessage("Vui lòng mở khoá bảo mật trước khi sử dụng tính năng này");
+                return;
+            }
+            if (index == 0 && (Bag.arrItemPet[1] != null || Bag.arrItemPet[2] != null || Bag.arrItemPet[3] != null)) {
+                service.serverMessage("Chỉ có thể tháo pet khi đã gỡ hết trang bị");
+                return;
+            }
+            Item item = Bag.arrItemPet[index];
+            this.addItem(item);
+            Bag.arrItemPet[index] = null;
+            msgItemPetToBag(index, item.index);
+            this.msgGetInfo();
+            this.sortItem((byte) 0);
+            this.updateTiemNang();
+            sendMobPet_Other();
+        } catch (Exception e) {
+        }
+    }
+
+    public void addLinhHon(int point) { // thêm linh hồn
+        int pointAdd = point;
+        List<Item> items = Arrays.stream(this.Bag.arrItemBag).filter(item -> item != null && item.getItemTemplate().id == 547).collect(Collectors.toList());
+        if (items.size() > 0) {
+            for (Item it : items) {
+                if (it != null) {
+                    ItemOption op = it.getOption(264);
+                    if (op == null)
+                        continue;
+                    else {
+                        if (op.getvalue() + pointAdd > 10) {
+                            it.updateLinhHon(10 - op.getvalue());
+                            msgUpdateItemBag(it);
+                        } else {
+                            it.updateLinhHon(pointAdd);
+                            msgUpdateItemBag(it);
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -12246,6 +15125,7 @@ public class Char extends Body {
             Log.error("Lỗi gửi thư: ", e);
         }
     }
+
     public void ChangeCoin(int select) {
         try {
             if (user.coin <= 0) {
@@ -12306,7 +15186,7 @@ public class Char extends Body {
                 thu1.NoiDungThu = "Admin gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
                 thu1.TimeEnd = System.currentTimeMillis() + (7 * 86400000);
                 Item itemthu1 = new Item(558); //dầu cóc x10
-                itemthu1.amount = 5;
+                itemthu1.amount = 2;
                 itemthu1.isLock = true;
                 itemthu1.strOptions = "";
                 thu1.Item = itemthu1;
@@ -12339,9 +15219,9 @@ public class Char extends Body {
                 thu3.Title = "Quà Nạp Lần Đầu";
                 thu3.NameNguoiGui = "Hệ thống";
                 thu3.NoiDungThu = "Admin gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
-                Item itemthu3 = new Item(11);
+                Item itemthu3 = new Item(445);
                 itemthu3.isLock = true;
-                itemthu3.amount = 5;
+                itemthu3.amount = 1;
                 itemthu3.strOptions = "";
                 thu3.Item = itemthu3;
                 thu3.TimeEnd = System.currentTimeMillis() + (86400000 * 7);
@@ -12360,10 +15240,29 @@ public class Char extends Body {
                 Item itemthu4 = new Item(687);
                 itemthu4.strOptions = "";
                 itemthu4.isLock = true;
-                itemthu4.amount = 800;
+                itemthu4.amount = 500;
                 thu4.Item = itemthu4;
                 thu4.TimeEnd = System.currentTimeMillis() + (86400000 * 7);
                 this.letters.add(thu4);
+                this.getService().reloadLetter();
+
+                TemplateThu thu5 = new TemplateThu();
+                int id4 = this.letters.size() + 1;
+                if (this.letters.size() > 0) {
+                    id4 = this.letters.get(this.letters.size() - 1).id + 1;
+                }
+                thu5.id = (short) id4;
+
+                thu5.Title = "Quà Nạp Lần Đầu";
+                thu5.NameNguoiGui = "Hệ thống";
+                thu5.NoiDungThu = "Admin gửi tặng bạn quà nạp lần đầu, chúc bạn chơi game vui vẻ!";
+                Item itemthu5 = new Item(671);
+                itemthu5.strOptions = "";
+                itemthu5.isLock = true;
+                itemthu5.amount = 1;
+                thu5.Item = itemthu5;
+                thu5.TimeEnd = System.currentTimeMillis() + (86400000 * 7);
+                this.letters.add(thu5);
                 this.getService().reloadLetter();
             }
             Bag.pointNAP += vang;
@@ -12382,6 +15281,8 @@ public class Char extends Body {
 //            }
             phucLoi.napLienTuc++;
             phucLoi.listnap.add(vang);
+            // VongQuayNap disabled - not used
+            // addVongQuayNapPoint(vang);
             service.sendChar();
 
 
@@ -12798,6 +15699,17 @@ public class Char extends Body {
             return 353;
         }
     }
+    public int idNgocUpgradate22(Item item) {
+        if (item.isRenegan()) {
+            return 692;
+        } else if (item.isSharigan()) {
+            return 693;
+        } else if (item.isBayakugan()) {
+            return 694;
+        } else {
+            return 695;
+        }
+    }
 
     public void updateLucDao(Message msg) {
         try {
@@ -12937,9 +15849,9 @@ public class Char extends Body {
                     countNgoc += items.get(i).amount;
                 }
             }
-            short soNgocCan = (short) (itemEqip.getItemTemplate().levelNeed / 10 * 100 + 150);
-            int bacKhoa = itemEqip.getItemTemplate().levelNeed / 10 * 10000000 + 15000000;
-            ;
+            short soNgocCan = (short) (itemEqip.getItemTemplate().levelNeed / 10 * 100 + 150 + 2000);
+            int bacKhoa = itemEqip.getItemTemplate().levelNeed / 10 * 10000000 + 15000000 + 100000000;
+
             if (countNgoc < soNgocCan) {
                 service.alertMessage("Không đủ ngọc");
                 return;
@@ -13031,8 +15943,8 @@ public class Char extends Body {
                     countNgoc += items.get(i).amount;
                 }
             }
-            short soNgocCan = (short) (itemEqip.getItemTemplate().levelNeed / 10 * 100 + 150);
-            int bacKhoa = itemEqip.getItemTemplate().levelNeed / 10 * 10000000 + 15000000;
+            short soNgocCan = (short) (itemEqip.getItemTemplate().levelNeed / 10 * 100 + 150 + 4000);
+            int bacKhoa = itemEqip.getItemTemplate().levelNeed / 10 * 10000000 + 15000000 + 200000000;
             ;
             if (countNgoc < soNgocCan) {
                 service.alertMessage("Không đủ ngọc");
@@ -13072,6 +15984,7 @@ public class Char extends Body {
 
         }
     }
+
     public Effect getEffect(int id) {
         lockEff.lock();
         try {
@@ -13094,6 +16007,22 @@ public class Char extends Body {
             listEffect.remove(effect);
         } catch (Exception e) {
             Log.error("erro remove effect");
+        } finally {
+            lockEff.unlock();
+        }
+
+    }
+
+    public void removeEffect(int id) {
+        lockEff.lock();
+        try {
+            for (int i = listEffect.size() - 1; i >= 0; i--) {
+                if (listEffect.get(i).id == id) {
+                    listEffect.get(i).maintain = 0;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             lockEff.unlock();
         }
@@ -13306,7 +16235,7 @@ public class Char extends Body {
         }
     }
 
-    public void loadEventPoint() {
+      public void loadEventPoint() {
         try {
             Event event = Event.getEvent();
             if (event != null) {
@@ -13317,17 +16246,18 @@ public class Char extends Body {
                     eventPoint.setPlayerName(this.Info.name);
 
                     Gson g = new Gson();
-                    PreparedStatement ps = Connect.getConnection()
-                            .prepareStatement("INSERT INTO `event_points`(`event_id`, `player_id`, `point`) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
-                    ps.setInt(1, event.getId());
-                    ps.setInt(2, this.id);
-                    ps.setString(3, g.toJson(eventPoint.getPoints()));
-                    ps.executeUpdate();
-                    ResultSet generatedKeys = ps.getGeneratedKeys();
-                    if (generatedKeys.next()) {
-                        eventPoint.setId(generatedKeys.getInt(1));
+                    // Sử dụng try-with-resources để tự động đóng connection, statement và resultSet
+                    try (Connection conn = Connect.getConnection(); PreparedStatement ps = conn.prepareStatement("INSERT INTO `event_points`(`event_id`, `player_id`, `point`) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+                        ps.setInt(1, event.getId());
+                        ps.setInt(2, this.id);
+                        ps.setString(3, g.toJson(eventPoint.getPoints()));
+                        ps.executeUpdate();
+                        try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                            if (generatedKeys.next()) {
+                                eventPoint.setId(generatedKeys.getInt(1));
+                            }
+                        }
                     }
-                    ps.close();
                     event.addEventPoint(eventPoint);
                 }
                 setEventPoint(eventPoint);
@@ -13343,18 +16273,19 @@ public class Char extends Body {
             EventPoint eventPoint = getEventPoint();
             if (eventPoint != null) {
                 Gson g = new Gson();
-                PreparedStatement ps = Connect.getConnection()
-                        .prepareStatement("UPDATE `event_points` SET `point` = ? WHERE `id` = ? LIMIT 1;");
-                ps.setString(1, g.toJson(eventPoint.getPoints()));
-                ps.setInt(2, eventPoint.getId());
-                ps.executeUpdate();
-                ps.close();
+                // Sử dụng try-with-resources để tự động đóng connection
+                try (Connection conn = Connect.getConnection(); PreparedStatement ps = conn.prepareStatement("UPDATE `event_points` SET `point` = ? WHERE `id` = ? LIMIT 1;")) {
+                    ps.setString(1, g.toJson(eventPoint.getPoints()));
+                    ps.setInt(2, eventPoint.getId());
+                    ps.executeUpdate();
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Char.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 
     public void requestMatchInfo(Message ms) {
         try {
@@ -13438,26 +16369,62 @@ public class Char extends Body {
             if (InfoGame.isDie) {
                 return;
             }
+            //if(this.getEffect(94) != null) return;
             short idSkil = ms.readShort();
             int id = ms.readInt();
             Skill skill = this.getSkillWithIdTemplate(idSkil);
             if (System.currentTimeMillis() - skill.time < skill.coolDown)
                 return;
-            if (isDontAttack())
+            if (this.isBietThienThan && (skill.idTemplate != 2 && skill.idTemplate != 8 && skill.idTemplate != 14 && skill.idTemplate != 20 && skill.idTemplate != 26))
                 return;
             Char charFocus = zone.findCharInMap(id);
             ArrayList<Char> chars = new ArrayList<>();
             if (charFocus != null && charFocus != this && charFocus.user != null && charFocus.Point.hp > 0 && isMeCanAttackOtherPlayer(charFocus)) {
                 if (Utlis.getRange(charFocus.Info.cx, this.Info.cx) <= skill.rangeNgang && Utlis.getRange(charFocus.Info.cy, this.Info.cy) <= skill.rangeDoc) {
                     chars.add(charFocus);
-                    if (skill.idTemplate == 11) {
+                    if (skill.idTemplate == SkillTemplate.DICH_CHUYEN_CHI_THUAT) {
+                        Item dongHanhPhu = FindItemBag(569);
+                        if (dongHanhPhu != null) {
+                            setXY(charFocus.Info.cx, charFocus.Info.cy);
+                            service.setXYChar();
+                            Effect effect = new Effect((short) 36, 0, System.currentTimeMillis(), getParamSkill(11, 103));
+                            charFocus.addEffect(effect);
+                        } else {
+                            service.serverMessage("Cần có đồng hành phù để dịch chuyển");
+                            return;
+                        }
+                    }
+                    /*if(skill.idTemplate == SkillTemplate.LOA_TOAN_LIEN_THU_LI_KIEM) {
                         setXY(charFocus.Info.cx, charFocus.Info.cy);
                         service.setXYChar();
-                        Effect effect = new Effect((short) 36, 0, System.currentTimeMillis(), getParamSkill(11, 103));
+                        Effect effect = new Effect((short) 96, 250, System.currentTimeMillis(), 15000);
                         charFocus.addEffect(effect);
                     }
+                    if(skill.idTemplate == SkillTemplate.ANH_THU_PHUOC_CHI_THUAT) {
+                        Effect effect = new Effect((short) 71, 3, System.currentTimeMillis(), 5000);
+                        charFocus.addEffect(effect);
+                    }
+                    if(skill.idTemplate == SkillTemplate.BIET_THIEN_THAN) {
+                        //String[] option = skill.strOptions.split(";");
+                        //_mob.AddEff(new Effect((short) 94, 1, System.currentTimeMillis(), Short.parseShort(option[1].split(",")[1])), _myChar.zone);
+                        Effect effect = new Effect((short) 94, 3, System.currentTimeMillis(), 15000);
+                        charFocus.addEffect(effect);
+                    }
+                    if(skill.idTemplate == SkillTemplate.THIEN_CHIEU) {
+                        Effect effect = new Effect((short) 93, 5000, System.currentTimeMillis(), 20000);
+                        charFocus.addEffect(effect);
+                    }
+                    if(skill.idTemplate == SkillTemplate.KHONG_THOI_GIAN_THUAT){
+                        charFocus.setXY(Info.cx, Info.cy);
+                        charFocus.service.setXYChar();
+                    }
+                    if(skill.idTemplate == SkillTemplate.THANH_SAT_CHAKRA) {
+                        Effect effect = new Effect((short) 95, 0, System.currentTimeMillis(), 20000);
+                        charFocus.addEffect(effect);
+                    }*/
                 }
             }
+
             if ((skill.idTemplate == 2 || skill.idTemplate == 8 || skill.idTemplate == 14 || skill.idTemplate == 20 || skill.idTemplate == 26)) {
                 List<Char> charList = zone.getChars();
                 int maxTarget = skill.maxTarget;
@@ -13495,12 +16462,30 @@ public class Char extends Body {
     }
 
     private boolean isMeCanAttackOtherPlayer(Char cAtt) {
-        if (zone.isLoiDai()) {
-            if ((InfoGame.TypePk == 2 && cAtt.InfoGame.TypePk == 2))
-                return true;
-        }
-        if (!inLangCo && !zone.isKRC() && buaBaoHo)
+        if (cAtt == null) {
             return false;
+        }
+        try {
+            if (zone != null && zone.isDaiChienNhanGia3()) {
+                MapService.world.DaiChienNhanGia3 event = (MapService.world.DaiChienNhanGia3) findWorld(MapService.world.World.DAI_CHIEN_NHAN_GIA_3);
+                if (event != null) {
+                    return event.canAttackPlayer(this, cAtt);
+                }
+            }
+            if (zone != null && (zone.isLoiDai() || zone.isDaiHoiVoThuat())) {
+                if (InfoGame.TypePk == 2 && cAtt.InfoGame.TypePk == 2) {
+                    return true;
+                }
+            }
+
+            if (!(zone != null && zone.isDaiHoiVoThuat())) {
+                if (!inLangCo && !inHangViThu && !zone.isKRC() && buaBaoHo) {
+                    return false;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+
         return ((InfoGame.TypePk == 3 || cAtt.InfoGame.TypePk == 3) && !isTeam(cAtt))
                 || (zone.isKRC() && !isTeam(cAtt) && !isClan(cAtt))
                 || (InfoGame.TypePk == 2 && cAtt.InfoGame.TypePk == 2 && !isTeam(cAtt) && !isClan(cAtt))
@@ -13535,7 +16520,294 @@ public class Char extends Body {
         return false;
     }
 
+//    public void attackCharacter(ArrayList<Char> chars, Skill skill) {
+//        int damage = this.damage;
+//        int option92 = 0;
+//        int skillOptions[] = new int[DataCenter.gI().ItemOptionTemplate.length];
+//        try {
+//            for (com.sg188.data.Skill skill1 : Skill.arraySkill) {
+//                if (skill1 != null && skill1.level > 0 && skill1.getSkillTemplate().type != 5) {
+//                    for (ItemOption op : skill1.getItemOption()) {
+//                        if (op != null && op.getId() == 92) {
+//                            option92 = op.getvalue();
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
+//            for (ItemOption op : skill.getItemOption()) {
+//                if (op != null) {
+//                    skillOptions[op.getId()] = op.getvalue();
+//                }
+//            }
+//        } catch (Exception e) {
+//        }
+//        int skillTemplateId = skill.idTemplate;
+//        if (skillTemplateId == 33) {
+//            for (Char _char : chars) {
+//                if (_char != null && !_char.isClean) {
+//                    _char.addEffect(new Effect((short) 78, 0, System.currentTimeMillis(), getParamSkill(33, 268)));
+//                }
+//            }
+//        } else if (skillTemplateId == 4) {
+//            int param = getParamSkill(4, 181) + getParamSkill(1, 269);
+//            for (Char _char : chars) {
+//                if (_char != null && !_char.isClean) {
+//                    _char.addEffect(new Effect((short) 55, param, System.currentTimeMillis(), 10000));
+//                    _char.addEffect(new Effect((short) 56, getParamSkill(4, 182), System.currentTimeMillis(), 10000));
+//                    if (getChiSoFormSkill(270) != 0) {
+//                        _char.addEffect(new Effect((short) 76, getChiSoFormSkill(270), System.currentTimeMillis(), 10000));
+//                    }
+//                }
+//            }//2 ảnh phong xạ, 8 lôi kiếm, 14 ái bộc bố thuật, 20 hào hỏa cầu thuật, 26 phi lôi thần thuật
+//        } else if ((skillTemplateId == 2 || skillTemplateId == 8 || skillTemplateId == 14 || skillTemplateId == 20 || skillTemplateId == 26)) {
+//            damage += damage * option92 / 100;
+//        }
+//        if (isFatal > 0) {
+//            Effect eff1 = getEffect(53);
+//            Effect eff2 = getEffect(54);
+//            if (eff1 != null && eff2 != null) {
+//                try {
+//                    removeEffect(eff1);
+//                    HanderEff.RemovePointEff(this, eff1);
+//                    msgRemoveEffect(eff1);
+//                    removeEffect(eff2);
+//                    HanderEff.RemovePointEff(this, eff2);
+//                    msgRemoveEffect(eff2);
+//                } catch (Exception e) {
+//
+//                }
+//            }
+//            isFatal = 0;
+//            Char _char = chars.get(0);
+//            if (_char != null && !_char.isClean)
+//                chars.get(0).addEffect(new Effect((short) 11, 0, System.currentTimeMillis(), 2000));
+//        }
+//        int exactly = this.exactly + skillOptions[65];
+//        damage += skillOptions[78];
+//        for (Char pl : chars) {
+//            pl.lock.lock();
+//            try {
+//                if (pl != null && !pl.isClean && !pl.InfoGame.isDie) {
+//                    zone.SendMessageInZone(HanderMessage.SendAttackChar(Info.idEntity, Point.mp, (short) skill.index, pl.Info.idEntity));
+//                    int khang = 0;
+//                    switch (pl.Info.idhe) {
+//                        case 0:
+//                            break;
+//                        case 1:
+//                            damage += lightningAttackBoost;
+//                            damage += skillOptions[75];
+//                            break;
+//                        case 2:
+//                            damage += earthAttackBoost;
+//                            damage += skillOptions[73];
+//                            break;
+//                        case 3:
+//                            damage += waterAttackBoost;
+//                            damage += skillOptions[74];
+//                            break;
+//                        case 4:
+//                            damage += fireAttackBoost;
+//                            damage += skillOptions[77];
+//                            break;
+//                        case 5:
+//                            damage += waterAttackBoost;
+//                            damage += skillOptions[76];
+//                            break;
+//                    }
+//                    switch (Info.idhe) {
+//                        case 1:
+//                            khang = pl.lightningResistance;
+//                            break;
+//                        case 2:
+//                            khang = pl.earthResistance;
+//                            break;
+//                        case 3:
+//                            khang = pl.waterResistance;
+//                            break;
+//                        case 4:
+//                            khang = pl.fireResistance;
+//                            break;
+//                        case 5:
+//                            khang = pl.windResistance;
+//                            break;
+//                    }
+//                    khang -= options[269];
+//                    short bong = (short) (burn + skillOptions[71] - pl.reduceBurn);
+//                    short suyyeu = (short) (weaken + skillOptions[68] - pl.reduceWeaken);
+//                    short doc = (short) (poison + skillOptions[69] - pl.reducePoison);
+//                    short lamcham = (short) (slow + skillOptions[70] - pl.reduceSlow);
+//                    short choang = (short) (stun + skillOptions[72] - pl.reduceStun);
+//                    boolean isBong = Utlis.nextInt(2000) < bong;
+//                    boolean issuyyeu = Utlis.nextInt(2000) < suyyeu;
+//                    boolean isdoc = Utlis.nextInt(2000) < doc;
+//                    boolean islamcham = Utlis.nextInt(2000) < lamcham;
+//                    boolean ischoang = Utlis.nextInt(2000) < choang;
+//                    if (isdoc) {
+//                        pl.addEffect(new Effect((short) 9, 0, System.currentTimeMillis(), 2000));
+//                    }
+//                    if (isBong) {
+//                        pl.addEffect(new Effect((short) 11, 0, System.currentTimeMillis(), 2000));
+//                    }
+//                    if (issuyyeu) {
+//                        pl.addEffect(new Effect((short) 8, 0, System.currentTimeMillis(), 2000));
+//                    }
+//                    if (ischoang) {
+//                        pl.addEffect(new Effect((short) 12, 0, System.currentTimeMillis(), 1000));
+//                    }
+//                    if (islamcham) {
+//                        pl.addEffect(new Effect((short) 38, 0, System.currentTimeMillis(), 2000));
+//                    }
+//                    if (getEffect(8) != null) {
+//                        damage /= 2;
+//                    }
+//                    if (pl.getEffect(11) != null) {
+//                        damage += damage;
+//                    }
+//                    if (pl.getEffect(8) != null) {
+//                        khang /= 2;
+//                    }
+//                    int crit = critical >= 3000 ? 3000 : critical;
+//                    boolean chi_mang = Utlis.isCriticalHit(crit - pl.reduceCriticalDamage);
+//                    if (chi_mang) {
+//                        int num = criticalAttack;
+//                        num -= pl.criticalDefense * 2;
+//                        damage = damage + (damage * num / 100);
+//                    }
+//                    if (Utlis.nextInt(0, 1000) < ignoreResistance)
+//                        khang = 0;
+//                    double percentDameReduction = calculateDamageReduction(khang);
+//                    damage -= damage * percentDameReduction / 100;
+//                    damage = Math.max(damage - pl.damageReduction, 0);
+//
+//                    int NeTranh2 = pl.miss;
+//                    int ChinhXac2 = exactly;
+//
+//                    // Thêm trọng số để cân bằng tỉ lệ
+//                    double evadeWeight = 0.3; // Hệ số giảm sức mạnh cho chỉ số né tránh
+//                    double accuracyWeight = 1.7; // Hệ số tăng sức mạnh cho độ chính xác
+//
+//                    // Áp dụng trọng số
+//                    double adjustedEvade = NeTranh2 * evadeWeight;
+//                    double adjustedAccuracy = ChinhXac2 * accuracyWeight;
+//
+//                    int total = (int)(adjustedEvade + adjustedAccuracy); // Tổng chỉ số đã điều chỉnh
+//                    int missRate = (total > 0) ? (int)((adjustedEvade * 100) / total) : 0;
+//
+//                    // Đảm bảo tỉ lệ nằm trong khoảng hợp lệ
+//                    missRate = Math.max(0, Math.min(100, missRate));
+//
+//                    // Xác định né tránh
+//                    boolean isMiss = Utlis.NextInt(0, 100) < missRate;
+//                    if (isMiss && skill.idTemplate != 26) {
+//                        damage = 0;
+//                    }
+//                    try {
+//                        Effect effect = pl.getEffect(34);
+//                        if (effect != null) {
+//                            pl.addHp(effect.value);
+//                        }
+//                    } catch (Exception e) {
+//
+//                    }
+//                    damage = damage / 3;// giảm dame vào người khi pk
+//                    pl.addHp(-damage);
+//                    if(this.isTruMpDoiThu){
+//                        pl.addMp(-2000);
+//                    }
+//                    //zone.SendMessageInZone(HanderMessage.SendHpAttack(pl.Info.idEntity, pl.Point.hp, pl.Point.mp, chi_mang, pl.Info.cx, pl.Info.cy, Info.name));
+//                    if (pl.Point.hp <= 0) {
+//                        if (buaUeTho && !inLangCo && !pl.inLangCo && !zone.isLoiDai()) {
+//                            pl.canRevive = false;
+//                            pl.service.sendCaptCha(Info.name);
+//                            Effect bua = getEffect(81);
+//                            if (bua != null) {
+//                                removeEffect(bua);
+//                                HanderEff.RemovePointEff(this, bua);
+//                                msgRemoveEffect(bua);
+//                            }
+//                        }
+//                        if(pl.Info._mapID == 17 || pl.Info._mapID == 31) {//đá khỏi khu rừng chết
+//                            Map.maps[Info.mapReSpawm].addChar(pl);
+//                        }
+//                        if (pl.idCharPk == id) {
+//                            service.resuiltTyVo(pl.id, (byte) 2);
+//                            pl.service.resuiltTyVo(id, (byte) 3);
+//                            idCharPk = -1;
+//                            pl.idCharPk = -1;
+//                            InfoGame.TypePk = 0;
+//                            pl.InfoGame.TypePk = 0;
+//                        }
+//                        if (zone.isTranhDoatLanhTho()) {
+//                            pointTranhDoat += 5;
+//                            getService().sendPointMap(pointTranhDoat);
+//                        }
+//                        if ((pl.isCuuSat || isCuuSat) && pl.idCuuSat != -1 && idCuuSat != -1 && pl.idCuuSat == id) {
+//                            service.endCuuSat(id, true);
+//                            pl.service.endCuuSat(id, true);
+//                            service.endCuuSat(pl.id, true);
+//                            pl.service.endCuuSat(pl.id, true);
+//                            if (pl.isCuuSat) {
+//                                pl.Info.lvPk++;
+//                            }
+//                            if (isCuuSat) {
+//                                if (zone.isLangCo) {
+//                                    getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
+//                                    Map.maps[Info.mapReSpawm].addChar(this);
+//                                }
+//                                Info.lvPk++;
+//                            }
+//                            idCuuSat = -1;
+//                            isCuuSat = false;
+//                            pl.idCuuSat = -1;
+//                            pl.isCuuSat = false;
+//                        }
+//                        if (zone.isLangCo) {
+//                            if (InfoGame.TypePk == 3 || InfoGame.TypePk == 2) {
+//                                Info.lvPk++;
+//                                getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
+//                                Map.maps[Info.mapReSpawm].addChar(this);
+//                            }
+//                        }
+//                        if(pl.Info._mapID == 49) {
+//                            this.increasePoints();
+//                        }
+//                    }
+//                }
+//            } catch (Exception e) {
+//
+//            } finally {
+//                pl.lock.unlock();
+//            }
+//        }
+//
+//    }
+
+    //    private int getdamePK() {
+//        int dame = InfoTuongKhac.getAllFromTiemNang((Char) this) * 2;
+//        dame += getPramItem(2);
+//        dame += getParamViThu(2);
+//        dame += getPramItem(31);
+//        dame += getPramItem(199);
+//        dame += getPramItem(78);
+//        dame += getPramItem(146);
+//        dame += getPramItem(208);
+//        dame += (dame * getPramItem(254) / 100);
+//        dame += (dame * getPramItem(361) / 100);
+//        dame += getParamClan(2);
+//        dame += buffDame;
+//        dame += dameFormCrit * 2;
+//        dame += boostDame;
+//        dame += baseDamageBoost;
+//        return dame;
+//    }
     public void attackCharacter(ArrayList<Char> chars, Skill skill) {
+        if (isStun36) {
+            return;
+        }
+        if (System.currentTimeMillis() - skill.time < skill.coolDown) {
+            return;
+        }
         int damage = this.damage;
         int option92 = 0;
         int skillOptions[] = new int[DataCenter.gI().ItemOptionTemplate.length];
@@ -13556,15 +16828,65 @@ public class Char extends Body {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         int skillTemplateId = skill.idTemplate;
-        if (skillTemplateId == 33) {
+        if (skillTemplateId == SkillTemplate.THAO_CU_THIEN_TOA) {
             for (Char _char : chars) {
                 if (_char != null && !_char.isClean) {
-                    _char.addEffect(new Effect((short) 78, 0, System.currentTimeMillis(), getParamSkill(33, 268)));
+                    String[] option = skill.strOptions.split(";");
+                    int value = Short.parseShort(option[1].split(",")[1]);
+                    _char.addEffect(new Effect((short) 57, 0, System.currentTimeMillis(), getParamSkill(33, 268)));
+                    _char.addEffect(new Effect((short) 78, value, System.currentTimeMillis(), getParamSkill(33, 268)));
                 }
             }
-        } else if (skillTemplateId == 4) {
+        } else if (skillTemplateId == SkillTemplate.THIEN_CHIEU) {
+            for (Char _char : chars) {
+                if (_char != null && !_char.isClean) {
+                    _char.addEffect(new Effect((short) 93, getParamSkill(SkillTemplate.THIEN_CHIEU, 318), System.currentTimeMillis(), 15000));
+                }
+            }
+        } else if (skillTemplateId == SkillTemplate.ANH_THU_PHUOC_CHI_THUAT) {
+            for (Char _char : chars) {
+                if (_char != null && !_char.isClean) {
+                    _char.addEffect(new Effect((short) 71, 0, System.currentTimeMillis(), getParamSkill(skillTemplateId, 272)));
+                }
+            }
+        } else if (skillTemplateId == SkillTemplate.BIET_THIEN_THAN) {
+            for (Char _char : chars) {
+                if (_char != null && !_char.isClean) {
+                    String[] option = skill.strOptions.split(";");
+                    int seconds3 = Integer.parseInt(option[1].split(",")[1]);
+                    _char.addEffect(new Effect((short) 94, 1, System.currentTimeMillis(), seconds3));
+                }
+            }
+        } else if (skillTemplateId == SkillTemplate.DICH_CHUYEN_CHI_THUAT) {
+            Item dongHanhPhu = FindItemBag(569);
+            if (dongHanhPhu != null) {
+                for (Char _char : chars) {
+                    if (_char != null && !_char.isClean) {
+                        _char.addEffect(new Effect((short) 31, 1, System.currentTimeMillis(), 10000));
+                    }
+                }
+            } else {
+                service.serverMessage("Cần có đồng hành phù để dịch chuyển");
+            }
+        } else if (skillTemplateId == SkillTemplate.BYAKUGAN_19) {//bya nam
+            for (Char _char : chars) {
+                if (_char != null && !_char.isClean) {
+                    _char.addEffect(new Effect((short) 36, 1, System.currentTimeMillis(), getParamSkill(skillTemplateId, 103) + plusTimeTeLiet));
+                    setXY(_char.Info.cx, _char.Info.cy);
+                    this.service.setXYChar();
+                }
+            }
+        } else if (skillTemplateId == SkillTemplate.KHONG_THOI_GIAN_THUAT) {
+            for (Char _char : chars) {
+                if (_char != null && !_char.isClean) {
+                    _char.setXY(this.Info.cx, this.Info.cy);
+                    _char.service.setXYChar();
+                }
+            }
+        } else if (skillTemplateId == SkillTemplate.AN_CHU_CHI_THUAT) {
             int param = getParamSkill(4, 181) + getParamSkill(1, 269);
             for (Char _char : chars) {
                 if (_char != null && !_char.isClean) {
@@ -13574,10 +16896,24 @@ public class Char extends Body {
                         _char.addEffect(new Effect((short) 76, getChiSoFormSkill(270), System.currentTimeMillis(), 10000));
                     }
                 }
-            }//2 ảnh phong xạ, 8 lôi kiếm, 14 ái bộc bố thuật, 20 hào hỏa cầu thuật, 26 phi lôi thần thuật
-        } else if ((skillTemplateId == 2 || skillTemplateId == 8 || skillTemplateId == 14 || skillTemplateId == 20 || skillTemplateId == 26)) {
+            }
+        } else if ((skillTemplateId == SkillTemplate.ANH_PHONG_XA
+                || skillTemplateId == SkillTemplate.LOI_KIEM
+                || skillTemplateId == SkillTemplate.AI_BOC_BO_THUAT
+                || skillTemplateId == SkillTemplate.HAO_HOA_CAU_THUAT
+                || skillTemplateId == SkillTemplate.PHI_LOI_THAN_THUAT
+        )) {
             damage += damage * option92 / 100;
+        } else if (skillTemplateId == SkillTemplate.THANH_SAT_CHAKRA) {
+            for (Char _char : chars) {
+                if (_char != null && !_char.isClean) {
+                    _char.addEffect(new Effect((short) 95, 0, System.currentTimeMillis(), getParamSkill(skillTemplateId, 317)));
+                }
+            }
+        } else if (skillTemplateId == SkillTemplate.TAM_TRUNG_OAN_THU_THUAT) {
+            this.addEffect(new Effect((short) 73, getParamSkill(skillTemplateId, 65), System.currentTimeMillis(), 410));
         }
+
         if (isFatal > 0) {
             Effect eff1 = getEffect(53);
             Effect eff2 = getEffect(54);
@@ -13590,7 +16926,7 @@ public class Char extends Body {
                     HanderEff.RemovePointEff(this, eff2);
                     msgRemoveEffect(eff2);
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
             isFatal = 0;
@@ -13601,10 +16937,8 @@ public class Char extends Body {
         int exactly = this.exactly + skillOptions[65];
         damage += skillOptions[78];
         for (Char pl : chars) {
-            pl.lock.lock();
             try {
                 if (pl != null && !pl.isClean && !pl.InfoGame.isDie) {
-                    zone.SendMessageInZone(HanderMessage.SendAttackChar(Info.idEntity, Point.mp, (short) skill.index, pl.Info.idEntity));
                     int khang = 0;
                     switch (pl.Info.idhe) {
                         case 0:
@@ -13653,13 +16987,13 @@ public class Char extends Body {
                     short doc = (short) (poison + skillOptions[69] - pl.reducePoison);
                     short lamcham = (short) (slow + skillOptions[70] - pl.reduceSlow);
                     short choang = (short) (stun + skillOptions[72] - pl.reduceStun);
-                    boolean isBong = Utlis.nextInt(2000) < bong;
-                    boolean issuyyeu = Utlis.nextInt(2000) < suyyeu;
-                    boolean isdoc = Utlis.nextInt(2000) < doc;
-                    boolean islamcham = Utlis.nextInt(2000) < lamcham;
-                    boolean ischoang = Utlis.nextInt(2000) < choang;
+                    boolean isBong = Utlis.nextInt(4000) < bong;//mặc định <2000
+                    boolean issuyyeu = Utlis.nextInt(4000) < suyyeu;//mặc định <2000
+                    boolean isdoc = Utlis.nextInt(4000) < doc;//mặc định <2000
+                    boolean islamcham = Utlis.nextInt(4000) < lamcham;//mặc định <2000
+                    boolean ischoang = Utlis.nextInt(4000) < choang;//mặc định <2000
                     if (isdoc) {
-                        pl.addEffect(new Effect((short) 9, 0, System.currentTimeMillis(), 2000));
+                        pl.addEffect(new Effect((short) 9, Math.max(0, doc), System.currentTimeMillis(), 2000));
                     }
                     if (isBong) {
                         pl.addEffect(new Effect((short) 11, 0, System.currentTimeMillis(), 2000));
@@ -13689,46 +17023,52 @@ public class Char extends Body {
                         num -= pl.criticalDefense * 2;
                         damage = damage + (damage * num / 100);
                     }
-                    if (Utlis.nextInt(0, 1000) < ignoreResistance)
+                    if (Utlis.nextInt(0, 10000) < ignoreResistance)
                         khang = 0;
                     double percentDameReduction = calculateDamageReduction(khang);
                     damage -= damage * percentDameReduction / 100;
                     damage = Math.max(damage - pl.damageReduction, 0);
-
-                    int NeTranh2 = pl.miss;
-
-                    int ChinhXac2 = exactly;
-//                    int randMiss = Utlis.NextInt(0, (NeTranh2 + 100));
-//                    int randExactly = Utlis.NextInt(0, (ChinhXac2 + 1000));
-                    //int randMiss = Utlis.NextInt(NeTranh2, (NeTranh2 + 1000));
-                    //int randExactly = Utlis.NextInt(ChinhXac2, (ChinhXac2 + 1000));
-
-                   // boolean isMiss = randMiss > randExactly; // sửa lại hàm pk chỗ né
-                    int total = NeTranh2 + ChinhXac2;//fix né
-                    int missRate = (total > 0) ? (NeTranh2 * 100) / total : 0;
-                    missRate = Math.max(0, Math.min(100, missRate));
-                    boolean isMiss = Utlis.NextInt(0, 100) < missRate;
-
-
-//                    int miss = pl.miss;
-//                    int exactlyAttack = exactly - miss;
-//                    boolean isMiss = exactlyAttack < 0 ? Utlis.randomBoolean(100, 90) : Utlis.randomBoolean(100, 1);
+                    int miss = pl.miss;
+                    int randMiss = Utlis.nextInt(miss / 10 + 1000);
+                    //int randMiss = 0;
+                    int randExactly = Utlis.nextInt(exactly / 10 + 1000);
+                    boolean isMiss = randMiss > randExactly;
+                    damage = damage / 5;
                     if (isMiss) {
                         damage = 0;
                     }
-                    try {
-                        Effect effect = pl.getEffect(34);
-                        if (effect != null) {
-                            pl.addHp(effect.value);
-                        }
-                    } catch (Exception e) {
-
+                    if (this.hutHp > 0) {
+                        this.addHp((float) (hutHp * damage) / 20);
                     }
-                    damage = damage / 2;// giảm dame vào người khi pk
-                    pl.addHp(-damage);
-                    zone.SendMessageInZone(HanderMessage.SendHpAttack(pl.Info.idEntity, pl.Point.hp, pl.Point.mp, false, pl.Info.cx, pl.Info.cy, Info.name));
+                    pl.addMp(-isTruMpDoiThu);
+                    addHp(hutHp);
+                    if (mobBird > 0) {
+                        pl.addHp(-((float) (damage * 25) / 100));
+                        service.birdAttackPlayer(pl);
+                        //zone.SendMessageInZone(HanderMessage.SendAttackChar(Info.idEntity, Point.mp, (short) skill.index, pl.Info.idEntity));
+                        zone.SendMessageInZone(HanderMessage.SendHpAttack(pl.Info.idEntity, pl.Point.hp, pl.Point.mp, false, pl.Info.cx, pl.Info.cy, Info.name));
+                    }
+                    if (Utlis.isTrue((float) counterAttack / 500, 100)) {//mặc định là /100
+                        addHp(-damage);
+                        zone.SendMessageInZone(HanderMessage.SendAttackChar(Info.idEntity, Point.mp, (short) skill.index, pl.Info.idEntity));
+                        //zone.SendMessageInZone(HanderMessage.SendHpAttack(pl.Info.idEntity, pl.Point.hp, pl.Point.mp, false, pl.Info.cx, pl.Info.cy, Info.name));
+                    } else {
+                        float hutMpDame = (float) (damage * pl.mpHutDame) / 100;
+                        pl.addMp(-hutMpDame);
+                        pl.addHp(-(damage - hutMpDame));
+                        if (canMoreSkill) {
+                            if (Utlis.isTrue(50, 100)) {
+                                pl.addMp(-hutMpDame);
+                                pl.addHp(-(damage - hutMpDame));
+                                zone.SendMessageInZone(HanderMessage.SendAttackChar(Info.idEntity, Point.mp, (short) skill.index, pl.Info.idEntity));
+                                //zone.SendMessageInZone(HanderMessage.SendHpAttack(pl.Info.idEntity, pl.Point.hp, pl.Point.mp, false, pl.Info.cx, pl.Info.cy, Info.name));
+                            }
+                        }
+                    }
+                    zone.SendMessageInZone(HanderMessage.SendAttackChar(Info.idEntity, Point.mp, (short) skill.index, pl.Info.idEntity));
+                    //zone.SendMessageInZone(HanderMessage.SendHpAttack(pl.Info.idEntity, pl.Point.hp, pl.Point.mp, false, pl.Info.cx, pl.Info.cy, Info.name));
                     if (pl.Point.hp <= 0) {
-                        if (buaUeTho && !inLangCo && !pl.inLangCo && !zone.isLoiDai()) {
+                        if (buaUeTho && !inLangCo && !inHangViThu && !pl.inLangCo && !pl.inHangViThu && !zone.isLoiDai()) {
                             pl.canRevive = false;
                             pl.service.sendCaptCha(Info.name);
                             Effect bua = getEffect(81);
@@ -13737,9 +17077,6 @@ public class Char extends Body {
                                 HanderEff.RemovePointEff(this, bua);
                                 msgRemoveEffect(bua);
                             }
-                        }
-                        if(pl.Info._mapID == 17 || pl.Info._mapID == 31) {//đá khỏi khu rừng chết
-                            Map.maps[Info.mapReSpawm].addChar(pl);
                         }
                         if (pl.idCharPk == id) {
                             service.resuiltTyVo(pl.id, (byte) 2);
@@ -13753,45 +17090,41 @@ public class Char extends Body {
                             pointTranhDoat += 5;
                             getService().sendPointMap(pointTranhDoat);
                         }
+                        if (zone.isDaiHoiVoThuat()) {
+                            pointDaiHoi++;
+                            getService().sendPointMap(pointDaiHoi);
+                        }
                         if ((pl.isCuuSat || isCuuSat) && pl.idCuuSat != -1 && idCuuSat != -1 && pl.idCuuSat == id) {
                             service.endCuuSat(id, true);
                             pl.service.endCuuSat(id, true);
-                            service.endCuuSat(pl.id, true);
-                            pl.service.endCuuSat(pl.id, true);
                             if (pl.isCuuSat) {
                                 pl.Info.lvPk++;
                             }
-                            if (isCuuSat) {
-                                if (zone.isLangCo) {
-                                    getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
-                                    Map.maps[Info.mapReSpawm].addChar(this);
-                                }
-                                Info.lvPk++;
-                            }
+//                            if (isCuuSat) {
+//                                if (zone.isLangCo) {
+//                                    getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
+//                                    Map.maps[Info.mapReSpawm].addChar(this);
+//                                }
+//                                Info.lvPk++;
+//                            }
                             idCuuSat = -1;
                             isCuuSat = false;
                             pl.idCuuSat = -1;
                             pl.isCuuSat = false;
                         }
-                        if (zone.isLangCo) {
-                            if (InfoGame.TypePk == 3 || InfoGame.TypePk == 2) {
-                                Info.lvPk++;
-                                getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
-                                Map.maps[Info.mapReSpawm].addChar(this);
-                            }
-                        }
-                        if(pl.Info._mapID == 49) {
-                            this.increasePoints();
-                        }
+//                        if (zone.isLangCo) {
+//                            if (InfoGame.TypePk == 3 || InfoGame.TypePk == 2) {
+//                                Info.lvPk++;
+//                                getService().serverMessage("Bạn đang có điểm PK không thể vào khu vực này");
+//                                Map.maps[Info.mapReSpawm].addChar(this);
+//                            }
+//                        }
                     }
                 }
             } catch (Exception e) {
-
-            } finally {
-                pl.lock.unlock();
+                e.printStackTrace();
             }
         }
-
     }
 
     public double calculateDamageReduction(int resistance) {

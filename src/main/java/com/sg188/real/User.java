@@ -5,9 +5,7 @@ import SqlConnection.CharDB;
 import SqlConnection.Connect;
 import Template.TemplateThu;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sg188.PhucLoi.TemplatePL;
 import com.sg188.clan.Clan;
@@ -16,7 +14,6 @@ import com.sg188.data.SkillClan;
 import com.sg188.data.TaskTemplate;
 import com.sg188.lib.Log;
 import com.sg188.lib.ParseData;
-import com.sg188.lib.Utlis;
 import com.sg188.server.ServerManager;
 import com.sg188.server.Service;
 import com.sg188.server.Session;
@@ -71,22 +68,21 @@ public class User {
         Log.debug("clean user " + this.username);
     }
 
-    public HashMap<String, Object> getUserMap() {
-        try {
-            ArrayList<HashMap<String, Object>> list;
-            try (Connection conn = Connect.getConnection()) {
-                PreparedStatement stmt = conn.prepareStatement("SELECT * from users where username = ?");
-                stmt.setString(1, this.username);
-                ResultSet data = stmt.executeQuery();
-                try {
-                    list = CharDB.convertResultSetToList(data);
-                } finally {
-                    data.close();
-                    stmt.close();
-                }
+   public HashMap<String, Object> getUserMap() {
+        String sql = "SELECT * FROM users WHERE username = ?";
+
+        try (
+                Connection conn = Connect.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, this.username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                ArrayList<HashMap<String, Object>> list = CharDB.convertResultSetToList(rs);
+
                 if (list.isEmpty()) {
                     return null;
                 }
+
                 HashMap<String, Object> map = list.get(0);
                 if (map != null) {
                     String passwordHash = (String) map.get("password");
@@ -94,19 +90,20 @@ public class User {
                         return null;
                     }
                 }
+
                 return map;
             }
+
         } catch (SQLException e) {
             Log.error("getUserMap() err", e);
+            return null;
         }
-
-        return null;
     }
 
     public void initCharacterList() {
         long timeLoad = System.currentTimeMillis();
         try (Connection conn = Connect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * from player where idchar = ? LIMIT 1;")) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * from player where idchar = ? LIMIT 1;")) {
             stmt.setInt(1, this.ID_USER);
             ResultSet data = stmt.executeQuery();
             try {
@@ -138,7 +135,7 @@ public class User {
                         _char.Info.cuaCai = Integer.parseInt(obj.get("cuacai").toString());
                         _char.Info.cuaCaiTuan = Integer.parseInt(obj.get("cuacaituan").toString());
                         _char.Info.cuongHoa = Integer.parseInt(obj.get("cuonghoa").toString());
-                        _char.Info.cuaCaiTuan = Integer.parseInt(obj.get("cuonghoatuan").toString());
+                        _char.Info.cuongHoaTuan = Integer.parseInt(obj.get("cuonghoatuan").toString());
                         _char.Info.loiDai = Integer.parseInt(obj.get("loidai").toString());
                         _char.Info.luyenTap = Integer.parseInt(obj.get("luyentap").toString());
                         _char.Info.countRuong = Byte.parseByte(obj.get("countruong").toString());
@@ -159,8 +156,8 @@ public class User {
                             _char.Info.cy = Short.parseShort(obj.get("cy").toString());
                         }
 
-                        if (obj.containsKey("pointnapnew")) {
-                            _char.Bag.pointNapNew = Integer.parseInt(obj.get("pointnapnew").toString());
+                        if (obj.containsKey("pointNapNew")) {
+                            _char.Bag.pointNapNew = Integer.parseInt(obj.get("pointNapNew").toString());
                         }
 
                         if (obj.containsKey("pointDungeon")) {
@@ -268,6 +265,9 @@ public class User {
                         if (obj.containsKey("inLangCo")) {
                             _char.inLangCo = Boolean.parseBoolean(obj.get("inLangCo").toString());
                         }
+                        if (obj.containsKey("inHangViThu")) {
+                            _char.inHangViThu = Boolean.parseBoolean(obj.get("inHangViThu").toString());
+                        }
                         if (obj.containsKey("taskId")) {
                             _char.taskId = Short.parseShort(obj.get("taskId").toString());
                         }else {
@@ -330,8 +330,8 @@ public class User {
                             if (obj.containsKey("banhUbao")) {
                                 _char.Bag.banhUBao = Byte.parseByte(obj.get("banhUbao").toString());
                             }
-                            if (obj.containsKey("pointnapnew")) {
-                                _char.Bag.pointNapNew = Integer.parseInt(obj.get("pointnapnew").toString());
+                            if (obj.containsKey("pointNapNew")) {
+                                _char.Bag.pointNapNew = Integer.parseInt(obj.get("pointNapNew").toString());
                             }
                             if (obj.containsKey("sach")) {
                                 _char.Bag.itemSach = new Item((JSONObject) obj.get("sach"));
@@ -393,6 +393,29 @@ public class User {
                                 } else {
                                     _char.phucLoi.nap3moc = 0;
                                 }
+                                // VongQuayNap disabled - not used
+                                /*
+                                if (obj.containsKey("vongquaynap_tichluy")) {
+                                    _char.phucLoi.vongQuayNapTichLuy = Long.parseLong(obj.get("vongquaynap_tichluy").toString());
+                                } else {
+                                    _char.phucLoi.vongQuayNapTichLuy = 0L;
+                                }
+                                if (obj.containsKey("vongquaynap_luotquay")) {
+                                    _char.phucLoi.luotQuayVongXoay = Long.parseLong(obj.get("vongquaynap_luotquay").toString());
+                                } else {
+                                    _char.phucLoi.luotQuayVongXoay = 0L;
+                                }
+                                if (obj.containsKey("vongquaynap_daquay")) {
+                                    _char.phucLoi.daQuayVongXoay = Integer.parseInt(obj.get("vongquaynap_daquay").toString());
+                                } else {
+                                    _char.phucLoi.daQuayVongXoay = 0;
+                                }
+                                if (obj.containsKey("vongquaynap_season")) {
+                                    _char.phucLoi.vongQuayNapSeasonId = Integer.parseInt(obj.get("vongquaynap_season").toString());
+                                } else {
+                                    _char.phucLoi.vongQuayNapSeasonId = 0;
+                                }
+                                */
                                 if(obj.containsKey("listnap")){
                                     JSONArray jsonArrayRead = (JSONArray) obj.get("listnap");
                                     for (Object o : jsonArrayRead) {
@@ -479,50 +502,58 @@ public class User {
                     jArr = (JSONArray) JSONValue.parse(data.getString("box"));
                     len = jArr.size();
                     if (jArr != null) {
-                        int numAdd = 0;
                         _char.Bag.arrItemBox = new Item[72 + _char.Info.countBox];
-                        if (jArr != null) {
-                            for (int i = 0; i < len; i++) {
-                                Item it = new Item((JSONObject) jArr.get(i));
-                                if (it == null) {
-                                    continue;
-                                }
-                                int indexBoxNull = _char.IndexBoxNull();
-                                if (indexBoxNull == -1) {
-                                    break;
-                                }
-                                if (it.amount > 500000) {
-                                    it.amount = 500000;
-                                }
-                                _char.Bag.arrItemBox[indexBoxNull] = it;
+                        for (int i = 0; i < len; i++) {
+                            Item it = new Item((JSONObject) jArr.get(i));
+                            if (it == null) {
+                                continue;
                             }
+                            int indexBoxNull = _char.IndexBoxNull();
+                            if (indexBoxNull == -1) {
+                                break;
+                            }
+                            if (it.amount > 500000) {
+                                it.amount = 500000;
+                            }
+                            _char.Bag.arrItemBox[indexBoxNull] = it;
                         }
                     }
                     jArr.clear();
                     jArr = (JSONArray) JSONValue.parse(data.getString("body"));
                     len = jArr.size();
                     if (jArr != null) {
-                        if (jArr != null) {
-                            for (int i = 0; i < len; i++) {
-                                Item it = new Item((JSONObject) jArr.get(i));
-                                if (it == null) {
-                                    continue;
-                                }
-                                _char.Bag.arrItemBody[it.getItemTemplate().type] = it;
+                        for (int i = 0; i < len; i++) {
+                            Item it = new Item((JSONObject) jArr.get(i));
+                            if (it == null) {
+                                continue;
                             }
+                            _char.Bag.arrItemBody[it.getItemTemplate().type] = it;
                         }
                     }
                     jArr.clear();
                     jArr = (JSONArray) JSONValue.parse(data.getString("body2"));
                     len = jArr.size();
                     if (jArr != null) {
+                        for (int i = 0; i < len; i++) {
+                            Item it = new Item((JSONObject) jArr.get(i));
+                            if (it == null) {
+                                continue;
+                            }
+                            _char.Bag.arrItemBody2[it.getItemTemplate().type] = it;
+                        }
+                    }
+                    String pet = data.getString("pet");
+                    if(pet != null && !pet.isEmpty()) {
+                        jArr.clear();
+                        jArr = (JSONArray) JSONValue.parse(pet);
+                        len = jArr.size();
                         if (jArr != null) {
                             for (int i = 0; i < len; i++) {
                                 Item it = new Item((JSONObject) jArr.get(i));
                                 if (it == null) {
                                     continue;
                                 }
-                                _char.Bag.arrItemBody2[it.getItemTemplate().type] = it;
+                                _char.Bag.arrItemPet[it.getItemTemplate().type-40] = it;
                             }
                         }
                     }
@@ -530,14 +561,12 @@ public class User {
                     jArr = (JSONArray) JSONValue.parse(data.getString("skillvithu"));
                     len = jArr.size();
                     if (jArr != null) {
-                        if (jArr != null) {
-                            for (int i = 0; i < len; i++) {
-                                Item it = new Item((JSONObject) jArr.get(i));
-                                if (it == null) {
-                                    continue;
-                                }
-                                _char.Bag.arrItemSkillViThu[it.getItemTemplate().type] = it;
+                        for (int i = 0; i < len; i++) {
+                            Item it = new Item((JSONObject) jArr.get(i));
+                            if (it == null) {
+                                continue;
                             }
+                            _char.Bag.arrItemSkillViThu[it.getItemTemplate().type] = it;
                         }
                     }
                     jArr.clear();
@@ -752,8 +781,13 @@ public class User {
         }
     }
     public void createCharDB(Char c, int numberC, int _userid) {
-        try (Connection conn = Connect.getConnection();) {
-            PreparedStatement ps = conn.prepareStatement("Insert Into player set idchar = ? ,indexchar = ?,name = ?, info = ? ,inventory = ?,bag = ?,body = ?,body2 = ?,box = ?,bagext = ?,skillvithu = ?, skill = ? , point = ? ,thu = ?,code = ?,effect =?,phucLoi =?,hokage =?,danhhieu = ?,listskill = ?,`enemies` = ?,`friends` = ?,`task` = ?");
+        Connection conn = Connect.getConnection();
+        if (conn == null) {
+            Log.error("Cannot get database connection in createCharDB");
+            return;
+        }
+        try (Connection conn2 = conn) {
+            PreparedStatement ps = conn2.prepareStatement("Insert Into player set idchar = ? ,indexchar = ?,name = ?, info = ? ,inventory = ?,bag = ?,body = ?,body2 = ?,box = ?,bagext = ?,skillvithu = ?, skill = ? , point = ? ,thu = ?,code = ?,effect =?,phucLoi =?,hokage =?,danhhieu = ?,listskill = ?,`enemies` = ?,`friends` = ?,`task` = ?");
             ps.setInt(1, _userid);
             ps.setInt(2, numberC + 1);
             ps.setString(3, c.Info.name);

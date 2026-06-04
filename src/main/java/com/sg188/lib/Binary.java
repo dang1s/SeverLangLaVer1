@@ -484,7 +484,8 @@ public class Binary {
         if (!var0.contains(".")) {
             var3 = var3 + ".bin";
         }
-        var2 = Utlis.read("data\\" + var3);
+//        var2 = Utlis.read("data\\" + var3); // win  
+        var2 = Utlis.read("data/" + var3);
         if (var0.equals("arr_data_game")) {
             var2 = Utlis.inflateByteArray(var2);
            

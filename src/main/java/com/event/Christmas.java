@@ -84,6 +84,20 @@ public class Christmas extends Event{
                 }
                 useEventItem(p, item.id, itemsRecFromCoinItem);
                 break;
+            case 592:
+                if (p.getCountNullItemBag() == 0) {
+                    p.warningBagFull();
+                    return;
+                }
+                useEventItem(p, item.id, itemsRecFromGold4Item);
+                break;
+            case 392:
+                if (p.getCountNullItemBag() == 0) {
+                    p.warningBagFull();
+                    return;
+                }
+                useEventItem(p, item.id, itemsRecFromGold4Item);
+                break;
         }
     }
 
@@ -214,7 +228,7 @@ public class Christmas extends Event{
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item ctNoel = new Item(662);
-                        ctNoel.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200";
+                        ctNoel.strOptions = "68,100;70,100;0,1000;2,200;4,200;5,200;209,150;306,20";
                         p.addItem(ctNoel);
                         p.msgAddItemBag(ctNoel);
                         break;
@@ -227,22 +241,22 @@ public class Christmas extends Event{
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item conMat = new Item(955);
                         conMat.amount = 1;
-                        conMat.isLock = true;
+                        //conMat.isLock = true;
                         p.addItem(conMat);
                         p.msgAddItemBag(conMat);
                         break;
                     case 4:
-                        point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
-                        if(point < 2500){
-                            p.service.serverMessage("Bạn không có đủ 2500 điểm tiêu xài");
-                            return;
-                        }
-                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,2500);
-                        Item veVIP = new Item(966);
-                        veVIP.amount = 1;
-                        veVIP.isLock = true;
-                        p.addItem(veVIP);
-                        p.msgAddItemBag(veVIP);
+//                        point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
+//                        if(point < 2500){
+//                            p.service.serverMessage("Bạn không có đủ 2500 điểm tiêu xài");
+//                            return;
+//                        }
+//                        p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,2500);
+//                        Item veVIP = new Item(966);
+//                        veVIP.amount = 1;
+//                        //veVIP.isLock = true;
+//                        p.addItem(veVIP);
+//                        p.msgAddItemBag(veVIP);
                         break;
                     case 5:
                         point = p.getEventPoint().getPoint(EventPoint.DIEM_TIEU_XAI);
@@ -252,7 +266,7 @@ public class Christmas extends Event{
                         }
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,5000);
                         Item biKipBiNgo = new Item(947);
-                        biKipBiNgo.isLock = true;
+                        //biKipBiNgo.isLock = true;
                         biKipBiNgo.he = p.Info.idhe;
                         biKipBiNgo.addItemOption(new ItemOption(128, 0, 16000));
                         biKipBiNgo.addItemOption(new ItemOption(331, 300, 350));
@@ -287,7 +301,7 @@ public class Christmas extends Event{
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,1000);
                         Item danChuyenHe = new Item(998);
                         danChuyenHe.amount = 1;
-                        danChuyenHe.isLock = true;
+                        //danChuyenHe.isLock = true;
                         p.addItem(danChuyenHe);
                         p.msgAddItemBag(danChuyenHe);
                         break;
@@ -300,7 +314,7 @@ public class Christmas extends Event{
                         p.getEventPoint().subPoint(EventPoint.DIEM_TIEU_XAI,1000);
                         Item tayGioiDan = new Item(603);
                         tayGioiDan.amount = 1;
-                        tayGioiDan.isLock = true;
+                        //tayGioiDan.isLock = true;
                         p.addItem(tayGioiDan);
                         p.msgAddItemBag(tayGioiDan);
                         break;

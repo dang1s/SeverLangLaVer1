@@ -27,7 +27,7 @@ public class Territory extends World {
         this.id = clanId;
         this.listCharId = new ArrayList<>();;
         this.listGuestId = new ArrayList<>();;
-        this.countDown = 300; // 5 minutes
+        this.countDown = 120; // 2 minutes
         initZone();
         initFinished = true;
         nextMapId = 46;
@@ -69,12 +69,13 @@ public class Territory extends World {
     private void createMonterMap46() {
         try {
             started = true;
-            List<Char>charList = getMembers();
-            int levelSum = charList.stream()
-                    .filter(c -> c!=null&&!c.isClean)
-                    .mapToInt(Char::level)
-                    .sum();
-            level = levelSum / charList.size();
+//            List<Char>charList = getMembers();
+//            int levelSum = charList.stream()
+//                    .filter(c -> c!=null&&!c.isClean)
+//                    .mapToInt(Char::level)
+//                    .sum();
+//            level = levelSum / charList.size();
+            level = 56;
             zones.get(0).createMob();
             zones.get(0).isOpened=true;
         } catch (Exception e) {

@@ -2,14 +2,12 @@ package com.sg188.server.lib;
 
 import com.sg188.lib.Log;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Reader {
 
@@ -18,7 +16,7 @@ public class Reader {
 
 
     public Reader(Socket socket) throws IOException {
-        this.dis = new DataInputStream(socket.getInputStream());
+        this.dis = new DataInputStream(new BufferedInputStream(socket.getInputStream(), 65536));
     }
 
     public Reader(DataInputStream var1) {

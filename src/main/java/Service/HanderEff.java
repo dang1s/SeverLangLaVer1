@@ -17,6 +17,7 @@ import com.sg188.real.Mob;
  */
 public class HanderEff {
     // SKILL [][]{{51, 52}, {53, 54}, {55, 56, 76}, {57, 58}, {59, 60}, {34, 61}, {62, 63}, {64, 65}, {69, 70}, {68, 70}, {72, 73}, {31, 73}, {74, 77}, {100, 104, 105}};
+    public static long delay = 0;
     public static void getPointEff(Char _myChar, Effect Eff) {
         switch (DataCenter.gI().EffectTemplate[Eff.id].type) {
             case 0: // Mỗi nữa giây phục hồi # Hp và Mp ( 0 -> 9 ; 43 ->45; 50)
@@ -44,6 +45,11 @@ public class HanderEff {
             case 11: // Mỗi nữa giây phục hồi # Hp(30)
                 break;
             case 12: // Giải trừ 5 hiệu ứng cơ bản (suy yếu, trúng độc, làm chậm, bỏng, choáng)(31)
+                for (int effectId = 8; effectId <= 12; effectId++) {
+                    if (_myChar.getEffect(effectId) != null) {
+                        _myChar.removeEffect(_myChar.getEffect(effectId));
+                    }
+                }
                 break;
             case 13: // Cộng thêm # kháng tất cả cho bản thân(32)
                 break;
@@ -54,6 +60,7 @@ public class HanderEff {
             case 16: // Thần trí bất minh, không thể điều khiển được bản thân(35)(Niết bàn tâm kinh)
                 break;
             case 17: // Khi bị dính chiêu sẽ không thể di chuyển, không thể tấn công nhưng có thể sử dụng dược phẩm(36)(Dịch chuyển chi thuật)
+                _myChar.isStun36 = true;
                 break;
             case 18: // Tăng thêm #% kinh nghiệm nhận được khi đánh quái (37)
                 break;
@@ -82,8 +89,10 @@ public class HanderEff {
                 _myChar.isBiDuoc = true;
                 break;
             case 43: // Tăng # tốc độ di chuyển(51)
+                _myChar.buffSpeed = 200;
                 break;
             case 44: // Tăng # né tránh(52)
+                _myChar.buffMiss = 3000;
                 break;
             case 45: // Che giấu khỏi tầm nhìn của đối phương\nGây bỏng: +#(53)
                 break;
@@ -101,9 +110,14 @@ public class HanderEff {
             case 50: // Gây làm chậm: +#(58)
                 break;
             case 51: // Mỗi 2 giây phục hồi # Hp(59)
+                if (System.currentTimeMillis() - delay >= 2000) {
+                    _myChar.addHp(5000);
+                    delay = System.currentTimeMillis();
+                }
                 break;
             case 52: // Tăng # Hp(60)
-                _myChar.buffHP = Eff.value;
+                //_myChar.buffHP = Eff.value;
+                _myChar.buffHP = 20000;
                 _myChar.msgUpdateHpFull();
                 break;
             case 53: // Tấn công: +#(61)(Thủy lao thuật)
@@ -114,9 +128,11 @@ public class HanderEff {
             case 55: // Hút Hp: +#(63)(Dơi hút máu)
                 break;
             case 56: // Bỏ qua kháng tính: +#%(64)(Trạng thái hiền nhân)
-                _myChar.isHienNhan = (short) Eff.value;
+                //_myChar.isHienNhan = (short) Eff.value *10;//x10
+                _myChar.isHienNhan = 50;
                 break;
             case 57: // Làm tiêu hao Mp: -# (mỗi 3 giây sẽ tự động thi triển 1 lần và không có tác dụng đối với quái)(65)
+                _myChar.isTruMpDoiThu = 2000;
                 break;
             case 58:  // Không bị bất cứ ai tấn công, cũng như không thể tấn công người khác(66)(Bùa bảo hộ)
                 _myChar.buaBaoHo = true;
@@ -124,20 +140,24 @@ public class HanderEff {
             case 59: // Tăng thêm 100% kinh nghiệm khi sử dụng xích linh chi. Hiệu quả # ủy thác(67)
                 break;
             case 60: // Dùng Mp hút: +#% sát thương(68)
-                _myChar.mpHutDame = (short) Eff.value;
+                //_myChar.mpHutDame = (short) Eff.value;
+                _myChar.mpHutDame = (short) 20;
                 break;
             case 61: // Mỗi 1 giây phục hồi tỉ lệ Hp: +#%(69)
                 break;
             case 62: // Tăng thời gian gây tê liệt khi sử dụng chiêu dịch chuyển chi thuật: +# giây(70)(Bạch hào chi thuật)
+                _myChar.plusTimeTeLiet = Eff.value;
                 break;
             case 63: // Bị giữ chặt bởi bóng(71) (Ánh thủ phược chi thuật)
                 break;
             case 64: // Có xác xuất tăng thêm 1 nhát đánh khi xuất chiêu(72)
+                _myChar.canMoreSkill = true;
                 break;
             case 65: // Chính xác: +#(73)
                 break;
             case 66: // Tăng Chakra: +#(74)
-                _myChar.boostChakra= (short) Eff.value;
+                //_myChar.boostChakra= (short) Eff.value;
+                _myChar.boostChakra = 1000;
                 break;
             case 67: // Không thể di chuyển, không thể tấn công và không thể sử dụng dược phẩm(75)(Hiệu ứng choáng)
                 break;
@@ -166,6 +186,7 @@ public class HanderEff {
             case 78: // Tăng #% bạc khóa nhận được khi đánh quái(86)
                 break;
             case 79: // Tăng chakra: +#(87)
+                _myChar.boostChakra = 150;
                 break;
             case 80: // Bị thần thụ hút chakra: -#, nhẫn thuật sẽ tự kết thúc sau 21h trong ngày.(88)
                 break;
@@ -176,13 +197,17 @@ public class HanderEff {
                 break;
             case 83: // Không thể trò chuyện, không thể tự hồi sinh tại chỗ(92)(Ma thuật)
                 break;
-            case 84: // Suy giảm né tránh: +#(93)
+            case 84: // Suy giảm né tránh: +#(93)(thiên chiếu)
+                _myChar.buffMiss = -_myChar.miss;
                 break;
             case 85: // Không thể thi triển nhẫn thuật(94)(Biệt thiên thần)
+                _myChar.isBietThienThan = true;
                 break;
             case 86: // Không thể sử dụng dược phẩm(95)(Thanh sắt chara)
+                _myChar.camHoiMau = true;
                 break;
-            case 87: // Suy giảm chính xác: +#(96)
+            case 87: // Suy giảm chính xác: +#(96)(loa toàn thủ lí kiếm)
+                _myChar.buffCx = -_myChar.exactly;
                 break;
             case 88: // Tăng # kháng tất cả và 20% né tránh(97)
                 break;
@@ -212,7 +237,9 @@ public class HanderEff {
             case 97:
                 break;
             case 98: // Tăng  # chakra,  tốc độ di chuyển, tỉ lệ %Hp(107)
-                _myChar.isSusanoItatchi = (short) Eff.value;
+                //_myChar.isSusanoItatchi = (short) Eff.value;
+                _myChar.buffMiss += 2000;
+                _myChar.buffCx += 2000;
                 break;
         }
         _myChar.updateAllChiSo();
@@ -255,6 +282,7 @@ public class HanderEff {
             case 16: // Thần trí bất minh, không thể điều khiển được bản thân(35)
                 break;
             case 17: // Khi bị dính chiêu sẽ không thể di chuyển, không thể tấn công nhưng có thể sử dụng dược phẩm(36)
+                _myChar.isStun36 = false;
                 break;
             case 18: // Tăng thêm #% kinh nghiệm nhận được khi đánh quái (37)
                 break;
@@ -283,8 +311,10 @@ public class HanderEff {
                 _myChar.isBiDuoc = false;
                 break;
             case 43: // Tăng # tốc độ di chuyển(51)
+                _myChar.buffSpeed = 0;
                 break;
             case 44: // Tăng # né tránh(52)
+                _myChar.buffMiss = 0;
                 break;
             case 45: // Che giấu khỏi tầm nhìn của đối phương\nGây bỏng: +#(53)
                 _myChar.isFatal = 0;
@@ -319,6 +349,7 @@ public class HanderEff {
                 _myChar.isHienNhan = 0;
                 break;
             case 57: // Làm tiêu hao Mp: -# (mỗi 3 giây sẽ tự động thi triển 1 lần và không có tác dụng đối với quái)(65)
+                _myChar.isTruMpDoiThu = 0;
                 break;
             case 58:  // Không bị bất cứ ai tấn công, cũng như không thể tấn công người khác(66)
                 _myChar.buaBaoHo = false;
@@ -331,15 +362,17 @@ public class HanderEff {
             case 61: // Mỗi 1 giây phục hồi tỉ lệ Hp: +#%(69)
                 break;
             case 62: // Tăng thời gian gây tê liệt khi sử dụng chiêu dịch chuyển chi thuật: +# giây(70)
+                _myChar.plusTimeTeLiet = 0;
                 break;
             case 63: // Bị giữ chặt bởi bóng(71)
                 break;
             case 64: // Có xác xuất tăng thêm 1 nhát đánh khi xuất chiêu(72)
+                _myChar.canMoreSkill = false;
                 break;
             case 65: // Chính xác: +#(73)
                 break;
             case 66: // Tăng Chakra: +#(74)
-                _myChar.boostChakra=0;
+                _myChar.boostChakra = 0;
                 break;
             case 67: // Không thể di chuyển, không thể tấn công và không thể sử dụng dược phẩm(75)
                 break;
@@ -368,6 +401,7 @@ public class HanderEff {
             case 78: // Tăng #% bạc khóa nhận được khi đánh quái(86)
                 break;
             case 79: // Tăng chakra: +#(87)
+                _myChar.boostChakra -= Eff.value;
                 break;
             case 80: // Bị thần thụ hút chakra: -#, nhẫn thuật sẽ tự kết thúc sau 21h trong ngày.(88)
                 break;
@@ -379,12 +413,16 @@ public class HanderEff {
             case 83: // Không thể trò chuyện, không thể tự hồi sinh tại chỗ(92)
                 break;
             case 84: // Suy giảm né tránh: +#(93)
+                _myChar.buffMiss = 0;
                 break;
             case 85: // Không thể thi triển nhẫn thuật(94)
+                _myChar.isBietThienThan = false;
                 break;
             case 86: // Không thể sử dụng dược phẩm(95)
+                _myChar.camHoiMau = false;
                 break;
             case 87: // Suy giảm chính xác: +#(96)
+                _myChar.buffCx = 0;
                 break;
             case 88: // Tăng # kháng tất cả và 20% né tránh(97)
                 break;
@@ -414,7 +452,9 @@ public class HanderEff {
             case 97:
                 break;
             case 98: // Tăng  # chakra,  tốc độ di chuyển, tỉ lệ %Hp(107)
-                _myChar.isSusanoItatchi = 0;
+                //_myChar.isSusanoItatchi = 0;
+                _myChar.buffMiss -= 2000;
+                _myChar.buffCx -= 2000;
                 break;
         }
         _myChar.updateAllChiSo();

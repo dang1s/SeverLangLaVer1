@@ -10,7 +10,7 @@ public class ScheduledExecutor {
 
     public static ScheduledExecutorService getInstance() {
         if (executor == null) {
-            executor = Executors.newScheduledThreadPool(500);
+            executor = Executors.newScheduledThreadPool(50);
         }
         return executor;
     }
