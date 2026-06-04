@@ -121,6 +121,12 @@ public class HanderNpc {
 
             }
 
+            if (idNpcReal == 97) {
+
+                textNpc = "Thu vàng lấy bạc;Thu vàng lấy bạc Vip;Vĩ Thuật;Khóa/mở khóa cấp";
+
+            }
+
             if (idNpcReal == 57) {
 
                 textNpc = HanderNpc.getMenuNpc57();
@@ -1655,6 +1661,18 @@ public class HanderNpc {
             case 1:
 
                 _myChar.service.openMsg122((byte) 78);
+
+                break;
+
+            case 2:
+
+                _myChar.Info.khoaExp = !_myChar.Info.khoaExp;
+
+                String strKhoa = _myChar.Info.khoaExp ? "Khoá cấp thành công" : "Đã mở khoá cấp";
+
+                String strKhoa2 = _myChar.Info.khoaExp ? " (Lúc này bạn không thể nhận Exp)" : " (Lúc này bạn có thể nhận Exp)";
+
+                _myChar.service.alertMessage(strKhoa + strKhoa2);
 
                 break;
 
